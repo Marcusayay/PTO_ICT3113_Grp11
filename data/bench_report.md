@@ -5,7 +5,7 @@
 
 **Answer**
 
-The Net Interest Margin (NIM) over the last five quarters is as follows:
+The Net Interest Margin (NIM) for the last five quarters is as follows:
 
 *   1Q25: 2.12% [1Q25_CFO_presentation.pdf, 1Q25, p.5, Net interest margin (NIM)]
 *   4Q24: 2.15% [1Q25_CFO_presentation.pdf, 1Q25, p.5, Net interest margin (NIM)]
@@ -13,31 +13,29 @@ The Net Interest Margin (NIM) over the last five quarters is as follows:
 *   2Q24: 2.14% [1Q25_CFO_presentation.pdf, 1Q25, p.5, Net interest margin (NIM)]
 *   1Q24: 2.14% [1Q25_CFO_presentation.pdf, 1Q25, p.5, Net interest margin (NIM)]
 
-The Group NIM declined 3 basis points in 1Q25 compared to the previous quarter, primarily due to lower interest rates [1Q25_CFO_presentation.pdf, 1Q25, p.5, Net interest margin (NIM)].
+The NIM in 1Q25 declined by 3 basis points quarter-on-quarter, primarily due to lower interest rates [1Q25_CFO_presentation.pdf, 1Q25, p.5, Net interest margin (NIM)].
 
-Overall, NIM has remained within a narrow range over the past five quarters.
+The NIM has fluctuated slightly over the past five quarters, with a recent decline attributed to lower interest rates.
 
 Citations:
 - 1Q25_CFO_presentation.pdf — 1Q25 — p.5 — Net interest margin (NIM)
-- 1Q25_CFO_presentation.pdf — 4Q24 — p.4 — NIM table
 - 3Q24_CFO_presentation.pdf — 3Q24 — p.8 — Net interest margin (NIM)
+- 2Q24_performance_summary.pdf — 2Q24 — p.10 — NIM table
 
 **Citations (top ctx)**
 - 1Q25_CFO_presentation.pdf 2025 1Q25 — p.5 — Net interest margin (NIM)
-- 1Q25_CFO_presentation.pdf 2024 4Q24 — p.4 — NIM table
 - 3Q24_CFO_presentation.pdf 2024 3Q24 — p.8 — Net interest margin (NIM)
+- 2Q24_performance_summary.pdf 2024 2Q24 — p.10 — NIM table
 
 ## Q2. Show Operating Expenses (Opex) for the last 3 fiscal years, year-on-year comparison, and summarize the top 3 Opex drivers from the MD&A.
 
 **Answer**
 
-Operating expenses for the last 3 fiscal years are not provided in the context.
+Agent CFO is unable to provide Operating Expenses (Opex) for the last 3 fiscal years or a year-on-year comparison, as this information is not available in the provided context.
 
-The context states that expenses for Q1 2024 were SGD 2.08 billion [1Q24_trading_update.pdf, 1Q24, p.3, Cost-to-income (CTI)]. A year-on-year comparison cannot be performed due to the absence of full fiscal year figures.
+Additionally, the provided context does not contain a summary of the top 3 Opex drivers from a Management Discussion & Analysis (MD&A) section. One mention of expenses notes "Expenses of SGD 2.08 billion were 6% lower than the previous quarter, which had included non-recurring items" [1Q24_trading_update.pdf, 1Q24, p.3, Cost-to-income (CTI)], but this does not detail top Opex drivers.
 
-The context mentions "non-recurring items" as a factor impacting quarterly expenses [1Q24_trading_update.pdf, 1Q24, p.3, Cost-to-income (CTI)] and "sign-on bonuses" amounting to SGD 574 thousand as payments made during the Financial Year 2020 [dbs-annual-report-2020.pdf, 2020, p.46, Other provisions]. However, the provided context does not summarize the top 3 operating expense drivers from the MD&A.
-
-The available context is insufficient to provide Opex for the last three fiscal years, year-on-year comparison, or the top 3 Opex drivers from MD&A.
+**Takeaway:** Comprehensive Opex data and its drivers for multiple fiscal years are not present in the given documents.
 
 Citations:
 - dbs-annual-report-2020.pdf — 2020 — p.46
@@ -53,9 +51,9 @@ Citations:
 
 **Answer**
 
-I cannot calculate the Cost-to-Income Ratio (CTI) for the last three fiscal years as the provided context does not contain the necessary figures for Cost and Income, nor does it explicitly state the CTI for any specific year. The passage mentioning "Cost-to-income (CTI)" provides a qualitative discussion rather than numerical data [dbs-annual-report-2020.pdf, 2020, p.12, Cost-to-income (CTI)].
+I am unable to calculate the Cost-to-Income Ratio (CTI) for the last 3 fiscal years as the provided context does not contain the necessary numerical figures for CTI, total income, or total costs for any fiscal year [dbs-annual-report-2020.pdf, 2020, p.12, Cost-to-income (CTI); p.193; p.194].
 
-The required figures are not available in the provided context.
+Therefore, no calculations or implications can be provided.
 
 Citations:
 - dbs-annual-report-2020.pdf — 2020 — p.193

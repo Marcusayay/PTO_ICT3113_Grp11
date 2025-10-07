@@ -67,8 +67,43 @@ LLM_BACKEND = "gemini"  # choose from "gemini" or "openai"
 GEMINI_MODEL_NAME = "models/gemini-2.5-flash"
 OPENAI_MODEL_NAME = "gpt-4o-mini"
 
+# --- Query-aware preferences and numeric helpers ---
+# Query-aware preferences
+QUERY_HINTS = {
+    "nim": {
+        "must_any": [r"\bnim\b", r"net\s+interest\s+margin"],
+        "prefer_sections": ["Net interest margin (NIM)", "NIM table", "highlights/summary"],
+    },
+    "opex": {
+        "must_any": [r"operating\s+expenses", r"\bopex\b"],
+        "prefer_sections": ["Operating expenses (Opex)", "Income statement", "MD&A"],
+    },
+    "cti": {
+        "must_any": [r"cost[- ]?to[- ]?income", r"\bcti\b", r"efficiency\s+ratio"],
+        "prefer_sections": ["Cost-to-income (CTI)", "Income statement", "highlights/summary"],
+    },
+}
+
+_HAS_NUMBER = re.compile(r"\d[\d,\.]*")
+def _numeric_score(s: str) -> float:
+    # reward blocks with several numbers (likely tables)
+    if not s:
+        return 0.0
+    n = len(_HAS_NUMBER.findall(s))
+    return min(0.35, 0.05 * max(0, n-1))  # up to +0.35
+
 # --- Retrieval toggles ---
 USE_VECTOR = True   # set False to force BM25-only retrieval
+# --- Helper: classify query type for hints ---
+def _classify_query(q: str) -> Optional[str]:
+    ql = q.lower()
+    if "nim" in ql or "net interest margin" in ql:
+        return "nim"
+    if "opex" in ql or "operating expense" in ql:
+        return "opex"
+    if "cti" in ql or "cost-to-income" in ql or "efficiency ratio" in ql:
+        return "cti"
+    return None
 
 # --- Lazy, notebook-friendly globals (set by init_stage2) ---
 OUT_DIR = None
@@ -379,7 +414,15 @@ def hybrid_search(query: str, top_k=12, alpha=0.6) -> List[Dict[str, Any]]:
                     vec_scores = None  # continue with BM25-only
             bm25_scores = None
             if _HAVE_BM25 and bm25 is not None:
-                scores = bm25.get_scores(query.lower().split())
+                qtype = _classify_query(query)
+                q_terms = query.lower().split()
+                if qtype == "opex":
+                    q_terms += ["operating", "expenses", "opex", "income", "statement"]
+                elif qtype == "cti":
+                    q_terms += ["cost", "income", "ratio", "efficiency", "cti"]
+                elif qtype == "nim":
+                    q_terms += ["nim", "net", "interest", "margin"]
+                scores = bm25.get_scores(q_terms)
                 top_idx = np.argsort(scores)[-top_k:][::-1]
                 bm25_scores = {int(i): float(scores[i]) for i in top_idx}
         with timeblock(row, "T_rerank"):
@@ -394,8 +437,23 @@ def hybrid_search(query: str, top_k=12, alpha=0.6) -> List[Dict[str, Any]]:
             if not fused:
                 hits = []
             else:
-                top = sorted(fused.items(), key=lambda x: x[1], reverse=True)[:top_k]
+                # preliminary top list
+                prelim = sorted(fused.items(), key=lambda x: x[1], reverse=True)[:top_k*2]
+                qtype = _classify_query(query)
                 hits = []
+                for i,base in prelim:
+                    meta = kb.iloc[i]
+                    boost = 0.0
+                    # Section preference
+                    if qtype and isinstance(meta.section_hint, str):
+                        prefs = QUERY_HINTS[qtype]["prefer_sections"]
+                        if meta.section_hint in prefs:
+                            boost += 0.25
+                    # Numeric density
+                    preview = str(texts[i])[:800]
+                    boost += _numeric_score(preview)
+                    fused[i] = base + boost
+                top = sorted(prelim, key=lambda x: fused[x[0]], reverse=True)[:top_k]
                 for i,score in top:
                     meta = kb.iloc[i]
                     y = int(meta.year) if not pd.isna(meta.year) else None
@@ -507,6 +565,10 @@ def answer_with_llm(query: str, top_k_retrieval=12, top_ctx=3) -> Dict[str, Any]
     _ensure_init()
     want_years = _detect_last_n_years(query)
     want_quarters = _detect_last_n_quarters(query)
+
+    qtype = _classify_query(query)
+    if qtype in ("opex", "cti") and top_ctx < 5:
+        top_ctx = 5
 
     hits = hybrid_search(query, top_k=top_k_retrieval, alpha=0.6)
     hits = _period_filter(hits, want_years, want_quarters)

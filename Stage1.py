@@ -47,7 +47,7 @@ except Exception:
 
 DATA_DIR = os.environ.get("AGENT_CFO_DATA_DIR", "All")
 OUT_DIR = os.environ.get("AGENT_CFO_OUT_DIR", "data")
-EMBED_BACKEND = os.environ.get("AGENT_CFO_EMBED_BACKEND", "auto")  # 'auto', 'openai', 'gemini', 'st'
+EMBED_BACKEND = os.environ.get("AGENT_CFO_EMBED_BACKEND", "st")  # 'auto', 'openai', 'gemini', 'st'
 CHUNK_TOKENS = 450  # ~sentence-y chunks; we chunk by chars but aim for this size
 CHUNK_OVERLAP = 80
 
@@ -68,30 +68,59 @@ _QY_PAT_3 = re.compile(r"\b([1-4])Q\s*(20\d{2}|\d{2})\b", re.I)        # e.g., 3
 _FY_PAT_2 = re.compile(r"\bF[Yy]\s*(20\d{2})\b")
 
 
-def infer_period_from_text(text: str) -> Tuple[Optional[int], Optional[int]]:
-    """Try to infer (year, quarter) from page text (headers/footers).
-    Rules:
-    - Prefer explicit quarter-year patterns (1Q25, Q3 2024, 3Q 2024).
-    - Accept FY headers (FY2024) as (2024, None).
-    - Ignore lone years to avoid picking up copyright years (e.g., © 2023).
+def infer_period_from_text(text: str, filename_year: Optional[int] = None) -> Tuple[Optional[int], Optional[int]]:
+    """Infer (year, quarter) from the *header-like* part of a PDF page.
+    Strategy:
+    1) Look only at the first ~8 non-empty lines (avoid table bodies).
+    2) Collect all Q/Y candidates across patterns.
+    3) Prefer matches with 4-digit year.
+    4) If filename_year is provided, prefer candidates whose year == filename_year.
+    5) Otherwise choose the candidate with the *max* year.
+    6) If no Q/Y, accept FY headers; never infer from lone years.
     """
     if not text:
         return (None, None)
-    s = text[:500]  # scan a bit more of the header area
-    # 1) Explicit quarter-year first
+    # Consider only the very top of the page (likely title/header)
+    lines = [ln.strip() for ln in text.splitlines() if ln.strip()]
+    head = "\n".join(lines[:8])  # top ~8 lines
+
+    # Gather candidates (q,y)
+    candidates: list[tuple[int, int, bool]] = []  # (q, y, has_4digit)
     for pat in (_QY_PAT_1, _QY_PAT_2, _QY_PAT_3):
-        m = pat.search(s)
-        if m:
+        for m in pat.finditer(head):
             q = int(m.group(1))
-            yy = int(m.group(2))
-            y = 2000 + yy if yy < 100 else yy
-            return (y, q)
-    # 2) FY header
-    m = _FY_PAT_2.search(s)
+            yy = m.group(2)
+            y = int(yy)
+            if y < 100:
+                y = 2000 + y
+                has4 = False
+            else:
+                has4 = True
+            candidates.append((q, y, has4))
+
+    if candidates:
+        # Prefer 4-digit year matches
+        four_digit = [c for c in candidates if c[2]]
+        pool = four_digit if four_digit else candidates
+        # If filename_year given, prefer that
+        if filename_year is not None:
+            same_year = [c for c in pool if c[1] == filename_year]
+            if same_year:
+                q, y, _ = same_year[0]
+                return (y, q)
+        # Else choose the max year (most recent)
+        q, y, _ = max(pool, key=lambda t: t[1])
+        return (y, q)
+
+    # FY header (year only) — accept if present
+    m = _FY_PAT_2.search(head)
     if m:
         return (int(m.group(1)), None)
-    # 3) Ignore bare years (too noisy: copyright, footers, etc.)
+
     return (None, None)
+def _dbg(msg: str):
+    if os.environ.get("AGENT_CFO_VERBOSE", "1") != "0":
+        print(msg)
 # -----------------------------
 # Lightweight table extractor (keywords windows)
 # -----------------------------
@@ -231,28 +260,50 @@ def _df_to_blocks(df: pd.DataFrame, rows_per_block: int = 40) -> List[str]:
 
 
 def extract_tabular_chunks(path: str) -> List[Tuple[str, Optional[str]]]:
-    """Return a list of (block_text, sheet_name) for CSV/Excel files.
-    For CSV → one sheet named 'CSV'. For Excel → one per sheet.
+    """Return a list of (block_text, sheet_name) for CSV/Excel files with robust error logging.
+    For CSV → one pseudo-sheet named 'CSV'. For Excel → one per sheet.
     """
     out: List[Tuple[str, Optional[str]]] = []
     lower = path.lower()
+    base = os.path.basename(path)
     try:
         if lower.endswith('.csv'):
-            df = pd.read_csv(path, low_memory=False)
-            for block in _df_to_blocks(df):
+            try:
+                # Try common CSV params; you can add sep=";" or encoding="utf-8-sig" if needed
+                df = pd.read_csv(path, low_memory=False)
+            except Exception as e:
+                print(f"[Stage1][tabular] CSV parse failed for {base}: {e}")
+                return []
+            blocks = _df_to_blocks(df)
+            if not blocks:
+                print(f"[Stage1][tabular] CSV has no non-empty blocks: {base}")
+            for block in blocks:
                 out.append((block, 'CSV'))
         else:
-            # Excel: iterate sheets safely
-            xl = pd.ExcelFile(path)
+            # Excel: pick engine explicitly when possible
+            engine = None
+            if lower.endswith('.xlsx'):
+                engine = 'openpyxl'
+            elif lower.endswith('.xls'):
+                engine = 'xlrd'
+            try:
+                xl = pd.ExcelFile(path, engine=engine) if engine else pd.ExcelFile(path)
+            except Exception as e:
+                print(f"[Stage1][tabular] Excel open failed for {base}: {e} (install 'openpyxl' for .xlsx or 'xlrd' for .xls)")
+                return []
             for sheet in xl.sheet_names:
                 try:
                     df = xl.parse(sheet)
-                except Exception:
+                except Exception as e:
+                    print(f"[Stage1][tabular] Sheet parse failed {base}::{sheet}: {e}")
                     continue
-                for block in _df_to_blocks(df):
+                blocks = _df_to_blocks(df)
+                if not blocks:
+                    print(f"[Stage1][tabular] No non-empty blocks in {base}::{sheet}")
+                for block in blocks:
                     out.append((block, sheet))
-    except Exception:
-        # If any parsing error, skip gracefully
+    except Exception as e:
+        print(f"[Stage1][tabular] Unexpected error {base}: {e}")
         return []
     return out
 
@@ -458,7 +509,11 @@ def build_kb() -> Dict[str, Any]:
     for path in docs:
         fname = os.path.basename(path)
         print(f"[Stage1] Processing: {fname}")
+        # Infer (year, quarter) from filename first, then log
         year, quarter = infer_period_from_filename(fname)
+        ylog = year if year is not None else "NULL"
+        qlog = quarter if quarter is not None else "NULL"
+        print(f"          → Period (filename): year={ylog}, quarter={qlog}")
         if _is_pdf(path):
             pages = extract_pdf_pages(path)
             print(f"          → Pages detected: {len(pages)}")
@@ -483,19 +538,23 @@ def build_kb() -> Dict[str, Any]:
                 if not page_text.strip():
                     continue
                 # Infer per-page period (only trust explicit QY or FY)
-                y2, q2 = infer_period_from_text(page_text)
+                y2, q2 = infer_period_from_text(page_text, filename_year=year)
                 # Start from filename-derived period
                 y_eff, q_eff = year, quarter
                 # If we detected a quarter-year on the page, use both
                 if q2 is not None:
                     q_eff = q2
                     if y2 is not None:
-                        y_eff = y2
+                        # Prefer filename year if provided and different; otherwise use page year
+                        if y2 is not None and year is not None and y2 != year:
+                            _dbg(f"          → Page period {q2}Q{str(y2)[2:]} conflicts with filename year {year}; keeping {year}")
+                        y_eff = year if (year is not None and y2 != year) else y2
                 else:
-                    # No quarter found on page; only allow FY to override year
+                    # No quarter; allow FY to override year only if we don't already have a quarter from filename
                     if y2 is not None and q_eff is None:
-                        # Only replace year if we don't already have a quarter from filename
-                        y_eff = y2
+                        if y2 is not None and year is not None and y2 != year:
+                            _dbg(f"          → Page period NoneQ{str(y2)[2:]} conflicts with filename year {year}; keeping {year}")
+                        y_eff = year if (year is not None and y2 != year) else y2
                 # Extract small windows for key tables (NIM/Opex/CTI)
                 for label, block in extract_key_tables_from_page(page_text):
                     doc_id = str(uuid.uuid4())
@@ -510,7 +569,10 @@ def build_kb() -> Dict[str, Any]:
                     texts.append(block)
         elif _is_tabular(path):
             blocks = extract_tabular_chunks(path)
-            print(f"          → Table blocks: {len(blocks)}")
+            if blocks:
+                print(f"          → Table blocks: {len(blocks)}")
+            else:
+                print(f"          → Table blocks: 0 (no parsable content)")
             # Use page=1 for tabular sources; include sheet name in section_hint
             for block_text, sheet in blocks:
                 hint_from_name = clean_section_hint(fname) or "table"
@@ -579,6 +641,15 @@ def build_kb() -> Dict[str, Any]:
     print(f"Saved index:    {index.ntotal} vecs → {index_path}")
     print(f"Saved meta:     {meta_path}")
 
+    # Parquet sanity: ensure tabular sources were indexed
+    try:
+        kb_loaded = pd.read_parquet(kb_path)
+        tab_like = kb_loaded['file'].str.lower().str.endswith(('.csv','.xls','.xlsx'))
+        tab_count = int(tab_like.sum())
+        print(f"[Stage1] Parquet sanity: {tab_count} rows from tabular sources (.csv/.xls/.xlsx)")
+    except Exception as e:
+        print(f"[Stage1] Parquet sanity check failed: {e}")
+
     # --- Post-build coverage report ---
     try:
         qm = (~kb['quarter'].isna()).mean()
@@ -609,3 +680,4 @@ def build_kb() -> Dict[str, Any]:
 
 if __name__ == "__main__":
     build_kb()
+    
