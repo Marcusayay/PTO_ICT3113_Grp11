@@ -1,0 +1,14 @@
+numpy==2.2.6
+opencv-contrib-python==4.11.0.86
+openvino==2025.0.0
+openvino-telemetry==2024.1.0
+packaging==24.2
+PyQt6==6.8.1
+PyQt6-3D==6.8.0
+PyQt6-Charts==6.8.0
+PyQt6-DataVisualization==6.8.0
+PyQt6-NetworkAuth==6.8.0
+PyQt6-WebEngine==6.8.0
+PyQt6_sip==13.10.0
+TBB==0.2
+wheel @ file:///opt/homebrew/Cellar/python%403.13/3.13.2/libexec/wheel-0.45.1-py3-none-any.whl#sha256=b9235939e2096903717cb6bfc132267f8a7e46deb2ec3ef9c5e234ea301795d0

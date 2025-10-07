@@ -1,153 +1,518 @@
-# === STAGE 2: BASELINE RETRIEVAL & ONE LLM CALL (NO CACHING) ===
-# - Single-pass retrieve (hybrid BM25+TF-IDF) -> light MMR rerank
-# - Exactly ONE Gemini call per query (no caching)
-# - Returns answer + guaranteed explicit citations
+_Q_PAT_FN = re.compile(r"([1-4])Q(\d{2})", re.I)
 
-%pip install --upgrade --force-reinstall google-generativeai
+def _infer_yq_from_filename(fname: str) -> tuple[Optional[int], Optional[int]]:
+    if not fname:
+        return (None, None)
+    s = str(fname).upper()
+    m = _Q_PAT_FN.search(s)
+    if m:
+        q = int(m.group(1)); yy = int(m.group(2)); y = 2000 + yy
+        return (y, q)
+    m = re.search(r"(20\d{2})", s)
+    if m:
+        return (int(m.group(1)), None)
+    return (None, None)
+"""
+Stage2.py — Baseline Retrieval + Generation (RAG)
 
+Consumes Stage1 artifacts:
+  data/kb_chunks.parquet
+  data/kb_texts.npy
+  data/kb_index.faiss
 
-import os
-from typing import List, Dict, Any
+Retrieval:
+  - Hybrid (Vector + BM25 if available)
+  - Period-aware filter for phrases like "last N years/quarters"
+Generation:
+  - One LLM call (Gemini/OpenAI placeholder); returns answer + citations
+"""
+from __future__ import annotations
+import os, re, json, math
+from typing import List, Dict, Any, Optional
+
 import numpy as np
+import pandas as pd
 
-# --- helpers: year/quarter parsing and hit filtering for recency-aware retrieval ---
-import re
+# Timing / logging (simple)
+import time, contextlib
 
-SECTION_LABELS = {
-    "key ratios|highlights|summary": "highlights/summary",
-    "net interest margin|nim\\b": "Net interest margin (NIM)",
-    "cost[- ]?to[- ]?income|cti|efficiency ratio": "Cost-to-income (CTI)",
-    "operating expenses|opex|expenses": "Operating expenses (Opex)",
-    "income statement|statement of (comprehensive )?income": "Income statement",
-    "balance sheet|statement of financial position": "Balance sheet",
-    "management discussion|md&a": "MD&amp;A",
-}
+@contextlib.contextmanager
+def timeblock(row: dict, key: str):
+    t0 = time.perf_counter()
+    try:
+        yield
+    finally:
+        row[key] = round((time.perf_counter() - t0) * 1000.0, 2)
 
-def _infer_year_from_filename(fname: str):
-    m = re.search(r'(20\d{2})', fname)
-    return int(m.group(1)) if m else None
+class _Instr:
+    def __init__(self):
+        self.rows = []
+    def log(self, row):
+        self.rows.append(row)
+    def df(self):
+        cols = ['Query','T_retrieve','T_rerank','T_reason','T_generate','T_total','Tokens','Tools']
+        df = pd.DataFrame(self.rows)
+        for c in cols:
+            if c not in df:
+                df[c] = None
+        return df[cols]
 
-def _is_quarterly(fname: str):
-    return bool(re.search(r'\b[1-4]Q\d{2}\b', fname.upper()))
+instr = _Instr()
 
-def _prefer_quarterly(hits, must_contain_any=('CFO','CEO','performance','summary')):
-    out = [h for h in hits if _is_quarterly(h.get('file',''))]
-    if must_contain_any:
-        out2 = [h for h in out if any(s.lower() in h.get('file','').lower() for s in must_contain_any)]
-        if out2:
-            return out2
-    return out or hits
 
-def _keep_recent_years(hits, n_years=3):
-    pairs = []
-    for h in hits:
-        y = _infer_year_from_filename(h.get('file','')) or 0
-        pairs.append((y, h))
-    if not pairs:
-        return hits
-    pairs.sort(key=lambda t: t[0], reverse=True)
-    # collect top N distinct years
-    years = []
-    for y,_ in pairs:
-        if y and y not in years:
-            years.append(y)
-        if len(years) >= n_years:
-            break
-    if not years:
-        return hits
-    filtered = [h for (y,h) in pairs if y in years]
-    return filtered if filtered else hits
+VERBOSE = bool(int(os.environ.get("AGENT_CFO_VERBOSE", "1")))  # default ON; set 0 to silence
 
-def _clean_section_hint(h):
-    raw = (h.get('section_hint') or '').strip()
-    if not raw:
-        return raw
-    for pat, label in SECTION_LABELS.items():
-        if re.search(pat, raw, flags=re.IGNORECASE):
-            return label
-    # fallback: strip regex noise
-    return re.sub(r'\\|', '/', raw)
+# --- Hardcoded LLM selection (instead of environment variables) ---
+LLM_BACKEND = "gemini"  # choose from "gemini" or "openai"
+GEMINI_MODEL_NAME = "models/gemini-2.5-flash"
+OPENAI_MODEL_NAME = "gpt-4o-mini"
 
-# -- tiny MMR-like reranker (NumPy 2.0-safe) --
-def mmr_rerank(hits: List[Dict[str,Any]], lambda_mult=0.7, top_k=5) -> List[Dict[str,Any]]:
+# --- Retrieval toggles ---
+USE_VECTOR = True   # set False to force BM25-only retrieval
+
+# --- Lazy, notebook-friendly globals (set by init_stage2) ---
+OUT_DIR = None
+KB_PARQUET = None
+KB_TEXTS = None
+KB_INDEX = None
+KB_META = None
+
+kb: Optional[pd.DataFrame] = None
+texts: Optional[np.ndarray] = None
+index = None
+bm25 = None
+_HAVE_FAISS = False
+_HAVE_BM25 = False
+_INITIALIZED = False
+
+class _EmbedLoader:
+    def __init__(self):
+        self.impl = None
+        self.dim = None
+        self.name = None
+        if KB_META and os.path.exists(KB_META):
+            with open(KB_META) as f:
+                meta = json.load(f)
+                self.name = meta.get("embedding_provider")
+                self.dim = meta.get("dim")
+    def embed(self, texts: List[str]) -> np.ndarray:
+        if self.impl is None:
+            preferred = (self.name or '').lower()
+            # 1) If KB was built with Sentence-Transformers
+            if 'sentence-transformers' in preferred or preferred.startswith('st'):
+                from sentence_transformers import SentenceTransformer
+                model = "sentence-transformers/all-MiniLM-L6-v2"
+                st = SentenceTransformer(model)
+                self.impl = ("st", model)
+                self.dim = st.get_sentence_embedding_dimension()
+                def _fn(batch):
+                    vecs = st.encode(batch, batch_size=64, show_progress_bar=False, convert_to_numpy=True, normalize_embeddings=True)
+                    return vecs.astype(np.float32)
+                self.fn = _fn
+            # 2) If KB was built with OpenAI
+            elif preferred.startswith('openai'):
+                from openai import OpenAI
+                if not os.environ.get("OPENAI_API_KEY"):
+                    raise RuntimeError("KB was built with OpenAI embeddings but OPENAI_API_KEY is not set.")
+                self.client = OpenAI()
+                model = "text-embedding-3-small"
+                self.impl = ("openai", model)
+                self.dim = 1536
+                def _fn(batch):
+                    resp = self.client.embeddings.create(model=model, input=batch)
+                    vecs = [d.embedding for d in resp.data]
+                    return np.asarray(vecs, dtype=np.float32)
+                self.fn = _fn
+            # 3) If KB was built with Gemini
+            elif preferred.startswith('gemini'):
+                try:
+                    from google import generativeai as genai
+                except Exception as e:
+                    raise RuntimeError("KB was built with Gemini embeddings but google-generativeai is not installed. `pip install google-generativeai`.") from e
+                if not os.environ.get("GEMINI_API_KEY"):
+                    raise RuntimeError("KB was built with Gemini embeddings but GEMINI_API_KEY is not set.")
+                genai.configure(api_key=os.environ.get("GEMINI_API_KEY"))
+                self.impl = ("gemini", "models/embedding-001")
+                self.dim = 768 if (self.dim is None) else self.dim
+                def _fn(batch):
+                    vecs = []
+                    for t in batch:
+                        resp = genai.embed_content(model='models/embedding-001', content=t)
+                        emb = resp.get('embedding') if isinstance(resp, dict) else getattr(resp, 'embedding', None)
+                        if emb is None:
+                            raise RuntimeError('Gemini embed_content returned no embedding')
+                        vecs.append(emb)
+                    return np.asarray(vecs, dtype=np.float32)
+                self.fn = _fn
+            # 4) Fallback auto-detect (prefer ST so it works offline)
+            else:
+                if os.environ.get("OPENAI_API_KEY"):
+                    from openai import OpenAI
+                    self.client = OpenAI()
+                    model = "text-embedding-3-small"
+                    self.impl = ("openai", model)
+                    self.dim = 1536
+                    def _fn(batch):
+                        resp = self.client.embeddings.create(model=model, input=batch)
+                        vecs = [d.embedding for d in resp.data]
+                        return np.asarray(vecs, dtype=np.float32)
+                    self.fn = _fn
+                elif os.environ.get("GEMINI_API_KEY"):
+                    from google import generativeai as genai
+                    genai.configure(api_key=os.environ.get("GEMINI_API_KEY"))
+                    self.impl = ("gemini", "models/embedding-001")
+                    self.dim = 768 if (self.dim is None) else self.dim
+                    def _fn(batch):
+                        vecs = []
+                        for t in batch:
+                            resp = genai.embed_content(model='models/embedding-001', content=t)
+                            emb = resp.get('embedding') if isinstance(resp, dict) else getattr(resp, 'embedding', None)
+                            if emb is None:
+                                raise RuntimeError('Gemini embed_content returned no embedding')
+                            vecs.append(emb)
+                        return np.asarray(vecs, dtype=np.float32)
+                    self.fn = _fn
+                else:
+                    from sentence_transformers import SentenceTransformer
+                    model = "sentence-transformers/all-MiniLM-L6-v2"
+                    st = SentenceTransformer(model)
+                    self.impl = ("st", model)
+                    self.dim = st.get_sentence_embedding_dimension()
+                    def _fn(batch):
+                        vecs = st.encode(batch, batch_size=64, show_progress_bar=False, convert_to_numpy=True, normalize_embeddings=True)
+                        return vecs.astype(np.float32)
+                    self.fn = _fn
+        return self.fn(texts)
+
+EMB = None  # will be initialized inside init_stage2() after KB_META is known
+
+def init_stage2(out_dir: str = "data") -> None:
+    """Initialize Stage 2 in a Jupyter-friendly way.
+    Loads KB artifacts, FAISS, and BM25. Call this once per notebook kernel.
+    """
+    import os
+    global OUT_DIR, KB_PARQUET, KB_TEXTS, KB_INDEX, KB_META
+    global kb, texts, index, bm25, _HAVE_FAISS, _HAVE_BM25, _INITIALIZED
+
+    OUT_DIR = out_dir
+    KB_PARQUET = os.path.join(OUT_DIR, "kb_chunks.parquet")
+    KB_TEXTS   = os.path.join(OUT_DIR, "kb_texts.npy")
+    KB_INDEX   = os.path.join(OUT_DIR, "kb_index.faiss")
+    KB_META    = os.path.join(OUT_DIR, "kb_meta.json")
+
+    if VERBOSE:
+        print(f"[Stage2] init → OUT_DIR={OUT_DIR}")
+
+    if not (os.path.exists(KB_PARQUET) and os.path.exists(KB_TEXTS) and os.path.exists(KB_INDEX)):
+        raise RuntimeError(f"KB artifacts not found under '{OUT_DIR}'. Run Stage1.build_kb() first.")
+
+    # Load KB tables
+    kb = _load_kb_table(KB_PARQUET)
+    texts = np.load(KB_TEXTS, allow_pickle=True)
+
+    # (Optional but helpful) Print embedding provider from KB meta if available
+    if KB_META and os.path.exists(KB_META):
+        try:
+            meta = json.load(open(KB_META))
+            if VERBOSE:
+                print(f"[Stage2] KB embedding provider={meta.get('embedding_provider')} dim={meta.get('dim')}")
+        except Exception:
+            pass
+
+    if VERBOSE:
+        print(f"[Stage2] KB rows={len(kb)}, texts={len(texts)}")
+
+    # FAISS
+    try:
+        import faiss  # type: ignore
+        _HAVE_FAISS = True
+        idx = faiss.read_index(KB_INDEX)
+    except Exception as e:
+        _HAVE_FAISS = False
+        idx = None
+    globals()['index'] = idx
+
+    if VERBOSE:
+        print(f"[Stage2] FAISS loaded={bool(idx)}")
+
+    # BM25 (optional)
+    try:
+        from rank_bm25 import BM25Okapi
+        tokenized = [str(t).lower().split() for t in texts]
+        bm25 = BM25Okapi(tokenized)
+        _HAVE_BM25 = True
+    except Exception:
+        bm25 = None
+        _HAVE_BM25 = False
+    globals()['bm25'] = bm25
+
+    if VERBOSE:
+        print(f"[Stage2] BM25 enabled={_HAVE_BM25}")
+
+    # Initialize query embedder **after** KB_META is known so it matches the store
+    globals()['EMB'] = _EmbedLoader()
+    if VERBOSE:
+        try:
+            impl = getattr(EMB, 'impl', None)
+            print(f"[Stage2] Query embedder ready: {impl if impl else 'lazy-init'}")
+        except Exception:
+            pass
+
+    # Mark initialized
+    _INITIALIZED = True
+
+def _ensure_init():
+    if not globals().get('_INITIALIZED', False):
+        raise RuntimeError("Stage2 is not initialized. Call init_stage2(out_dir='data') first in your notebook.")
+
+# -----------------------------
+# Robust KB loader (parquet → fastparquet → csv)
+# -----------------------------
+
+def _load_kb_table(parquet_path: str) -> pd.DataFrame:
+    """Load the KB table with fallbacks.
+    1) pandas.read_parquet (default engine)
+    2) pandas.read_parquet(engine='fastparquet')
+    3) CSV fallback at same basename (kb_chunks.csv)
+    """
+    try:
+        return pd.read_parquet(parquet_path)
+    except Exception as e1:
+        try:
+            return pd.read_parquet(parquet_path, engine='fastparquet')
+        except Exception as e2:
+            csv_path = os.path.splitext(parquet_path)[0] + '.csv'
+            if os.path.exists(csv_path):
+                df = pd.read_csv(csv_path)
+                # Ensure required columns exist
+                for c in ['doc_id','file','page','year','quarter','section_hint']:
+                    if c not in df.columns:
+                        df[c] = np.nan
+                # Coerce numeric cols
+                if 'page' in df: df['page'] = pd.to_numeric(df['page'], errors='coerce').fillna(0).astype(int)
+                if 'year' in df: df['year'] = pd.to_numeric(df['year'], errors='coerce')
+                if 'quarter' in df: df['quarter'] = pd.to_numeric(df['quarter'], errors='coerce')
+                return df
+            raise RuntimeError(
+                "Failed to read KB Parquet with both engines and no CSV fallback. "
+                f"Errors: pyarrow={e1} | fastparquet={e2}"
+            )
+
+# -----------------------------
+# Helper: period filters
+# -----------------------------
+
+def _detect_last_n_years(q: str) -> Optional[int]:
+    ql = q.lower()
+    for pat in ["last three years", "last 3 years", "past three years", "past 3 years"]:
+        if pat in ql:
+            return 3
+    return None
+
+def _detect_last_n_quarters(q: str) -> Optional[int]:
+    ql = q.lower()
+    for pat in ["last five quarters", "last 5 quarters", "past five quarters", "past 5 quarters"]:
+        if pat in ql:
+            return 5
+    return None
+
+
+def _period_filter(hits: List[Dict[str, Any]], want_years: Optional[int], want_quarters: Optional[int]) -> List[Dict[str, Any]]:
     if not hits:
-        return []
-    rel = np.array([h['score'] for h in hits], dtype=float)
-    if np.ptp(rel) > 1e-9:
-        rel = (rel - rel.min()) / (rel.max() - rel.min())
-    sim = np.zeros((len(hits), len(hits)))
-    for i,a in enumerate(hits):
-        for j,b in enumerate(hits):
-            sim[i,j] = 1.0 if (a['file']==b['file'] and a['page']==b['page']) else (0.3 if a['file']==b['file'] else 0.0)
-    picked, out = set(), []
-    while len(out) < min(top_k, len(hits)):
-        scores = []
-        for i in range(len(hits)):
-            if i in picked:
-                scores.append(-1e9); continue
-            red = 0.0 if not picked else max(sim[i,j] for j in picked)
-            scores.append(lambda_mult*rel[i] - (1-lambda_mult)*red)
-        i_best = int(np.argmax(scores))
-        picked.add(i_best); out.append(hits[i_best])
-    for r,h in enumerate(out,1):
-        h['rank'] = r
-    return out
-
-def retrieve_then_rerank(query: str, top_k=8, alpha=0.6):
-    row = {"Query": query, "Tools": ["retriever"], "CacheHits": 0, "Tokens": 0}
-    with timeblock(row, "T_total"):
-        with timeblock(row, "T_retrieve"):
-            raw_hits = hybrid_search(query, top_k=top_k, alpha=alpha)
-        with timeblock(row, "T_rerank"):
-            hits = mmr_rerank(raw_hits, lambda_mult=0.7, top_k=min(5, top_k))
-    instr.log(row)
+        return hits
+    df = pd.DataFrame(hits)
+    if want_quarters:
+        df = df.sort_values(["year", "quarter"], ascending=[False, False])
+        df = df[df["quarter"].notna()]
+        seen = set(); keep_idx = []
+        for i, r in df.iterrows():
+            key = (int(r.year), int(r.quarter))
+            if key in seen: continue
+            keep_idx.append(i); seen.add(key)
+            if len(keep_idx) >= want_quarters: break
+        if VERBOSE:
+            print(f"[Stage2] period filter (quarters) → kept={[(int(hits[i]['year']), int(hits[i]['quarter'])) for i in keep_idx]}")
+        return [hits[i] for i in keep_idx] if keep_idx else hits
+    if want_years:
+        df = df.sort_values(["year"], ascending=[False])
+        df = df[df["year"].notna()]
+        seen = set(); keep_idx = []
+        for i, r in df.iterrows():
+            y = int(r.year)
+            if y in seen: continue
+            keep_idx.append(i); seen.add(y)
+            if len(keep_idx) >= want_years: break
+        if VERBOSE:
+            print(f"[Stage2] period filter (years) → kept={[(int(hits[i]['year'])) for i in keep_idx]}")
+        return [hits[i] for i in keep_idx] if keep_idx else hits
     return hits
 
-# -- citation helpers --
+# -----------------------------
+# Hybrid retrieval
+# -----------------------------
+
+def hybrid_search(query: str, top_k=12, alpha=0.6) -> List[Dict[str, Any]]:
+    _ensure_init()
+    """Return list of hit dicts with metadata.
+    alpha weights vector vs BM25: score = alpha*vec + (1-alpha)*bm25
+    """
+    row = {"Query": query, "Tools": ["retriever"]}
+    with timeblock(row, "T_total"):
+        with timeblock(row, "T_retrieve"):
+            vec_scores = None
+            if USE_VECTOR and _HAVE_FAISS and index is not None and EMB is not None:
+                try:
+                    qv = EMB.embed([query])
+                    # Validate dimensionality against KB meta if available
+                    try:
+                        meta_dim = int(EMB.dim) if EMB.dim is not None else None
+                    except Exception:
+                        meta_dim = None
+                    if meta_dim is not None and qv.shape[1] != meta_dim:
+                        raise RuntimeError(f"Embedding dimension mismatch: query={qv.shape[1]} vs KB={meta_dim}. Rebuild Stage1 with the same provider or align Stage2 to use the same embedding backend.")
+                    qv = qv / (np.linalg.norm(qv, axis=1, keepdims=True) + 1e-12)
+                    sims, ids = index.search(qv.astype(np.float32), top_k)
+                    vec_scores = {int(ix): float(s) for ix, s in zip(ids[0], sims[0]) if ix != -1}
+                except Exception as e:
+                    if VERBOSE:
+                        print(f"[Stage2] Vector search disabled for this query → {type(e).__name__}: {e}")
+                    vec_scores = None  # continue with BM25-only
+            bm25_scores = None
+            if _HAVE_BM25 and bm25 is not None:
+                scores = bm25.get_scores(query.lower().split())
+                top_idx = np.argsort(scores)[-top_k:][::-1]
+                bm25_scores = {int(i): float(scores[i]) for i in top_idx}
+        with timeblock(row, "T_rerank"):
+            fused = {}
+            if vec_scores:
+                for i,s in vec_scores.items():
+                    fused[i] = fused.get(i, 0.0) + alpha*s
+            if bm25_scores:
+                m = max(bm25_scores.values()) or 1.0
+                for i,s in bm25_scores.items():
+                    fused[i] = fused.get(i, 0.0) + (1-alpha)*(s/m)
+            if not fused:
+                hits = []
+            else:
+                top = sorted(fused.items(), key=lambda x: x[1], reverse=True)[:top_k]
+                hits = []
+                for i,score in top:
+                    meta = kb.iloc[i]
+                    y = int(meta.year) if not pd.isna(meta.year) else None
+                    q = int(meta.quarter) if not pd.isna(meta.quarter) else None
+                    if (y is None) or (q is None):
+                        y2, q2 = _infer_yq_from_filename(meta.file)
+                        if y is None:
+                            y = y2
+                        if q is None:
+                            q = q2
+                    hits.append({
+                        "doc_id": meta.doc_id,
+                        "file": meta.file,
+                        "page": int(meta.page),
+                        "year": y,
+                        "quarter": q,
+                        "section_hint": meta.section_hint if isinstance(meta.section_hint, str) else None,
+                        "preview": str(texts[i])[:800],
+                        "score": float(score),
+                    })
+    instr.log(row)
+    if VERBOSE:
+        kept = [(h.get('year'), h.get('quarter'), h.get('file')) for h in hits[:5]]
+        print(f"[Stage2] retrieved top={len(hits)} sample={kept}")
+    return hits
+
+
 def format_citation(hit: dict) -> str:
-    parts = [hit["file"]]
-    if hit.get("year_qtr"): parts.append(hit["year_qtr"])
-    parts.append(f"p.{hit['page']}")
-    sec = _clean_section_hint(hit)
-    if sec: parts.append(sec)
+    parts = [hit.get("file","?")]
+    if hit.get("year"):
+        if hit.get("quarter"):
+            parts.append(f"{hit['quarter']}Q{str(hit['year'])[2:]}")
+        else:
+            parts.append(str(hit["year"]))
+    parts.append(f"p.{hit.get('page','?')}")
+    sec = hit.get("section_hint")
+    if sec:
+        parts.append(sec)
     return " — ".join(parts)
 
-# Map doc_id -> full chunk text to give richer context to the LLM (not just preview)
-_doc_text_map = None
-def _build_doc_text_map():
-    global _doc_text_map
-    if _doc_text_map is None:
-        _doc_text_map = {c.doc_id: c.text for c in chunks}
-    return _doc_text_map
 
-def _context_from_hits(hits: List[Dict[str,Any]], max_chars_per_chunk=1200, top_ctx=3) -> str:
-    m = _build_doc_text_map()
-    ctx_blocks = []
+def _context_from_hits(hits: List[Dict[str,Any]], top_ctx=3, max_chars=1200) -> str:
+    _ensure_init()
+    blocks = []
     for h in hits[:top_ctx]:
-        text = m.get(h["doc_id"], h.get("preview","")) or ""
-        text = text.strip().replace("\u0000"," ")
-        if len(text) > max_chars_per_chunk:
-            text = text[:max_chars_per_chunk] + " ..."
-        ctx_blocks.append(
-            f"[{format_citation(h)}]\n{text}"
-        )
-    return "\n\n".join(ctx_blocks)
+        text = str(texts[kb.index[kb.doc_id == h["doc_id"]][0]]) if (kb.doc_id == h["doc_id"]).any() else h.get("preview","")
+        if len(text) > max_chars:
+            text = text[:max_chars] + " ..."
+        blocks.append(f"[{format_citation(h)}]\n{text}")
+    return "\n\n".join(blocks)
 
-# -- ONE Gemini call (no caching) --
-def answer_with_gemini(query: str, top_k_retrieval=16, top_ctx=3, model_name="gemini-2.5-flash-latest") -> Dict[str,Any]:
-    # 1) Retrieve + rerank
-    hits = retrieve_then_rerank(query, top_k=top_k_retrieval, alpha=0.6)
+# -----------------------------
+# LLM call helper
+# -----------------------------
 
-    ql = (query or "").lower()
-    # If the user asks for "last three years", keep only most recent 3 distinct years
-    if ("last three years" in ql) or ("last 3 years" in ql) or ("past three years" in ql):
-        hits = _keep_recent_years(hits, n_years=3)
-    # If the user asks for "last five quarters", prefer quarterly decks/summaries
-    if ("last five quarters" in ql) or ("last 5 quarters" in ql):
-        hits = _prefer_quarterly(hits)
+def _call_llm(prompt: str) -> str:
+    backend = LLM_BACKEND.lower()
+    if backend == "gemini":
+        try:
+            from google import generativeai as genai
+        except Exception as e:
+            raise RuntimeError("Selected backend 'gemini' but google-generativeai is not installed. `pip install google-generativeai`.") from e
+        api_key = os.environ.get("GEMINI_API_KEY")
+        if not api_key:
+            raise RuntimeError("Selected backend 'gemini' but GEMINI_API_KEY is not set.")
+        model_name = GEMINI_MODEL_NAME
+        try:
+            genai.configure(api_key=api_key)
+            model = genai.GenerativeModel(model_name)
+            resp = model.generate_content(prompt)
+            text = getattr(resp, 'text', None) if resp is not None else None
+            if not text:
+                text = str(resp)
+            if VERBOSE:
+                print(f"[Stage2] LLM=Gemini ({model_name})")
+            return text
+        except Exception as e:
+            raise RuntimeError(f"Gemini generation failed: {e}") from e
+    elif backend == "openai":
+        try:
+            from openai import OpenAI
+        except Exception as e:
+            raise RuntimeError("Selected backend 'openai' but the OpenAI SDK is not installed. `pip install openai`.") from e
+        api_key = os.environ.get("OPENAI_API_KEY")
+        if not api_key:
+            raise RuntimeError("Selected backend 'openai' but OPENAI_API_KEY is not set.")
+        try:
+            client = OpenAI()
+            model = OPENAI_MODEL_NAME
+            resp = client.chat.completions.create(
+                model=model,
+                messages=[{"role":"system","content":"You are Agent CFO."},{"role":"user","content": prompt}],
+                temperature=0.2,
+            )
+            text = resp.choices[0].message.content
+            if VERBOSE:
+                print(f"[Stage2] LLM=OpenAI ({model})")
+            return text
+        except Exception as e:
+            raise RuntimeError(f"OpenAI generation failed: {e}") from e
+    else:
+        raise RuntimeError("Invalid LLM_BACKEND setting; choose 'gemini' or 'openai'.")
 
-    # 2) Prepare prompt with explicit instruction to cite
-    context = _context_from_hits(hits, max_chars_per_chunk=1200, top_ctx=top_ctx)
+# -----------------------------
+# Generation (one call)
+# -----------------------------
+
+def answer_with_llm(query: str, top_k_retrieval=12, top_ctx=3) -> Dict[str, Any]:
+    _ensure_init()
+    want_years = _detect_last_n_years(query)
+    want_quarters = _detect_last_n_quarters(query)
+
+    hits = hybrid_search(query, top_k=top_k_retrieval, alpha=0.6)
+    hits = _period_filter(hits, want_years, want_quarters)
+
+    context = _context_from_hits(hits, top_ctx=top_ctx)
+
     system_task = (
         "You are Agent CFO. Answer the user's finance/operations question using ONLY the provided context. "
         "When you state any figures, also provide citations in the format: "
@@ -163,56 +528,48 @@ def answer_with_gemini(query: str, top_k_retrieval=16, top_ctx=3, model_name="ge
     )
     prompt = f"{system_task}\n\n{user_prompt}"
 
-    # 3) Call Gemini ONCE
-    row = {"Query": f"[generate] {query}", "Tools": ["generator"], "CacheHits": 0, "Tokens": 0}
-    try:
-        import google.generativeai as genai
-    except Exception as e:
-        raise SystemExit("google-generativeai package not installed. Run: pip install google-generativeai") from e
+    row = {"Query": f"[generate] {query}", "Tools": ["retriever","generator"], "Tokens": 0}
 
-    api_key = os.environ.get("GEMINI_API_KEY")
-    if not api_key:
-        raise SystemExit("Missing GEMINI_API_KEY. Set os.environ['GEMINI_API_KEY'] = '...'.")
-    genai.configure(api_key=api_key)
-
-    with timeblock(row, "T_total"):
-        with timeblock(row, "T_reason"):
-            # (Place for any pre-LLM reasoning like light parsing if needed)
-            pass
-        with timeblock(row, "T_generate"):
-            model = genai.GenerativeModel(model_name)
-            resp = model.generate_content(prompt)
-            text = getattr(resp, "text", "") or ""
-            # Try to record token usage if available; else estimate
-            try:
-                usage = resp.usage_metadata
-                row["Tokens"] = int((usage.prompt_token_count or 0) + (usage.candidates_token_count or 0))
-            except Exception:
-                # naive estimate: 4 chars ≈ 1 token
-                row["Tokens"] = int(len(prompt)//4 + len(text)//4)
+    # Placeholder for your LLM call; swap in Gemini/OpenAI
+    with timeblock(row, "T_total"), timeblock(row, "T_generate"):
+        text = _call_llm(prompt)
+        row["Tokens"] = int(len(prompt)//4)
 
     instr.log(row)
 
-    # 4) Guarantee citations are present (append explicit list of top contexts)
     explicit_citations = "\n".join(f"- {format_citation(h)}" for h in hits[:top_ctx])
-    final_answer = text.strip()
-    if not final_answer:
-        final_answer = "No answer generated."
-    final_answer += "\n\nCitations:\n" + explicit_citations
+    final_answer = text.strip() + "\n\nCitations:\n" + explicit_citations
 
-    return {
-        "answer": final_answer,
-        "hits": hits[:top_ctx],
-        "raw_model_text": text
-    }
+    return {"answer": final_answer, "hits": hits[:top_ctx], "raw_model_text": text}
 
-# --- quick demo calls (ONE LLM CALL EACH; no caching) ---
-demo_queries = [
-    "Net Interest Margin (NIM) trend over the last five quarters; provide the values and 1–2 lines of explanation.",
-    "Operating expenses YoY for the last three years; list the top three drivers from MD&A.",
-    "Cost-to-Income ratio for the last three years; show your working and implications."
+def get_logs() -> pd.DataFrame:
+    """Return the instrumentation DataFrame for display in notebooks."""
+    return instr.df()
+
+def is_initialized() -> bool:
+    return bool(globals().get('_INITIALIZED', False))
+
+# Benchmark queries as required
+BENCHMARK_QUERIES = [
+    "Report the Gross Margin (or Net Interest Margin, if a bank) over the last 5 quarters, with values.",
+    "Show Operating Expenses for the last 3 fiscal years, year-on-year comparison.",
+    "Calculate the Operating Efficiency Ratio (Opex ÷ Operating Income) for the last 3 fiscal years, showing the working.",
 ]
-for q in demo_queries:
-    out = answer_with_gemini(q, top_k_retrieval=10, top_ctx=3)
-    print("\nQ:", q, "\n")
-    print(out["answer"])
+
+
+def run_benchmark(top_k_retrieval=12, top_ctx=3) -> List[Dict[str, Any]]:
+    out = []
+    for q in BENCHMARK_QUERIES:
+        out.append({"query": q, **answer_with_llm(q, top_k_retrieval=top_k_retrieval, top_ctx=top_ctx)})
+    return out
+
+
+if __name__ == "__main__":
+    od = os.environ.get("AGENT_CFO_OUT_DIR", "data")
+    init_stage2(od)
+    if VERBOSE:
+        print("[Stage2] Ready. Use answer_with_llm(query) to generate.")
+    if os.environ.get("RUN_DEMO", "0") == "1":
+        for r in run_benchmark():
+            print("\nQ:", r["query"], "\n")
+            print(r["answer"])
