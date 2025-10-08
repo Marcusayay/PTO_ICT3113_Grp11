@@ -67,6 +67,34 @@ _QY_PAT_2 = re.compile(r"\bQ\s*([1-4])\s*(20\d{2}|\d{2})\b", re.I)     # e.g., Q
 _QY_PAT_3 = re.compile(r"\b([1-4])Q\s*(20\d{2}|\d{2})\b", re.I)        # e.g., 3Q 2024
 _FY_PAT_2 = re.compile(r"\bF[Yy]\s*(20\d{2})\b")
 
+# --- RAG tuning: limit table-window duplication and map Excel sheets to semantic sections ---
+MAX_TABLE_WINDOWS_PER_PAGE = 3  # cap per PDF page to reduce redundant chunks
+DEFAULT_WINDOW_LINES = 18       # tighter context window for table snippets
+
+# Map common Excel sheet names to semantic section hints
+SHEET_SECTION_PATTERNS = [
+    (r"^\s*(?:1\.)?\s*highlights\b|^highlights$", "highlights/summary"),
+    (r"expenses|opex|staff\s+costs|technology|it\s+spend|operations?", "Operating expenses (Opex)"),
+    (r"net\s*interest|^\s*3\.?\s*net.*interest", "Net interest income"),
+    (r"non[- ]?interest|other\s+income|fee|commission", "Non-interest/fee income"),
+    (r"cost\s*[-/ ]?to\s*[-/ ]?income|\bcti\b|efficiency", "Cost-to-income (CTI)"),
+    (r"npl|coverage\s+ratios|non[- ]?performing", "Asset quality (NPL)"),
+    (r"loans", "Loans"),
+    (r"deposits", "Deposits"),
+    (r"capital|cet\s*1", "Capital & CET1"),
+    (r"return\s+on\s+equity|\broe\b|return\s+on\s+assets|\broa\b", "Returns (ROE/ROA)"),
+    (r"profit|pbt|pat", "Profit"),
+]
+
+def sheet_section_label(sheet_name: Optional[str]) -> Optional[str]:
+    s = (sheet_name or "").strip()
+    if not s:
+        return None
+    for pat, label in SHEET_SECTION_PATTERNS:
+        if re.search(pat, s, flags=re.IGNORECASE):
+            return label
+    return None
+
 
 def infer_period_from_text(text: str, filename_year: Optional[int] = None) -> Tuple[Optional[int], Optional[int]]:
     """Infer (year, quarter) from the *header-like* part of a PDF page.
@@ -126,13 +154,34 @@ def _dbg(msg: str):
 # -----------------------------
 
 _KEY_TABLE_SPECS = [
-    (re.compile(r"net\s+interest\s+margin|\bnim\b", re.I), "NIM table"),
-    (re.compile(r"operating\s+expenses|\bopex\b|staff\s+costs", re.I), "Opex table"),
-    (re.compile(r"cost[- ]?to[- ]?income|\bcti\b|efficiency\s+ratio", re.I), "CTI table"),
+    # Margins
+    (re.compile(r"\bnet\s*interest\s*margin\b|\bnim\b", re.I), "NIM table"),
+    # Income lines
+    (re.compile(r"\b(total|operating)\s+income\b", re.I), "Total/Operating income"),
+    (re.compile(r"\bnet\s+interest\s+income\b|\bnii\b", re.I), "Net interest income"),
+    (re.compile(r"\b(non[- ]?interest|other)\s+income\b|\bfee(?:\s+and)?\s+commission\s+income\b", re.I), "Non-interest/fee income"),
+    # Expenses (Opex)
+    (re.compile(r"\boperating\s+expenses\b|\bopex\b|^expenses$|^total\s+expenses\b|staff\s+costs|technology\s+(?:and\s+)?operations?|it\s+spend|amortisation\s+of\s+intangible", re.I), "Opex table"),
+    # Efficiency
+    (re.compile(r"\bcost\s*[-/]\s*income\b|\bcost\s*to\s*income\b|\bcti\b|\befficiency\s+ratio\b", re.I), "CTI table"),
+    # Credit costs / allowances
+    (re.compile(r"\ballowances\b|\bprovisions?\b|\becl\b|\bcredit\s+costs?\b|\bimpairment\b", re.I), "Allowances"),
+    # Profit lines
+    (re.compile(r"\bprofit\s+before\s+allowances\b|\boperating\s+profit\b", re.I), "Operating profit"),
+    (re.compile(r"\bprofit\s+before\s+tax\b|\bpbt\b|\bpre[- ]tax\s+profit\b", re.I), "PBT"),
+    (re.compile(r"\bnet\s+profit\b|\bprofit\s+after\s+tax\b|\bpat\b|\battributable\s+profit\b", re.I), "Net profit"),
+    # Balance sheet snapshot
+    (re.compile(r"\bcustomer\s+loans\b|\bgross\s+loans\b|\bloan\s+book\b", re.I), "Loans"),
+    (re.compile(r"\bcustomer\s+deposits\b|\bdeposits?\b", re.I), "Deposits"),
+    # Asset quality
+    (re.compile(r"\bnpl\s+ratio\b|\bnon[- ]?performing\b", re.I), "Asset quality (NPL)"),
+    # Capital & returns
+    (re.compile(r"\bCET\s*1\b|\bcommon\s+equity\s+tier\s*1\b|\bcapital\s+adequacy\b", re.I), "Capital & CET1"),
+    (re.compile(r"\breturn\s+on\s+equity\b|\broe\b|\breturn\s+on\s+assets\b|\broa\b", re.I), "Returns (ROE/ROA)"),
 ]
 
-def extract_key_tables_from_page(text: str, window_lines: int = 18) -> List[Tuple[str, str]]:
-    """Find small windows around key table keywords and return blocks.
+def extract_key_tables_from_page(text: str, window_lines: int = DEFAULT_WINDOW_LINES) -> List[Tuple[str, str]]:
+    """Find small windows around key table keywords and return blocks (tighter window). 
     Returns list of (section_hint, block_text).
     """
     if not text:
@@ -153,10 +202,15 @@ SECTION_LABELS = {
     r"key ratios|highlights|summary": "highlights/summary",
     r"net interest margin|nim\b": "Net interest margin (NIM)",
     r"cost[- ]?to[- ]?income|cti|efficiency ratio": "Cost-to-income (CTI)",
-    r"operating expenses|opex|expenses": "Operating expenses (Opex)",
-    r"income statement|statement of (comprehensive )?income": "Income statement",
-    r"balance sheet|statement of financial position": "Balance sheet",
-    r"management discussion|md&a": "MD&A",
+    r"operating expenses|^expenses$|opex|staff costs|technology|it spend": "Operating expenses (Opex)",
+    r"income statement|statement of (comprehensive )?income|total income|operating income|non[- ]?interest income|fee and commission|net interest income|nii": "Income statement",
+    r"balance sheet|statement of financial position|customer loans|deposits": "Balance sheet",
+    r"allowances|provisions|credit costs|impairment|ecl": "Allowances / Credit costs",
+    r"profit before allowances|operating profit|profit before tax|pbt|net profit|pat": "Profit",
+    r"npl ratio|non[- ]?performing": "Asset quality",
+    r"cet ?1|common equity tier 1|capital adequacy": "Capital & CET1",
+    r"return on equity|roe|return on assets|roa": "Returns",
+    r"management discussion|md&amp;a|md&a": "MD&A",
 }
 
 _TABULAR_EXTS = {'.csv', '.xls', '.xlsx'}
@@ -262,15 +316,24 @@ def _df_to_blocks(df: pd.DataFrame, rows_per_block: int = 40) -> List[str]:
 def extract_tabular_chunks(path: str) -> List[Tuple[str, Optional[str]]]:
     """Return a list of (block_text, sheet_name) for CSV/Excel files with robust error logging.
     For CSV → one pseudo-sheet named 'CSV'. For Excel → one per sheet.
+    The reader tries multiple strategies (header=0, header=None) to cope with
+    formatted investor-supplement sheets where the first rows are titles.
     """
     out: List[Tuple[str, Optional[str]]] = []
     lower = path.lower()
     base = os.path.basename(path)
+
+    def _summarize_df(df: pd.DataFrame) -> str:
+        if df is None or df.empty:
+            return "empty"
+        ncells = int(df.notna().sum().sum())
+        return f"shape={df.shape}, non-empty cells={ncells}"
+
     try:
         if lower.endswith('.csv'):
             try:
-                # Try common CSV params; you can add sep=";" or encoding="utf-8-sig" if needed
-                df = pd.read_csv(path, low_memory=False)
+                df = pd.read_csv(path, low_memory=False, dtype=object)
+                print(f"[Stage1][tabular] CSV opened {base}: {_summarize_df(df)}")
             except Exception as e:
                 print(f"[Stage1][tabular] CSV parse failed for {base}: {e}")
                 return []
@@ -279,33 +342,63 @@ def extract_tabular_chunks(path: str) -> List[Tuple[str, Optional[str]]]:
                 print(f"[Stage1][tabular] CSV has no non-empty blocks: {base}")
             for block in blocks:
                 out.append((block, 'CSV'))
-        else:
-            # Excel: pick engine explicitly when possible
-            engine = None
-            if lower.endswith('.xlsx'):
-                engine = 'openpyxl'
-            elif lower.endswith('.xls'):
-                engine = 'xlrd'
+            return out
+
+        # Excel path
+        engine = None
+        if lower.endswith('.xlsx'):
+            engine = 'openpyxl'
+        elif lower.endswith('.xls'):
+            engine = 'xlrd'
+        try:
+            xl = pd.ExcelFile(path, engine=engine) if engine else pd.ExcelFile(path)
+        except Exception as e:
+            print(f"[Stage1][tabular] Excel open failed for {base}: {e} (install 'openpyxl' for .xlsx or 'xlrd' for .xls)")
+            return []
+
+        for sheet in xl.sheet_names:
+            df = None
+            # Strategy A: header on first non-empty row
             try:
-                xl = pd.ExcelFile(path, engine=engine) if engine else pd.ExcelFile(path)
+                df = xl.parse(sheet, dtype=object)  # default header=0
+                # Drop leading all-NaN rows (visual titles often occupy top few)
+                while not df.empty and df.iloc[0].isna().all():
+                    df = df.iloc[1:]
             except Exception as e:
-                print(f"[Stage1][tabular] Excel open failed for {base}: {e} (install 'openpyxl' for .xlsx or 'xlrd' for .xls)")
-                return []
-            for sheet in xl.sheet_names:
+                print(f"[Stage1][tabular] Sheet parse failed {base}::{sheet} (header=0): {e}")
+
+            # Strategy B: no header → promote first non-empty row afterwards
+            if df is None or df.empty or df.notna().sum().sum() < 5:
                 try:
-                    df = xl.parse(sheet)
+                    df_b = xl.parse(sheet, header=None, dtype=object)
+                    # Drop leading empty rows
+                    while not df_b.empty and df_b.iloc[0].isna().all():
+                        df_b = df_b.iloc[1:]
+                    # Forward-fill header row then set it as columns if sensible
+                    if not df_b.empty:
+                        header_row = df_b.iloc[0].astype(str).str.strip()
+                        if header_row.notna().sum() >= max(2, int(df_b.shape[1] * 0.2)):
+                            df_b.columns = header_row
+                            df_b = df_b.iloc[1:]
+                    df = df_b if (df is None or df.empty) else df
                 except Exception as e:
-                    print(f"[Stage1][tabular] Sheet parse failed {base}::{sheet}: {e}")
-                    continue
-                blocks = _df_to_blocks(df)
-                if not blocks:
-                    print(f"[Stage1][tabular] No non-empty blocks in {base}::{sheet}")
-                for block in blocks:
-                    out.append((block, sheet))
+                    print(f"[Stage1][tabular] Sheet parse failed {base}::{sheet} (header=None): {e}")
+
+            if df is None or df.empty:
+                print(f"[Stage1][tabular] No data in {base}::{sheet}")
+                continue
+
+            print(f"[Stage1][tabular] Excel parsed {base}::{sheet}: {_summarize_df(df)}")
+            blocks = _df_to_blocks(df)
+            if not blocks:
+                print(f"[Stage1][tabular] No non-empty blocks in {base}::{sheet}")
+                continue
+            for block in blocks:
+                out.append((block, sheet))
+        return out
     except Exception as e:
         print(f"[Stage1][tabular] Unexpected error {base}: {e}")
         return []
-    return out
 
 
 # -----------------------------
@@ -537,46 +630,64 @@ def build_kb() -> Dict[str, Any]:
             for page_num, page_text in pages:
                 if not page_text.strip():
                     continue
-                # Infer per-page period (only trust explicit QY or FY)
-                y2, q2 = infer_period_from_text(page_text, filename_year=year)
-                # Start from filename-derived period
-                y_eff, q_eff = year, quarter
-                # If we detected a quarter-year on the page, use both
-                if q2 is not None:
-                    q_eff = q2
-                    if y2 is not None:
-                        # Prefer filename year if provided and different; otherwise use page year
-                        if y2 is not None and year is not None and y2 != year:
-                            _dbg(f"          → Page period {q2}Q{str(y2)[2:]} conflicts with filename year {year}; keeping {year}")
-                        y_eff = year if (year is not None and y2 != year) else y2
-                else:
-                    # No quarter; allow FY to override year only if we don't already have a quarter from filename
-                    if y2 is not None and q_eff is None:
-                        if y2 is not None and year is not None and y2 != year:
-                            _dbg(f"          → Page period NoneQ{str(y2)[2:]} conflicts with filename year {year}; keeping {year}")
-                        y_eff = year if (year is not None and y2 != year) else y2
-                # Extract small windows for key tables (NIM/Opex/CTI)
-                for label, block in extract_key_tables_from_page(page_text):
+
+                # --- Smarter Logic Starts Here ---
+                # Start with the period from the filename as the default "final" period.
+                final_year, final_quarter = year, quarter
+
+                # Infer the period from the page's header text.
+                page_year, page_quarter = infer_period_from_text(page_text, filename_year=year)
+
+                # DECISION LOGIC:
+                # Only update the quarter if the filename DID NOT provide one, but the page DID.
+                # This enhances data from annual reports without corrupting quarterly reports.
+                if final_quarter is None and page_quarter is not None:
+                    # As a safety check, ensure the year from the page matches the filename's year if available.
+                    if page_year is not None and final_year is not None and page_year == final_year:
+                        final_quarter = page_quarter
+                    # If the filename had no year either, trust the page completely.
+                    elif final_year is None:
+                        final_year = page_year
+                        final_quarter = page_quarter
+                
+                # If the filename provided a quarter, we ALWAYS trust it. No 'else' is needed,
+                # as we simply don't change `final_quarter` in case of a conflict.
+
+                # Extract small windows for key tables (NIM/Opex/CTI) using the validated period,
+                # then cap to reduce duplication.
+                windows = extract_key_tables_from_page(page_text, window_lines=DEFAULT_WINDOW_LINES)
+                # Optional: keep first occurrence per label to diversify, then cap
+                seen_labels = set()
+                unique_windows = []
+                for lbl, blk in windows:
+                    if lbl in seen_labels:
+                        continue
+                    seen_labels.add(lbl)
+                    unique_windows.append((lbl, blk))
+
+                for label, block in unique_windows[:MAX_TABLE_WINDOWS_PER_PAGE]:
                     doc_id = str(uuid.uuid4())
                     rows.append({
                         "doc_id": doc_id,
                         "file": fname,
                         "page": page_num,
-                        "year": y_eff,
-                        "quarter": q_eff,
+                        "year": final_year,
+                        "quarter": final_quarter,
                         "section_hint": label,
                     })
                     texts.append(block)
+                # --- Smarter Logic Ends Here ---
         elif _is_tabular(path):
             blocks = extract_tabular_chunks(path)
             if blocks:
                 print(f"          → Table blocks: {len(blocks)}")
             else:
                 print(f"          → Table blocks: 0 (no parsable content)")
-            # Use page=1 for tabular sources; include sheet name in section_hint
             for block_text, sheet in blocks:
-                hint_from_name = clean_section_hint(fname) or "table"
-                section_hint = f"{hint_from_name} / {sheet}" if sheet else hint_from_name
+                # Prefer a readable section label using sheet→semantic mapping
+                sheet_label = sheet if sheet else ("CSV" if path.lower().endswith('.csv') else "sheet")
+                sem_label = sheet_section_label(sheet_label)
+                section_hint = sem_label if sem_label else f"table:{sheet_label}"
                 doc_id = str(uuid.uuid4())
                 rows.append({
                     "doc_id": doc_id,
@@ -647,6 +758,19 @@ def build_kb() -> Dict[str, Any]:
         tab_like = kb_loaded['file'].str.lower().str.endswith(('.csv','.xls','.xlsx'))
         tab_count = int(tab_like.sum())
         print(f"[Stage1] Parquet sanity: {tab_count} rows from tabular sources (.csv/.xls/.xlsx)")
+        try:
+            ext_counts = (
+                kb_loaded['file']
+                .str.lower()
+                .str.extract(r'(\.[a-z0-9]+)$')[0]
+                .value_counts()
+                .to_dict()
+            )
+            print(f"[Stage1] Parquet by extension: {ext_counts}")
+            excel_rows = int(kb_loaded['file'].str.lower().str.endswith(('.xls','.xlsx')).sum())
+            print(f"[Stage1] ↳ Excel rows indexed: {excel_rows}")
+        except Exception as e:
+            print(f"[Stage1] Extension breakdown failed: {e}")
     except Exception as e:
         print(f"[Stage1] Parquet sanity check failed: {e}")
 

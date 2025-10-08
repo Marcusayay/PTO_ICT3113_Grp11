@@ -14,7 +14,7 @@ from typing import List, Dict, Any
 import pandas as pd
 
 # Import Stage 2 API
-from Stage2 import init_stage2, answer_with_llm
+from Stage2 import init_stage2, answer_with_llm, agentic_answer
 
 OUT_DIR = os.environ.get("AGENT_CFO_OUT_DIR", "data")
 
@@ -51,7 +51,10 @@ def run_benchmark(top_k_retrieval: int = 12, top_ctx: int = 3, out_dir: str = OU
 
     for q in QUERIES:
         t0 = time.perf_counter()
-        out = answer_with_llm(q, top_k_retrieval=top_k_retrieval, top_ctx=top_ctx)
+        try:
+            out = agentic_answer(q, top_k_retrieval=top_k_retrieval, top_ctx=top_ctx)
+        except Exception:
+            out = answer_with_llm(q, top_k_retrieval=top_k_retrieval, top_ctx=top_ctx)
         lat_ms = round((time.perf_counter() - t0) * 1000.0, 2)
 
         if print_prose:

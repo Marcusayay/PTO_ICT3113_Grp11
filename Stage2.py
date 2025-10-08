@@ -35,6 +35,8 @@ import pandas as pd
 
 # Timing / logging (simple)
 import time, contextlib
+import ast
+from io import StringIO
 
 @contextlib.contextmanager
 def timeblock(row: dict, key: str):
@@ -50,7 +52,8 @@ class _Instr:
     def log(self, row):
         self.rows.append(row)
     def df(self):
-        cols = ['Query','T_retrieve','T_rerank','T_reason','T_generate','T_total','Tokens','Tools']
+        # Ensure all required columns exist
+        cols = ['Query','Plan','T_plan','T_retrieve','T_rerank','T_tools','T_reason','T_generate','T_total','Tokens','Tools']
         df = pd.DataFrame(self.rows)
         for c in cols:
             if c not in df:
@@ -441,18 +444,52 @@ def hybrid_search(query: str, top_k=12, alpha=0.6) -> List[Dict[str, Any]]:
                 prelim = sorted(fused.items(), key=lambda x: x[1], reverse=True)[:top_k*2]
                 qtype = _classify_query(query)
                 hits = []
-                for i,base in prelim:
+
+             # --- NEW: Recency & Relevance Boosting Logic ---
+                # Check if the query is time-sensitive
+                want_years = _detect_last_n_years(query)
+                want_quarters = _detect_last_n_quarters(query)
+
+                # Determine the baseline year for recency calculation
+                latest_year = kb['year'].max()
+                if want_years:
+                    # For fiscal year queries, the most relevant documents are ANNUAL reports.
+                    # Set the baseline to the latest year for which an annual report exists.
+                    annual_reports = kb[kb['quarter'].isna()]
+                    if not annual_reports.empty:
+                        latest_year = annual_reports['year'].max()
+
+                for i, base in prelim:
                     meta = kb.iloc[i]
                     boost = 0.0
-                    # Section preference
+                    
+                    # 1. Existing Section & Numeric Boosts
                     if qtype and isinstance(meta.section_hint, str):
                         prefs = QUERY_HINTS[qtype]["prefer_sections"]
                         if meta.section_hint in prefs:
                             boost += 0.25
-                    # Numeric density
                     preview = str(texts[i])[:800]
                     boost += _numeric_score(preview)
+
+                    # 2. NEW Recency Boost (for time-sensitive queries)
+                    if (want_years or want_quarters) and not pd.isna(meta.year):
+                        year_diff = latest_year - meta.year
+                        if year_diff == 0:
+                            boost += 0.8  # Strongest boost for the latest year
+                        elif year_diff <= 2:
+                            boost += 0.5  # Medium boost for the last 2-3 years
+                        elif year_diff <= 4:
+                            boost += 0.2  # Small boost for older but recent docs
+                    
+                    # 3. NEW Report Type Boost
+                    is_annual_report = pd.isna(meta.quarter)
+                    if want_years and is_annual_report:
+                        boost += 0.3 # Boost annual reports for yearly queries
+                    if want_quarters and not is_annual_report:
+                        boost += 0.3 # Boost quarterly reports for quarterly queries
+                        
                     fused[i] = base + boost
+                
                 top = sorted(prelim, key=lambda x: fused[x[0]], reverse=True)[:top_k]
                 for i,score in top:
                     meta = kb.iloc[i]
@@ -504,6 +541,133 @@ def _context_from_hits(hits: List[Dict[str,Any]], top_ctx=3, max_chars=1200) -> 
             text = text[:max_chars] + " ..."
         blocks.append(f"[{format_citation(h)}]\n{text}")
     return "\n\n".join(blocks)
+
+# ----------------------------- # Tools: calculator, table extraction, compare # -----------------------------
+# ---- Calculator (safe) ----
+_ALLOWED_NODES = {
+    ast.Expression, ast.BinOp, ast.UnaryOp, ast.Num, ast.Load,
+    ast.Add, ast.Sub, ast.Mult, ast.Div, ast.Pow, ast.Mod, ast.FloorDiv,
+    ast.USub, ast.UAdd, ast.Call, ast.Name, ast.Tuple, ast.List
+}
+_SAFE_FUNCS = {
+    "round": round,
+    "abs": abs,
+    "min": min,
+    "max": max,
+}
+
+def _safe_eval(expr: str) -> float:
+    tree = ast.parse(expr, mode="eval")
+    for node in ast.walk(tree):
+        if type(node) not in _ALLOWED_NODES:
+            raise ValueError(f"Disallowed expression node: {type(node).__name__}")
+        if isinstance(node, ast.Call) and isinstance(node.func, ast.Name):
+            if node.func.id not in _SAFE_FUNCS:
+                raise ValueError(f"Function not allowed: {node.func.id}")
+    code = compile(tree, "<calc>", "eval")
+    return float(eval(code, {"__builtins__": {}}, _SAFE_FUNCS))
+
+def calc_tool(expressions: list[str]) -> dict:
+    """Evaluate simple arithmetic expressions safely."""
+    out = {}
+    for e in expressions:
+        try:
+            out[e] = _safe_eval(e)
+        except Exception as ex:
+            out[e] = f"ERROR: {ex}"
+    return out
+
+# ---- Table extraction from retrieved context ----
+def _is_csvish(text: str) -> bool:
+    if not text or "\n" not in text:
+        return False
+    # Heuristic: at least 2 commas on a line, and 2+ lines
+    lines = [l for l in text.splitlines() if l.strip()]
+    if len(lines) < 2:
+        return False
+    hits = 0
+    for l in lines[:8]:
+        if l.count(",") >= 2:
+            hits += 1
+    return hits >= 1
+
+def _parse_csv_block(text: str) -> pd.DataFrame | None:
+    try:
+        df = pd.read_csv(StringIO(text))
+        if df.empty:
+            return None
+        # normalize headers
+        df.columns = [str(c).strip() for c in df.columns]
+        return df
+    except Exception:
+        return None
+
+def table_extractor_tool(hits: list[dict]) -> list[dict]:
+    """Scan hit previews/full text for CSV-like blocks (from Excel sheets) and return DataFrames."""
+    out = []
+    for h in hits:
+        # Prefer preview; if available, try to expand via kb/texts for exact chunk
+        text_block = h.get("preview", "")
+        if not text_block:
+            text_block = ""
+        if _is_csvish(text_block):
+            df = _parse_csv_block(text_block)
+            if df is not None:
+                out.append({
+                    "file": h.get("file"),
+                    "page": h.get("page"),
+                    "year": h.get("year"),
+                    "quarter": h.get("quarter"),
+                    "section_hint": h.get("section_hint"),
+                    "table": df,
+                })
+    return out
+
+# ---- Multi-document compare (row/column fuzzy pick) ----
+def _pick_metric_row(df: pd.DataFrame, patterns: list[str]) -> pd.Series | None:
+    if df is None or df.empty:
+        return None
+    pat = re.compile("|".join(patterns), re.I)
+    # look in first column(s) for a descriptor row
+    for col in df.columns[:2]:
+        labels = df[col].astype(str)
+        mask = labels.str.contains(pat, na=False)
+        if mask.any():
+            idx = mask.idxmax()
+            return df.loc[idx]
+    # fallback: search entire frame for first match and return that row
+    for col in df.columns:
+        labels = df[col].astype(str)
+        mask = labels.str.contains(pat, na=False)
+        if mask.any():
+            idx = mask.idxmax()
+            return df.loc[idx]
+    return None
+
+def compare_tool(tables: list[dict], metric_patterns: list[str]) -> pd.DataFrame:
+    """Collect metric rows across tables into a tidy dataframe (source x columns)."""
+    rows = []
+    for t in tables:
+        df = t["table"]
+        row = _pick_metric_row(df, metric_patterns)
+        if row is None:
+            continue
+        src = f"{t.get('file')} p.{t.get('page')} {t.get('section_hint') or ''}".strip()
+        rec = {"source": src}
+        # include up to 12 numeric-like columns
+        for c in df.columns:
+            val = row.get(c)
+            if pd.isna(val):
+                continue
+            s = str(val)
+            # keep numbers/percent-ish
+            if re.search(r"\d", s):
+                rec[str(c)] = s
+        rows.append(rec)
+    if not rows:
+        return pd.DataFrame()
+    tidy = pd.DataFrame(rows)
+    return tidy
 
 # -----------------------------
 # LLM call helper
@@ -560,6 +724,104 @@ def _call_llm(prompt: str) -> str:
 # -----------------------------
 # Generation (one call)
 # -----------------------------
+
+def agentic_answer(query: str, top_k_retrieval=12, top_ctx=3) -> Dict[str, Any]:
+    """Plan-then-act agent with tools: calculator, table extraction, multi-doc compare."""
+    _ensure_init()
+    plan = {"tools": [], "goal": "", "metric_patterns": []}
+    qtype = _classify_query(query)
+    if qtype == "nim":
+        plan["goal"] = "Extract Net Interest Margin over last 5 quarters and summarize trend."
+        plan["metric_patterns"] = [r"\bnet\s*interest\s*margin\b", r"\bnim\b"]
+        plan["tools"] = ["retriever", "table_extractor", "compare", "calculator", "llm"]
+    elif qtype == "opex":
+        plan["goal"] = "Extract Operating Expenses for last 3 fiscal years and summarize top drivers."
+        plan["metric_patterns"] = [r"\boperating\s+expenses\b", r"^expenses$", r"\bopex\b"]
+        plan["tools"] = ["retriever", "table_extractor", "compare", "llm"]
+    elif qtype == "cti":
+        plan["goal"] = "Compute Cost-to-Income Ratio for last 3 years from income and cost rows or direct CTI rows."
+        plan["metric_patterns"] = [r"cost[- ]?to[- ]?income", r"\bcti\b", r"efficiency\s+ratio"]
+        plan["tools"] = ["retriever", "table_extractor", "compare", "calculator", "llm"]
+    else:
+        plan["goal"] = "General finance QA using retrieved context."
+        plan["tools"] = ["retriever", "llm"]
+
+    row = {"Query": f"[agent] {query}", "Plan": plan["goal"], "Tools": plan["tools"]}
+    with timeblock(row, "T_total"):
+        # Plan
+        with timeblock(row, "T_plan"):
+            pass  # plan already built above
+
+        # Retrieve
+        with timeblock(row, "T_retrieve"):
+            hits = hybrid_search(query, top_k=top_k_retrieval, alpha=0.6)
+
+        # Rerank time is already included in hybrid_search; keep placeholder
+        row["T_rerank"] = None
+
+        # Tools
+        tables = []
+        calcs = {}
+        with timeblock(row, "T_tools"):
+            if "table_extractor" in plan["tools"]:
+                tables = table_extractor_tool(hits[:max(6, top_ctx)])
+            if "compare" in plan["tools"] and tables:
+                comp = compare_tool(tables, plan.get("metric_patterns", []))
+            else:
+                comp = pd.DataFrame()
+            # calculator only when we have something numeric to compute
+            calc_inputs = []
+            if qtype == "cti":
+                # attempt to compute simple ratios if table provided columns like Cost and Income
+                for _, r in (comp if not comp.empty else pd.DataFrame()).iterrows():
+                    cols = [c for c in comp.columns if c.lower().startswith(("cti","cost/income"))]
+                    if cols:
+                        continue  # CTI already provided
+                # nothing explicit; leave calc_inputs empty
+            if calc_inputs:
+                calcs = calc_tool(calc_inputs)
+
+        # Reason / Prepare final prompt
+        with timeblock(row, "T_reason"):
+            # Build structured tool-output context
+            tool_context_parts = []
+            if tables:
+                tool_context_parts.append(f"[Tool: table_extractor] extracted {len(tables)} table blocks.")
+            if not comp.empty:
+                # show a compact head
+                try:
+                    comp_preview = comp.iloc[:, : min(6, comp.shape[1])].to_csv(index=False)
+                except Exception:
+                    comp_preview = str(comp.head(5))
+                tool_context_parts.append("[Tool: compare] candidate metric rows across sources:\n" + comp_preview)
+            if calcs:
+                tool_context_parts.append("[Tool: calculator] results:\n" + "\n".join(f"{k} = {v}" for k,v in calcs.items()))
+            tool_context = "\n\n".join(tool_context_parts) if tool_context_parts else "No structured tool output available."
+
+            # Build citations text (reuse top hits)
+            context = _context_from_hits(hits, top_ctx=top_ctx)
+            system_task = (
+                "You are Agent CFO. Follow the chain-of-thought implicitly but only output the final answer. "
+                "Use the provided context and the tool outputs. Provide inline citations like "
+                "(Report — Year/Quarter — p.X — Section). Keep it concise and factual."
+            )
+            user_prompt = (
+                f"Question:\n{query}\n\n"
+                f"Retrieved context (for citations):\n{context}\n\n"
+                f"Structured tool outputs:\n{tool_context}\n\n"
+                "If figures are present in the tool outputs, prefer them. "
+                "If the context lacks a value, say so explicitly. End with a one-line takeaway."
+            )
+            prompt = f"{system_task}\n\n{user_prompt}"
+
+        with timeblock(row, "T_generate"):
+            text = _call_llm(prompt)
+            row["Tokens"] = int(len(prompt)//4)
+
+    instr.log(row)
+    explicit_citations = "\n".join(f"- {format_citation(h)}" for h in hits[:top_ctx])
+    final_answer = text.strip() + "\n\nCitations:\n" + explicit_citations
+    return {"answer": final_answer, "hits": hits[:top_ctx], "raw_model_text": text, "tables_found": len(tables)}
 
 def answer_with_llm(query: str, top_k_retrieval=12, top_ctx=3) -> Dict[str, Any]:
     _ensure_init()
@@ -630,7 +892,7 @@ if __name__ == "__main__":
     od = os.environ.get("AGENT_CFO_OUT_DIR", "data")
     init_stage2(od)
     if VERBOSE:
-        print("[Stage2] Ready. Use answer_with_llm(query) to generate.")
+        print("[Stage2] Ready. Use agentic_answer(query) or answer_with_llm(query).")
     if os.environ.get("RUN_DEMO", "0") == "1":
         for r in run_benchmark():
             print("\nQ:", r["query"], "\n")
