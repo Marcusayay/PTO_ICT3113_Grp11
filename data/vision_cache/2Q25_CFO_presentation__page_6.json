@@ -1,0 +1,22 @@
+{
+  "2Q24": {
+    "group_nim": 2.14,
+    "commercial_nim": 2.83
+  },
+  "3Q24": {
+    "group_nim": 2.11,
+    "commercial_nim": 2.83
+  },
+  "4Q24": {
+    "group_nim": 2.15,
+    "commercial_nim": 2.77
+  },
+  "1Q25": {
+    "group_nim": 2.12,
+    "commercial_nim": 2.68
+  },
+  "2Q25": {
+    "group_nim": 2.05,
+    "commercial_nim": 2.55
+  }
+}

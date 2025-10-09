@@ -12,12 +12,6 @@ QUERIES = [
     # Keep NIM phrasing (triggers Stage2 'nim' logic)
     "Report the Net Interest Margin (NIM) over the last 5 quarters, with values, and add 1–2 lines of explanation.",
 
-    # Opex YoY w/ MD&A (original, richer)
-    "Show Operating Expenses (Opex) for the last 3 fiscal years, year-on-year comparison, and summarize the top 3 Opex drivers from the MD&A.",
-
-    # CTI (original)
-    "Calculate the Cost-to-Income Ratio (CTI) for the last 3 fiscal years; show your working and give 1–2 lines of implications.",
-
     # Opex YoY table-only (standardized)
     "Show Operating Expenses for the last 3 fiscal years, year-on-year comparison.",
 
@@ -57,9 +51,15 @@ def run_once(query: str, dry_run: bool):
                 plan = step.get("plan") or []
                 print("• Plan steps:", len(plan))
             elif tool_call.startswith("calculator("):
-                print("•", tool_call, "→", result or error or "(no output)")
+                if error:
+                    print("•", tool_call, "ERROR:", error)
+                else:
+                    print("•", tool_call, "→", result or "(no output)")
             elif tool_call.startswith("table_extraction("):
-                print("•", tool_call, "→", result or "(no result)")
+                if error:
+                    print("•", tool_call, "ERROR:", error)
+                else:
+                    print("•", tool_call, "→", result or "(no result)")
             elif tool_call.startswith("multi_document_compare("):
                 print("•", tool_call, "→ [multi-doc compare output]")
             elif error:

@@ -1,0 +1,22 @@
+{
+  "1Q23": {
+    "group_nim": 2.12,
+    "commercial_nim": 2.69
+  },
+  "2Q23": {
+    "group_nim": 2.16,
+    "commercial_nim": 2.81
+  },
+  "3Q23": {
+    "group_nim": 2.19,
+    "commercial_nim": 2.82
+  },
+  "4Q23": {
+    "group_nim": 2.13,
+    "commercial_nim": 2.75
+  },
+  "1Q24": {
+    "group_nim": 2.14,
+    "commercial_nim": 2.77
+  }
+}

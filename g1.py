@@ -1,286 +1,275 @@
+# g1.py (Final, Fully Automated & Integrated Version)
 from __future__ import annotations
-
-"""
-Stage1.py — Ingestion Pipeline
-
-Builds a Knowledge Base (KB) + Vector Store with metadata.
-"""
-import os, re, json, uuid, pathlib
+import os
+import re
+import json
+import uuid
+import pathlib
 from typing import List, Dict, Any, Optional, Tuple
+import time
 
+# Main Libraries
 import pandas as pd
 import numpy as np
+import camelot
+import fitz  # PyMuPDF
+from PIL import Image
+import io
 
-# --- optional deps ---
+# Gemini Vision API
+import google.generativeai as genai
+
+# ML/Vector Imports
 try:
     import faiss
     _HAVE_FAISS = True
-except Exception:
+except ImportError:
     _HAVE_FAISS = False
+from sentence_transformers import SentenceTransformer
 
-try:
-    from pypdf import PdfReader
-    _HAVE_PDF = True
-except Exception:
-    _HAVE_PDF = False
-
+# --- 1. Configuration ---
+os.environ["TOKENIZERS_PARALLELISM"] = "false"
 DATA_DIR = os.environ.get("AGENT_CFO_DATA_DIR", "All")
 OUT_DIR = os.environ.get("AGENT_CFO_OUT_DIR", "data")
-EMBED_BACKEND = os.environ.get("AGENT_CFO_EMBED_BACKEND", "st")
-CHUNK_TOKENS = 450
-CHUNK_OVERLAP = 80
+CACHE_DIR = os.path.join(OUT_DIR, "vision_cache")
 
 pathlib.Path(OUT_DIR).mkdir(parents=True, exist_ok=True)
+pathlib.Path(CACHE_DIR).mkdir(parents=True, exist_ok=True)
 
-# --- Utilities & Constants ---
-_YEAR_PAT = re.compile(r"\b(20\d{2})\b")
-_Q_PAT = re.compile(r"([1-4])Q(\d{2})", re.I)
-_FY_PAT = re.compile(r"\bFY\s?(20\d{2})\b", re.I)
-_QY_PAT_1 = re.compile(r"\b([1-4])\s*Q\s*(20\d{2}|\d{2})\b", re.I)
-_QY_PAT_2 = re.compile(r"\bQ\s*([1-4])\s*(20\d{2}|\d{2})\b", re.I)
-_QY_PAT_3 = re.compile(r"\b([1-4])Q\s*(20\d{2}|\d{2})\b", re.I)
-_FY_PAT_2 = re.compile(r"\bF[Yy]\s*(20\d{2})\b")
+# This dictionary defines all the key pages we want to find automatically
+SEARCH_TERMS = {
+    "Expenses Chart": ["(E) Expenses", "Excludes one-time items", "Cost / income (%)"],  
+    "Five-Year Summary": ["Financial statements", "DBS Group Holdings and its Subsidiaries"],
+    "NIM Chart": ["Net interest margin (%)", "Group", "Commercial book"]
+}
 
-MAX_TABLE_WINDOWS_PER_PAGE = 3
-DEFAULT_WINDOW_LINES = 18
-
-SHEET_SECTION_PATTERNS = [
-    (r"^\s*(?:1\.)?\s*highlights\b|^highlights$", "highlights/summary"),
-    (r"expenses|opex", "Operating expenses (Opex)"),
-    (r"net\s*interest", "Net interest income"),
-    (r"non[- ]?interest|fee|commission", "Non-interest/fee income"),
-    (r"cost\s*[-/ ]?to\s*[-/ ]?income|\bcti\b", "Cost-to-income (CTI)"),
-    (r"npl|coverage\s+ratios", "Asset quality (NPL)"),
-    (r"loans", "Loans"), (r"deposits", "Deposits"), (r"capital|cet\s*1", "Capital & CET1"),
-    (r"return\s+on\s+equity|\broe\b", "Returns (ROE/ROA)"), (r"profit|pbt|pat", "Profit"),
-]
-
-def sheet_section_label(sheet_name: Optional[str]) -> Optional[str]:
-    s = (sheet_name or "").strip()
-    if not s: return None
-    for pat, label in SHEET_SECTION_PATTERNS:
-        if re.search(pat, s, flags=re.IGNORECASE): return label
-    return None
-
-def infer_period_from_text(text: str, filename_year: Optional[int] = None) -> Tuple[Optional[int], Optional[int]]:
-    if not text: return (None, None)
-    head = "\n".join([ln.strip() for ln in text.splitlines() if ln.strip()][:8])
-    candidates: list[tuple[int, int]] = []
-    for pat in (_QY_PAT_1, _QY_PAT_2, _QY_PAT_3):
-        for m in pat.finditer(head):
-            q, yy_str = int(m.group(1)), m.group(2)
-            y = int(yy_str)
-            if y < 100: y = 2000 + y
-            candidates.append((q, y))
-    if candidates:
-        if filename_year is not None:
-            same_year = [c for c in candidates if c[1] == filename_year]
-            if same_year: return (filename_year, same_year[0][0])
-        q, y = max(candidates, key=lambda t: t[1])
-        return (y, q)
-    m = _FY_PAT_2.search(head)
-    if m: return (int(m.group(1)), None)
-    return (None, None)
-
-_KEY_TABLE_SPECS = [
-    (re.compile(r"\bnet\s*interest\s*margin\b|\bnim\b", re.I), "NIM table"),
-    (re.compile(r"\b(total|operating)\s+income\b", re.I), "Total/Operating income"),
-    (re.compile(r"\b(operating|staff|other)?\s*expenses\b|\bopex\b|\bcosts?\b", re.I), "Opex table"),
-    (re.compile(r"cost\s*[/\-\–_]?\s*to?\s*income(\s*ratio)?|cost\s*/\s*income|\bcti\b", re.I), "CTI table"),
-]
-
-def extract_key_tables_from_page(text: str) -> List[Tuple[str, str]]:
-    if not text: return []
-    text = re.sub(r"\s+", " ", text)
-    lines = [ln.strip() for ln in text.splitlines() if ln.strip()]
-    out: List[Tuple[str, str]] = []
-    for i, ln in enumerate(lines):
-        for pat, label in _KEY_TABLE_SPECS:
-            if pat.search(ln):
-                start, end = max(0, i - 8), min(len(lines), i + DEFAULT_WINDOW_LINES)
-                out.append((label, "\n".join(lines[start:end]))); break
-    return out
-
-_TABULAR_EXTS = {'.csv', '.xls', '.xlsx'}
-def _is_pdf(path: str) -> bool: return str(path).lower().endswith('.pdf')
-def _is_tabular(path: str) -> bool: return any(str(path).lower().endswith(ext) for ext in _TABULAR_EXTS)
-
+# --- 2. Helper Functions ---
 def infer_period_from_filename(fname: str) -> Tuple[Optional[int], Optional[int]]:
     base = fname.upper()
-    m = _Q_PAT.search(base)
-    if m:
-        q, yy = int(m.group(1)), int(m.group(2))
-        return (2000 + yy if yy < 100 else yy, q)
-    m = _YEAR_PAT.search(base)
-    if m: return (int(m.group(1)), None)
-    m = _FY_PAT.search(base)
+    m = re.search(r"([1-4])Q(\d{2})", base, re.I); 
+    if m: q, yy = int(m.group(1)), int(m.group(2)); return (2000 + yy if yy < 100 else yy, q)
+    m = re.search(r"\b(20\d{2})\b", base); 
     if m: return (int(m.group(1)), None)
     return (None, None)
 
-def _split_text(text: str) -> List[str]:
-    text = (text or "").strip()
-    if not text: return []
-    chunk_size, overlap = 1800, 320
-    out, i, n = [], 0, len(text)
-    while i < n:
-        j = min(n, i + chunk_size)
-        out.append(text[i:j])
-        if j == n: break
-        i = max(i + chunk_size - overlap, j)
-    return out
-
-def extract_pdf_pages(path: str) -> List[Tuple[int, str]]:
-    if not _HAVE_PDF: raise RuntimeError("pypdf not installed. pip install pypdf")
-    reader = PdfReader(path)
-    return [(i, p.extract_text() or "") for i, p in enumerate(reader.pages, 1)]
-
-def _df_to_blocks(df: pd.DataFrame) -> List[str]:
-    if df is None or df.empty: return []
-    df = df.dropna(axis=1, how='all').astype(str)
-    return [df.iloc[i:i+40].to_csv(index=False) for i in range(0, len(df), 40)]
-
-def extract_tabular_chunks(path: str) -> List[Tuple[str, Optional[str]]]:
-    base = os.path.basename(path)
+def find_key_pages(pdf_path: str) -> Dict[str, List[int]]:
+    found_pages = {}
+    print(f"      Scouting for key pages in '{os.path.basename(pdf_path)}'...")
     try:
-        lower = path.lower()
-        if lower.endswith('.csv'):
-            df = pd.read_csv(path, low_memory=False, dtype=object)
-            print(f"          → CSV parsed: shape={df.shape}")
-            return [(block, 'CSV') for block in _df_to_blocks(df)]
-        engine = 'openpyxl' if lower.endswith('.xlsx') else ('xlrd' if lower.endswith('.xls') else None)
-        xl = pd.ExcelFile(path, engine=engine)
-        out = []
-        for sheet in xl.sheet_names:
-            df = xl.parse(sheet, dtype=object)
-            print(f"          → Excel sheet parsed '{sheet}': shape={df.shape}")
-            for block in _df_to_blocks(df): out.append((block, sheet))
-        return out
+        doc = fitz.open(pdf_path)
+        for page_num, page in enumerate(doc, start=1):
+            text = page.get_text("text")
+            for description, keywords in SEARCH_TERMS.items():
+                if all(keyword in text for keyword in keywords):
+                    found_pages.setdefault(description, []).append(page_num)
+        doc.close()
     except Exception as e:
-        print(f"          → ⚠️ WARNING: Parse failed for {base}: {e}")
-        return []
+        print(f"      ⚠️  Could not scout pages in {os.path.basename(pdf_path)}: {e}")
+    return found_pages
 
-def pick_provider() -> Tuple[Any, str]:  # Simplified EmbeddingProvider
-    from sentence_transformers import SentenceTransformer
-    model_name = "sentence-transformers/all-MiniLM-L12-v2"
-    return SentenceTransformer(model_name), model_name
+# def format_vision_json_to_text(data: dict) -> str:
+#     facts = []
+#     # NEW: More descriptive formatting for Expenses
+#     if "expenses_analysis" in data:
+#         analysis = data["expenses_analysis"]
+#         if "yearly_total_expenses" in analysis:
+#             for year, value in analysis["yearly_total_expenses"].items():
+#                 # This new phrasing is much more unique and easier to find
+#                 facts.append(f"From the Expenses Chart for FY{year}, the value for yearly total operating expenses (Opex) was {value} million.")
 
-def walk_all_docs(root: str) -> List[str]:
-    paths = []
-    for p in pathlib.Path(root).rglob("*"):
-        if p.is_file() and (_is_pdf(str(p)) or _is_tabular(str(p))):
-            paths.append(str(p))
-    return sorted(paths)
+#     # NEW: More descriptive formatting for the Five-Year Summary
+#     if "five_year_summary" in data:
+#         summary = data["five_year_summary"]
+#         for metric, year_data in summary.items():
+#             for year, value in year_data.items():
+#                 # Adding "From the five-year summary table" makes this distinct
+#                 facts.append(f"From the five-year summary table for FY{year}, the value for '{metric}' was {value}.")
+    
+#     # NEW: More descriptive formatting for NIM
+#     if "nim_analysis" in data:
+#         analysis = data["nim_analysis"]
+#         for quarter, values in analysis.items():
+#             # Adding "From the NIM Chart" makes this distinct
+#             if "group_nim" in values:
+#                 facts.append(f"From the NIM Chart for {quarter}, the Group Net Interest Margin was {values['group_nim']}%.")
+#             if "commercial_nim" in values:
+#                 facts.append(f"From the NIM Chart for {quarter}, the Commercial Book Net Interest Margin was {values['commercial_nim']}%.")
+    
+#     return "\n".join(facts)
 
-def build_kb() -> Dict[str, Any]:
-    docs = walk_all_docs(DATA_DIR)
-    print(f"[Stage1] Scanning folder: {DATA_DIR} → found {len(docs)} document(s)")
-    if not docs: raise SystemExit(f"No documents found under {DATA_DIR}.")
 
-    rows, texts = [], []
-    for path in docs:
-        fname = os.path.basename(path)
-        print(f"[Stage1] Processing: {fname}")
-        year, quarter = infer_period_from_filename(fname)
-        print(f"          → Period (filename): year={year or 'NULL'}, quarter={quarter or 'NULL'}")
-        
-        if _is_pdf(path):
-            pages = extract_pdf_pages(path)
-            print(f"          → Pages detected: {len(pages)}")
-            for page_num, page_text in pages:
-                if not page_text.strip(): continue
-                for chunk_text in _split_text(page_text):
-                    rows.append({"doc_id": str(uuid.uuid4()), "file": fname, "page": page_num, "year": year, "quarter": quarter, "section_hint": None})
-                    texts.append(chunk_text)
+def format_vision_json_to_text(data: dict) -> str:
+    facts = []
+    # Definitive version with unique keywords to guide the retriever
+    if "expenses_analysis" in data:
+        analysis = data["expenses_analysis"]
+        if "yearly_total_expenses" in analysis:
+            for year, value in analysis["yearly_total_expenses"].items():
+                facts.append(f"Source: Expenses Chart (expenses_analysis). For FY{year}, yearly_total_expenses (Opex) was {value} million.")
+
+    if "five_year_summary" in data:
+        summary = data["five_year_summary"]
+        for metric, year_data in summary.items():
+            for year, value in year_data.items():
+                facts.append(f"Source: Five-Year Summary Table. Metric '{metric}' for FY{year} is {value}.")
+    
+    if "nim_analysis" in data:
+        analysis = data["nim_analysis"]
+        for quarter, values in analysis.items():
+            if "group_nim" in values:
+                facts.append(f"Source: NIM Chart (nim_analysis). For {quarter}, the Group Net Interest Margin was {values['group_nim']}%.")
+            if "commercial_nim" in values:
+                facts.append(f"Source: NIM Chart (nim_analysis). For {quarter}, the Commercial Book Net Interest Margin was {values['commercial_nim']}%.")
+    
+    return "\n".join(facts)
+
+
+# --- 3. Main Processing Functions ---
+
+def process_pdf(path: str, fname: str, year: Optional[int], quarter: Optional[int], vision_model: genai.GenerativeModel, key_pages: Dict[str, List[int]]) -> List[Tuple[Dict, str]]:
+    chunks = []
+    all_key_page_numbers = [p for pages in key_pages.values() for p in pages]
+    
+    vision_prompt = """
+    Analyze the attached image, which is a full page from a financial report.
+    Your task is to identify and extract data from ONE of three possible content types: an "Expenses" chart, a "Five-year summary" table, or a "Net Interest Margin" chart. Follow the instructions for the one you find.
+
+    1. If you find an "Expenses" Chart: Extract yearly and quarterly total expenses. Return it in a JSON object under a main key "expenses_analysis".
+    2. If you find a "Five-year summary" Table: Extract the values for "Total income", "Net profit", "Cost-to-income ratio (%)", and "Net interest margin (%)" for all years. Return this data in a JSON object under the key "five_year_summary".
+    3. If you find a "Net Interest Margin (%)" Chart: Extract "Group" and "Commercial book" NIM values for all quarters. Return this data in a JSON object under the key "nim_analysis".
+
+    If none of these specific items are on the page, return an empty JSON object {}.
+    """
+
+    doc = fitz.open(path)
+    for page_num, page_fitz in enumerate(doc, start=1):
+        row_template = {"doc_id": None, "file": fname, "page": page_num, "year": year, "quarter": quarter}
+
+        if page_num in all_key_page_numbers:
+            # --- This is a key page, use the powerful Gemini Vision model ---
+            print(f"      -> Processing key page {page_num} with Vision...")
+            cache_filename = f"{fname.replace('.pdf', '')}__page_{page_num}.json"
+            cache_filepath = os.path.join(CACHE_DIR, cache_filename)
             
-            for page_num, page_text in pages:
-                final_year, final_quarter = year, quarter
-                page_year, page_quarter = infer_period_from_text(page_text, filename_year=year)
-                if final_quarter is None and page_quarter is not None:
-                    if page_year == final_year: final_quarter = page_quarter
-                    elif final_year is None: final_year, final_quarter = page_year, page_quarter
-                
-                for label, block in extract_key_tables_from_page(page_text):
-                    rows.append({"doc_id": str(uuid.uuid4()), "file": fname, "page": page_num, "year": final_year, "quarter": final_quarter, "section_hint": label})
-                    texts.append(block)
-
-        elif _is_tabular(path):
-            blocks = extract_tabular_chunks(path)
-            if not blocks:
-                print(f"          → WARNING: No content extracted from table: {fname}")
+            parsed_json = None
+            if os.path.exists(cache_filepath):
+                with open(cache_filepath, 'r') as f: parsed_json = json.load(f)
+                print(f"          CACHE HIT: Loaded vision data for page {page_num}.")
             else:
-                print(f"          → Table blocks: {len(blocks)}")
-            for block_text, sheet in blocks:
-                section_hint = sheet_section_label(sheet) or f"table:{sheet}"
-                rows.append({"doc_id": str(uuid.uuid4()), "file": fname, "page": 1, "year": year, "quarter": quarter, "section_hint": section_hint})
-                texts.append(block_text)
-        print(f"[Stage1] Done: {fname}")
+                print(f"          CACHE MISS: Calling Vision API for page {page_num}...")
+                try:
+                    pix = page_fitz.get_pixmap(dpi=200)
+                    image = Image.open(io.BytesIO(pix.tobytes("png")))
+                    response = vision_model.generate_content([vision_prompt, image])
+                    time.sleep(6)
+                    
+                    json_match = re.search(r'\{.*\}', response.text, re.DOTALL)
+                    if json_match:
+                        parsed_json = json.loads(json_match.group(0))
+                        with open(cache_filepath, 'w') as f: json.dump(parsed_json, f, indent=2)
+                        print(f"          ✅ Successfully cached vision data for page {page_num}.")
+                    else:
+                        print(f"          ⚠️  Vision model did not return valid JSON for page {page_num}.")
+                except Exception as e:
+                    print(f"          ⚠️  Vision API call failed for page {page_num}: {e}")
 
-    print(f"[Stage1] Total raw chunks prepared: {len(texts)}")
-    kb = pd.DataFrame(rows)
+            if parsed_json:
+                vision_text = format_vision_json_to_text(parsed_json)
+                if vision_text:
+                    row = row_template.copy()
+                    row["doc_id"] = str(uuid.uuid4())
+                    row["section_hint"] = f"vision_summary_p{page_num}"
+                    chunks.append((row, vision_text))
+        else:
+            # --- For all other "normal" pages, use the fast local extractors ---
+            plain_text = page_fitz.get_text("text")
+            if plain_text and plain_text.strip():
+                row = row_template.copy()
+                row["doc_id"] = str(uuid.uuid4())
+                row["section_hint"] = "prose"
+                chunks.append((row, plain_text))
+            
+            try:
+                tables = camelot.read_pdf(path, pages=str(page_num), flavor='lattice', suppress_stdout=True)
+                for i, table in enumerate(tables):
+                    table_md = table.df.to_markdown(index=False)
+                    if table_md:
+                        row = row_template.copy()
+                        row["doc_id"] = str(uuid.uuid4())
+                        row["section_hint"] = f"table_p{page_num}_{i+1}"
+                        chunks.append((row, table_md))
+            except Exception:
+                pass
+            
+    doc.close()
+    return chunks
 
-    # --- Ingestion Reconciliation Report ---
-    print("\n" + "-"*50)
-    print("[Stage1] Final Ingestion Reconciliation Report")
-    print("-"*50)
-    discovered_files = {os.path.basename(p) for p in docs}
-    indexed_files = set(kb['file'].unique()) if not kb.empty else set()
-    missing_files = discovered_files - indexed_files
-    print(f"  - Documents Discovered: {len(discovered_files)}")
-    print(f"  - Documents Indexed:    {len(indexed_files)}")
-    print(f"  - Unindexed / Empty:    {len(missing_files)}")
-    if missing_files:
-        print("\n  [ATTENTION] The following files were NOT indexed (likely empty or parse failure):")
-        for fname in sorted(list(missing_files)): print(f"    - {fname}")
-    else:
-        print("\n  ✅ All discovered documents were successfully indexed.")
-    print("-"*50)
+def build_kb():
+    # --- Gemini Setup ---
+    if 'GEMINI_API_KEY' not in os.environ: raise SystemExit("❌ ERROR: GEMINI_API_KEY not set.")
+    try:
+        genai.configure(api_key=os.environ['GEMINI_API_KEY'])
+        vision_model = genai.GenerativeModel('gemini-2.5-flash')
+    except Exception as e:
+        raise SystemExit(f"❌ ERROR: Could not configure Gemini. Details: {e}")
+
+    # --- Find all documents ---
+    all_docs = sorted([str(p) for p in pathlib.Path(DATA_DIR).rglob("*") if p.is_file()])
+    pdf_docs = [p for p in all_docs if p.lower().endswith(".pdf")]
     
-    # --- Per-File Period Tagging Verification ---
-    print("\n" + "-"*50)
-    print("[Stage1] Per-File Period Tagging Verification Report")
-    print("-"*50)
-    if not kb.empty:
-        for fname in sorted(list(indexed_files)):
-            year_fn, quarter_fn = infer_period_from_filename(fname)
-            expected_str = f"Y={year_fn or 'N/A'}, Q={quarter_fn or 'N/A'}"
-            file_df = kb[kb['file'] == fname]
-            stored_periods = {(int(y) if pd.notna(y) else None, int(q) if pd.notna(q) else None)
-                              for y, q in file_df[['year', 'quarter']].drop_duplicates().to_numpy()}
-            stored_str = "; ".join([f"Y={p[0] or 'N/A'}, Q={p[1] or 'N/A'}" for p in stored_periods])
-            status = ""
-            if len(stored_periods) > 1:
-                status = "⚠️ INCONSISTENT (Multiple periods tagged for one file)"
-            elif len(stored_periods) == 1:
-                y_s, q_s = list(stored_periods)[0]
-                if y_s == year_fn and q_s == quarter_fn: status = "✅ OK"
-                elif y_s == year_fn and quarter_fn is None and q_s is not None: status = "✅ OK (ENHANCED)"
-                else: status = "⚠️ MISMATCH (Stored period conflicts with filename)"
-            print(f"📄 File: {fname}\n   - Expected: {expected_str}\n   - Stored:   {stored_str}\n   - Status:   {status}\n" + "-"*25)
-    print("-"*50 + "\n")
-    
-    if kb.empty: raise SystemExit("No data was indexed. Halting before embedding.")
+    # --- SCOUTING PASS ---
+    print("[Stage1] Starting Scouting Pass to find key pages...")
+    all_key_pages = {}
+    for path in pdf_docs:
+        fname = os.path.basename(path)
+        all_key_pages[fname] = find_key_pages(path)
+    print("[Stage1] Scouting complete. Starting main ingestion process...")
 
-    provider, provider_name = pick_provider()
-    # The provider is now the all-mpnet-base-v2 model
-    print(f"[Stage1] Embedding with model: {provider_name}")
-    vecs = provider.encode(texts, normalize_embeddings=True).astype(np.float32)
+    # --- EXTRACTION PASS ---
+    all_rows, all_texts = [], []
+    for path in all_docs:
+        fname = os.path.basename(path)
+        print(f"\n[Stage1] Processing: {fname}")
+        year, quarter = infer_period_from_filename(fname)
+        
+        doc_chunks = []
+        if path.lower().endswith(".pdf"):
+            key_pages_for_file = all_key_pages.get(fname, {})
+            doc_chunks = process_pdf(path, fname, year, quarter, vision_model, key_pages_for_file)
+        # Add logic for tabular files (Excel/CSV) if needed
+        # elif path.lower().endswith(('.xls', '.xlsx', '.csv')):
+        #     doc_chunks = process_tabular(...) 
+
+        if doc_chunks:
+            print(f"      → Extracted {len(doc_chunks)} chunks from {fname}.")
+            for row, text in doc_chunks: all_rows.append(row); all_texts.append(text)
+        else:
+            print(f"      ⚠️ WARNING: No content extracted from {fname}.")
+
+    if not all_texts: raise SystemExit("No data was indexed.")
+    
+    # --- FINALIZATION PASS (Embedding, Indexing, Saving) ---
+    print(f"\n[Stage1] Total chunks to be indexed: {len(all_texts)}")
+    kb = pd.DataFrame(all_rows)
+
+    model_name = "sentence-transformers/all-MiniLM-L6-v2"
+    provider = SentenceTransformer(model_name)
+    print(f"[Stage1] Embedding {len(all_texts)} chunks...")
+    vecs = provider.encode(all_texts, normalize_embeddings=True, show_progress_bar=True).astype(np.float32)
     dim = provider.get_sentence_embedding_dimension()
-    print(f"[Stage1] Embedded {vecs.shape[0]} chunks (dim={dim})")
 
-    if not _HAVE_FAISS: raise SystemExit("faiss not installed. pip install faiss-cpu")
     index = faiss.IndexFlatIP(dim)
     index.add(vecs)
-    print(f"[Stage1] FAISS index size: {index.ntotal}")
+    
+    kb_path = os.path.join(OUT_DIR, "kb_chunks.parquet"); text_path = os.path.join(OUT_DIR, "kb_texts.npy")
+    index_path = os.path.join(OUT_DIR, "kb_index.faiss"); meta_path = os.path.join(OUT_DIR, "kb_meta.json")
 
-    kb_path, text_path, index_path, meta_path = [os.path.join(OUT_DIR, f) for f in ["kb_chunks.parquet", "kb_texts.npy", "kb_index.faiss", "kb_meta.json"]]
     kb.to_parquet(kb_path, engine='pyarrow', index=False)
-    np.save(text_path, np.array(texts, dtype=object))
+    np.save(text_path, np.array(all_texts, dtype=object))
     faiss.write_index(index, index_path)
-    # Also update the meta file to reflect the new model if necessary
-    with open(meta_path, "w") as f: json.dump({"embedding_provider": f"st:{provider_name}", "dim": dim}, f)
-
-    print(f"Saved KB: {len(kb)} rows → {kb_path}")
-    return {"kb": kb_path, "texts": text_path, "index": index_path, "meta": meta_path}
+    with open(meta_path, "w") as f: json.dump({"embedding_provider": f"st:{model_name}", "dim": dim}, f)
+    
+    print(f"\n[Stage1] Successfully saved all artifacts to '{OUT_DIR}'")
 
 if __name__ == "__main__":
     build_kb()

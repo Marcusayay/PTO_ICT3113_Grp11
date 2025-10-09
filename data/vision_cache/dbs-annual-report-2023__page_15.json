@@ -1,0 +1,22 @@
+{
+  "expenses_analysis": {
+    "yearly_total_expenses": {
+      "2022": 7090,
+      "2023": 8056
+    },
+    "quarterly_total_expenses": {
+      "1Q22": 1644,
+      "2Q22": 1658,
+      "3Q22": 1825,
+      "4Q22": 1963,
+      "1Q23": 1882,
+      "2Q23": 1931,
+      "3Q23": 2038,
+      "4Q23": 2205
+    },
+    "cost_income_ratio_percent": {
+      "2022": 43,
+      "2023": 40
+    }
+  }
+}
