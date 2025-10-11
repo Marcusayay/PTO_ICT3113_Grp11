@@ -11,7 +11,7 @@ import time
 # Main Libraries
 import pandas as pd
 import numpy as np
-import camelot
+import pdfplumber
 import fitz  # PyMuPDF
 from PIL import Image
 import io
@@ -43,6 +43,129 @@ SEARCH_TERMS = {
     "NIM Chart": ["Net interest margin (%)", "Group", "Commercial book"]
 }
 
+# ---- pdfplumber helpers (tables & words -> structures) ----
+import csv  # stdlib, used to optionally dump per-page tables if needed
+
+QTR_PAT     = re.compile(r"^(?:[1-4]Q|[12]H)\d{2}$", re.IGNORECASE)
+NUM_PAT     = re.compile(r"^\s*(-?\d{1,3}(?:,\d{3})*|\d+)(?:\.(\d+))?\s*%?\s*$")
+MONTH_PAT   = re.compile(r"^(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s?\d{2}$", re.IGNORECASE)
+
+def is_period_label(t: str) -> bool:
+    if not t: return False
+    tt = t.strip()
+    return bool(QTR_PAT.match(tt) or MONTH_PAT.match(tt))
+
+def word_cx(w):
+    x0, x1 = w.get("x0"), w.get("x1")
+    return (x0 + x1) / 2.0 if x0 is not None and x1 is not None else None
+
+def to_float(s):
+    txt = (s or "").strip()
+    if re.match(r"^\(\s*[\d,]+(?:\.\d+)?\s*\)$", txt):
+        inner = txt.strip("()").replace(",", "")
+        return -float(inner)
+    m = NUM_PAT.match(txt)
+    if not m: return None
+    whole = m.group(1).replace(",", "")
+    frac  = m.group(2)
+    return float(f"{whole}.{frac}" if frac else whole)
+
+def extract_tables_with_settings(page, setting_name, table_settings):
+    """Call pdfplumber's find_tables+extract with robust defaults; returns list of {headers, rows}."""
+    results = []
+    try:
+        found = page.find_tables(table_settings=table_settings)
+    except Exception as e:
+        return [{"setting": setting_name, "error": f"find_tables error: {e}", "rows": [], "headers": [], "bbox": None}]
+    for t in found:
+        try:
+            data = t.extract(x_tolerance=2, y_tolerance=2)
+        except Exception as e:
+            results.append({"setting": setting_name, "error": f"extract error: {e}", "rows": [], "headers": [], "bbox": getattr(t, "bbox", None)})
+            continue
+        if not data or len(data) < 2 or not any(data[0]):
+            results.append({"setting": setting_name, "warning": "empty_or_headerless_table", "rows": [], "headers": [], "bbox": getattr(t, "bbox", None)})
+            continue
+        header_row = ["" if h is None else str(h).strip() for h in data[0]]
+        body_rows  = [[("" if c is None else str(c)) for c in row] for row in data[1:]]
+        if sum(bool(re.search(r"\d", h or "")) for h in header_row) > len(header_row)//2:
+            header_row = [f"col_{i+1}" for i in range(len(header_row))]
+        results.append({"setting": setting_name, "bbox": getattr(t, "bbox", None), "headers": header_row, "rows": body_rows})
+    return results
+
+def table_to_markdown(headers, rows, max_rows=50):
+    """Render a simple markdown table for vectorization."""
+    hdr = "|" + "|".join(h or "" for h in headers) + "|\n"
+    sep = "|" + "|".join("---" for _ in headers) + "|\n"
+    lines = []
+    for r in rows[:max_rows]:
+        lines.append("|" + "|".join("" if c is None else str(c) for c in r) + "|\n")
+    return hdr + sep + "".join(lines)
+
+def detect_metric_title_from_words(words, page_w, page_h):
+    """
+    Heuristic: slide titles are large-font, top-centered lines spanning wide width.
+    - Group words into lines (by y bucket)
+    - Filter to top ~28% of the page, long-ish text, wide span, not left-legend
+    - Score by font size, span width, and proximity to the top
+    Returns the best-matching line text, or None.
+    """
+    if not words:
+        return None
+
+    # Group words into 'lines' by quantized y (top)
+    lines = {}
+    for w in words:
+        t = (w.get("text") or "").strip()
+        if not t:
+            continue
+        top = w.get("top"); bottom = w.get("bottom")
+        if top is None or bottom is None:
+            continue
+        yb = round(top / 3.0)  # ~3pt bucket
+        lines.setdefault(yb, []).append(w)
+
+    candidates = []
+    for yb, ws in lines.items():
+        # Build text and features for this visual line
+        tokens = [(ww.get("text") or "").strip() for ww in ws if (ww.get("text") or "").strip()]
+        if not tokens:
+            continue
+        text_join = " ".join(tokens)
+        low = text_join.lower()
+        avg_y = sum((ww.get("top", 0.0) + ww.get("bottom", 0.0)) / 2.0 for ww in ws) / len(ws)
+        avg_size = sum((ww.get("size") or 0.0) for ww in ws) / len(ws)
+        x0s = [ww.get("x0") for ww in ws if ww.get("x0") is not None]
+        x1s = [ww.get("x1") for ww in ws if ww.get("x1") is not None]
+        if not x0s or not x1s:
+            continue
+        min_x0 = min(x0s); max_x1 = max(x1s)
+        span = max_x1 - min_x0
+
+        # Basic filters
+        if avg_y > page_h * 0.28:      # too low on the page to be the title
+            continue
+        if len(text_join) < 12:        # very short lines are unlikely to be the title
+            continue
+        if min_x0 < page_w * 0.12:     # exclude left legend/axis area
+            continue
+        if span < page_w * 0.45:       # title usually spans a good width
+            continue
+        # Avoid picking lines that are mostly numbers/units
+        digits = sum(ch.isdigit() for ch in text_join)
+        letters = sum(ch.isalpha() for ch in text_join)
+        if digits > letters:
+            continue
+
+        # Score: large font, wide span, close to the top
+        score = (avg_size * 2.0) + (span / page_w) + (1.0 - (avg_y / page_h))
+        candidates.append((score, text_join))
+
+    if not candidates:
+        return None
+    candidates.sort(key=lambda x: x[0], reverse=True)
+    return candidates[0][1]
+
 # --- 2. Helper Functions ---
 def infer_period_from_filename(fname: str) -> Tuple[Optional[int], Optional[int]]:
     base = fname.upper()
@@ -59,8 +182,10 @@ def find_key_pages(pdf_path: str) -> Dict[str, List[int]]:
         doc = fitz.open(pdf_path)
         for page_num, page in enumerate(doc, start=1):
             text = page.get_text("text")
+            text_l = text.lower()
             for description, keywords in SEARCH_TERMS.items():
-                if all(keyword in text for keyword in keywords):
+                kws_l = [k.lower() for k in keywords]
+                if all(k in text_l for k in kws_l):
                     found_pages.setdefault(description, []).append(page_num)
         doc.close()
     except Exception as e:
@@ -126,10 +251,88 @@ def format_vision_json_to_text(data: dict) -> str:
 
 # --- 3. Main Processing Functions ---
 
+def scan_pdf_with_pdfplumber(pdf_path: str) -> Tuple[dict, dict]:
+    """Scan all pages of a PDF with pdfplumber: text, words, tables; and build a metrics summary."""
+    scan_doc = {"source": pdf_path, "pages": []}
+    metrics_doc = {"source": pdf_path, "pages": []}
+    with pdfplumber.open(pdf_path) as pdf:
+        for idx, page in enumerate(pdf.pages, start=1):
+            try:
+                text = page.extract_text() or ""
+            except Exception as e:
+                text, text_error = "", f"text error: {e}"
+            else:
+                text_error = None
+            try:
+                words = page.extract_words() or []
+            except Exception as e:
+                words, words_error = [], f"words error: {e}"
+            else:
+                words_error = None
+            settings_A = dict(vertical_strategy="lines", horizontal_strategy="lines",
+                              snap_tolerance=3, join_tolerance=3, edge_min_length=15,
+                              intersection_tolerance=3)
+            settings_B = dict(vertical_strategy="text", horizontal_strategy="text",
+                              text_tolerance=2, snap_tolerance=3, join_tolerance=3,
+                              intersection_tolerance=3)
+            tables_A = extract_tables_with_settings(page, "A_lines", settings_A)
+            tables_B = extract_tables_with_settings(page, "B_text", settings_B)
+            page_entry = {
+                "page_number": idx,
+                "width": page.width,
+                "height": page.height,
+                "text_error": text_error,
+                "words_error": words_error,
+                "text": text,
+                "words": [
+                    {
+                        "text": w.get("text", ""),
+                        "x0": w.get("x0"),
+                        "top": w.get("top"),
+                        "x1": w.get("x1"),
+                        "bottom": w.get("bottom"),
+                        "upright": w.get("upright"),
+                        "direction": w.get("direction"),
+                        "fontname": w.get("fontname"),
+                        "size": w.get("size"),
+                    }
+                    for w in words
+                ],
+                "tables": tables_A + tables_B,
+            }
+            scan_doc["pages"].append(page_entry)
+            # Metrics doc: pick biggest table, or empty
+            biggest = None
+            all_tables = tables_A + tables_B
+            if all_tables:
+                def table_size(t):
+                    rows = t.get("rows") or []
+                    cols = len(t.get("headers") or [])
+                    return (len(rows) * max(cols, 1))
+                biggest = max(all_tables, key=table_size)
+            title = detect_metric_title_from_words(page_entry["words"], page_entry["width"], page_entry["height"])
+            if biggest and biggest.get("rows"):
+                metrics_doc["pages"].append({
+                    "page": idx,
+                    "metric": title or "",
+                    "chart_type": "table",
+                    "extracted": {
+                        "headers": biggest.get("headers") or [],
+                        "rows": biggest.get("rows") or []
+                    }
+                })
+            else:
+                metrics_doc["pages"].append({
+                    "page": idx,
+                    "metric": title or "",
+                    "chart_type": "text-or-table",
+                    "extracted": {}
+                })
+    return scan_doc, metrics_doc
+
 def process_pdf(path: str, fname: str, year: Optional[int], quarter: Optional[int], vision_model: genai.GenerativeModel, key_pages: Dict[str, List[int]]) -> List[Tuple[Dict, str]]:
     chunks = []
     all_key_page_numbers = [p for pages in key_pages.values() for p in pages]
-    
     vision_prompt = """
     Analyze the attached image, which is a full page from a financial report.
     Your task is to identify and extract data from ONE of three possible content types: an "Expenses" chart, a "Five-year summary" table, or a "Net Interest Margin" chart. Follow the instructions for the one you find.
@@ -140,17 +343,15 @@ def process_pdf(path: str, fname: str, year: Optional[int], quarter: Optional[in
 
     If none of these specific items are on the page, return an empty JSON object {}.
     """
-
     doc = fitz.open(path)
+    pdfp = pdfplumber.open(path)
     for page_num, page_fitz in enumerate(doc, start=1):
         row_template = {"doc_id": None, "file": fname, "page": page_num, "year": year, "quarter": quarter}
-
         if page_num in all_key_page_numbers:
             # --- This is a key page, use the powerful Gemini Vision model ---
             print(f"      -> Processing key page {page_num} with Vision...")
             cache_filename = f"{fname.replace('.pdf', '')}__page_{page_num}.json"
             cache_filepath = os.path.join(CACHE_DIR, cache_filename)
-            
             parsed_json = None
             if os.path.exists(cache_filepath):
                 with open(cache_filepath, 'r') as f: parsed_json = json.load(f)
@@ -162,7 +363,6 @@ def process_pdf(path: str, fname: str, year: Optional[int], quarter: Optional[in
                     image = Image.open(io.BytesIO(pix.tobytes("png")))
                     response = vision_model.generate_content([vision_prompt, image])
                     time.sleep(6)
-                    
                     json_match = re.search(r'\{.*\}', response.text, re.DOTALL)
                     if json_match:
                         parsed_json = json.loads(json_match.group(0))
@@ -172,14 +372,65 @@ def process_pdf(path: str, fname: str, year: Optional[int], quarter: Optional[in
                         print(f"          ⚠️  Vision model did not return valid JSON for page {page_num}.")
                 except Exception as e:
                     print(f"          ⚠️  Vision API call failed for page {page_num}: {e}")
-
             if parsed_json:
+                # --- Console debug: pretty print structured sections detected on this page ---
+                if "nim_analysis" in parsed_json:
+                    try:
+                        print(f"\n[NIM] page {page_num}")
+                        print(json.dumps(parsed_json["nim_analysis"], indent=2))
+                    except Exception:
+                        pass
+                if "expenses_analysis" in parsed_json:
+                    try:
+                        print(f"\n[EXPENSES] page {page_num}")
+                        print(json.dumps(parsed_json["expenses_analysis"], indent=2))
+                    except Exception:
+                        pass
+                if "five_year_summary" in parsed_json:
+                    try:
+                        print(f"\n[FIVE_YEAR_SUMMARY] page {page_num}")
+                        print(json.dumps(parsed_json["five_year_summary"], indent=2))
+                    except Exception:
+                        pass
+                # --- Convert to retriever-friendly text facts and add as a chunk ---
                 vision_text = format_vision_json_to_text(parsed_json)
                 if vision_text:
                     row = row_template.copy()
                     row["doc_id"] = str(uuid.uuid4())
                     row["section_hint"] = f"vision_summary_p{page_num}"
                     chunks.append((row, vision_text))
+
+            # --- ALSO add local prose + pdfplumber tables for key pages ---
+            # 1) Plain text (from PyMuPDF) for semantic context
+            plain_text = page_fitz.get_text("text")
+            if plain_text and plain_text.strip():
+                row = row_template.copy()
+                row["doc_id"] = str(uuid.uuid4())
+                row["section_hint"] = "prose"
+                chunks.append((row, plain_text))
+
+            # 2) Tables via pdfplumber (two strategies), rendered to Markdown
+            try:
+                page_pl = pdfp.pages[page_num-1]
+                settings_A = dict(vertical_strategy="lines", horizontal_strategy="lines",
+                                  snap_tolerance=3, join_tolerance=3, edge_min_length=15,
+                                  intersection_tolerance=3)
+                settings_B = dict(vertical_strategy="text", horizontal_strategy="text",
+                                  text_tolerance=2, snap_tolerance=3, join_tolerance=3,
+                                  intersection_tolerance=3)
+                tables_A = extract_tables_with_settings(page_pl, "A_lines", settings_A)
+                tables_B = extract_tables_with_settings(page_pl, "B_text", settings_B)
+                all_tables = tables_A + tables_B
+                for i, table in enumerate(all_tables):
+                    if table.get("rows"):
+                        table_md = table_to_markdown(table.get("headers", []), table.get("rows", []))
+                        if table_md:
+                            row = row_template.copy()
+                            row["doc_id"] = str(uuid.uuid4())
+                            row["section_hint"] = f"table_p{page_num}_{i+1}"
+                            chunks.append((row, table_md))
+            except Exception:
+                pass
         else:
             # --- For all other "normal" pages, use the fast local extractors ---
             plain_text = page_fitz.get_text("text")
@@ -188,20 +439,29 @@ def process_pdf(path: str, fname: str, year: Optional[int], quarter: Optional[in
                 row["doc_id"] = str(uuid.uuid4())
                 row["section_hint"] = "prose"
                 chunks.append((row, plain_text))
-            
             try:
-                tables = camelot.read_pdf(path, pages=str(page_num), flavor='lattice', suppress_stdout=True)
-                for i, table in enumerate(tables):
-                    table_md = table.df.to_markdown(index=False)
-                    if table_md:
-                        row = row_template.copy()
-                        row["doc_id"] = str(uuid.uuid4())
-                        row["section_hint"] = f"table_p{page_num}_{i+1}"
-                        chunks.append((row, table_md))
+                page_pl = pdfp.pages[page_num-1]
+                settings_A = dict(vertical_strategy="lines", horizontal_strategy="lines",
+                                  snap_tolerance=3, join_tolerance=3, edge_min_length=15,
+                                  intersection_tolerance=3)
+                settings_B = dict(vertical_strategy="text", horizontal_strategy="text",
+                                  text_tolerance=2, snap_tolerance=3, join_tolerance=3,
+                                  intersection_tolerance=3)
+                tables_A = extract_tables_with_settings(page_pl, "A_lines", settings_A)
+                tables_B = extract_tables_with_settings(page_pl, "B_text", settings_B)
+                all_tables = tables_A + tables_B
+                for i, table in enumerate(all_tables):
+                    if table.get("rows"):
+                        table_md = table_to_markdown(table.get("headers", []), table.get("rows", []))
+                        if table_md:
+                            row = row_template.copy()
+                            row["doc_id"] = str(uuid.uuid4())
+                            row["section_hint"] = f"table_p{page_num}_{i+1}"
+                            chunks.append((row, table_md))
             except Exception:
                 pass
-            
     doc.close()
+    pdfp.close()
     return chunks
 
 def build_kb():
@@ -231,15 +491,21 @@ def build_kb():
         fname = os.path.basename(path)
         print(f"\n[Stage1] Processing: {fname}")
         year, quarter = infer_period_from_filename(fname)
-        
         doc_chunks = []
         if path.lower().endswith(".pdf"):
             key_pages_for_file = all_key_pages.get(fname, {})
+            # --- pdfplumber scan and metrics output ---
+            scan_doc, metrics_doc = scan_pdf_with_pdfplumber(path)
+            base = os.path.splitext(os.path.basename(path))[0]
+            scan_out = os.path.join(OUT_DIR, f"{base}_scan.json")
+            metrics_out = os.path.join(OUT_DIR, f"{base}_metrics.json")
+            with open(scan_out, "w", encoding="utf-8") as f: json.dump(scan_doc, f, ensure_ascii=False, indent=2)
+            with open(metrics_out, "w", encoding="utf-8") as f: json.dump(metrics_doc, f, ensure_ascii=False, indent=2)
+            print(f"      → Saved pdfplumber artifacts: {os.path.basename(scan_out)}, {os.path.basename(metrics_out)}")
             doc_chunks = process_pdf(path, fname, year, quarter, vision_model, key_pages_for_file)
         # Add logic for tabular files (Excel/CSV) if needed
         # elif path.lower().endswith(('.xls', '.xlsx', '.csv')):
         #     doc_chunks = process_tabular(...) 
-
         if doc_chunks:
             print(f"      → Extracted {len(doc_chunks)} chunks from {fname}.")
             for row, text in doc_chunks: all_rows.append(row); all_texts.append(text)
@@ -258,17 +524,33 @@ def build_kb():
     vecs = provider.encode(all_texts, normalize_embeddings=True, show_progress_bar=True).astype(np.float32)
     dim = provider.get_sentence_embedding_dimension()
 
-    index = faiss.IndexFlatIP(dim)
-    index.add(vecs)
-    
     kb_path = os.path.join(OUT_DIR, "kb_chunks.parquet"); text_path = os.path.join(OUT_DIR, "kb_texts.npy")
     index_path = os.path.join(OUT_DIR, "kb_index.faiss"); meta_path = os.path.join(OUT_DIR, "kb_meta.json")
 
     kb.to_parquet(kb_path, engine='pyarrow', index=False)
     np.save(text_path, np.array(all_texts, dtype=object))
-    faiss.write_index(index, index_path)
-    with open(meta_path, "w") as f: json.dump({"embedding_provider": f"st:{model_name}", "dim": dim}, f)
-    
+
+    if _HAVE_FAISS:
+        index = faiss.IndexFlatIP(dim)
+        index.add(vecs)
+        faiss.write_index(index, index_path)
+        index_meta = {"index": "faiss_ip", "dim": dim, "embedding_provider": f"st:{model_name}"}
+    else:
+        # Portable fallback: save normalized vectors; retrieval can do dot-product in numpy.
+        np.save(os.path.join(OUT_DIR, "kb_vectors.npy"), vecs)
+        index_meta = {"index": "naive_ip_numpy", "dim": dim, "embedding_provider": f"st:{model_name}"}
+    with open(meta_path, "w") as f:
+        json.dump(index_meta, f)
+
+    # Optional summary of key pages detected
+    try:
+        print("\n[Stage1] Key pages detected per file:")
+        for fname, kp in all_key_pages.items():
+            if kp:
+                print(f"  - {fname}: " + ", ".join(f"{k} -> {v}" for k, v in kp.items()))
+    except Exception:
+        pass
+
     print(f"\n[Stage1] Successfully saved all artifacts to '{OUT_DIR}'")
 
 if __name__ == "__main__":
