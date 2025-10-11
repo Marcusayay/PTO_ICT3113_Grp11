@@ -1,0 +1,188 @@
+{
+  "source": "All\\2Q25_CEO_presentation.pdf",
+  "pages": [
+    {
+      "page": 1,
+      "metric": "",
+      "chart_type": "table",
+      "extracted": {
+        "headers": [
+          "observations"
+        ],
+        "rows": [
+          [
+            ""
+          ],
+          [
+            "Group Holdings"
+          ],
+          [
+            ""
+          ],
+          [
+            "financial results"
+          ],
+          [
+            ""
+          ],
+          [
+            "August 7, 2025"
+          ]
+        ]
+      }
+    },
+    {
+      "page": 2,
+      "metric": "",
+      "chart_type": "table",
+      "extracted": {
+        "headers": [
+          "Strong"
+        ],
+        "rows": [
+          [
+            ""
+          ],
+          [
+            "Strong 2Q"
+          ],
+          [
+            ""
+          ],
+          [
+            "resilience"
+          ],
+          [
+            ""
+          ],
+          [
+            ""
+          ],
+          [
+            "\nNimble"
+          ],
+          [
+            ""
+          ],
+          [
+            ""
+          ],
+          [
+            ""
+          ],
+          [
+            "Gro\no"
+          ],
+          [
+            ""
+          ],
+          [
+            ""
+          ],
+          [
+            ""
+          ],
+          [
+            "\nRobust"
+          ],
+          [
+            ""
+          ],
+          [
+            ""
+          ],
+          [
+            ""
+          ],
+          [
+            "\nAbility"
+          ],
+          [
+            ""
+          ],
+          [
+            ""
+          ],
+          [
+            ""
+          ],
+          [
+            "Re\no"
+          ],
+          [
+            ""
+          ],
+          [
+            ""
+          ],
+          [
+            "Str\no"
+          ],
+          [
+            ""
+          ],
+          [
+            ""
+          ],
+          [
+            "Ma\no"
+          ],
+          [
+            ""
+          ],
+          [
+            ""
+          ],
+          [
+            ""
+          ],
+          [
+            "\nAsset q"
+          ]
+        ]
+      }
+    },
+    {
+      "page": 3,
+      "metric": "Impact of lower rates offset by proactive hedging and strong deposit growth",
+      "chart_type": "text-or-table",
+      "extracted": {}
+    },
+    {
+      "page": 4,
+      "metric": "",
+      "chart_type": "text-or-table",
+      "extracted": {}
+    },
+    {
+      "page": 5,
+      "metric": "",
+      "chart_type": "table",
+      "extracted": {
+        "headers": [
+          "observations"
+        ],
+        "rows": [
+          [
+            ""
+          ],
+          [
+            "Group Holdings"
+          ],
+          [
+            ""
+          ],
+          [
+            "financial results"
+          ],
+          [
+            ""
+          ],
+          [
+            "August 7, 2025"
+          ]
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,430 @@
+{
+  "source": "All\\1Q25_CEO_presentation.pdf",
+  "pages": [
+    {
+      "page": 1,
+      "metric": "",
+      "chart_type": "table",
+      "extracted": {
+        "headers": [
+          "observations"
+        ],
+        "rows": [
+          [
+            ""
+          ],
+          [
+            "Group Holdings"
+          ],
+          [
+            ""
+          ],
+          [
+            "financial results"
+          ],
+          [
+            ""
+          ],
+          [
+            "May 8, 2025"
+          ]
+        ]
+      }
+    },
+    {
+      "page": 2,
+      "metric": "",
+      "chart_type": "table",
+      "extracted": {
+        "headers": [
+          "Strong start to the year",
+          "",
+          ""
+        ],
+        "rows": [
+          [
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            ""
+          ],
+          [
+            "\nRecord total income and profit before",
+            "tax, ROE",
+            "at 17.3%"
+          ],
+          [
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            ""
+          ],
+          [
+            "\nRobust business growth",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            ""
+          ],
+          [
+            "Group NII up YoY, higher loan and d\no",
+            "eposit vol",
+            "umes mor"
+          ],
+          [
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            ""
+          ],
+          [
+            "Record fees and treasury customer\no",
+            "sales, led",
+            "by strong"
+          ],
+          [
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            ""
+          ],
+          [
+            "momentum",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            ""
+          ],
+          [
+            "Markets trading income highest in 12\no",
+            "quarters",
+            ""
+          ],
+          [
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            ""
+          ],
+          [
+            "\nAsset quality resilient, NPL ratio stabl",
+            "e and SP",
+            "of 10bp"
+          ],
+          [
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            ""
+          ],
+          [
+            "\nGP reserves prudently strengthened in",
+            "light of",
+            "tariff unc"
+          ],
+          [
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            ""
+          ],
+          [
+            "\nTotal dividend of 75 cents comprising",
+            "ordinary",
+            "dividend"
+          ],
+          [
+            "",
+            "",
+            ""
+          ]
+        ]
+      }
+    },
+    {
+      "page": 3,
+      "metric": "",
+      "chart_type": "table",
+      "extracted": {
+        "headers": [
+          "",
+          "\nErosion of rules-based world order",
+          "Pause in client"
+        ],
+        "rows": [
+          [
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "and multilateralism",
+            "uncertainty"
+          ],
+          [
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "\nShift toward a multipolar world",
+            "Reconfiguration"
+          ],
+          [
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "tech links"
+          ],
+          [
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "Diversification of trade currencies",
+            ""
+          ],
+          [
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "and reserve assets",
+            ""
+          ]
+        ]
+      }
+    },
+    {
+      "page": 4,
+      "metric": "Global challenges Opportunities for DBS",
+      "chart_type": "table",
+      "extracted": {
+        "headers": [
+          "",
+          "Trade disruption",
+          "",
+          "Trade shift"
+        ],
+        "rows": [
+          [
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "capital, alt"
+          ],
+          [
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "Global growth slowdown",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "New grow"
+          ],
+          [
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "Interest rate uncertainty",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "Casa grow"
+          ],
+          [
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "Weaker market sentiment",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "Continued"
+          ],
+          [
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "Credit stresses",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "Trading op"
+          ],
+          [
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "hedging d"
+          ]
+        ]
+      }
+    },
+    {
+      "page": 5,
+      "metric": "",
+      "chart_type": "text-or-table",
+      "extracted": {}
+    },
+    {
+      "page": 6,
+      "metric": "",
+      "chart_type": "table",
+      "extracted": {
+        "headers": [
+          "observations"
+        ],
+        "rows": [
+          [
+            ""
+          ],
+          [
+            "Group Holdings"
+          ],
+          [
+            ""
+          ],
+          [
+            "financial results"
+          ],
+          [
+            ""
+          ],
+          [
+            "May 8, 2025"
+          ]
+        ]
+      }
+    }
+  ]
+}

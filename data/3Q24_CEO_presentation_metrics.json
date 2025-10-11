@@ -1,0 +1,432 @@
+{
+  "source": "All\\3Q24_CEO_presentation.pdf",
+  "pages": [
+    {
+      "page": 1,
+      "metric": "",
+      "chart_type": "table",
+      "extracted": {
+        "headers": [
+          "observations"
+        ],
+        "rows": [
+          [
+            ""
+          ],
+          [
+            "Group Holdings"
+          ],
+          [
+            ""
+          ],
+          [
+            "financial results"
+          ],
+          [
+            ""
+          ],
+          [
+            "ovember 7, 2024"
+          ]
+        ]
+      }
+    },
+    {
+      "page": 2,
+      "metric": "Commercial book NIM unchanged, supported by reduced interest rate sensitivity",
+      "chart_type": "table",
+      "extracted": {
+        "headers": [
+          "Another rec",
+          "ord q",
+          "uart",
+          "erly and nine-mo",
+          "nth p",
+          "erform"
+        ],
+        "rows": [
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "\nGroup NII stab",
+            "le QoQ",
+            "as ba",
+            "lance sheet growth off",
+            "set lowe",
+            "r NIM"
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Commerci\no",
+            "al book",
+            "NIM un",
+            "changed, supported by",
+            "reduced",
+            "interest r"
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Lower Gro\no",
+            "up NIM",
+            "due to",
+            "markets trading’s deplo",
+            "yment in",
+            "products"
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "accounting",
+            "asymm",
+            "etry w",
+            "hich are accretive to inc",
+            "ome but",
+            "dilutive to"
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "\nFee income re",
+            "aches",
+            "new hi",
+            "gh",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Strong mo\no",
+            "mentum",
+            "in we",
+            "alth management",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "\nHighest marke",
+            "ts trad",
+            "ing inc",
+            "ome in ten quarters, c",
+            "apitalise",
+            "d on mar"
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "\nCost-income r",
+            "atio sta",
+            "ble at",
+            "39%",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "\nAsset quality r",
+            "esilien",
+            "t, NPL",
+            "ratio lower",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Repaymen\no",
+            "ts, reco",
+            "veries",
+            "and write-offs more than",
+            "offset n",
+            "ew NPA fo"
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "\nNew share bu",
+            "yback p",
+            "rogra",
+            "mme another affirmatio",
+            "n of co",
+            "mmitmen"
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "management,",
+            "underp",
+            "inned",
+            "by strong capital posit",
+            "ion and",
+            "earnings"
+          ]
+        ]
+      }
+    },
+    {
+      "page": 3,
+      "metric": "Slight decline in Group NIM, mostly offset by loan growth",
+      "chart_type": "text-or-table",
+      "extracted": {}
+    },
+    {
+      "page": 4,
+      "metric": "",
+      "chart_type": "table",
+      "extracted": {
+        "headers": [
+          "observations"
+        ],
+        "rows": [
+          [
+            ""
+          ],
+          [
+            "Group Holdings"
+          ],
+          [
+            ""
+          ],
+          [
+            "financial results"
+          ],
+          [
+            ""
+          ],
+          [
+            "ovember 7, 2024"
+          ]
+        ]
+      }
+    }
+  ]
+}
