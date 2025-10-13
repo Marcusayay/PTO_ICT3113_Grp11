@@ -1,0 +1,4 @@
+Query,T_ingest,T_retrieve,T_rerank,T_reason,T_generate,T_total,Tokens,CacheHits,Tools
+"Report the Net Interest Margin (NIM) over the last 5 quarters, with values.",160.2,3477.8,0.0,2606.2,0.0,6084.1,121,0,
+"Show Operating Expenses for the last 3 fiscal years, year-on-year comparison.",160.2,105.2,0.0,547.9,0.0,653.1,100,0,
+"Calculate the Operating Efficiency Ratio (Opex ÷ Operating Income) for the last 3 fiscal years, showing the working.",160.2,80.0,0.0,488.6,0.0,568.6,101,0,

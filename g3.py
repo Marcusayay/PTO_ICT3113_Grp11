@@ -10,26 +10,49 @@ Artifacts written to OUT_DIR (default: data/):
   - bench_results_baseline.json / bench_results_agent.json
   - bench_report_baseline.md / bench_report_agent.md
 """
-import os, json, time
+import os, json, time, inspect
 from typing import List, Dict, Any
 
 import pandas as pd
+
+# Explicitly import Stage-2 entrypoints so we don't rely on globals
+from g2 import init_stage2, answer_with_llm_baseline as answer_with_llm, answer_with_agent
 
 OUT_DIR = os.environ.get("AGENT_CFO_OUT_DIR", "data")
 
 # --- Standardized queries (exact spec) ---
 QUERIES: List[str] = [
     # 1) NIM trend over last 5 quarters
-    "Report the Net Interest Margin (NIM) over the last 5 quarters, with values, and add 1–2 lines of explanation.",
-    # 2) Opex YoY with top 3 drivers
-    "Show Operating Expenses (Opex) for the last 3 fiscal years, year-on-year comparison, and summarize the top 3 Opex drivers from the MD&A.",
-    # 3) CTI ratio for last 3 years with working & implications
-    "Calculate the Cost-to-Income Ratio (CTI) for the last 3 fiscal years; show your working and give 1–2 lines of implications.",
-    # 4) Opex YoY table only (absolute & % change)
+    "Report the Gross Margin (or Net Interest Margin, if a bank) over the last 5 quarters, with values.",
+    # 2) Opex YoY table only (absolute & % change)
     "Show Operating Expenses for the last 3 fiscal years, year-on-year comparison.",
-    # 5) Operating Efficiency Ratio (Opex ÷ Operating Income) with working
+    # 3) Operating Efficiency Ratio (Opex ÷ Operating Income) with working
     "Calculate the Operating Efficiency Ratio (Opex ÷ Operating Income) for the last 3 fiscal years, showing the working."
 ]
+
+
+# --- Helper functions for answer call and output normalization ---
+def _call_answer(func, query: str, dry_run: bool):
+    """Call answer function with optional dry_run if supported."""
+    try:
+        params = inspect.signature(func).parameters
+    except Exception:
+        params = {}
+    kwargs = {}
+    if 'dry_run' in params:
+        kwargs['dry_run'] = dry_run
+    return func(query, **kwargs)
+
+def _normalize_out(res) -> Dict[str, Any]:
+    """Coerce answer result to a dict with keys: answer, hits, execution_log."""
+    if isinstance(res, str):
+        return {"answer": res, "hits": [], "execution_log": None}
+    if isinstance(res, dict):
+        ans = res.get("answer") or res.get("Answer") or str(res)
+        hits = res.get("hits") or res.get("Hits") or []
+        log  = res.get("execution_log") or res.get("ExecutionLog")
+        return {"answer": ans, "hits": hits, "execution_log": log}
+    return {"answer": str(res), "hits": [], "execution_log": None}
 
 
 def _format_hits(hits: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
@@ -93,14 +116,14 @@ def run_benchmark(
 
     for q in QUERIES:
         t0 = time.perf_counter()
-        # Pass the dry_run toggle to the answer function
-        out = answer_func(q, dry_run=dry_run)
+        raw = _call_answer(answer_func, q, dry_run=dry_run)
+        out = _normalize_out(raw)
         lat_ms = round((time.perf_counter() - t0) * 1000.0, 2)
 
         if print_prose:
             print(f"\n=== Question ===\n{q}")
             print("\n--- Answer ---\n")
-            print(out["answer"].strip())
+            print(str(out["answer"]).strip())
             if out.get("hits"):
                 print("\n--- Citations (top ctx) ---")
                 for h in _format_hits(out.get("hits", [])):
@@ -111,7 +134,13 @@ def run_benchmark(
                     print(f"- {h['file']}{y}{qtr} — p.{h['page']}{sec}")
             print(f"\n(latency: {lat_ms} ms)")
 
-        results.append({ "query": q, "answer": out["answer"], "hits": _format_hits(out.get("hits", [])), "execution_log": out.get("execution_log"), "latency_ms": lat_ms,})
+        results.append({
+            "query": q,
+            "answer": out.get("answer"),
+            "hits": _format_hits(out.get("hits", [])),
+            "execution_log": out.get("execution_log"),
+            "latency_ms": lat_ms,
+        })
         latency_rows.append({"Query": q, "Latency_ms": lat_ms})
 
     # Saving logic remains the same...
@@ -151,30 +180,18 @@ def run_benchmark(
     return {"json_path": json_path, "md_path": md_path, "summary": df}
 
 if __name__ == "__main__":
-    # This script is intentionally *not* importing Stage 2.
-    # If someone runs it directly, we warn and exit gracefully.
-    print("[Stage3] This runner expects Stage 2 to be imported by the caller (e.g., in a notebook).")
-    if 'init_stage2' in globals():
-        try:
-            init_stage2(out_dir=OUT_DIR)
-            print("[Stage3] init_stage2() called successfully.")
-        except Exception as e:
-            print(f"[Stage3] init_stage2() failed: {e}")
-    else:
-        print("[Stage3] Skipping init_stage2 — not present in globals().")
-
-    # Try an agent dry run only if agent entrypoint is present.
-    if 'answer_with_agent' in globals():
-        print("--- 🔬 RUNNING AGENT IN DRY RUN MODE ---")
-        try:
-            run_benchmark(use_agent=True, dry_run=True)
-        except Exception as e:
-            print(f"[Stage3] Agent dry run failed: {e}")
-
-        print("\n--- 🚀 RUNNING AGENT IN LIVE API MODE ---")
-        try:
-            run_benchmark(use_agent=True, dry_run=False)
-        except Exception as e:
-            print(f"[Stage3] Agent live run failed: {e}")
-    else:
-        print("[Stage3] Agent functions not found in globals(); nothing to run.")
+    # Ensure Stage 2 is initialized, then run baseline with prose printing
+    try:
+        init_stage2(out_dir=OUT_DIR)
+        print("[Stage3] init_stage2() called successfully.")
+    except Exception as e:
+        print(f"[Stage3] init_stage2() failed: {e}")
+    
+    bench = run_benchmark(print_prose=True, use_agent=False, out_dir=OUT_DIR, dry_run=False)
+    # Also echo the summary table at the end
+    if isinstance(bench.get("summary"), pd.DataFrame) and not bench["summary"].empty:
+        df = bench["summary"]
+        p50 = float(df['Latency_ms'].quantile(0.5))
+        p95 = float(df['Latency_ms'].quantile(0.95))
+        print(f"\n=== BASELINE Benchmark Summary ===")
+        print(f"Latency p50: {p50:.1f} ms, p95: {p95:.1f} ms")

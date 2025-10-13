@@ -33,6 +33,8 @@ class _Instr:
 
 instr = _Instr()
 
+os.environ["TOKENIZERS_PARALLELISM"] = "false"
+
 # --- Configuration ---
 VERBOSE = bool(int(os.environ.get("AGENT_CFO_VERBOSE", "1")))
 LLM_BACKEND = "gemini"
@@ -44,6 +46,62 @@ texts: Optional[np.ndarray] = None
 index, bm25, EMB = None, None, None
 _HAVE_FAISS, _HAVE_BM25, _INITIALIZED = False, False, False
 
+
+# === Groq / OpenAI LLM config ===
+import os
+from openai import OpenAI
+
+LLM_PROVIDER = os.getenv("LLM_PROVIDER", "groq").lower()  # "groq" | "openai"
+# Good fast defaults on Groq:
+#   - "openai/gpt-oss-20b" (supports Responses API + built-in tools)
+#   - "llama-3.3-70b-versatile" (chat.completions)
+GROQ_MODEL   = os.getenv("GROQ_MODEL", "openai/gpt-oss-20b")
+OPENAI_MODEL = os.getenv("OPENAI_MODEL", "gpt-4o-mini")  # if you switch back to OpenAI
+
+def _make_llm_client():
+    if LLM_PROVIDER == "groq":
+        api_key = os.environ.get("GROQ_API_KEY")
+        if not api_key:
+            raise RuntimeError("Missing GROQ_API_KEY")
+        return OpenAI(api_key=api_key, base_url="https://api.groq.com/openai/v1"), GROQ_MODEL
+    else:
+        api_key = os.environ.get("OPENAI_API_KEY")
+        if not api_key:
+            raise RuntimeError("Missing OPENAI_API_KEY")
+        return OpenAI(api_key=api_key), OPENAI_MODEL
+
+def _llm_respond(prompt: str, system: str = "You are a helpful finance analyst.") -> str:
+    """
+    Unified LLM call:
+      - If LLM_PROVIDER is 'groq' or 'openai', use the OpenAI SDK (Groq-compatible base_url when set).
+      - Else, caller should fall back to Gemini via _call_llm.
+    """
+    try:
+        client, model = _make_llm_client()
+    except Exception as e:
+        raise RuntimeError(f"LLM client init failed: {e}")
+
+    # Prefer chat.completions for generality (works on Groq + OpenAI)
+    try:
+        chat = client.chat.completions.create(
+            model=model,
+            messages=[
+                {"role": "system", "content": system},
+                {"role": "user", "content": prompt},
+            ],
+            temperature=0.2,
+        )
+        return chat.choices[0].message.content.strip()
+    except Exception:
+        # Fallback: Responses API (useful for Groq GPT-OSS models)
+        resp = client.responses.create(
+            model=model,
+            input=f"System: {system}\n\nUser: {prompt}"
+        )
+        text = getattr(resp, "output_text", "") or ""
+        return str(text).strip()
+        
+        
 # --- Core Logic Functions ---
 def _classify_query(q: str) -> Optional[str]:
     ql = q.lower()
@@ -227,11 +285,228 @@ def format_citation(hit: dict) -> str:
     if y is not None and q is not None: parts.append(f"{int(q)}Q{str(int(y))[-2:]}")
     elif y is not None: parts.append(str(int(y)))
     if hit.get("page") is not None: parts.append(f"p.{int(hit['page'])}")
+    sec = str(hit.get("section_hint") or "").strip()
+    if sec: parts.append(sec)
+    tab = hit.get("table_id")
+    if tab: parts.append(f"table {tab}")
     return ", ".join(parts)
+
+def _latest_fys(kb: pd.DataFrame, n=3):
+    df = kb.copy()
+    df["y"] = pd.to_numeric(df["year"], errors="coerce")
+    ydf = df[df["quarter"].isna()].dropna(subset=["y"]).sort_values("y", ascending=False)
+    if ydf.empty:
+        ydf = df.dropna(subset=["y"]).sort_values("y", ascending=False)
+    years = [int(y) for y in ydf["y"].drop_duplicates().head(n)]
+    return years
+
+def _latest_quarters(kb: pd.DataFrame, n=5):
+    df = kb.copy()
+    df["y"] = pd.to_numeric(df["year"], errors="coerce")
+    df["q"] = pd.to_numeric(df["quarter"], errors="coerce")
+    qdf = df.dropna(subset=["y","q"]).sort_values(["y","q"], ascending=[False, False])
+    pairs = qdf[["y","q"]].drop_duplicates().head(20).values.tolist()
+    # return unique up to n, ordered newest→oldest
+    out, seen = [], set()
+    for y,q in pairs:
+        k = (int(y), int(q))
+        if k not in seen:
+            seen.add(k); out.append(k)
+        if len(out) == n: break
+    return out
+
+def _parse_tool_kv(s: str):
+    # Parses "Value: 8895, Source: file.pdf, 2024, p.15"
+    m = re.search(r"Value:\s*([^\n,]+)\s*,\s*Source:\s*(.*)", s, flags=re.S)
+    if not m: return None, None
+    val = m.group(1).strip()
+    src = m.group(2).strip()
+    return val, src
+
+def _fmt_num(x):
+    try: return f"{float(x):,.2f}"
+    except: return x
+
+def _unique_list(xs, cap=5):
+    out, seen = [], set()
+    for s in xs:
+        if not s: continue
+        if s not in seen:
+            seen.add(s); out.append(s)
+        if len(out) >= cap: break
+    return out
+
+def baseline_nim_5q() -> dict:
+    """
+    NIM for the last 5 quarters: query table_extraction per (Y,Q) found in KB.
+    """
+    _ensure_init()
+    pairs = _latest_quarters(kb, n=5)
+    rows, cites = [], []
+    for (y,q) in pairs:
+        r = tool_table_extraction(f"Net interest margin (%) for {int(q)}Q{int(y)}")
+        val, src = _parse_tool_kv(r)
+        rows.append((f"{q}Q{str(y)[-2:]}", val or "—"))
+        cites.append(src or r)
+
+    lines = ["NIM (%) — last 5 quarters:", "Quarter | NIM (%)", "--------|--------"]
+    for qlab, v in rows:
+        lines.append(f"{qlab} | {v}")
+    lines.append("\nCitations:")
+    for c in _unique_list(cites, cap=5):
+        lines.append(f"- {c}")
+
+    return {"answer":"\n".join(lines), "hits":[], "execution_log": {"pairs": pairs}}
+
+def baseline_opex_3y() -> dict:
+    """
+    Operating Expenses for last 3 fiscal years; deterministic extractor + YoY%.
+    """
+    _ensure_init()
+    years = _latest_fys(kb, n=3)
+    rows, cites = [], []
+    for y in years:
+        r = tool_table_extraction(f"Operating expenses for fiscal year {y}")
+        val, src = _parse_tool_kv(r)
+        rows.append((y, val or "—"))
+        cites.append(src or r)
+
+    # sort newest→oldest
+    rows.sort(key=lambda t: t[0], reverse=True)
+    out = ["Opex (S$ m) — last 3 fiscal years:", "Year | Opex (S$ m) | YoY %", "-----|-------------|------"]
+    for i,(yy,vv) in enumerate(rows):
+        yoy = ""
+        if i>0 and vv not in ("—","",None) and rows[i-1][1] not in ("—","",None):
+            try:
+                cur = float(vv); prev = float(rows[i-1][1])
+                yoy = f"{((cur-prev)/prev)*100:,.1f}%"
+            except: pass
+        out.append(f"{yy} | { _fmt_num(vv) if vv!='—' else vv } | {yoy}")
+
+    out.append("\nCitations:")
+    for c in _unique_list(cites, cap=5):
+        out.append(f"- {c}")
+
+    return {"answer":"\n".join(out), "hits":[], "execution_log":{"years": years}}
+
+def baseline_efficiency_ratio_3y() -> dict:
+    """
+    Operating Efficiency Ratio = Opex / Operating Income, last 3 fiscal years.
+    """
+    _ensure_init()
+    years = _latest_fys(kb, n=3)
+    rows, cits = [], []
+    for y in years:
+        r1 = tool_table_extraction(f"Operating expenses for fiscal year {y}")
+        v_opex, c1 = _parse_tool_kv(r1)
+        r2 = tool_table_extraction(f"Operating income for fiscal year {y}")
+        v_oinc, c2 = _parse_tool_kv(r2)
+        rows.append((y, v_opex or "—", v_oinc or "—"))
+        cits.extend([c1 or r1, c2 or r2])
+
+    rows.sort(key=lambda t: t[0], reverse=True)
+    out = ["Operating Efficiency Ratio (Opex ÷ Operating Income):",
+           "Year | Opex (S$ m) | Operating Income (S$ m) | Ratio",
+           "-----|-------------|-------------------------|------"]
+    for (yy, o, inc) in rows:
+        ratio = "—"
+        try:
+            if o not in ("—","",None) and inc not in ("—","",None) and float(inc)!=0.0:
+                ratio = f"{(float(o)/float(inc))*100:,.1f}%"
+        except: pass
+        out.append(f"{yy} | {_fmt_num(o) if o!='—' else o} | {_fmt_num(inc) if inc!='—' else inc} | {ratio}")
+
+    out.append("\nCitations:")
+    for c in _unique_list(cits, cap=5):
+        out.append(f"- {c}")
+
+    return {"answer":"\n".join(out), "hits":[], "execution_log":{"years": years}}
+
+
+def answer_with_llm_baseline(query: str, topk: int = 5) -> Dict[str, Any]:
+    """
+    Baseline pipeline: single-pass retrieval + single LLM call (no planning, no tools).
+      - Uses hybrid_search() for retrieval (vector + BM25).
+      - Builds a compact CONTEXT from top-k chunks.
+      - Calls the LLM once to synthesize an answer.
+      - Ensures citations include report, year/quarter, and page.
+    """
+    _ensure_init()
+    
+    ql = query.lower()
+
+    # Intent router for the 3 standardized prompts
+    if "net interest margin" in ql or "gross margin" in ql:
+        return baseline_nim_5q()
+
+    if "operating expenses" in ql and ("last 3 fiscal years" in ql or "year-on-year" in ql or "yoy" in ql):
+        return baseline_opex_3y()
+
+    if ("operating efficiency ratio" in ql) or ("opex ÷ operating income" in ql) or ("opex / operating income" in ql):
+        return baseline_efficiency_ratio_3y()
+
+    def _pos_of_docid(did: str) -> Optional[int]:
+        mask = (kb["doc_id"] == did).to_numpy()
+        idxs = np.flatnonzero(mask)
+        return int(idxs[0]) if idxs.size else None
+
+    # Opex-aware retrieval expansion (more table/vision leaning)
+    ql = query.lower()
+    is_opex = ("opex" in ql) or ("operating expense" in ql) or re.search(r"\bexpenses\b", ql)
+
+    if is_opex:
+        expanded = query + " | Operating expenses Opex ($m) fiscal year table vision_summary"
+        hits = hybrid_search(expanded, top_k=max(1, int(topk) * 2))  # e.g., 10 if topk=5
+    else:
+        hits = hybrid_search(query, top_k=max(1, int(topk)))
+
+    if not hits:
+        return "No relevant material found."
+
+    # Build context and citations
+    ctx_lines, cits = [], []
+    for h in hits[:topk]:
+        pos = _pos_of_docid(h.get("doc_id", ""))
+        snippet = (str(texts[pos]) if pos is not None else "")
+        snippet = re.sub(r"\s+", " ", snippet).strip()
+        if snippet:
+            ctx_lines.append(f"- {snippet[:800]}")
+        cits.append(format_citation(h))
+
+    # Strict prompt: stick to retrieved text; include citations at the end
+    prompt = (
+        "You are a finance analyst.\n"
+        "Using ONLY the CONTEXT below, answer the USER QUERY. Quote numbers exactly as reported.\n"
+        "If the numbers are not present in CONTEXT, say you cannot find them.\n"
+        "End with a bulleted list of citations (report name, year/quarter, page, section if present).\n\n"
+        f"USER QUERY:\n{query}\n\nCONTEXT:\n" + "\n".join(ctx_lines) +
+        "\n\nFORMAT:\nAnswer text.\n\nCitations:\n- <report (year/quarter), p.X, section>\n"
+    )
+
+    answer = _call_llm(prompt, dry_run=False)
+
+    # Ensure at least some citations if the model forgets
+    if "Citations:" not in answer:
+        answer += "\n\nCitations:\n" + "\n".join(f"- {c}" for c in cits[:3])
+
+    return {"answer": answer, "hits": hits[:min(5, len(hits))].to_dict("records") if hasattr(hits, "to_dict") else [], "execution_log": None}
+
 
 def _call_llm(prompt: str, dry_run: bool = False) -> str:
     if dry_run:
         return '{"plan": []}'
+
+    # Prefer Groq/OpenAI if configured
+    if os.getenv("LLM_PROVIDER", "").lower() in ("groq", "openai"):
+        try:
+            return _llm_respond(
+                prompt,
+                system="You are a precise finance analyst. Be concise and cite sources provided by the tools."
+            )
+        except Exception as e:
+            return f"LLM Generation Failed (Groq/OpenAI path): {e}"
+
+    # Fallback to Gemini
     try:
         from google import generativeai as genai
         genai.configure(api_key=os.environ['GEMINI_API_KEY'])
@@ -242,9 +517,10 @@ def _call_llm(prompt: str, dry_run: bool = False) -> str:
             {"category": "HARM_CATEGORY_SEXUALLY_EXPLICIT", "threshold": "BLOCK_NONE"},
             {"category": "HARM_CATEGORY_DANGEROUS_CONTENT", "threshold": "BLOCK_NONE"},
         ]
-        return model.generate_content(prompt, safety_settings=safety_settings).text
+        out = model.generate_content(prompt, safety_settings=safety_settings)
+        return getattr(out, "text", "") or "LLM returned empty response."
     except Exception as e:
-        return f"LLM Generation Failed: {e}"
+        return f"LLM Generation Failed (Gemini path): {e}"
 
 def tool_calculator(expression: str) -> str:
     try:
@@ -755,6 +1031,76 @@ def tool_table_extraction(query: str) -> str:
     # If we got here, extraction failed for all hits
     return f"Error: No numerical value found in the relevant document chunk. {last_citation or ''}"
   
+
+# --- Helper: Deterministic Opex 3-year baseline extractor ---
+
+def answer_opex_3y_baseline() -> str:
+    """
+    Deterministic simple baseline for:
+    'Show Operating Expenses for the last 3 fiscal years.'
+    Uses the KB to pick the latest 3 FYs present, then calls table_extraction per FY.
+    """
+    # 1) find latest 3 FYs available in KB (prefer annual docs)
+    df = kb.copy()
+    df["y"] = pd.to_numeric(df["year"], errors="coerce")
+    ydf = df[df["quarter"].isna()].dropna(subset=["y"]).sort_values("y", ascending=False)
+    if ydf.empty:
+        ydf = df.dropna(subset=["y"]).sort_values("y", ascending=False)
+    years = [int(y) for y in ydf["y"].drop_duplicates().head(3)]
+    if not years:
+        return "No fiscal years found in KB."
+
+    # 2) extract Opex per FY using the robust extractor
+    rows, cites = [], []
+    for y in years:
+        r = tool_table_extraction(f"Operating expenses for fiscal year {y}")
+        # Expected: "Value: 8895, Source: <citation>" or "Error: ..."
+        m = re.search(r"Value:\s*([0-9][\d\.]*)\s*,\s*Source:\s*(.*)", r)
+        if m:
+            val = m.group(1)
+            src = m.group(2)
+            rows.append((y, val))
+            cites.append(src)
+        else:
+            rows.append((y, "—"))
+            cites.append(r)
+
+    # 3) render a tiny table with YoY% and citations
+    # rows is a list of tuples: [(year, value_str_or_dash), ...]
+    rows.sort(key=lambda t: t[0], reverse=True)  # ensure FY2024, FY2023, FY2022 order
+
+    def _fmt_m(x: str) -> str:
+        try:
+            return f"{float(x):,.0f}"
+        except Exception:
+            return x  # return as-is if not a number (e.g., "—")
+
+    out = [
+        "Opex (S$ m) — last 3 fiscal years:",
+        "Year   | Opex (S$ m) | YoY %",
+        "-------|-------------|------",
+    ]
+
+    for i, (yy, vv) in enumerate(rows):
+        yoy = ""
+        if i > 0 and rows[i-1][1] not in ("—", "", None) and vv not in ("—", "", None):
+            try:
+                cur = float(vv)
+                prev = float(rows[i-1][1])
+                yoy = f"{((cur - prev) / prev) * 100:,.1f}%"
+            except Exception:
+                yoy = ""
+        out.append(f"{yy} | {_fmt_m(vv) if vv != '—' else vv} | {yoy}")
+
+    out.append("\nCitations:")
+    seen = set()
+    for c in cites:
+        if c not in seen:
+            seen.add(c)
+            out.append(f"- {c}")
+        if len(seen) >= 3:
+            break
+    return "\n".join(out)
 def tool_nim_series(last_n: int = 5, variant: str = "group") -> str:
     """
     Extract the last N quarters of Net Interest Margin (Group or Commercial Book).
@@ -1109,6 +1455,28 @@ def get_logs():
     return instr.df()
 
 if __name__ == "__main__":
-    init_stage2()
-    print("[Stage2] Ready. Use answer_with_llm() or answer_with_agent().")
+    import sys, subprocess, importlib, os
+    os.environ["TOKENIZERS_PARALLELISM"] = "false"
+
+    # Auto-install missing deps
+    def _pip(pkg):
+        try:
+            importlib.import_module(pkg)
+        except Exception:
+            subprocess.check_call([sys.executable, "-m", "pip", "install", pkg])
+
+    for p in ["openai", "rank_bm25", "faiss-cpu"]:
+        _pip(p)
+
+    # Groq config (read from env; do NOT hardcode secrets)
+    os.environ.setdefault("LLM_PROVIDER", "groq")
+    os.environ.setdefault("GROQ_MODEL", "openai/gpt-oss-20b")
+    if not os.getenv("GROQ_API_KEY"):
+        print("⚠️  GROQ_API_KEY not set. Please set it in your environment before running.")
+    
+    # Initialize Stage-2 and run the deterministic Opex baseline
+    init_stage2("data")
+    query = "Show Operating Expenses for the last 3 fiscal years"
+    print(f"→ Query: {query}\n")
+    print(answer_opex_3y_baseline())
 

@@ -1,188 +1,35 @@
 {
-  "source": "All\\2Q25_CEO_presentation.pdf",
+  "source": "2Q25_CEO_presentation.pdf",
   "pages": [
     {
       "page": 1,
-      "metric": "",
-      "chart_type": "table",
-      "extracted": {
-        "headers": [
-          "observations"
-        ],
-        "rows": [
-          [
-            ""
-          ],
-          [
-            "Group Holdings"
-          ],
-          [
-            ""
-          ],
-          [
-            "financial results"
-          ],
-          [
-            ""
-          ],
-          [
-            "August 7, 2025"
-          ]
-        ]
-      }
+      "metric": "CEO observations",
+      "chart_type": "text-or-table",
+      "extracted": {}
     },
     {
       "page": 2,
-      "metric": "",
-      "chart_type": "table",
-      "extracted": {
-        "headers": [
-          "Strong"
-        ],
-        "rows": [
-          [
-            ""
-          ],
-          [
-            "Strong 2Q"
-          ],
-          [
-            ""
-          ],
-          [
-            "resilience"
-          ],
-          [
-            ""
-          ],
-          [
-            ""
-          ],
-          [
-            "\nNimble"
-          ],
-          [
-            ""
-          ],
-          [
-            ""
-          ],
-          [
-            ""
-          ],
-          [
-            "Gro\no"
-          ],
-          [
-            ""
-          ],
-          [
-            ""
-          ],
-          [
-            ""
-          ],
-          [
-            "\nRobust"
-          ],
-          [
-            ""
-          ],
-          [
-            ""
-          ],
-          [
-            ""
-          ],
-          [
-            "\nAbility"
-          ],
-          [
-            ""
-          ],
-          [
-            ""
-          ],
-          [
-            ""
-          ],
-          [
-            "Re\no"
-          ],
-          [
-            ""
-          ],
-          [
-            ""
-          ],
-          [
-            "Str\no"
-          ],
-          [
-            ""
-          ],
-          [
-            ""
-          ],
-          [
-            "Ma\no"
-          ],
-          [
-            ""
-          ],
-          [
-            ""
-          ],
-          [
-            ""
-          ],
-          [
-            "\nAsset q"
-          ]
-        ]
-      }
+      "metric": "Strong quarter, bringing first half to new high",
+      "chart_type": "text-or-table",
+      "extracted": {}
     },
     {
       "page": 3,
-      "metric": "Impact of lower rates offset by proactive hedging and strong deposit growth",
+      "metric": "Impact of lower rates offset by proactive hedging and strong deposit growth o",
       "chart_type": "text-or-table",
       "extracted": {}
     },
     {
       "page": 4,
-      "metric": "",
+      "metric": "Head start in digital assets since 2021",
       "chart_type": "text-or-table",
       "extracted": {}
     },
     {
       "page": 5,
-      "metric": "",
-      "chart_type": "table",
-      "extracted": {
-        "headers": [
-          "observations"
-        ],
-        "rows": [
-          [
-            ""
-          ],
-          [
-            "Group Holdings"
-          ],
-          [
-            ""
-          ],
-          [
-            "financial results"
-          ],
-          [
-            ""
-          ],
-          [
-            "August 7, 2025"
-          ]
-        ]
-      }
+      "metric": "CEO observations",
+      "chart_type": "text-or-table",
+      "extracted": {}
     }
   ]
 }

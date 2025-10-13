@@ -1,1 +1,1 @@
-{"index": "naive_ip_numpy", "dim": 384, "embedding_provider": "st:sentence-transformers/all-MiniLM-L6-v2"}
+{"index": "faiss_ip", "dim": 384, "embedding_provider": "st:sentence-transformers/all-MiniLM-L6-v2"}

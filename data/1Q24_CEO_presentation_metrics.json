@@ -1,317 +1,41 @@
 {
-  "source": "All\\1Q24_CEO_presentation.pdf",
+  "source": "1Q24_CEO_presentation.pdf",
   "pages": [
     {
       "page": 1,
-      "metric": "",
-      "chart_type": "table",
-      "extracted": {
-        "headers": [
-          "observations"
-        ],
-        "rows": [
-          [
-            ""
-          ],
-          [
-            "Group Holdings"
-          ],
-          [
-            ""
-          ],
-          [
-            "financial results"
-          ],
-          [
-            ""
-          ],
-          [
-            "May 2, 2024"
-          ]
-        ]
-      }
+      "metric": "CEO observations",
+      "chart_type": "text-or-table",
+      "extracted": {}
     },
     {
       "page": 2,
-      "metric": "Total income and net profit reach new highs, ROE at record 19.4%",
+      "metric": "Total income and net profit reach new highs, ROE at record 19.4% o",
       "chart_type": "text-or-table",
       "extracted": {}
     },
     {
       "page": 3,
-      "metric": "Wealth management fees rise from stronger market sentiment and an expanded",
+      "metric": "Wealth management fees rise from stronger market sentiment and an expanded o",
       "chart_type": "text-or-table",
       "extracted": {}
     },
     {
       "page": 4,
-      "metric": "",
-      "chart_type": "table",
-      "extracted": {
-        "headers": [
-          "tw",
-          "ithstanding M",
-          "AS decision"
-        ],
-        "rows": [
-          [
-            "",
-            "",
-            ""
-          ],
-          [
-            "n-",
-            "essential activ",
-            "ities, will co"
-          ],
-          [
-            "",
-            "",
-            ""
-          ],
-          [
-            "ili",
-            "ency",
-            ""
-          ],
-          [
-            "",
-            "",
-            ""
-          ],
-          [
-            "",
-            "",
-            ""
-          ],
-          [
-            "ro",
-            "gress made in exec",
-            "uting on technolo"
-          ],
-          [
-            "",
-            "",
-            ""
-          ],
-          [
-            "",
-            "",
-            ""
-          ],
-          [
-            "",
-            "",
-            ""
-          ],
-          [
-            "o",
-            "Greater service avail",
-            "ability"
-          ],
-          [
-            "",
-            "",
-            ""
-          ],
-          [
-            "",
-            "",
-            ""
-          ],
-          [
-            "",
-            "",
-            ""
-          ],
-          [
-            "o",
-            "Alternate channels fo",
-            "r payments and ac"
-          ],
-          [
-            "",
-            "",
-            ""
-          ],
-          [
-            "",
-            "",
-            ""
-          ],
-          [
-            "",
-            "",
-            ""
-          ],
-          [
-            "o",
-            "Faster full recovery o",
-            "f services"
-          ],
-          [
-            "",
-            "",
-            ""
-          ],
-          [
-            "",
-            "",
-            ""
-          ],
-          [
-            "",
-            "",
-            ""
-          ],
-          [
-            "o",
-            "Greater payments/ tr",
-            "ansaction certainty"
-          ],
-          [
-            "",
-            "",
-            ""
-          ],
-          [
-            "",
-            "",
-            ""
-          ],
-          [
-            "",
-            "",
-            ""
-          ],
-          [
-            "ev",
-            "eral areas remain a",
-            "work-in-progress"
-          ],
-          [
-            "",
-            "",
-            ""
-          ],
-          [
-            "",
-            "",
-            ""
-          ],
-          [
-            "",
-            "",
-            ""
-          ],
-          [
-            "o",
-            "Continued simplificat",
-            "ion and strengthen"
-          ],
-          [
-            "",
-            "",
-            ""
-          ],
-          [
-            "",
-            "",
-            ""
-          ],
-          [
-            "",
-            "",
-            ""
-          ],
-          [
-            "o",
-            "Building deeper expe",
-            "rtise in centres of"
-          ],
-          [
-            "",
-            "",
-            ""
-          ],
-          [
-            "",
-            "",
-            ""
-          ],
-          [
-            "",
-            "",
-            ""
-          ],
-          [
-            "o",
-            "Broadening use of ar",
-            "tificial intelligence t"
-          ],
-          [
-            "",
-            "",
-            ""
-          ],
-          [
-            "",
-            "",
-            ""
-          ],
-          [
-            "",
-            "",
-            ""
-          ],
-          [
-            "o",
-            "Creating more monit",
-            "oring tools so as to"
-          ],
-          [
-            "",
-            "",
-            ""
-          ]
-        ]
-      }
+      "metric": "Notwithstanding MAS decision not to extend 6-month pause on",
+      "chart_type": "text-or-table",
+      "extracted": {}
     },
     {
       "page": 5,
-      "metric": "",
+      "metric": "Outlook",
       "chart_type": "text-or-table",
       "extracted": {}
     },
     {
       "page": 6,
-      "metric": "",
-      "chart_type": "table",
-      "extracted": {
-        "headers": [
-          "observations"
-        ],
-        "rows": [
-          [
-            ""
-          ],
-          [
-            "Group Holdings"
-          ],
-          [
-            ""
-          ],
-          [
-            "financial results"
-          ],
-          [
-            ""
-          ],
-          [
-            "May 2, 2024"
-          ]
-        ]
-      }
+      "metric": "CEO observations",
+      "chart_type": "text-or-table",
+      "extracted": {}
     }
   ]
 }
