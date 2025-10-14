@@ -1,0 +1,42 @@
+{
+  "source": "2Q24_performance_summary.pdf",
+  "pages": [
+    {
+      "page": 6,
+      "metric": "Net interest margin (%)",
+      "chart_type": "line-like",
+      "extracted": {
+        "1H24": {
+          "group_nim": 3.69,
+          "commercial_nim": 3.71
+        }
+      }
+    },
+    {
+      "page": 8,
+      "metric": "Net interest margin (%)",
+      "chart_type": "line-like",
+      "extracted": {
+        "1Q24": {
+          "group_nim": 3.93,
+          "commercial_nim": 3.93
+        }
+      }
+    },
+    {
+      "page": 8,
+      "metric": "DBS GROUP HOLDINGS LTD AND ITS SUBSIDIARIES Per share data8, 11 ($)",
+      "chart_type": "stacked-bar",
+      "extracted": {
+        "1Q24": {
+          "Markets trading": 22.12,
+          "Total": 2024.0
+        },
+        "2Q24": {
+          "Markets trading": 21.55,
+          "Total": 21.55
+        }
+      }
+    }
+  ]
+}

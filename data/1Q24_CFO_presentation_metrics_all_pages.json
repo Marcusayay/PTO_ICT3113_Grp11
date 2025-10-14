@@ -1,0 +1,240 @@
+{
+  "source": "1Q24_CFO_presentation.pdf",
+  "pages": [
+    {
+      "page": 3,
+      "metric": "Net interest margin (%)",
+      "chart_type": "line-like",
+      "extracted": {
+        "1Q23": {
+          "group_nim": 2.12,
+          "commercial_nim": 2.69
+        },
+        "1Q24": {
+          "group_nim": 2.14,
+          "commercial_nim": 2.77
+        }
+      }
+    },
+    {
+      "page": 3,
+      "metric": "1Q net profit up 15% YoY to new quarterly high",
+      "chart_type": "stacked-bar",
+      "extracted": {
+        "1Q24": {
+          "Markets trading": 9.0,
+          "Commercial book": 14.0
+        }
+      }
+    },
+    {
+      "page": 4,
+      "metric": "Net interest margin (%)",
+      "chart_type": "line-like",
+      "extracted": {
+        "4Q23": {
+          "group_nim": 2.13,
+          "commercial_nim": 2.75
+        },
+        "1Q24": {
+          "group_nim": 2.14,
+          "commercial_nim": 2.77
+        }
+      }
+    },
+    {
+      "page": 4,
+      "metric": "record Commercial book total income up 9% led by record",
+      "chart_type": "stacked-bar",
+      "extracted": {
+        "1Q24": {
+          "Total": 9.0
+        }
+      }
+    },
+    {
+      "page": 5,
+      "metric": "Net interest margin (%)",
+      "chart_type": "line-like",
+      "extracted": {
+        "1Q23": {
+          "group_nim": 2.12,
+          "commercial_nim": 2.69
+        },
+        "2Q23": {
+          "group_nim": 2.16,
+          "commercial_nim": 2.81
+        },
+        "3Q23": {
+          "group_nim": 2.19,
+          "commercial_nim": 2.82
+        },
+        "4Q23": {
+          "group_nim": 2.13,
+          "commercial_nim": 2.75
+        },
+        "1Q24": {
+          "group_nim": 2.14,
+          "commercial_nim": 2.77
+        }
+      }
+    },
+    {
+      "page": 5,
+      "metric": "1Q commercial book net interest income stable, NIM up 2bp to",
+      "chart_type": "stacked-bar",
+      "extracted": {
+        "1Q23": {
+          "Markets trading": -113.0
+        },
+        "2Q23": {
+          "Markets trading": -148.0
+        },
+        "3Q23": {
+          "Markets trading": -180.0
+        },
+        "4Q23": {
+          "Markets trading": -203.0
+        },
+        "1Q24": {
+          "Markets trading": -142.0
+        }
+      }
+    },
+    {
+      "page": 6,
+      "metric": "Loans up 1% QoQ in constant-currency terms",
+      "chart_type": "stacked-bar",
+      "extracted": {
+        "2Q23": {
+          "Trade": -4.0
+        }
+      }
+    },
+    {
+      "page": 8,
+      "metric": "1Q fee income growth due to wealth management, cards and",
+      "chart_type": "stacked-bar",
+      "extracted": {
+        "1Q23": {
+          "Total": 1008.0
+        },
+        "2Q23": {
+          "Total": 999.0
+        },
+        "3Q23": {
+          "Total": 1048.0
+        },
+        "4Q23": {
+          "Total": 1069.0
+        },
+        "1Q24": {
+          "Total": 1271.0
+        }
+      }
+    },
+    {
+      "page": 9,
+      "metric": "1Q commercial book non-interest income up 30% YoY from",
+      "chart_type": "stacked-bar",
+      "extracted": {
+        "1Q23": {
+          "Markets trading": 382.0,
+          "Net fee income": 851.0
+        },
+        "2Q23": {
+          "Markets trading": 325.0,
+          "Net fee income": 823.0
+        },
+        "3Q23": {
+          "Markets trading": 346.0,
+          "Net fee income": 843.0
+        },
+        "4Q23": {
+          "Markets trading": 316.0,
+          "Net fee income": 867.0,
+          "Commercial book": 30.0,
+          "Non-interest income": 30.0
+        },
+        "1Q24": {
+          "Markets trading": 388.0,
+          "Net fee income": 1043.0
+        }
+      }
+    },
+    {
+      "page": 11,
+      "metric": "NPL ratio unchanged QoQ at 1.1%",
+      "chart_type": "stacked-bar",
+      "extracted": {
+        "1Q23": {
+          "Others": -133.0,
+          "CBG / WM": -9.0,
+          "Other IBG": -133.0,
+          "Total": 5125.0
+        },
+        "2Q23": {
+          "Others": -5.0,
+          "CBG / WM": -7.0,
+          "Other IBG": -5.0,
+          "Total": 4990.0
+        },
+        "3Q23": {
+          "Others": -41.0,
+          "CBG / WM": 45.0,
+          "Other IBG": -41.0,
+          "Total": 5303.0
+        },
+        "4Q23": {
+          "Others": -139.0,
+          "CBG / WM": -23.0,
+          "Other IBG": -139.0,
+          "Total": 5303.0
+        },
+        "1Q24": {
+          "Others": 75.0,
+          "CBG / WM": 43.0,
+          "Other IBG": 75.0,
+          "Total": 5221.0
+        }
+      }
+    },
+    {
+      "page": 12,
+      "metric": "1Q SP remains low at 10bp",
+      "chart_type": "stacked-bar",
+      "extracted": {
+        "1Q23": {
+          "Others": 24.0,
+          "CBG / WM": 34.0,
+          "Other IBG": 24.0,
+          "Total": 2023.0
+        },
+        "2Q23": {
+          "Others": 57.0,
+          "CBG / WM": 49.0,
+          "Other IBG": 57.0,
+          "Total": 116.0
+        },
+        "3Q23": {
+          "Others": 114.0,
+          "CBG / WM": 73.0,
+          "Other IBG": 114.0,
+          "Total": 196.0
+        },
+        "4Q23": {
+          "Others": 25.0,
+          "CBG / WM": 90.0,
+          "Other IBG": 25.0,
+          "Total": 139.0
+        },
+        "1Q24": {
+          "Others": 5.0,
+          "CBG / WM": 96.0,
+          "Other IBG": 5.0,
+          "Total": 115.0
+        }
+      }
+    }
+  ]
+}

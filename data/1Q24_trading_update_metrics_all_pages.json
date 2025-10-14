@@ -1,0 +1,28 @@
+{
+  "source": "1Q24_trading_update.pdf",
+  "pages": [
+    {
+      "page": 6,
+      "metric": "Net interest margin (%)",
+      "chart_type": "line-like",
+      "extracted": {
+        "1Q24": {
+          "group_nim": 3.27,
+          "commercial_nim": 3.6
+        }
+      }
+    },
+    {
+      "page": 6,
+      "metric": "\u2013 reported earnings 4.57 4.02 3.60 \u2013 net book value10 23.71 21.41 23.14",
+      "chart_type": "stacked-bar",
+      "extracted": {
+        "1Q24": {
+          "Net interest income": 2023.0,
+          "Non-interest income": 2023.0,
+          "Total": 2023.0
+        }
+      }
+    }
+  ]
+}

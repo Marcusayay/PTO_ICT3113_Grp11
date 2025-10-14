@@ -1,0 +1,300 @@
+{
+  "source": "1Q25_CFO_presentation.pdf",
+  "pages": [
+    {
+      "page": 3,
+      "metric": "5,542 4 Commercial book net interest income rises 2% 363 48",
+      "chart_type": "stacked-bar",
+      "extracted": {
+        "1Q25": {
+          "Markets trading": 2.0,
+          "Commercial book": 2.0,
+          "Net interest income": 2.0
+        }
+      }
+    },
+    {
+      "page": 4,
+      "metric": "Net interest margin (%)",
+      "chart_type": "line-like",
+      "extracted": {
+        "4Q24": {
+          "group_nim": 2.15,
+          "commercial_nim": 2.77
+        },
+        "1Q25": {
+          "group_nim": 2.12,
+          "commercial_nim": 2.68
+        }
+      }
+    },
+    {
+      "page": 4,
+      "metric": "1Q net profit rises 10% QoQ",
+      "chart_type": "stacked-bar",
+      "extracted": {
+        "1Q25": {
+          "Markets trading": 363.0,
+          "Commercial book": 5542.0,
+          "Total": 5905.0
+        }
+      }
+    },
+    {
+      "page": 5,
+      "metric": "Net interest margin (%)",
+      "chart_type": "line-like",
+      "extracted": {
+        "1Q24": {
+          "group_nim": 2.14,
+          "commercial_nim": 2.77
+        },
+        "2Q24": {
+          "group_nim": 2.14,
+          "commercial_nim": 2.83
+        },
+        "3Q24": {
+          "group_nim": 2.11,
+          "commercial_nim": 2.83
+        },
+        "4Q24": {
+          "group_nim": 2.15,
+          "commercial_nim": 2.77
+        },
+        "1Q25": {
+          "group_nim": 2.12,
+          "commercial_nim": 2.68
+        }
+      }
+    },
+    {
+      "page": 5,
+      "metric": "1Q group net interest income up 1% day-adjusted QoQ,",
+      "chart_type": "stacked-bar",
+      "extracted": {
+        "1Q24": {
+          "Markets trading": -142.0,
+          "Commercial book": 3647.0
+        },
+        "2Q24": {
+          "Markets trading": -175.0,
+          "Commercial book": 3769.0
+        },
+        "3Q24": {
+          "Markets trading": -199.0,
+          "Commercial book": 3796.0,
+          "Net interest income": 1.0
+        },
+        "4Q24": {
+          "Markets trading": -103.0,
+          "Commercial book": 3831.0
+        },
+        "1Q25": {
+          "Markets trading": -38.0,
+          "Commercial book": 3719.0
+        }
+      }
+    },
+    {
+      "page": 6,
+      "metric": "Loans up 2% QoQ led by non-trade corporate loans",
+      "chart_type": "stacked-bar",
+      "extracted": {
+        "2Q24": {
+          "Trade": -4.0
+        }
+      }
+    },
+    {
+      "page": 7,
+      "metric": "Deposits up 3% QoQ from Casa inflows",
+      "chart_type": "stacked-bar",
+      "extracted": {
+        "1Q24": {
+          "SGD Casa": -11.0
+        },
+        "3Q24": {
+          "FCY Casa": -0.0
+        },
+        "4Q24": {
+          "SGD Casa": -2.0
+        }
+      }
+    },
+    {
+      "page": 8,
+      "metric": "1Q fee income at record with wealth management and",
+      "chart_type": "stacked-bar",
+      "extracted": {
+        "1Q24": {
+          "Investment banking": 18.0,
+          "Cards": 301.0,
+          "Transaction services": 231.0,
+          "Total": 47.0
+        },
+        "2Q24": {
+          "Investment banking": 19.0,
+          "Cards": 313.0,
+          "Transaction services": 228.0,
+          "Total": 37.0
+        },
+        "3Q24": {
+          "Investment banking": 31.0,
+          "Cards": 302.0,
+          "Transaction services": 227.0,
+          "Total": 55.0
+        },
+        "4Q24": {
+          "Investment banking": 33.0,
+          "Cards": 324.0,
+          "Transaction services": 232.0,
+          "Total": 41.0
+        },
+        "1Q25": {
+          "Investment banking": 724.0,
+          "Cards": 297.0,
+          "Transaction services": 239.0,
+          "Total": 35.0
+        }
+      }
+    },
+    {
+      "page": 9,
+      "metric": "Record quarterly Wealth Management income, AUM at new high",
+      "chart_type": "stacked-bar",
+      "extracted": {
+        "1Q24": {
+          "Net interest income": 672.0,
+          "Non-interest income": 48.0,
+          "Total": 433.0
+        },
+        "2Q24": {
+          "Net interest income": 661.0,
+          "Non-interest income": 44.0,
+          "Total": 447.0
+        },
+        "3Q24": {
+          "Net interest income": 649.0,
+          "Non-interest income": 52.0,
+          "Total": 452.0
+        },
+        "4Q24": {
+          "Net interest income": 639.0,
+          "Non-interest income": 36.0,
+          "Total": 477.0
+        },
+        "1Q25": {
+          "Net interest income": 624.0,
+          "Non-interest income": 32.0,
+          "Total": 483.0
+        }
+      }
+    },
+    {
+      "page": 10,
+      "metric": "1Q commercial book non-interest income up YoY and QoQ",
+      "chart_type": "stacked-bar",
+      "extracted": {
+        "1Q24": {
+          "Markets trading": 388.0,
+          "Net fee income": 1043.0,
+          "Total": 1664.0
+        },
+        "2Q24": {
+          "Markets trading": 362.0,
+          "Net fee income": 1048.0,
+          "Total": 1526.0
+        },
+        "3Q24": {
+          "Markets trading": 530.0,
+          "Net fee income": 1109.0,
+          "Total": 1626.0
+        },
+        "4Q24": {
+          "Markets trading": 261.0,
+          "Net fee income": 968.0,
+          "Total": 1516.0
+        },
+        "1Q25": {
+          "Markets trading": 548.0,
+          "Net fee income": 1275.0,
+          "Total": 1823.0
+        }
+      }
+    },
+    {
+      "page": 12,
+      "metric": "NPA declines 3% QoQ due to lower new NPA formation and",
+      "chart_type": "stacked-bar",
+      "extracted": {
+        "1Q24": {
+          "Others": 75.0,
+          "CBG / WM": 43.0,
+          "Other IBG": 75.0,
+          "Total": 5221.0
+        },
+        "2Q24": {
+          "Others": -152.0,
+          "CBG / WM": 5.0,
+          "Other IBG": -152.0,
+          "Total": 5221.0
+        },
+        "3Q24": {
+          "Others": -214.0,
+          "CBG / WM": -23.0,
+          "Other IBG": -214.0,
+          "Total": 5077.0
+        },
+        "4Q24": {
+          "Others": 81.0,
+          "CBG / WM": 101.0,
+          "Other IBG": 81.0,
+          "Total": 5036.0
+        },
+        "1Q25": {
+          "Others": -146.0,
+          "CBG / WM": 19.0,
+          "Other IBG": -146.0,
+          "Total": 5036.0
+        }
+      }
+    },
+    {
+      "page": 13,
+      "metric": "1Q SP at 10bp",
+      "chart_type": "stacked-bar",
+      "extracted": {
+        "1Q24": {
+          "Others": 5.0,
+          "CBG / WM": 96.0,
+          "Other IBG": 5.0,
+          "Total": 115.0
+        },
+        "2Q24": {
+          "Others": -11.0,
+          "CBG / WM": 100.0,
+          "Other IBG": -11.0,
+          "Total": 97.0
+        },
+        "3Q24": {
+          "Others": 43.0,
+          "CBG / WM": 110.0,
+          "Other IBG": 43.0,
+          "Total": 120.0
+        },
+        "4Q24": {
+          "Others": 106.0,
+          "CBG / WM": 113.0,
+          "Other IBG": 106.0,
+          "Total": 228.0
+        },
+        "1Q25": {
+          "Others": -14.0,
+          "CBG / WM": 117.0,
+          "Other IBG": -14.0,
+          "Total": 111.0
+        }
+      }
+    }
+  ]
+}

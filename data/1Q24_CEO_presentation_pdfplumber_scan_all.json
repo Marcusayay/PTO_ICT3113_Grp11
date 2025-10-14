@@ -1,0 +1,5919 @@
+{
+  "source": "1Q24_CEO_presentation.pdf",
+  "pages": [
+    {
+      "page_number": 1,
+      "width": 960.0,
+      "height": 540.0,
+      "text_error": null,
+      "words_error": null,
+      "text": "CEO observations\nDBS Group Holdings\n1Q 2024 financial results\nMay 2, 2024\nDisclaimer: The information contained in this document is intended only for use during the presentation and should not be disseminated or distributed to parties outside the presentation.\nDBS Bank accepts no liability whatsoever with respect to the use of this document or its contents.",
+      "words": [
+        {
+          "text": "CEO",
+          "x0": 568.7599,
+          "top": 204.32670000000002,
+          "x1": 646.8079,
+          "bottom": 240.32670000000002,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "observations",
+          "x0": 656.7439,
+          "top": 204.32670000000002,
+          "x1": 880.7718999999998,
+          "bottom": 240.32670000000002,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "DBS",
+          "x0": 602.56,
+          "top": 286.58746,
+          "x1": 661.5276399999999,
+          "bottom": 314.54746,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "Group",
+          "x0": 669.3899919999999,
+          "top": 286.58746,
+          "x1": 753.200092,
+          "bottom": 314.54746,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "Holdings",
+          "x0": 761.196652,
+          "top": 286.58746,
+          "x1": 880.66414,
+          "bottom": 314.54746,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "1Q",
+          "x0": 551.92444,
+          "top": 326.90578,
+          "x1": 589.279,
+          "bottom": 354.86578,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "2024",
+          "x0": 597.049084,
+          "top": 326.90578,
+          "x1": 659.3998839999999,
+          "bottom": 354.86578,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "financial",
+          "x0": 667.2566439999999,
+          "top": 326.90578,
+          "x1": 780.8832879999999,
+          "bottom": 354.86578,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "results",
+          "x0": 788.82952,
+          "top": 326.90578,
+          "x1": 880.7172640000001,
+          "bottom": 354.86578,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "May",
+          "x0": 724.85704,
+          "top": 367.2241,
+          "x1": 779.2839759999999,
+          "bottom": 395.1841,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "2,",
+          "x0": 787.258168,
+          "top": 367.2241,
+          "x1": 810.6327279999999,
+          "bottom": 395.1841,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "2024",
+          "x0": 818.349688,
+          "top": 367.2241,
+          "x1": 880.700488,
+          "bottom": 395.1841,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "Disclaimer:",
+          "x0": 59.8253,
+          "top": 501.97339999999997,
+          "x1": 99.616064,
+          "bottom": 510.0134,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "The",
+          "x0": 101.58104,
+          "top": 501.97339999999997,
+          "x1": 115.40984000000002,
+          "bottom": 510.0134,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "information",
+          "x0": 117.66104000000001,
+          "top": 501.97339999999997,
+          "x1": 157.52336000000005,
+          "bottom": 510.0134,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "contained",
+          "x0": 159.65154800000008,
+          "top": 501.97339999999997,
+          "x1": 194.47198400000008,
+          "bottom": 510.0134,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "in",
+          "x0": 196.95956000000007,
+          "top": 501.97339999999997,
+          "x1": 203.22995600000007,
+          "bottom": 510.0134,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "this",
+          "x0": 205.48115600000006,
+          "top": 501.97339999999997,
+          "x1": 218.01873200000003,
+          "bottom": 510.0134,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "document",
+          "x0": 220.11878000000002,
+          "top": 501.97339999999997,
+          "x1": 255.46422799999996,
+          "bottom": 510.0134,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "is",
+          "x0": 257.79261199999996,
+          "top": 501.97339999999997,
+          "x1": 263.61276799999996,
+          "bottom": 510.0134,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "intended",
+          "x0": 265.8326119999999,
+          "top": 501.97339999999997,
+          "x1": 296.57355199999984,
+          "bottom": 510.0134,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "only",
+          "x0": 299.0611279999998,
+          "top": 501.97339999999997,
+          "x1": 313.75663999999983,
+          "bottom": 510.0134,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "for",
+          "x0": 315.98050399999977,
+          "top": 501.97339999999997,
+          "x1": 325.37524399999984,
+          "bottom": 510.0134,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "use",
+          "x0": 327.6208159999999,
+          "top": 501.97339999999997,
+          "x1": 340.60863199999983,
+          "bottom": 510.0134,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "during",
+          "x0": 342.8558119999998,
+          "top": 501.97339999999997,
+          "x1": 365.08078399999977,
+          "bottom": 510.0134,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "the",
+          "x0": 367.5691639999998,
+          "top": 501.97339999999997,
+          "x1": 378.7568239999998,
+          "bottom": 510.0134,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "presentation",
+          "x0": 381.00802399999986,
+          "top": 501.97339999999997,
+          "x1": 425.18621599999983,
+          "bottom": 510.0134,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "and",
+          "x0": 427.67379199999993,
+          "top": 501.97339999999997,
+          "x1": 441.02019199999984,
+          "bottom": 510.0134,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "should",
+          "x0": 443.3879719999999,
+          "top": 501.97339999999997,
+          "x1": 467.0521039999999,
+          "bottom": 510.0134,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "not",
+          "x0": 469.4198839999998,
+          "top": 501.97339999999997,
+          "x1": 480.5311639999998,
+          "bottom": 510.0134,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "be",
+          "x0": 482.8595479999998,
+          "top": 501.97339999999997,
+          "x1": 491.7678679999998,
+          "bottom": 510.0134,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "disseminated",
+          "x0": 494.13564799999983,
+          "top": 501.97339999999997,
+          "x1": 541.7621959999999,
+          "bottom": 510.0134,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "or",
+          "x0": 543.769784,
+          "top": 501.97339999999997,
+          "x1": 550.885184,
+          "bottom": 510.0134,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "distributed",
+          "x0": 553.1307559999999,
+          "top": 501.97339999999997,
+          "x1": 590.232944,
+          "bottom": 510.0134,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "to",
+          "x0": 592.6007239999999,
+          "top": 501.97339999999997,
+          "x1": 599.351108,
+          "bottom": 510.0134,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "parties",
+          "x0": 601.598288,
+          "top": 501.97339999999997,
+          "x1": 625.6523599999999,
+          "bottom": 510.0134,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "outside",
+          "x0": 627.872204,
+          "top": 501.97339999999997,
+          "x1": 653.81648,
+          "bottom": 510.0134,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "the",
+          "x0": 656.18426,
+          "top": 501.97339999999997,
+          "x1": 667.3719199999999,
+          "bottom": 510.0134,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "presentation.",
+          "x0": 669.62312,
+          "top": 501.97339999999997,
+          "x1": 716.0042719999999,
+          "bottom": 510.0134,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "DBS",
+          "x0": 59.817259999999976,
+          "top": 511.57316,
+          "x1": 76.34026399999998,
+          "bottom": 519.61316,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "Bank",
+          "x0": 78.54000799999997,
+          "top": 511.57316,
+          "x1": 96.83583199999997,
+          "bottom": 519.61316,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "accepts",
+          "x0": 99.17547199999998,
+          "top": 511.57316,
+          "x1": 126.950456,
+          "bottom": 519.61316,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "no",
+          "x0": 129.173516,
+          "top": 511.57316,
+          "x1": 138.081836,
+          "bottom": 519.61316,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "liability",
+          "x0": 140.449616,
+          "top": 511.57316,
+          "x1": 164.62589600000004,
+          "bottom": 519.61316,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "whatsoever",
+          "x0": 166.72835600000002,
+          "top": 511.57316,
+          "x1": 207.55708400000003,
+          "bottom": 519.61316,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "with",
+          "x0": 210.03983599999998,
+          "top": 511.57316,
+          "x1": 224.23043599999994,
+          "bottom": 519.61316,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "respect",
+          "x0": 226.59821599999992,
+          "top": 511.57316,
+          "x1": 252.9485119999999,
+          "bottom": 519.61316,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "to",
+          "x0": 255.15629599999986,
+          "top": 511.57316,
+          "x1": 261.9066799999998,
+          "bottom": 519.61316,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "the",
+          "x0": 264.1546639999998,
+          "top": 511.57316,
+          "x1": 275.34312799999975,
+          "bottom": 519.61316,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "use",
+          "x0": 277.7109079999998,
+          "top": 511.57316,
+          "x1": 290.69952799999976,
+          "bottom": 519.61316,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "of",
+          "x0": 292.94751199999973,
+          "top": 511.57316,
+          "x1": 299.62071199999974,
+          "bottom": 519.61316,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "this",
+          "x0": 301.94507599999974,
+          "top": 511.57316,
+          "x1": 314.4834559999997,
+          "bottom": 519.61316,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "document",
+          "x0": 316.7065159999997,
+          "top": 511.57316,
+          "x1": 352.0519639999997,
+          "bottom": 519.61316,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "or",
+          "x0": 354.2597479999997,
+          "top": 511.57316,
+          "x1": 361.37514799999974,
+          "bottom": 519.61316,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "its",
+          "x0": 363.6175039999997,
+          "top": 511.57316,
+          "x1": 371.71780399999966,
+          "bottom": 519.61316,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "contents.",
+          "x0": 373.9408639999997,
+          "top": 511.57316,
+          "x1": 406.6475839999997,
+          "bottom": 519.61316,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        }
+      ],
+      "tables": [
+        {
+          "setting": "B_text",
+          "bbox": [
+            656.7439,
+            204.32670000000002,
+            880.7718999999998,
+            395.1841
+          ],
+          "headers": [
+            "observations"
+          ],
+          "rows": [
+            [
+              ""
+            ],
+            [
+              "Group Holdings"
+            ],
+            [
+              ""
+            ],
+            [
+              "financial results"
+            ],
+            [
+              ""
+            ],
+            [
+              "May 2, 2024"
+            ]
+          ]
+        }
+      ],
+      "pdf_name": "1Q24_CEO_presentation.pdf"
+    },
+    {
+      "page_number": 2,
+      "width": 960.0,
+      "height": 540.0,
+      "text_error": null,
+      "words_error": null,
+      "text": "Strong start to the year\n\nRecord 1Q performance\nTotal income and net profit reach new highs, ROE at record 19.4%\no\n\nLoan growth better than recent quarters\nLoans increase 1% qoq, driven by a broad-based 3% rise in non-trade\no\ncorporate loans\n\nGroup NIM stable, underlying trends in line with guidance\nCommercial book NIM up 2bp qoq despite lower Hibor due to fixed-rate asset\no\nrepricing; Casa outflows slow from the previous year\nMarkets Trading’s deployment in high-quality assets accretive to net interest\no\nincome but dilutive to NIM\n2",
+      "words": [
+        {
+          "text": "Strong",
+          "x0": 63.3868,
+          "top": 42.88826,
+          "x1": 153.448756,
+          "bottom": 70.84826000000004,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "start",
+          "x0": 161.445316,
+          "top": 42.88826,
+          "x1": 222.25831599999995,
+          "bottom": 70.84826000000004,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "to",
+          "x0": 230.11507599999996,
+          "top": 42.88826,
+          "x1": 256.56523599999997,
+          "bottom": 70.84826000000004,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "the",
+          "x0": 264.32133999999996,
+          "top": 42.88826,
+          "x1": 306.27531999999997,
+          "bottom": 70.84826000000004,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "year",
+          "x0": 314.252308,
+          "top": 42.88826,
+          "x1": 371.5731040000001,
+          "bottom": 70.84826000000004,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "",
+          "x0": 62.942,
+          "top": 94.25984,
+          "x1": 72.12031999999999,
+          "bottom": 114.29983999999996,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "Record",
+          "x0": 85.50703999999999,
+          "top": 97.56644,
+          "x1": 154.631012,
+          "bottom": 117.60643999999996,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "1Q",
+          "x0": 160.031792,
+          "top": 97.56644,
+          "x1": 186.78118399999997,
+          "bottom": 117.60643999999996,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "performance",
+          "x0": 192.17996,
+          "top": 97.56644,
+          "x1": 313.60632799999996,
+          "bottom": 117.60643999999996,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "Total",
+          "x0": 125.94775999999999,
+          "top": 128.58836000000002,
+          "x1": 168.32033599999997,
+          "bottom": 148.62836,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "income",
+          "x0": 173.71109599999997,
+          "top": 128.58836000000002,
+          "x1": 238.376168,
+          "bottom": 148.62836,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "and",
+          "x0": 243.794984,
+          "top": 128.58836000000002,
+          "x1": 277.26178400000003,
+          "bottom": 148.62836,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "net",
+          "x0": 282.68260399999997,
+          "top": 128.58836000000002,
+          "x1": 310.578284,
+          "bottom": 148.62836,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "profit",
+          "x0": 315.92695999999995,
+          "top": 128.58836000000002,
+          "x1": 360.50193199999984,
+          "bottom": 148.62836,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "reach",
+          "x0": 365.7303679999998,
+          "top": 128.58836000000002,
+          "x1": 415.9966999999998,
+          "bottom": 148.62836,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "new",
+          "x0": 421.2972799999998,
+          "top": 128.58836000000002,
+          "x1": 458.0907199999997,
+          "bottom": 148.62836,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "highs,",
+          "x0": 463.5415999999998,
+          "top": 128.58836000000002,
+          "x1": 517.1205439999999,
+          "bottom": 148.62836,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "ROE",
+          "x0": 522.34898,
+          "top": 128.58836000000002,
+          "x1": 565.83578,
+          "bottom": 148.62836,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "at",
+          "x0": 571.3087040000001,
+          "top": 128.58836000000002,
+          "x1": 588.0421040000001,
+          "bottom": 148.62836,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "record",
+          "x0": 593.3907800000002,
+          "top": 128.58836000000002,
+          "x1": 650.3765240000004,
+          "bottom": 148.62836,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "19.4%",
+          "x0": 655.5568640000004,
+          "top": 128.58836000000002,
+          "x1": 712.3802840000005,
+          "bottom": 148.62836,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "o",
+          "x0": 98.95387999999998,
+          "top": 135.70256,
+          "x1": 110.97787999999998,
+          "bottom": 155.74256000000003,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "",
+          "x0": 62.941999999999986,
+          "top": 168.30764,
+          "x1": 72.12031999999999,
+          "bottom": 188.34763999999996,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "Loan",
+          "x0": 85.50703999999999,
+          "top": 171.61424,
+          "x1": 133.398632,
+          "bottom": 191.65423999999996,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "growth",
+          "x0": 138.91965199999999,
+          "top": 171.61424,
+          "x1": 205.883312,
+          "bottom": 191.65423999999996,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "better",
+          "x0": 211.04361199999997,
+          "top": 171.61424,
+          "x1": 266.842988,
+          "bottom": 191.65423999999996,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "than",
+          "x0": 272.003288,
+          "top": 171.61424,
+          "x1": 314.3718559999999,
+          "bottom": 191.65423999999996,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "recent",
+          "x0": 319.770632,
+          "top": 171.61424,
+          "x1": 379.96277599999985,
+          "bottom": 191.65423999999996,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "quarters",
+          "x0": 385.289408,
+          "top": 171.61424,
+          "x1": 465.54960800000003,
+          "bottom": 191.65423999999996,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "Loans",
+          "x0": 125.94775999999999,
+          "top": 202.51592,
+          "x1": 180.61688,
+          "bottom": 222.55591999999996,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "increase",
+          "x0": 185.95753999999997,
+          "top": 202.51592,
+          "x1": 261.90312800000004,
+          "bottom": 222.55591999999996,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "1%",
+          "x0": 267.08346800000004,
+          "top": 202.51592,
+          "x1": 296.06130800000005,
+          "bottom": 222.55591999999996,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "qoq,",
+          "x0": 301.49816,
+          "top": 202.51592,
+          "x1": 340.53607999999997,
+          "bottom": 222.55591999999996,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "driven",
+          "x0": 345.76451599999996,
+          "top": 202.51592,
+          "x1": 400.351472,
+          "bottom": 222.55591999999996,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "by",
+          "x0": 405.770288,
+          "top": 202.51592,
+          "x1": 426.952568,
+          "bottom": 222.55591999999996,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "a",
+          "x0": 432.413468,
+          "top": 202.51592,
+          "x1": 443.55570800000004,
+          "bottom": 222.55591999999996,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "broad-based",
+          "x0": 449.09676800000005,
+          "top": 202.51592,
+          "x1": 561.631388,
+          "bottom": 222.55591999999996,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "3%",
+          "x0": 566.811728,
+          "top": 202.51592,
+          "x1": 595.789568,
+          "bottom": 222.55591999999996,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "rise",
+          "x0": 601.134236,
+          "top": 202.51592,
+          "x1": 633.5148680000001,
+          "bottom": 222.55591999999996,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "in",
+          "x0": 638.935688,
+          "top": 202.51592,
+          "x1": 654.516788,
+          "bottom": 222.55591999999996,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "non-trade",
+          "x0": 660.0558440000001,
+          "top": 202.51592,
+          "x1": 745.9613119999999,
+          "bottom": 222.55591999999996,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "o",
+          "x0": 98.95387999999998,
+          "top": 209.63011999999998,
+          "x1": 110.97787999999998,
+          "bottom": 229.67012,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "corporate",
+          "x0": 125.92772000000002,
+          "top": 226.52384,
+          "x1": 210.64080800000005,
+          "bottom": 246.56383999999997,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "loans",
+          "x0": 215.82114800000002,
+          "top": 226.52384,
+          "x1": 263.76684800000004,
+          "bottom": 246.56383999999997,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "",
+          "x0": 62.92196000000002,
+          "top": 266.24312,
+          "x1": 72.10028000000003,
+          "bottom": 286.28311999999994,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "Group",
+          "x0": 85.36676000000003,
+          "top": 269.54972,
+          "x1": 145.48676000000003,
+          "bottom": 289.58971999999994,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "NIM",
+          "x0": 150.88754000000003,
+          "top": 269.54972,
+          "x1": 187.62086000000002,
+          "bottom": 289.58971999999994,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "stable,",
+          "x0": 193.007612,
+          "top": 269.54972,
+          "x1": 256.542428,
+          "bottom": 289.58971999999994,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "underlying",
+          "x0": 261.770864,
+          "top": 269.54972,
+          "x1": 363.7884920000001,
+          "bottom": 289.58971999999994,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "trends",
+          "x0": 369.5499920000001,
+          "top": 269.54972,
+          "x1": 430.8563600000001,
+          "bottom": 289.58971999999994,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "in",
+          "x0": 436.1529320000002,
+          "top": 269.54972,
+          "x1": 453.9183920000001,
+          "bottom": 289.58971999999994,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "line",
+          "x0": 459.4374080000001,
+          "top": 269.54972,
+          "x1": 493.86412400000006,
+          "bottom": 289.58971999999994,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "with",
+          "x0": 499.1627000000001,
+          "top": 269.54972,
+          "x1": 539.4871880000001,
+          "bottom": 289.58971999999994,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "guidance",
+          "x0": 544.647488,
+          "top": 269.54972,
+          "x1": 632.6070560000001,
+          "bottom": 289.58971999999994,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "Commercial",
+          "x0": 125.92772000000002,
+          "top": 300.57163999999995,
+          "x1": 232.98140000000004,
+          "bottom": 320.61163999999997,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "book",
+          "x0": 238.13168000000007,
+          "top": 300.57163999999995,
+          "x1": 281.6385200000001,
+          "bottom": 320.61163999999997,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "NIM",
+          "x0": 287.09741600000007,
+          "top": 300.57163999999995,
+          "x1": 323.830736,
+          "bottom": 320.61163999999997,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "up",
+          "x0": 329.217488,
+          "top": 300.57163999999995,
+          "x1": 351.522008,
+          "bottom": 320.61163999999997,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "2bp",
+          "x0": 356.94282799999996,
+          "top": 300.57163999999995,
+          "x1": 390.4096279999999,
+          "bottom": 320.61163999999997,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "qoq",
+          "x0": 395.8064,
+          "top": 300.57163999999995,
+          "x1": 429.27320000000003,
+          "bottom": 320.61163999999997,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "despite",
+          "x0": 434.68399999999997,
+          "top": 300.57163999999995,
+          "x1": 499.35308,
+          "bottom": 320.61163999999997,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "lower",
+          "x0": 504.65365999999995,
+          "top": 300.57163999999995,
+          "x1": 552.60938,
+          "bottom": 320.61163999999997,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "Hibor",
+          "x0": 558.0502399999999,
+          "top": 300.57163999999995,
+          "x1": 606.0079639999999,
+          "bottom": 320.61163999999997,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "due",
+          "x0": 611.4568399999999,
+          "top": 300.57163999999995,
+          "x1": 644.92364,
+          "bottom": 320.61163999999997,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "to",
+          "x0": 650.3444599999999,
+          "top": 300.57163999999995,
+          "x1": 667.005716,
+          "bottom": 320.61163999999997,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "fixed-rate",
+          "x0": 672.4265359999999,
+          "top": 300.57163999999995,
+          "x1": 755.9211919999999,
+          "bottom": 320.61163999999997,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "asset",
+          "x0": 761.2217719999999,
+          "top": 300.57163999999995,
+          "x1": 809.2756879999998,
+          "bottom": 320.61163999999997,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "o",
+          "x0": 98.93384000000003,
+          "top": 307.68584,
+          "x1": 110.95784000000003,
+          "bottom": 327.72583999999995,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "repricing;",
+          "x0": 125.92771999999991,
+          "top": 324.57955999999996,
+          "x1": 208.5466279999999,
+          "bottom": 344.61956,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "Casa",
+          "x0": 213.65482399999996,
+          "top": 324.57955999999996,
+          "x1": 260.55844399999995,
+          "bottom": 344.61956,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "outflows",
+          "x0": 265.97726,
+          "top": 324.57955999999996,
+          "x1": 339.48197599999986,
+          "bottom": 344.61956,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "slow",
+          "x0": 344.8226359999999,
+          "top": 324.57955999999996,
+          "x1": 384.97277599999984,
+          "bottom": 344.61956,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "from",
+          "x0": 390.4236559999998,
+          "top": 324.57955999999996,
+          "x1": 430.51968799999975,
+          "bottom": 344.61956,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "the",
+          "x0": 435.7861999999997,
+          "top": 324.57955999999996,
+          "x1": 463.61173999999977,
+          "bottom": 344.61956,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "previous",
+          "x0": 469.0325599999998,
+          "top": 324.57955999999996,
+          "x1": 544.819832,
+          "bottom": 344.61956,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "year",
+          "x0": 550.158488,
+          "top": 324.57955999999996,
+          "x1": 589.1162480000002,
+          "bottom": 344.61956,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "Markets",
+          "x0": 125.92771999999991,
+          "top": 356.6235199999999,
+          "x1": 197.2721239999999,
+          "bottom": 376.66351999999995,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "Trading’s",
+          "x0": 202.0095799999999,
+          "top": 356.6235199999999,
+          "x1": 283.43811199999993,
+          "bottom": 376.66351999999995,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "deployment",
+          "x0": 288.8929999999999,
+          "top": 356.6235199999999,
+          "x1": 392.51783599999993,
+          "bottom": 376.66351999999995,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "in",
+          "x0": 397.746272,
+          "top": 356.6235199999999,
+          "x1": 413.32737199999997,
+          "bottom": 376.66351999999995,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "high-quality",
+          "x0": 418.866428,
+          "top": 356.6235199999999,
+          "x1": 521.409104,
+          "bottom": 376.66351999999995,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "assets",
+          "x0": 526.7477599999999,
+          "top": 356.6235199999999,
+          "x1": 584.7715759999999,
+          "bottom": 376.66351999999995,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "accretive",
+          "x0": 589.991996,
+          "top": 356.6235199999999,
+          "x1": 670.2582079999999,
+          "bottom": 376.66351999999995,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "to",
+          "x0": 675.5587879999998,
+          "top": 356.6235199999999,
+          "x1": 692.2200439999998,
+          "bottom": 376.66351999999995,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "net",
+          "x0": 697.6388599999998,
+          "top": 356.6235199999999,
+          "x1": 725.5345399999998,
+          "bottom": 376.66351999999995,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "interest",
+          "x0": 730.8832159999997,
+          "top": 356.6235199999999,
+          "x1": 796.6985839999996,
+          "bottom": 376.66351999999995,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "o",
+          "x0": 98.93383999999992,
+          "top": 363.73771999999997,
+          "x1": 110.95783999999992,
+          "bottom": 383.77771999999993,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "income",
+          "x0": 125.9477599999999,
+          "top": 380.63143999999994,
+          "x1": 190.6128319999999,
+          "bottom": 400.67143999999996,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "but",
+          "x0": 195.91341199999988,
+          "top": 380.63143999999994,
+          "x1": 223.8090919999999,
+          "bottom": 400.67143999999996,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "dilutive",
+          "x0": 229.15776799999992,
+          "top": 380.63143999999994,
+          "x1": 291.42405199999996,
+          "bottom": 400.67143999999996,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "to",
+          "x0": 297.083348,
+          "top": 380.63143999999994,
+          "x1": 313.744604,
+          "bottom": 400.67143999999996,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "NIM",
+          "x0": 319.1654239999999,
+          "top": 380.63143999999994,
+          "x1": 355.8967399999999,
+          "bottom": 400.67143999999996,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "2",
+          "x0": 929.445,
+          "top": 514.198,
+          "x1": 933.91524,
+          "bottom": 522.238,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        }
+      ],
+      "tables": [
+        {
+          "setting": "B_text",
+          "warning": "empty_or_headerless_table",
+          "rows": [],
+          "headers": [],
+          "bbox": [
+            62.92196000000002,
+            94.25984,
+            232.98140000000004,
+            400.67143999999996
+          ]
+        }
+      ],
+      "pdf_name": "1Q24_CEO_presentation.pdf"
+    },
+    {
+      "page_number": 3,
+      "width": 960.0,
+      "height": 540.0,
+      "text_error": null,
+      "words_error": null,
+      "text": "Strong start to the year\n\nNet fee income crosses $1bn for the first time\nWealth management fees rise from stronger market sentiment and an expanded\no\nAUM base, card fees from higher spending\nBoth increases additionally boosted by base effects, including Citi Taiwan\no\nconsolidation\n\nTreasury customer sales reach new high\n\nCost-income ratio at 37%\nExpense growth well managed, up 5% yoy ex-Citi Taiwan\no\n\nAsset quality resilient\nNPL ratio unchanged at 1.1%, SP remains low at 10bp of loans\no\n\n1Q dividend of 54 cents on enlarged share base\n3",
+      "words": [
+        {
+          "text": "Strong",
+          "x0": 63.3868,
+          "top": 42.887959999999964,
+          "x1": 153.448756,
+          "bottom": 70.84796,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "start",
+          "x0": 161.445316,
+          "top": 42.887959999999964,
+          "x1": 222.25831599999995,
+          "bottom": 70.84796,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "to",
+          "x0": 230.11507599999996,
+          "top": 42.887959999999964,
+          "x1": 256.56523599999997,
+          "bottom": 70.84796,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "the",
+          "x0": 264.32133999999996,
+          "top": 42.887959999999964,
+          "x1": 306.27531999999997,
+          "bottom": 70.84796,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "year",
+          "x0": 314.252308,
+          "top": 42.887959999999964,
+          "x1": 371.5731040000001,
+          "bottom": 70.84796,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "",
+          "x0": 65.1061,
+          "top": 90.88334000000003,
+          "x1": 74.28442,
+          "bottom": 110.92334,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "Net",
+          "x0": 87.5509,
+          "top": 94.18994000000004,
+          "x1": 119.90548,
+          "bottom": 114.22994,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "fee",
+          "x0": 125.352352,
+          "top": 94.18994000000004,
+          "x1": 154.376284,
+          "bottom": 114.22994,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "income",
+          "x0": 159.67486,
+          "top": 94.18994000000004,
+          "x1": 229.74071200000003,
+          "bottom": 114.22994,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "crosses",
+          "x0": 235.16153200000002,
+          "top": 94.18994000000004,
+          "x1": 310.9928919999999,
+          "bottom": 114.22994,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "$1bn",
+          "x0": 316.29347199999984,
+          "top": 94.18994000000004,
+          "x1": 363.10089999999985,
+          "bottom": 114.22994,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "for",
+          "x0": 368.6159079999998,
+          "top": 94.18994000000004,
+          "x1": 395.3713119999998,
+          "bottom": 114.22994,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "the",
+          "x0": 400.65585999999973,
+          "top": 94.18994000000004,
+          "x1": 430.7579439999998,
+          "bottom": 114.22994,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "first",
+          "x0": 436.17675999999983,
+          "top": 94.18994000000004,
+          "x1": 474.0523599999999,
+          "bottom": 114.22994,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "time",
+          "x0": 479.3789919999999,
+          "top": 94.18994000000004,
+          "x1": 520.5211119999999,
+          "bottom": 114.22994,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "Wealth",
+          "x0": 128.11186,
+          "top": 123.16778000000005,
+          "x1": 190.13766400000003,
+          "bottom": 143.20778,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "management",
+          "x0": 195.55648000000002,
+          "top": 123.16778000000005,
+          "x1": 312.6261520000001,
+          "bottom": 143.20778,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "fees",
+          "x0": 317.61611200000004,
+          "top": 123.16778000000005,
+          "x1": 355.479688,
+          "bottom": 143.20778,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "rise",
+          "x0": 360.93858400000005,
+          "top": 123.16778000000005,
+          "x1": 393.32122000000004,
+          "bottom": 143.20778,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "from",
+          "x0": 398.61979599999995,
+          "top": 123.16778000000005,
+          "x1": 438.7158279999999,
+          "bottom": 143.20778,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "stronger",
+          "x0": 443.94226000000003,
+          "top": 123.16778000000005,
+          "x1": 517.583248,
+          "bottom": 143.20778,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "market",
+          "x0": 522.7896400000001,
+          "top": 123.16778000000005,
+          "x1": 584.164144,
+          "bottom": 143.20778,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "sentiment",
+          "x0": 589.2723400000001,
+          "top": 123.16778000000005,
+          "x1": 676.211872,
+          "bottom": 143.20778,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "and",
+          "x0": 681.440308,
+          "top": 123.16778000000005,
+          "x1": 714.907108,
+          "bottom": 143.20778,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "an",
+          "x0": 720.3279279999999,
+          "top": 123.16778000000005,
+          "x1": 742.632448,
+          "bottom": 143.20778,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "expanded",
+          "x0": 748.0512639999998,
+          "top": 123.16778000000005,
+          "x1": 836.127064,
+          "bottom": 143.20778,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "o",
+          "x0": 101.11798,
+          "top": 130.28198000000003,
+          "x1": 113.14198,
+          "bottom": 150.32198000000005,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "AUM",
+          "x0": 128.11186000000004,
+          "top": 147.17570000000006,
+          "x1": 172.64474800000002,
+          "bottom": 167.21570000000003,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "base,",
+          "x0": 178.15174000000002,
+          "top": 147.17570000000006,
+          "x1": 227.28982000000002,
+          "bottom": 167.21570000000003,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "card",
+          "x0": 232.51825600000006,
+          "top": 147.17570000000006,
+          "x1": 271.6223080000001,
+          "bottom": 167.21570000000003,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "fees",
+          "x0": 276.9208840000001,
+          "top": 147.17570000000006,
+          "x1": 314.7864640000001,
+          "bottom": 167.21570000000003,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "from",
+          "x0": 320.1271240000001,
+          "top": 147.17570000000006,
+          "x1": 360.223156,
+          "bottom": 167.21570000000003,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "higher",
+          "x0": 365.489668,
+          "top": 147.17570000000006,
+          "x1": 421.2529719999999,
+          "bottom": 167.21570000000003,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "spending",
+          "x0": 426.69984399999987,
+          "top": 147.17570000000006,
+          "x1": 508.1724640000001,
+          "bottom": 167.21570000000003,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "Both",
+          "x0": 128.11186000000004,
+          "top": 177.17558000000008,
+          "x1": 169.257988,
+          "bottom": 197.21558000000005,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "increases",
+          "x0": 174.79704400000003,
+          "top": 177.17558000000008,
+          "x1": 260.78668000000005,
+          "bottom": 197.21558000000005,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "additionally",
+          "x0": 265.8848560000001,
+          "top": 177.17558000000008,
+          "x1": 366.15699999999987,
+          "bottom": 197.21558000000005,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "boosted",
+          "x0": 371.6158959999999,
+          "top": 177.17558000000008,
+          "x1": 443.00839599999983,
+          "bottom": 197.21558000000005,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "by",
+          "x0": 448.30897599999975,
+          "top": 177.17558000000008,
+          "x1": 469.4912559999998,
+          "bottom": 197.21558000000005,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "base",
+          "x0": 474.9501519999998,
+          "top": 177.17558000000008,
+          "x1": 518.4970719999999,
+          "bottom": 197.21558000000005,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "effects,",
+          "x0": 523.797652,
+          "top": 177.17558000000008,
+          "x1": 588.051904,
+          "bottom": 197.21558000000005,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "including",
+          "x0": 593.1601,
+          "top": 177.17558000000008,
+          "x1": 672.3521680000005,
+          "bottom": 197.21558000000005,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "Citi",
+          "x0": 677.7729880000004,
+          "top": 177.17558000000008,
+          "x1": 706.7007280000006,
+          "bottom": 197.21558000000005,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "Taiwan",
+          "x0": 711.9712480000005,
+          "top": 177.17558000000008,
+          "x1": 774.4780120000008,
+          "bottom": 197.21558000000005,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "o",
+          "x0": 101.11798000000005,
+          "top": 184.28978000000006,
+          "x1": 113.14198000000005,
+          "bottom": 204.32978000000008,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "consolidation",
+          "x0": 128.11186000000004,
+          "top": 201.1835000000001,
+          "x1": 245.2256200000001,
+          "bottom": 221.22350000000006,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "",
+          "x0": 65.10610000000003,
+          "top": 240.90278000000012,
+          "x1": 74.28442000000003,
+          "bottom": 260.9427800000001,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "Treasury",
+          "x0": 87.55090000000003,
+          "top": 244.20938000000012,
+          "x1": 171.179824,
+          "bottom": 264.2493800000001,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "customer",
+          "x0": 176.47840000000008,
+          "top": 244.20938000000012,
+          "x1": 266.72052400000007,
+          "bottom": 264.2493800000001,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "sales",
+          "x0": 272.00507200000004,
+          "top": 244.20938000000012,
+          "x1": 322.155172,
+          "bottom": 264.2493800000001,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "reach",
+          "x0": 327.45575199999996,
+          "top": 244.20938000000012,
+          "x1": 380.98659999999984,
+          "bottom": 264.2493800000001,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "new",
+          "x0": 386.38337199999984,
+          "top": 244.20938000000012,
+          "x1": 425.2529559999998,
+          "bottom": 264.2493800000001,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "high",
+          "x0": 430.78199199999983,
+          "top": 244.20938000000012,
+          "x1": 473.0263119999999,
+          "bottom": 264.2493800000001,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "",
+          "x0": 65.10610000000003,
+          "top": 282.9066200000001,
+          "x1": 74.28442000000003,
+          "bottom": 302.9466200000001,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "Cost-income",
+          "x0": 87.55090000000003,
+          "top": 286.2132200000001,
+          "x1": 208.97726800000004,
+          "bottom": 306.2532200000001,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "ratio",
+          "x0": 214.155604,
+          "top": 286.2132200000001,
+          "x1": 257.602324,
+          "bottom": 306.2532200000001,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "at",
+          "x0": 262.87685200000004,
+          "top": 286.2132200000001,
+          "x1": 280.71245200000004,
+          "bottom": 306.2532200000001,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "37%",
+          "x0": 286.1593240000001,
+          "top": 286.2132200000001,
+          "x1": 326.2994440000001,
+          "bottom": 306.2532200000001,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "Expense",
+          "x0": 128.11186000000004,
+          "top": 315.1910600000001,
+          "x1": 206.10152800000003,
+          "bottom": 335.23106000000007,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "growth",
+          "x0": 211.52034400000002,
+          "top": 315.1910600000001,
+          "x1": 271.74655600000006,
+          "bottom": 335.23106000000007,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "well",
+          "x0": 277.0451320000001,
+          "top": 315.1910600000001,
+          "x1": 311.61613600000004,
+          "bottom": 335.23106000000007,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "managed,",
+          "x0": 317.127136,
+          "top": 315.1910600000001,
+          "x1": 406.3532319999999,
+          "bottom": 335.23106000000007,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "up",
+          "x0": 411.46142799999984,
+          "top": 315.1910600000001,
+          "x1": 433.76594799999987,
+          "bottom": 335.23106000000007,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "5%",
+          "x0": 439.3050039999998,
+          "top": 315.1910600000001,
+          "x1": 468.2828439999999,
+          "bottom": 335.23106000000007,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "yoy",
+          "x0": 473.60146,
+          "top": 315.1910600000001,
+          "x1": 504.74161599999996,
+          "bottom": 335.23106000000007,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "ex-Citi",
+          "x0": 510.19449999999995,
+          "top": 315.1910600000001,
+          "x1": 566.949784,
+          "bottom": 335.23106000000007,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "Taiwan",
+          "x0": 572.100064,
+          "top": 315.1910600000001,
+          "x1": 634.6048239999999,
+          "bottom": 335.23106000000007,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "o",
+          "x0": 101.11798000000003,
+          "top": 322.3052600000001,
+          "x1": 113.14198000000003,
+          "bottom": 342.34526000000005,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "",
+          "x0": 65.10609999999997,
+          "top": 354.9103400000001,
+          "x1": 74.28441999999997,
+          "bottom": 374.9503400000001,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "Asset",
+          "x0": 87.67113999999997,
+          "top": 358.2169400000001,
+          "x1": 142.35027999999994,
+          "bottom": 378.2569400000001,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "quality",
+          "x0": 147.67691199999996,
+          "top": 358.2169400000001,
+          "x1": 212.21974,
+          "bottom": 378.2569400000001,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "resilient",
+          "x0": 217.51631200000003,
+          "top": 358.2169400000001,
+          "x1": 294.27552399999996,
+          "bottom": 378.2569400000001,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "NPL",
+          "x0": 128.11185999999995,
+          "top": 387.1947800000001,
+          "x1": 167.09366799999992,
+          "bottom": 407.2347800000001,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "ratio",
+          "x0": 171.91128399999994,
+          "top": 387.1947800000001,
+          "x1": 210.89509599999997,
+          "bottom": 407.2347800000001,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "unchanged",
+          "x0": 216.19367199999996,
+          "top": 387.1947800000001,
+          "x1": 315.551992,
+          "bottom": 407.2347800000001,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "at",
+          "x0": 320.73032799999993,
+          "top": 387.1947800000001,
+          "x1": 337.46372799999995,
+          "bottom": 407.2347800000001,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "1.1%,",
+          "x0": 342.93264399999987,
+          "top": 387.1947800000001,
+          "x1": 394.1067879999999,
+          "bottom": 407.2347800000001,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "SP",
+          "x0": 399.4554639999998,
+          "top": 387.1947800000001,
+          "x1": 426.1427319999998,
+          "bottom": 407.2347800000001,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "remains",
+          "x0": 431.2549359999998,
+          "top": 387.1947800000001,
+          "x1": 502.603348,
+          "bottom": 407.2347800000001,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "low",
+          "x0": 507.942004,
+          "top": 387.1947800000001,
+          "x1": 538.014028,
+          "bottom": 407.2347800000001,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "at",
+          "x0": 543.5831440000002,
+          "top": 387.1947800000001,
+          "x1": 560.3165440000001,
+          "bottom": 407.2347800000001,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "10bp",
+          "x0": 565.6652200000002,
+          "top": 387.1947800000001,
+          "x1": 610.2943000000004,
+          "bottom": 407.2347800000001,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "of",
+          "x0": 615.7151200000004,
+          "top": 387.1947800000001,
+          "x1": 632.4485200000004,
+          "bottom": 407.2347800000001,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "loans",
+          "x0": 637.7971960000004,
+          "top": 387.1947800000001,
+          "x1": 685.7428960000007,
+          "bottom": 407.2347800000001,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "o",
+          "x0": 101.11797999999996,
+          "top": 394.3089800000001,
+          "x1": 113.14197999999996,
+          "bottom": 414.3489800000001,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "",
+          "x0": 65.10609999999994,
+          "top": 426.91406000000006,
+          "x1": 74.28441999999994,
+          "bottom": 446.9540600000001,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "1Q",
+          "x0": 87.67113999999994,
+          "top": 430.22066000000007,
+          "x1": 114.42453999999994,
+          "bottom": 450.2606600000001,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "dividend",
+          "x0": 119.83333599999995,
+          "top": 430.22066000000007,
+          "x1": 201.91717599999993,
+          "bottom": 450.2606600000001,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "of",
+          "x0": 207.55442799999992,
+          "top": 430.22066000000007,
+          "x1": 226.4661759999999,
+          "bottom": 450.2606600000001,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "54",
+          "x0": 231.91304799999995,
+          "top": 430.22066000000007,
+          "x1": 254.21756799999997,
+          "bottom": 450.2606600000001,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "cents",
+          "x0": 259.6363839999999,
+          "top": 430.22066000000007,
+          "x1": 312.0630279999999,
+          "bottom": 450.2606600000001,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "on",
+          "x0": 317.48184399999985,
+          "top": 430.22066000000007,
+          "x1": 341.96671599999985,
+          "bottom": 450.2606600000001,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "enlarged",
+          "x0": 347.4817239999998,
+          "top": 430.22066000000007,
+          "x1": 431.01044799999977,
+          "bottom": 450.2606600000001,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "share",
+          "x0": 436.2869799999998,
+          "top": 430.22066000000007,
+          "x1": 489.7917759999999,
+          "bottom": 450.2606600000001,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "base",
+          "x0": 495.2105919999999,
+          "top": 430.22066000000007,
+          "x1": 540.9178240000001,
+          "bottom": 450.2606600000001,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "3",
+          "x0": 929.445,
+          "top": 514.198,
+          "x1": 933.91524,
+          "bottom": 522.238,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        }
+      ],
+      "tables": [
+        {
+          "setting": "B_text",
+          "warning": "empty_or_headerless_table",
+          "rows": [],
+          "headers": [],
+          "bbox": [
+            65.10609999999994,
+            90.88334000000003,
+            406.3532319999999,
+            450.2606600000001
+          ]
+        }
+      ],
+      "pdf_name": "1Q24_CEO_presentation.pdf"
+    },
+    {
+      "page_number": 4,
+      "width": 960.0,
+      "height": 540.0,
+      "text_error": null,
+      "words_error": null,
+      "text": "Notwithstanding MAS decision not to extend 6-month pause on\nnon-essential activities, will continue to focus on technology\nresiliency\n\nProgress made in executing on technology resiliency roadmap, enabling:\nGreater service availability\no\nAlternate channels for payments and account enquiries should issues occur\no\nFaster full recovery of services\no\nGreater payments/ transaction certainty for payer and recipient\no\n\nSeveral areas remain a work-in-progress\nContinued simplification and strengthening of systems architecture\no\nBuilding deeper expertise in centres of excellence for critical third-party technologies\no\nBroadening use of artificial intelligence to further strengthen change management\no\nCreating more monitoring tools so as to be able to detect potential issues more quickly\no\n4",
+      "words": [
+        {
+          "text": "Notwithstanding",
+          "x0": 63.4228,
+          "top": 43.40595999999999,
+          "x1": 282.47541999999993,
+          "bottom": 71.36596000000003,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "MAS",
+          "x0": 290.8326639999999,
+          "top": 43.40595999999999,
+          "x1": 352.92063999999993,
+          "bottom": 71.36596000000003,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "decision",
+          "x0": 360.78578799999997,
+          "top": 43.40595999999999,
+          "x1": 474.35092000000014,
+          "bottom": 71.36596000000003,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "not",
+          "x0": 482.35027600000024,
+          "top": 43.40595999999999,
+          "x1": 525.7414000000003,
+          "bottom": 71.36596000000003,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "to",
+          "x0": 533.7016120000002,
+          "top": 43.40595999999999,
+          "x1": 560.1461800000002,
+          "bottom": 71.36596000000003,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "extend",
+          "x0": 567.902284,
+          "top": 43.40595999999999,
+          "x1": 658.1851240000001,
+          "bottom": 71.36596000000003,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "6-month",
+          "x0": 666.18448,
+          "top": 43.40595999999999,
+          "x1": 776.5062520000001,
+          "bottom": 71.36596000000003,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "pause",
+          "x0": 784.5139960000001,
+          "top": 43.40595999999999,
+          "x1": 865.340764,
+          "bottom": 71.36596000000003,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "on",
+          "x0": 873.4463680000001,
+          "top": 43.40595999999999,
+          "x1": 907.5687520000001,
+          "bottom": 71.36596000000003,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "non-essential",
+          "x0": 63.42280000000005,
+          "top": 77.01387999999997,
+          "x1": 243.88782400000008,
+          "bottom": 104.97388000000001,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "activities,",
+          "x0": 252.07451200000006,
+          "top": 77.01387999999997,
+          "x1": 379.988716,
+          "bottom": 104.97388000000001,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "will",
+          "x0": 387.6944920000001,
+          "top": 77.01387999999997,
+          "x1": 432.78838000000025,
+          "bottom": 104.97388000000001,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "continue",
+          "x0": 440.4941560000003,
+          "top": 77.01387999999997,
+          "x1": 556.9699240000004,
+          "bottom": 104.97388000000001,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "to",
+          "x0": 565.0671400000006,
+          "top": 77.01387999999997,
+          "x1": 591.5173000000005,
+          "bottom": 104.97388000000001,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "focus",
+          "x0": 599.3852440000005,
+          "top": 77.01387999999997,
+          "x1": 673.9769320000005,
+          "bottom": 104.97388000000001,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "on",
+          "x0": 681.9455320000004,
+          "top": 77.01387999999997,
+          "x1": 716.0679160000004,
+          "bottom": 104.97388000000001,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "technology",
+          "x0": 723.9386560000004,
+          "top": 77.01387999999997,
+          "x1": 873.1751560000002,
+          "bottom": 104.97388000000001,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "resiliency",
+          "x0": 63.422800000000066,
+          "top": 110.62179999999995,
+          "x1": 192.71543200000008,
+          "bottom": 138.5818,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "",
+          "x0": 62.649,
+          "top": 161.81114000000002,
+          "x1": 71.82732,
+          "bottom": 181.85114,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "Progress",
+          "x0": 89.649,
+          "top": 165.11774000000003,
+          "x1": 176.510376,
+          "bottom": 185.15774,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "made",
+          "x0": 181.929192,
+          "top": 165.11774000000003,
+          "x1": 234.235596,
+          "bottom": 185.15774,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "in",
+          "x0": 239.65240799999998,
+          "top": 165.11774000000003,
+          "x1": 257.417868,
+          "bottom": 185.15774,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "executing",
+          "x0": 262.938888,
+          "top": 165.11774000000003,
+          "x1": 356.55173999999994,
+          "bottom": 185.15774,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "on",
+          "x0": 361.83027599999997,
+          "top": 165.11774000000003,
+          "x1": 386.31915599999996,
+          "bottom": 185.15774,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "technology",
+          "x0": 391.83817200000004,
+          "top": 165.11774000000003,
+          "x1": 498.76159200000006,
+          "bottom": 185.15774,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "resiliency",
+          "x0": 504.05816400000003,
+          "top": 165.11774000000003,
+          "x1": 596.4405600000001,
+          "bottom": 185.15774,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "roadmap,",
+          "x0": 601.7391360000001,
+          "top": 165.11774000000003,
+          "x1": 691.9191360000002,
+          "bottom": 185.15774,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "enabling:",
+          "x0": 697.2678120000002,
+          "top": 165.11774000000003,
+          "x1": 786.2814840000001,
+          "bottom": 185.15774,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "Greater",
+          "x0": 125.649,
+          "top": 196.13569999999999,
+          "x1": 193.64872799999998,
+          "bottom": 216.17569999999995,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "service",
+          "x0": 198.73487999999998,
+          "top": 196.13569999999999,
+          "x1": 262.31979600000005,
+          "bottom": 216.17569999999995,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "availability",
+          "x0": 267.618372,
+          "top": 196.13569999999999,
+          "x1": 359.96669999999983,
+          "bottom": 216.17569999999995,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "o",
+          "x0": 98.649,
+          "top": 203.24989999999997,
+          "x1": 110.673,
+          "bottom": 223.2899,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "Alternate",
+          "x0": 125.649,
+          "top": 228.0557,
+          "x1": 205.79697599999997,
+          "bottom": 248.09569999999997,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "channels",
+          "x0": 211.097556,
+          "top": 228.0557,
+          "x1": 291.447936,
+          "bottom": 248.09569999999997,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "for",
+          "x0": 296.788596,
+          "top": 228.0557,
+          "x1": 320.143212,
+          "bottom": 248.09569999999997,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "payments",
+          "x0": 325.590084,
+          "top": 228.0557,
+          "x1": 412.4213999999999,
+          "bottom": 248.09569999999997,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "and",
+          "x0": 417.6398159999999,
+          "top": 228.0557,
+          "x1": 451.1066159999998,
+          "bottom": 248.09569999999997,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "account",
+          "x0": 456.52543199999985,
+          "top": 228.0557,
+          "x1": 526.905912,
+          "bottom": 248.09569999999997,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "enquiries",
+          "x0": 532.0141080000001,
+          "top": 228.0557,
+          "x1": 613.4446440000004,
+          "bottom": 248.09569999999997,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "should",
+          "x0": 618.7853040000003,
+          "top": 228.0557,
+          "x1": 677.9353680000006,
+          "bottom": 248.09569999999997,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "issues",
+          "x0": 683.3541840000006,
+          "top": 228.0557,
+          "x1": 740.2978440000007,
+          "bottom": 248.09569999999997,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "occur",
+          "x0": 745.6365000000008,
+          "top": 228.0557,
+          "x1": 794.7946200000008,
+          "bottom": 248.09569999999997,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "o",
+          "x0": 98.649,
+          "top": 235.16989999999998,
+          "x1": 110.673,
+          "bottom": 255.2099,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "Faster",
+          "x0": 125.649,
+          "top": 260.0957,
+          "x1": 182.488452,
+          "bottom": 280.1357,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "full",
+          "x0": 187.81708799999998,
+          "top": 260.0957,
+          "x1": 213.386124,
+          "bottom": 280.1357,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "recovery",
+          "x0": 218.897124,
+          "top": 260.0957,
+          "x1": 295.882788,
+          "bottom": 280.1357,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "of",
+          "x0": 300.982968,
+          "top": 260.0957,
+          "x1": 317.71636800000005,
+          "bottom": 280.1357,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "services",
+          "x0": 323.185284,
+          "top": 260.0957,
+          "x1": 396.8102399999999,
+          "bottom": 280.1357,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "o",
+          "x0": 98.649,
+          "top": 267.2099,
+          "x1": 110.673,
+          "bottom": 287.2499,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "Greater",
+          "x0": 125.649,
+          "top": 292.1357,
+          "x1": 193.64872799999998,
+          "bottom": 312.1757,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "payments/",
+          "x0": 198.73487999999998,
+          "top": 292.1357,
+          "x1": 291.1934280000001,
+          "bottom": 312.1757,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "transaction",
+          "x0": 296.421864,
+          "top": 292.1357,
+          "x1": 394.57377599999995,
+          "bottom": 312.1757,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "certainty",
+          "x0": 399.6318719999999,
+          "top": 292.1357,
+          "x1": 475.4191439999999,
+          "bottom": 312.1757,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "for",
+          "x0": 480.63956399999995,
+          "top": 292.1357,
+          "x1": 503.99418000000003,
+          "bottom": 312.1757,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "payer",
+          "x0": 509.441052,
+          "top": 292.1357,
+          "x1": 559.5610920000001,
+          "bottom": 312.1757,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "and",
+          "x0": 564.8877240000002,
+          "top": 292.1357,
+          "x1": 598.3545240000002,
+          "bottom": 312.1757,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "recipient",
+          "x0": 603.7753440000004,
+          "top": 292.1357,
+          "x1": 679.6748400000006,
+          "bottom": 312.1757,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "o",
+          "x0": 98.649,
+          "top": 299.2499,
+          "x1": 110.673,
+          "bottom": 319.2899,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "",
+          "x0": 62.649,
+          "top": 331.85114,
+          "x1": 71.82732,
+          "bottom": 351.89114,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "Several",
+          "x0": 89.649,
+          "top": 335.15774,
+          "x1": 160.746912,
+          "bottom": 355.19774,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "areas",
+          "x0": 166.336068,
+          "top": 335.15774,
+          "x1": 218.76471600000002,
+          "bottom": 355.19774,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "remain",
+          "x0": 224.06529600000005,
+          "top": 335.15774,
+          "x1": 289.712328,
+          "bottom": 355.19774,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "a",
+          "x0": 294.98886000000005,
+          "top": 335.15774,
+          "x1": 306.13110000000006,
+          "bottom": 355.19774,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "work-in-progress",
+          "x0": 311.55192,
+          "top": 335.15774,
+          "x1": 475.29876,
+          "bottom": 355.19774,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "Continued",
+          "x0": 125.649,
+          "top": 366.0557,
+          "x1": 217.09152,
+          "bottom": 386.09569999999997,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "simplification",
+          "x0": 222.38208,
+          "top": 366.0557,
+          "x1": 337.071,
+          "bottom": 386.09569999999997,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "and",
+          "x0": 342.50184,
+          "top": 366.0557,
+          "x1": 375.96864000000005,
+          "bottom": 386.09569999999997,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "strengthening",
+          "x0": 381.37944,
+          "top": 366.0557,
+          "x1": 502.93406400000003,
+          "bottom": 386.09569999999997,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "of",
+          "x0": 507.97212,
+          "top": 366.0557,
+          "x1": 524.70552,
+          "bottom": 386.09569999999997,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "systems",
+          "x0": 530.1764400000001,
+          "top": 366.0557,
+          "x1": 603.675144,
+          "bottom": 386.09569999999997,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "architecture",
+          "x0": 608.8935600000001,
+          "top": 366.0557,
+          "x1": 713.6466480000001,
+          "bottom": 386.09569999999997,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "o",
+          "x0": 98.649,
+          "top": 373.1699,
+          "x1": 110.673,
+          "bottom": 393.20989999999995,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "Building",
+          "x0": 125.649,
+          "top": 398.0957,
+          "x1": 196.90923600000002,
+          "bottom": 418.13570000000004,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "deeper",
+          "x0": 202.58256,
+          "top": 398.0957,
+          "x1": 265.06728,
+          "bottom": 418.13570000000004,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "expertise",
+          "x0": 270.25764,
+          "top": 398.0957,
+          "x1": 351.60601199999996,
+          "bottom": 418.13570000000004,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "in",
+          "x0": 356.89056,
+          "top": 398.0957,
+          "x1": 372.473664,
+          "bottom": 418.13570000000004,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "centres",
+          "x0": 378.01272,
+          "top": 398.0957,
+          "x1": 443.838108,
+          "bottom": 418.13570000000004,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "of",
+          "x0": 449.05452,
+          "top": 398.0957,
+          "x1": 465.78792000000004,
+          "bottom": 418.13570000000004,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "excellence",
+          "x0": 471.1386,
+          "top": 398.0957,
+          "x1": 565.9318079999999,
+          "bottom": 418.13570000000004,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "for",
+          "x0": 571.3386,
+          "top": 398.0957,
+          "x1": 594.6912120000001,
+          "bottom": 418.13570000000004,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "critical",
+          "x0": 600.01584,
+          "top": 398.0957,
+          "x1": 656.8953720000001,
+          "bottom": 418.13570000000004,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "third-party",
+          "x0": 662.30016,
+          "top": 398.0957,
+          "x1": 752.594388,
+          "bottom": 418.13570000000004,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "technologies",
+          "x0": 757.69056,
+          "top": 398.0957,
+          "x1": 870.323376,
+          "bottom": 418.13570000000004,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "o",
+          "x0": 98.649,
+          "top": 405.2099,
+          "x1": 110.673,
+          "bottom": 425.2499,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "Broadening",
+          "x0": 125.649,
+          "top": 430.1357,
+          "x1": 228.251796,
+          "bottom": 450.1757,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "use",
+          "x0": 233.54436,
+          "top": 430.1357,
+          "x1": 265.92900000000003,
+          "bottom": 450.1757,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "of",
+          "x0": 271.3398,
+          "top": 430.1357,
+          "x1": 288.07320000000004,
+          "bottom": 450.1757,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "artificial",
+          "x0": 293.42388000000005,
+          "top": 430.1357,
+          "x1": 361.333428,
+          "bottom": 450.1757,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "intelligence",
+          "x0": 366.7502400000001,
+          "top": 430.1357,
+          "x1": 467.0624640000001,
+          "bottom": 450.1757,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "to",
+          "x0": 472.58148000000006,
+          "top": 430.1357,
+          "x1": 489.2427360000001,
+          "bottom": 450.1757,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "further",
+          "x0": 494.66556,
+          "top": 430.1357,
+          "x1": 552.585168,
+          "bottom": 450.1757,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "strengthen",
+          "x0": 557.79156,
+          "top": 430.1357,
+          "x1": 652.584768,
+          "bottom": 450.1757,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "change",
+          "x0": 657.63084,
+          "top": 430.1357,
+          "x1": 723.50232,
+          "bottom": 450.1757,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "management",
+          "x0": 728.7928800000001,
+          "top": 430.1357,
+          "x1": 845.858544,
+          "bottom": 450.1757,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "o",
+          "x0": 98.649,
+          "top": 437.2499,
+          "x1": 110.673,
+          "bottom": 457.2899,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "Creating",
+          "x0": 125.649,
+          "top": 461.5757,
+          "x1": 201.48637200000002,
+          "bottom": 481.6157,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "more",
+          "x0": 206.77092,
+          "top": 461.5757,
+          "x1": 252.46813199999997,
+          "bottom": 481.6157,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "monitoring",
+          "x0": 257.77272,
+          "top": 461.5757,
+          "x1": 351.36152400000003,
+          "bottom": 481.6157,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "tools",
+          "x0": 356.65008,
+          "top": 461.5757,
+          "x1": 398.952516,
+          "bottom": 481.6157,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "so",
+          "x0": 404.4054,
+          "top": 461.5757,
+          "x1": 425.62776,
+          "bottom": 481.6157,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "as",
+          "x0": 431.03855999999996,
+          "top": 461.5757,
+          "x1": 452.22083999999995,
+          "bottom": 481.6157,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "to",
+          "x0": 457.67171999999994,
+          "top": 461.5757,
+          "x1": 474.332976,
+          "bottom": 481.6157,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "be",
+          "x0": 479.7557999999999,
+          "top": 461.5757,
+          "x1": 502.06031999999993,
+          "bottom": 481.6157,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "able",
+          "x0": 507.4711199999999,
+          "top": 461.5757,
+          "x1": 545.3767799999999,
+          "bottom": 481.6157,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "to",
+          "x0": 550.91784,
+          "top": 461.5757,
+          "x1": 567.5790959999999,
+          "bottom": 481.6157,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "detect",
+          "x0": 573.0019199999999,
+          "top": 461.5757,
+          "x1": 627.6590159999998,
+          "bottom": 481.6157,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "potential",
+          "x0": 632.8814399999999,
+          "top": 461.5757,
+          "x1": 708.6206159999999,
+          "bottom": 481.6157,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "issues",
+          "x0": 714.0033599999999,
+          "top": 461.5757,
+          "x1": 770.9470199999998,
+          "bottom": 481.6157,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "more",
+          "x0": 776.2876799999999,
+          "top": 461.5757,
+          "x1": 821.984892,
+          "bottom": 481.6157,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "quickly",
+          "x0": 827.2894799999999,
+          "top": 461.5757,
+          "x1": 888.6499559999999,
+          "bottom": 481.6157,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "o",
+          "x0": 98.649,
+          "top": 468.68989999999997,
+          "x1": 110.673,
+          "bottom": 488.7299,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "4",
+          "x0": 929.445,
+          "top": 514.198,
+          "x1": 933.91524,
+          "bottom": 522.238,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        }
+      ],
+      "tables": [
+        {
+          "setting": "B_text",
+          "bbox": [
+            98.649,
+            43.40595999999999,
+            475.4191439999999,
+            488.7299
+          ],
+          "headers": [
+            "tw",
+            "ithstanding M",
+            "AS decision"
+          ],
+          "rows": [
+            [
+              "",
+              "",
+              ""
+            ],
+            [
+              "n-",
+              "essential activ",
+              "ities, will co"
+            ],
+            [
+              "",
+              "",
+              ""
+            ],
+            [
+              "ili",
+              "ency",
+              ""
+            ],
+            [
+              "",
+              "",
+              ""
+            ],
+            [
+              "",
+              "",
+              ""
+            ],
+            [
+              "ro",
+              "gress made in exec",
+              "uting on technolo"
+            ],
+            [
+              "",
+              "",
+              ""
+            ],
+            [
+              "",
+              "",
+              ""
+            ],
+            [
+              "",
+              "",
+              ""
+            ],
+            [
+              "o",
+              "Greater service avail",
+              "ability"
+            ],
+            [
+              "",
+              "",
+              ""
+            ],
+            [
+              "",
+              "",
+              ""
+            ],
+            [
+              "",
+              "",
+              ""
+            ],
+            [
+              "o",
+              "Alternate channels fo",
+              "r payments and ac"
+            ],
+            [
+              "",
+              "",
+              ""
+            ],
+            [
+              "",
+              "",
+              ""
+            ],
+            [
+              "",
+              "",
+              ""
+            ],
+            [
+              "o",
+              "Faster full recovery o",
+              "f services"
+            ],
+            [
+              "",
+              "",
+              ""
+            ],
+            [
+              "",
+              "",
+              ""
+            ],
+            [
+              "",
+              "",
+              ""
+            ],
+            [
+              "o",
+              "Greater payments/ tr",
+              "ansaction certainty"
+            ],
+            [
+              "",
+              "",
+              ""
+            ],
+            [
+              "",
+              "",
+              ""
+            ],
+            [
+              "",
+              "",
+              ""
+            ],
+            [
+              "ev",
+              "eral areas remain a",
+              "work-in-progress"
+            ],
+            [
+              "",
+              "",
+              ""
+            ],
+            [
+              "",
+              "",
+              ""
+            ],
+            [
+              "",
+              "",
+              ""
+            ],
+            [
+              "o",
+              "Continued simplificat",
+              "ion and strengthen"
+            ],
+            [
+              "",
+              "",
+              ""
+            ],
+            [
+              "",
+              "",
+              ""
+            ],
+            [
+              "",
+              "",
+              ""
+            ],
+            [
+              "o",
+              "Building deeper expe",
+              "rtise in centres of"
+            ],
+            [
+              "",
+              "",
+              ""
+            ],
+            [
+              "",
+              "",
+              ""
+            ],
+            [
+              "",
+              "",
+              ""
+            ],
+            [
+              "o",
+              "Broadening use of ar",
+              "tificial intelligence t"
+            ],
+            [
+              "",
+              "",
+              ""
+            ],
+            [
+              "",
+              "",
+              ""
+            ],
+            [
+              "",
+              "",
+              ""
+            ],
+            [
+              "o",
+              "Creating more monit",
+              "oring tools so as to"
+            ],
+            [
+              "",
+              "",
+              ""
+            ]
+          ]
+        }
+      ],
+      "pdf_name": "1Q24_CEO_presentation.pdf"
+    },
+    {
+      "page_number": 5,
+      "width": 960.0,
+      "height": 540.0,
+      "text_error": null,
+      "words_error": null,
+      "text": "Outlook\n\nGeopolitical risks persist, but macroeconomic conditions remain resilient\n\nGroup net interest income to be modestly better than 2023 levels\n\nCommercial book non-interest income growth to be in mid-to-high teens percent\nBetter-than-expected momentum in wealth management and treasury customer sales\no\n\nTotal income growth to be 1-2% points above previous guidance of mid-single-digit\n\nCost-income ratio to be in low-40% range\n\nSP assumed to normalise to 17-20bp although not seeing stress so far\n\nNet profit to be above 2023 levels\n5",
+      "words": [
+        {
+          "text": "Outlook",
+          "x0": 66.0043,
+          "top": 41.20495999999997,
+          "x1": 171.556096,
+          "bottom": 69.16496000000001,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "",
+          "x0": 64.8984,
+          "top": 93.14504,
+          "x1": 74.07672,
+          "bottom": 113.18503999999996,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "Geopolitical",
+          "x0": 87.4584,
+          "top": 96.45164,
+          "x1": 202.11325199999996,
+          "bottom": 116.49163999999996,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "risks",
+          "x0": 207.22345199999992,
+          "top": 96.45164,
+          "x1": 254.00081999999992,
+          "bottom": 116.49163999999996,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "persist,",
+          "x0": 259.2993959999999,
+          "top": 96.45164,
+          "x1": 330.6277679999999,
+          "bottom": 116.49163999999996,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "but",
+          "x0": 335.85620399999993,
+          "top": 96.45164,
+          "x1": 367.0184039999999,
+          "bottom": 116.49163999999996,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "macroeconomic",
+          "x0": 372.46527599999996,
+          "top": 96.45164,
+          "x1": 526.061856,
+          "bottom": 116.49163999999996,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "conditions",
+          "x0": 531.3584280000001,
+          "top": 96.45164,
+          "x1": 632.642592,
+          "bottom": 116.49163999999996,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "remain",
+          "x0": 638.0614080000001,
+          "top": 96.45164,
+          "x1": 703.7024280000002,
+          "bottom": 116.49163999999996,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "resilient",
+          "x0": 708.9829680000001,
+          "top": 96.45164,
+          "x1": 785.736168,
+          "bottom": 116.49163999999996,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "",
+          "x0": 64.8984,
+          "top": 137.18504000000001,
+          "x1": 74.07672,
+          "bottom": 157.22503999999998,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "Group",
+          "x0": 87.4584,
+          "top": 140.49164000000002,
+          "x1": 147.582408,
+          "bottom": 160.53163999999998,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "net",
+          "x0": 152.977176,
+          "top": 140.49164000000002,
+          "x1": 183.05320799999998,
+          "bottom": 160.53163999999998,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "interest",
+          "x0": 188.50007999999997,
+          "top": 140.49164000000002,
+          "x1": 260.938668,
+          "bottom": 160.53163999999998,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "income",
+          "x0": 266.14506,
+          "top": 140.49164000000002,
+          "x1": 336.21091199999995,
+          "bottom": 160.53163999999998,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "to",
+          "x0": 341.6317319999999,
+          "top": 140.49164000000002,
+          "x1": 360.59558399999986,
+          "bottom": 160.53163999999998,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "be",
+          "x0": 365.99035199999986,
+          "top": 140.49164000000002,
+          "x1": 389.3730239999999,
+          "bottom": 160.53163999999998,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "modestly",
+          "x0": 394.7918399999998,
+          "top": 140.49164000000002,
+          "x1": 482.73938400000003,
+          "bottom": 160.53163999999998,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "better",
+          "x0": 488.15619599999997,
+          "top": 140.49164000000002,
+          "x1": 543.9555720000002,
+          "bottom": 160.53163999999998,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "than",
+          "x0": 549.1198800000001,
+          "top": 140.49164000000002,
+          "x1": 591.4864440000002,
+          "bottom": 160.53163999999998,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "2023",
+          "x0": 596.8812120000002,
+          "top": 140.49164000000002,
+          "x1": 641.5102920000004,
+          "bottom": 160.53163999999998,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "levels",
+          "x0": 646.8108720000004,
+          "top": 140.49164000000002,
+          "x1": 702.2355000000006,
+          "bottom": 160.53163999999998,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "",
+          "x0": 64.8984,
+          "top": 181.10504000000003,
+          "x1": 74.07672,
+          "bottom": 201.14504,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "Commercial",
+          "x0": 87.4584,
+          "top": 184.41164000000003,
+          "x1": 202.111248,
+          "bottom": 204.45164,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "book",
+          "x0": 207.33968399999998,
+          "top": 184.41164000000003,
+          "x1": 255.21524399999998,
+          "bottom": 204.45164,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "non-interest",
+          "x0": 260.752296,
+          "top": 184.41164000000003,
+          "x1": 376.60153199999996,
+          "bottom": 204.45164,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "income",
+          "x0": 381.689688,
+          "top": 184.41164000000003,
+          "x1": 451.759548,
+          "bottom": 204.45164,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "growth",
+          "x0": 457.17635999999993,
+          "top": 184.41164000000003,
+          "x1": 524.142024,
+          "bottom": 204.45164,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "to",
+          "x0": 529.30032,
+          "top": 184.41164000000003,
+          "x1": 548.2661760000001,
+          "bottom": 204.45164,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "be",
+          "x0": 553.666956,
+          "top": 184.41164000000003,
+          "x1": 577.053636,
+          "bottom": 204.45164,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "in",
+          "x0": 582.590688,
+          "top": 184.41164000000003,
+          "x1": 600.3561480000002,
+          "bottom": 204.45164,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "mid-to-high",
+          "x0": 605.8751640000002,
+          "top": 184.41164000000003,
+          "x1": 716.021016,
+          "bottom": 204.45164,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "teens",
+          "x0": 721.181316,
+          "top": 184.41164000000003,
+          "x1": 773.60796,
+          "bottom": 204.45164,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "percent",
+          "x0": 779.024772,
+          "top": 184.41164000000003,
+          "x1": 851.46336,
+          "bottom": 204.45164,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "Better-than-expected",
+          "x0": 127.8984,
+          "top": 213.38960000000003,
+          "x1": 314.719296,
+          "bottom": 233.4296,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "momentum",
+          "x0": 319.899636,
+          "top": 213.38960000000003,
+          "x1": 420.123684,
+          "bottom": 233.4296,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "in",
+          "x0": 425.269956,
+          "top": 213.38960000000003,
+          "x1": 440.85305999999997,
+          "bottom": 233.4296,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "wealth",
+          "x0": 446.392116,
+          "top": 213.38960000000003,
+          "x1": 504.3377759999999,
+          "bottom": 233.4296,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "management",
+          "x0": 509.7565919999999,
+          "top": 213.38960000000003,
+          "x1": 626.8262639999999,
+          "bottom": 233.4296,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "and",
+          "x0": 631.9344600000001,
+          "top": 213.38960000000003,
+          "x1": 665.4012600000002,
+          "bottom": 233.4296,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "treasury",
+          "x0": 670.8200760000002,
+          "top": 213.38960000000003,
+          "x1": 743.3668800000003,
+          "bottom": 233.4296,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "customer",
+          "x0": 748.4670600000002,
+          "top": 213.38960000000003,
+          "x1": 830.9857680000003,
+          "bottom": 233.4296,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "sales",
+          "x0": 836.0719200000005,
+          "top": 213.38960000000003,
+          "x1": 882.9354600000006,
+          "bottom": 233.4296,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "o",
+          "x0": 100.8984,
+          "top": 220.5038,
+          "x1": 112.9224,
+          "bottom": 240.54380000000003,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "",
+          "x0": 64.8984,
+          "top": 255.14504,
+          "x1": 74.07672,
+          "bottom": 275.18503999999996,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "Total",
+          "x0": 87.4584,
+          "top": 258.45164,
+          "x1": 135.398088,
+          "bottom": 278.49163999999996,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "income",
+          "x0": 140.74676399999998,
+          "top": 258.45164,
+          "x1": 210.816624,
+          "bottom": 278.49163999999996,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "growth",
+          "x0": 216.23343599999998,
+          "top": 258.45164,
+          "x1": 283.1991,
+          "bottom": 278.49163999999996,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "to",
+          "x0": 288.357396,
+          "top": 258.45164,
+          "x1": 307.32325199999997,
+          "bottom": 278.49163999999996,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "be",
+          "x0": 312.722028,
+          "top": 258.45164,
+          "x1": 336.10870800000004,
+          "bottom": 278.49163999999996,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "1-2%",
+          "x0": 341.64576000000005,
+          "top": 258.45164,
+          "x1": 388.47723599999995,
+          "bottom": 278.49163999999996,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "points",
+          "x0": 393.70166399999994,
+          "top": 258.45164,
+          "x1": 453.81565199999994,
+          "bottom": 278.49163999999996,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "above",
+          "x0": 459.23246399999994,
+          "top": 258.45164,
+          "x1": 516.9436559999999,
+          "bottom": 278.49163999999996,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "previous",
+          "x0": 522.6009479999999,
+          "top": 258.45164,
+          "x1": 605.87316,
+          "bottom": 278.49163999999996,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "guidance",
+          "x0": 611.530452,
+          "top": 258.45164,
+          "x1": 699.4900200000001,
+          "bottom": 278.49163999999996,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "of",
+          "x0": 704.9068320000001,
+          "top": 258.45164,
+          "x1": 723.824592,
+          "bottom": 278.49163999999996,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "mid-single-digit",
+          "x0": 729.2714640000002,
+          "top": 258.45164,
+          "x1": 878.2067399999997,
+          "bottom": 278.49163999999996,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "",
+          "x0": 64.8984,
+          "top": 299.18504,
+          "x1": 74.07672,
+          "bottom": 319.22504000000004,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "Cost-income",
+          "x0": 87.4584,
+          "top": 302.49163999999996,
+          "x1": 208.89078,
+          "bottom": 322.53164000000004,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "ratio",
+          "x0": 214.069116,
+          "top": 302.49163999999996,
+          "x1": 257.509824,
+          "bottom": 322.53164000000004,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "to",
+          "x0": 262.78836,
+          "top": 302.49163999999996,
+          "x1": 281.754216,
+          "bottom": 322.53164000000004,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "be",
+          "x0": 287.27523599999995,
+          "top": 302.49163999999996,
+          "x1": 310.661916,
+          "bottom": 322.53164000000004,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "in",
+          "x0": 316.07872799999996,
+          "top": 302.49163999999996,
+          "x1": 333.844188,
+          "bottom": 322.53164000000004,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "low-40%",
+          "x0": 339.36520799999994,
+          "top": 302.49163999999996,
+          "x1": 419.67751200000004,
+          "bottom": 322.53164000000004,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "range",
+          "x0": 424.66146000000003,
+          "top": 302.49163999999996,
+          "x1": 479.248416,
+          "bottom": 322.53164000000004,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "",
+          "x0": 64.8984,
+          "top": 343.10504,
+          "x1": 74.07672,
+          "bottom": 363.14504,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "SP",
+          "x0": 87.4584,
+          "top": 346.41164,
+          "x1": 114.145668,
+          "bottom": 366.45164,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "assumed",
+          "x0": 119.738832,
+          "top": 346.41164,
+          "x1": 206.632272,
+          "bottom": 366.45164,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "to",
+          "x0": 212.02704,
+          "top": 346.41164,
+          "x1": 230.99089200000003,
+          "bottom": 366.45164,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "normalise",
+          "x0": 236.38766400000003,
+          "top": 346.41164,
+          "x1": 330.93237599999986,
+          "bottom": 366.45164,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "to",
+          "x0": 336.23295599999983,
+          "top": 346.41164,
+          "x1": 355.1968079999998,
+          "bottom": 366.45164,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "17-20bp",
+          "x0": 360.59357999999975,
+          "top": 346.41164,
+          "x1": 436.430952,
+          "bottom": 366.45164,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "although",
+          "x0": 441.71149199999996,
+          "top": 346.41164,
+          "x1": 526.3344000000001,
+          "bottom": 366.45164,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "not",
+          "x0": 531.733176,
+          "top": 346.41164,
+          "x1": 562.8953759999999,
+          "bottom": 366.45164,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "seeing",
+          "x0": 568.340244,
+          "top": 346.41164,
+          "x1": 631.830972,
+          "bottom": 366.45164,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "stress",
+          "x0": 637.2317519999999,
+          "top": 346.41164,
+          "x1": 696.3697919999998,
+          "bottom": 366.45164,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "so",
+          "x0": 701.6663639999999,
+          "top": 346.41164,
+          "x1": 725.0710799999999,
+          "bottom": 366.45164,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "far",
+          "x0": 730.4698559999999,
+          "top": 346.41164,
+          "x1": 756.147108,
+          "bottom": 366.45164,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "",
+          "x0": 64.8984,
+          "top": 387.14504,
+          "x1": 74.07672,
+          "bottom": 407.18504,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "Net",
+          "x0": 87.4584,
+          "top": 390.45164,
+          "x1": 119.81298,
+          "bottom": 410.49164,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "profit",
+          "x0": 125.259852,
+          "top": 390.45164,
+          "x1": 176.452032,
+          "bottom": 410.49164,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "to",
+          "x0": 181.65842400000002,
+          "top": 390.45164,
+          "x1": 200.62227600000003,
+          "bottom": 410.49164,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "be",
+          "x0": 206.13928800000002,
+          "top": 390.45164,
+          "x1": 229.51995600000004,
+          "bottom": 410.49164,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "above",
+          "x0": 234.94077600000003,
+          "top": 390.45164,
+          "x1": 292.64395200000007,
+          "bottom": 410.49164,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "2023",
+          "x0": 298.303248,
+          "top": 390.45164,
+          "x1": 342.932328,
+          "bottom": 410.49164,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "levels",
+          "x0": 348.35314799999986,
+          "top": 390.45164,
+          "x1": 403.7777759999998,
+          "bottom": 410.49164,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "5",
+          "x0": 929.445,
+          "top": 514.198,
+          "x1": 933.91524,
+          "bottom": 522.238,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        }
+      ],
+      "tables": [
+        {
+          "setting": "B_text",
+          "warning": "empty_or_headerless_table",
+          "rows": [],
+          "headers": [],
+          "bbox": [
+            64.8984,
+            93.14504,
+            208.89078,
+            410.49164
+          ]
+        }
+      ],
+      "pdf_name": "1Q24_CEO_presentation.pdf"
+    },
+    {
+      "page_number": 6,
+      "width": 960.0,
+      "height": 540.0,
+      "text_error": null,
+      "words_error": null,
+      "text": "CEO observations\nDBS Group Holdings\n1Q 2024 financial results\nMay 2, 2024\nDisclaimer: The information contained in this document is intended only for use during the presentation and should not be disseminated or distributed to parties outside the presentation.\nDBS Bank accepts no liability whatsoever with respect to the use of this document or its contents.",
+      "words": [
+        {
+          "text": "CEO",
+          "x0": 568.7599,
+          "top": 204.32670000000002,
+          "x1": 646.8079,
+          "bottom": 240.32670000000002,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "observations",
+          "x0": 656.7439,
+          "top": 204.32670000000002,
+          "x1": 880.7718999999998,
+          "bottom": 240.32670000000002,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "DBS",
+          "x0": 602.56,
+          "top": 286.58746,
+          "x1": 661.5276399999999,
+          "bottom": 314.54746,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "Group",
+          "x0": 669.3899919999999,
+          "top": 286.58746,
+          "x1": 753.200092,
+          "bottom": 314.54746,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "Holdings",
+          "x0": 761.196652,
+          "top": 286.58746,
+          "x1": 880.66414,
+          "bottom": 314.54746,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "1Q",
+          "x0": 551.92444,
+          "top": 326.90578,
+          "x1": 589.279,
+          "bottom": 354.86578,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "2024",
+          "x0": 597.049084,
+          "top": 326.90578,
+          "x1": 659.3998839999999,
+          "bottom": 354.86578,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "financial",
+          "x0": 667.2566439999999,
+          "top": 326.90578,
+          "x1": 780.8832879999999,
+          "bottom": 354.86578,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "results",
+          "x0": 788.82952,
+          "top": 326.90578,
+          "x1": 880.7172640000001,
+          "bottom": 354.86578,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "May",
+          "x0": 724.85704,
+          "top": 367.2241,
+          "x1": 779.2839759999999,
+          "bottom": 395.1841,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "2,",
+          "x0": 787.258168,
+          "top": 367.2241,
+          "x1": 810.6327279999999,
+          "bottom": 395.1841,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "2024",
+          "x0": 818.349688,
+          "top": 367.2241,
+          "x1": 880.700488,
+          "bottom": 395.1841,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "Disclaimer:",
+          "x0": 59.8253,
+          "top": 501.97339999999997,
+          "x1": 99.616064,
+          "bottom": 510.0134,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "The",
+          "x0": 101.58104,
+          "top": 501.97339999999997,
+          "x1": 115.40984000000002,
+          "bottom": 510.0134,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "information",
+          "x0": 117.66104000000001,
+          "top": 501.97339999999997,
+          "x1": 157.52336000000005,
+          "bottom": 510.0134,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "contained",
+          "x0": 159.65154800000008,
+          "top": 501.97339999999997,
+          "x1": 194.47198400000008,
+          "bottom": 510.0134,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "in",
+          "x0": 196.95956000000007,
+          "top": 501.97339999999997,
+          "x1": 203.22995600000007,
+          "bottom": 510.0134,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "this",
+          "x0": 205.48115600000006,
+          "top": 501.97339999999997,
+          "x1": 218.01873200000003,
+          "bottom": 510.0134,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "document",
+          "x0": 220.11878000000002,
+          "top": 501.97339999999997,
+          "x1": 255.46422799999996,
+          "bottom": 510.0134,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "is",
+          "x0": 257.79261199999996,
+          "top": 501.97339999999997,
+          "x1": 263.61276799999996,
+          "bottom": 510.0134,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "intended",
+          "x0": 265.8326119999999,
+          "top": 501.97339999999997,
+          "x1": 296.57355199999984,
+          "bottom": 510.0134,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "only",
+          "x0": 299.0611279999998,
+          "top": 501.97339999999997,
+          "x1": 313.75663999999983,
+          "bottom": 510.0134,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "for",
+          "x0": 315.98050399999977,
+          "top": 501.97339999999997,
+          "x1": 325.37524399999984,
+          "bottom": 510.0134,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "use",
+          "x0": 327.6208159999999,
+          "top": 501.97339999999997,
+          "x1": 340.60863199999983,
+          "bottom": 510.0134,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "during",
+          "x0": 342.8558119999998,
+          "top": 501.97339999999997,
+          "x1": 365.08078399999977,
+          "bottom": 510.0134,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "the",
+          "x0": 367.5691639999998,
+          "top": 501.97339999999997,
+          "x1": 378.7568239999998,
+          "bottom": 510.0134,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "presentation",
+          "x0": 381.00802399999986,
+          "top": 501.97339999999997,
+          "x1": 425.18621599999983,
+          "bottom": 510.0134,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "and",
+          "x0": 427.67379199999993,
+          "top": 501.97339999999997,
+          "x1": 441.02019199999984,
+          "bottom": 510.0134,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "should",
+          "x0": 443.3879719999999,
+          "top": 501.97339999999997,
+          "x1": 467.0521039999999,
+          "bottom": 510.0134,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "not",
+          "x0": 469.4198839999998,
+          "top": 501.97339999999997,
+          "x1": 480.5311639999998,
+          "bottom": 510.0134,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "be",
+          "x0": 482.8595479999998,
+          "top": 501.97339999999997,
+          "x1": 491.7678679999998,
+          "bottom": 510.0134,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "disseminated",
+          "x0": 494.13564799999983,
+          "top": 501.97339999999997,
+          "x1": 541.7621959999999,
+          "bottom": 510.0134,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "or",
+          "x0": 543.769784,
+          "top": 501.97339999999997,
+          "x1": 550.885184,
+          "bottom": 510.0134,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "distributed",
+          "x0": 553.1307559999999,
+          "top": 501.97339999999997,
+          "x1": 590.232944,
+          "bottom": 510.0134,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "to",
+          "x0": 592.6007239999999,
+          "top": 501.97339999999997,
+          "x1": 599.351108,
+          "bottom": 510.0134,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "parties",
+          "x0": 601.598288,
+          "top": 501.97339999999997,
+          "x1": 625.6523599999999,
+          "bottom": 510.0134,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "outside",
+          "x0": 627.872204,
+          "top": 501.97339999999997,
+          "x1": 653.81648,
+          "bottom": 510.0134,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "the",
+          "x0": 656.18426,
+          "top": 501.97339999999997,
+          "x1": 667.3719199999999,
+          "bottom": 510.0134,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "presentation.",
+          "x0": 669.62312,
+          "top": 501.97339999999997,
+          "x1": 716.0042719999999,
+          "bottom": 510.0134,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "DBS",
+          "x0": 59.817259999999976,
+          "top": 511.57316,
+          "x1": 76.34026399999998,
+          "bottom": 519.61316,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "Bank",
+          "x0": 78.54000799999997,
+          "top": 511.57316,
+          "x1": 96.83583199999997,
+          "bottom": 519.61316,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "accepts",
+          "x0": 99.17547199999998,
+          "top": 511.57316,
+          "x1": 126.950456,
+          "bottom": 519.61316,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "no",
+          "x0": 129.173516,
+          "top": 511.57316,
+          "x1": 138.081836,
+          "bottom": 519.61316,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "liability",
+          "x0": 140.449616,
+          "top": 511.57316,
+          "x1": 164.62589600000004,
+          "bottom": 519.61316,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "whatsoever",
+          "x0": 166.72835600000002,
+          "top": 511.57316,
+          "x1": 207.55708400000003,
+          "bottom": 519.61316,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "with",
+          "x0": 210.03983599999998,
+          "top": 511.57316,
+          "x1": 224.23043599999994,
+          "bottom": 519.61316,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "respect",
+          "x0": 226.59821599999992,
+          "top": 511.57316,
+          "x1": 252.9485119999999,
+          "bottom": 519.61316,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "to",
+          "x0": 255.15629599999986,
+          "top": 511.57316,
+          "x1": 261.9066799999998,
+          "bottom": 519.61316,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "the",
+          "x0": 264.1546639999998,
+          "top": 511.57316,
+          "x1": 275.34312799999975,
+          "bottom": 519.61316,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "use",
+          "x0": 277.7109079999998,
+          "top": 511.57316,
+          "x1": 290.69952799999976,
+          "bottom": 519.61316,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "of",
+          "x0": 292.94751199999973,
+          "top": 511.57316,
+          "x1": 299.62071199999974,
+          "bottom": 519.61316,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "this",
+          "x0": 301.94507599999974,
+          "top": 511.57316,
+          "x1": 314.4834559999997,
+          "bottom": 519.61316,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "document",
+          "x0": 316.7065159999997,
+          "top": 511.57316,
+          "x1": 352.0519639999997,
+          "bottom": 519.61316,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "or",
+          "x0": 354.2597479999997,
+          "top": 511.57316,
+          "x1": 361.37514799999974,
+          "bottom": 519.61316,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "its",
+          "x0": 363.6175039999997,
+          "top": 511.57316,
+          "x1": 371.71780399999966,
+          "bottom": 519.61316,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        },
+        {
+          "text": "contents.",
+          "x0": 373.9408639999997,
+          "top": 511.57316,
+          "x1": 406.6475839999997,
+          "bottom": 519.61316,
+          "upright": true,
+          "direction": "ltr",
+          "fontname": null,
+          "size": null
+        }
+      ],
+      "tables": [
+        {
+          "setting": "B_text",
+          "bbox": [
+            656.7439,
+            204.32670000000002,
+            880.7718999999998,
+            395.1841
+          ],
+          "headers": [
+            "observations"
+          ],
+          "rows": [
+            [
+              ""
+            ],
+            [
+              "Group Holdings"
+            ],
+            [
+              ""
+            ],
+            [
+              "financial results"
+            ],
+            [
+              ""
+            ],
+            [
+              "May 2, 2024"
+            ]
+          ]
+        }
+      ],
+      "pdf_name": "1Q24_CEO_presentation.pdf"
+    }
+  ]
+}

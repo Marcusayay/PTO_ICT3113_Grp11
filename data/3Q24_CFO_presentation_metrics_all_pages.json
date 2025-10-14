@@ -1,0 +1,216 @@
+{
+  "source": "3Q24_CFO_presentation.pdf",
+  "pages": [
+    {
+      "page": 5,
+      "metric": "Net interest margin (%)",
+      "chart_type": "line-like",
+      "extracted": {
+        "3Q24": {
+          "group_nim": 2.11,
+          "commercial_nim": 2.83
+        }
+      }
+    },
+    {
+      "page": 5,
+      "metric": "record Commercial book net interest income rises 3%",
+      "chart_type": "stacked-bar",
+      "extracted": {
+        "3Q24": {
+          "Net interest income": 3.0
+        }
+      }
+    },
+    {
+      "page": 6,
+      "metric": "3Q net profit up 8% QoQ as total income rises 5%",
+      "chart_type": "stacked-bar",
+      "extracted": {
+        "3Q24": {
+          "Commercial book": 2.0,
+          "Total": 5.0
+        }
+      }
+    },
+    {
+      "page": 8,
+      "metric": "Net interest margin (%)",
+      "chart_type": "line-like",
+      "extracted": {
+        "1Q24": {
+          "group_nim": 2.14,
+          "commercial_nim": 2.77
+        },
+        "2Q24": {
+          "group_nim": 2.14,
+          "commercial_nim": 2.83
+        },
+        "3Q24": {
+          "group_nim": 2.11,
+          "commercial_nim": 2.83
+        }
+      }
+    },
+    {
+      "page": 8,
+      "metric": "3Q commercial book net interest income up 1% QoQ, NIM",
+      "chart_type": "stacked-bar",
+      "extracted": {
+        "1Q24": {
+          "Markets trading": -142.0
+        },
+        "2Q24": {
+          "Markets trading": -175.0,
+          "Commercial book": 1.0,
+          "Net interest income": 1.0
+        },
+        "3Q24": {
+          "Markets trading": -199.0
+        }
+      }
+    },
+    {
+      "page": 9,
+      "metric": "Loans up 1% QoQ, 2% over 9M in constant-currency terms",
+      "chart_type": "stacked-bar",
+      "extracted": {
+        "2Q24": {
+          "Trade": -4.0
+        }
+      }
+    },
+    {
+      "page": 10,
+      "metric": "Deposits up 2% QoQ in constant-currency terms from Casa",
+      "chart_type": "stacked-bar",
+      "extracted": {
+        "1Q24": {
+          "SGD Casa": -11.0
+        },
+        "2Q24": {
+          "FCY Casa": -3.0
+        },
+        "3Q24": {
+          "FCY Casa": -0.0
+        }
+      }
+    },
+    {
+      "page": 11,
+      "metric": "3Q and 9M fee income rises to record led by wealth management",
+      "chart_type": "stacked-bar",
+      "extracted": {
+        "3Q23": {
+          "Loan-related": 137.0,
+          "Cards": 269.0,
+          "Total": 22.0
+        },
+        "2Q24": {
+          "Loan-related": 186.0,
+          "Cards": 313.0,
+          "Total": 37.0
+        },
+        "3Q24": {
+          "Loan-related": 146.0,
+          "Cards": 302.0,
+          "Total": 55.0
+        }
+      }
+    },
+    {
+      "page": 12,
+      "metric": "3Q commercial book non-interest income up 21% YoY,",
+      "chart_type": "stacked-bar",
+      "extracted": {
+        "3Q23": {
+          "Markets trading": 346.0,
+          "Net fee income": 843.0,
+          "Total": 1342.0
+        },
+        "2Q24": {
+          "Markets trading": 362.0,
+          "Net fee income": 1048.0,
+          "Commercial book": 21.0,
+          "Non-interest income": 21.0,
+          "Total": 1526.0
+        },
+        "3Q24": {
+          "Net fee income": 1109.0,
+          "Total": 1626.0
+        }
+      }
+    },
+    {
+      "page": 13,
+      "metric": "Record 3Q and 9M Wealth Management income from AUM",
+      "chart_type": "stacked-bar",
+      "extracted": {
+        "3Q23": {
+          "Net interest income": 680.0,
+          "Non-interest income": 25.0,
+          "Total": 405.0
+        },
+        "2Q24": {
+          "Net interest income": 661.0,
+          "Non-interest income": 44.0,
+          "Total": 447.0
+        },
+        "3Q24": {
+          "Non-interest income": 52.0,
+          "Total": 452.0
+        }
+      }
+    },
+    {
+      "page": 15,
+      "metric": "NPA declines 8% QoQ contributed by repayment of recent cases",
+      "chart_type": "stacked-bar",
+      "extracted": {
+        "1Q24": {
+          "Others": 75.0,
+          "CBG / WM": 43.0,
+          "Other IBG": 75.0,
+          "Total": 5221.0
+        },
+        "2Q24": {
+          "Others": -152.0,
+          "CBG / WM": 5.0,
+          "Other IBG": -152.0,
+          "Total": 5221.0
+        },
+        "3Q24": {
+          "Others": -214.0,
+          "CBG / WM": -23.0,
+          "Other IBG": -214.0,
+          "Total": 5077.0
+        }
+      }
+    },
+    {
+      "page": 16,
+      "metric": "9M SP stable at 11bp of loans",
+      "chart_type": "stacked-bar",
+      "extracted": {
+        "1Q24": {
+          "Others": 5.0,
+          "CBG / WM": 96.0,
+          "Other IBG": 5.0,
+          "Total": 115.0
+        },
+        "2Q24": {
+          "Others": -11.0,
+          "CBG / WM": 100.0,
+          "Other IBG": -11.0,
+          "Total": 97.0
+        },
+        "3Q24": {
+          "Others": 43.0,
+          "CBG / WM": 110.0,
+          "Other IBG": 43.0,
+          "Total": 120.0
+        }
+      }
+    }
+  ]
+}

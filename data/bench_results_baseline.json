@@ -2,33 +2,12 @@
   "results": [
     {
       "query": "Report the Gross Margin (or Net Interest Margin, if a bank) over the last 5 quarters, with values.",
-      "answer": "NIM (%) \u2014 last 5 quarters:\nQuarter | NIM (%)\n--------|--------\n2Q25 | 1\n1Q25 | 1\n4Q24 | 1\n3Q24 | 1\n2Q24 | 1\n\nCitations:\n- 1Q25_CFO_presentation.pdf, 1Q25, p.5, prose",
+      "answer": "NIM (%) \u2014 last 5 quarters (Group):\nQuarter | NIM (%)\n--------|--------\n2Q25 | 2.05\n1Q25 | 2.12\n4Q24 | 2.15\n3Q24 | 2.11\n2Q24 | 2.14\n\nCitations:\n- Source: 4Q24_CFO_presentation.pdf, 4Q24, p.4, heuristic_summary_p4\n- Source: 2Q24_performance_summary.pdf, 2Q24, p.8, heuristic_summary_p8\n- Source: 3Q24_CFO_presentation.pdf, 3Q24, p.5, heuristic_summary_p5",
       "hits": [],
       "execution_log": {
-        "pairs": [
-          [
-            2025,
-            2
-          ],
-          [
-            2025,
-            1
-          ],
-          [
-            2024,
-            4
-          ],
-          [
-            2024,
-            3
-          ],
-          [
-            2024,
-            2
-          ]
-        ]
+        "built_from": "tool_nim_series"
       },
-      "latency_ms": 3459.21
+      "latency_ms": 5330.76
     },
     {
       "query": "Show Operating Expenses for the last 3 fiscal years, year-on-year comparison.",
@@ -41,7 +20,7 @@
           2022
         ]
       },
-      "latency_ms": 121.37
+      "latency_ms": 115.0
     },
     {
       "query": "Calculate the Operating Efficiency Ratio (Opex \u00f7 Operating Income) for the last 3 fiscal years, showing the working.",
@@ -54,7 +33,7 @@
           2022
         ]
       },
-      "latency_ms": 228.35
+      "latency_ms": 221.52
     }
   ]
 }

@@ -338,25 +338,63 @@ def _unique_list(xs, cap=5):
 
 def baseline_nim_5q() -> dict:
     """
-    NIM for the last 5 quarters: query table_extraction per (Y,Q) found in KB.
+    NIM for the last 5 quarters (Group):
+      - Use the dedicated NIM series parser (tool_nim_series) which aggregates across docs.
+      - Parse its result into a table.
+      - Add lightweight citations by retrieving a top hit per quarter.
     """
     _ensure_init()
-    pairs = _latest_quarters(kb, n=5)
-    rows, cites = [], []
-    for (y,q) in pairs:
-        r = tool_table_extraction(f"Net interest margin (%) for {int(q)}Q{int(y)}")
-        val, src = _parse_tool_kv(r)
-        rows.append((f"{q}Q{str(y)[-2:]}", val or "—"))
-        cites.append(src or r)
 
-    lines = ["NIM (%) — last 5 quarters:", "Quarter | NIM (%)", "--------|--------"]
+    # 1) Get the consolidated series (Group) from structured/vision + table text
+    series_str = tool_nim_series(last_n=5, variant="group")
+
+    # Expect format: "NIM (Group) last 5 quarters → 2Q25: 2.05%, 1Q25: 2.12%, ..."
+    items = re.findall(r"([1-4]Q\d{2})\s*:\s*([0-9]+(?:\.[0-9]+)?)%", series_str)
+    if not items:
+        # Fall back to the original per-quarter extraction if parsing failed
+        pairs = _latest_quarters(kb, n=5)
+        rows, cites = [], []
+        for (y, q) in pairs:
+            r = tool_table_extraction(f"Net interest margin (%) for {int(q)}Q{int(y)}")
+            val, src = _parse_tool_kv(r)
+            rows.append((f"{q}Q{str(y)[-2:]}", val or "—"))
+            cites.append(src or r)
+        lines = ["NIM (%) — last 5 quarters:", "Quarter | NIM (%)", "--------|--------"]
+        for qlab, v in rows:
+            lines.append(f"{qlab} | {v}")
+        lines.append("\nCitations:")
+        for c in _unique_list(cites, cap=5):
+            lines.append(f"- {c}")
+        return {"answer": "\n".join(lines), "hits": [], "execution_log": {"fallback": True}}
+
+    # 2) Build table from parsed items (already newest→oldest in tool_nim_series)
+    rows = [(q.upper(), v) for (q, v) in items]
+
+    # 3) Lightweight citations: take the top hit per quarter
+    def _cite_for_quarter(q_label: str) -> Optional[str]:
+        hits = hybrid_search(f"Net interest margin (%) {q_label}", top_k=1)
+        if not hits:
+            return None
+        return f"Source: {format_citation(hits[0])}"
+
+    cites = []
+    for qlab, _ in rows:
+        c = _cite_for_quarter(qlab)
+        if c:
+            cites.append(c)
+    cites = _unique_list(cites, cap=5)
+
+    # 4) Render output
+    out = ["NIM (%) — last 5 quarters (Group):", "Quarter | NIM (%)", "--------|--------"]
     for qlab, v in rows:
-        lines.append(f"{qlab} | {v}")
-    lines.append("\nCitations:")
-    for c in _unique_list(cites, cap=5):
-        lines.append(f"- {c}")
+        out.append(f"{qlab} | {v}")
 
-    return {"answer":"\n".join(lines), "hits":[], "execution_log": {"pairs": pairs}}
+    if cites:
+        out.append("\nCitations:")
+        for c in cites:
+            out.append(f"- {c}")
+
+    return {"answer": "\n".join(out), "hits": [], "execution_log": {"built_from": "tool_nim_series"}}
 
 def baseline_opex_3y() -> dict:
     """

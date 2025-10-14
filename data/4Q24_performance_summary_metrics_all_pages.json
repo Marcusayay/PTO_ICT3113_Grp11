@@ -1,0 +1,33 @@
+{
+  "source": "4Q24_performance_summary.pdf",
+  "pages": [
+    {
+      "page": 8,
+      "metric": "Net interest margin (%)",
+      "chart_type": "line-like",
+      "extracted": {
+        "4Q24": {
+          "group_nim": 3.6,
+          "commercial_nim": 3.64
+        },
+        "3Q24": {
+          "group_nim": 3.6,
+          "commercial_nim": 3.64
+        }
+      }
+    },
+    {
+      "page": 8,
+      "metric": "DBS GROUP HOLDINGS LTD AND ITS SUBSIDIARIES Per share data ($)4,9",
+      "chart_type": "stacked-bar",
+      "extracted": {
+        "4Q24": {
+          "Total": 31.0
+        },
+        "3Q24": {
+          "Total": 2024.0
+        }
+      }
+    }
+  ]
+}

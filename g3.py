@@ -10,7 +10,7 @@ Artifacts written to OUT_DIR (default: data/):
   - bench_results_baseline.json / bench_results_agent.json
   - bench_report_baseline.md / bench_report_agent.md
 """
-import os, json, time, inspect
+import os, json, time, inspect, re, glob
 from typing import List, Dict, Any
 
 import pandas as pd
@@ -18,7 +18,121 @@ import pandas as pd
 # Explicitly import Stage-2 entrypoints so we don't rely on globals
 from g2 import init_stage2, answer_with_llm_baseline as answer_with_llm, answer_with_agent
 
+
 OUT_DIR = os.environ.get("AGENT_CFO_OUT_DIR", "data")
+
+# --- Structured NIM helpers ---
+def _pkey_quarter_label(lbl: str):
+    """
+    Convert labels like '2Q25' or '3Q2024' into a sortable (year, quarter) tuple.
+    Non-matching labels get (0,0) so they sort first.
+    """
+    m = re.match(r"^\s*([1-4])\s*Q\s*(\d{2}|\d{4})\s*$", lbl, re.IGNORECASE)
+    if not m:
+        return (0, 0)
+    q = int(m.group(1))
+    y = int(m.group(2))
+    y = y if y >= 100 else (2000 + y)  # normalize 2-digit years
+    return (y, q)
+
+def _load_structured_nim_from_metrics(out_dir: str = OUT_DIR):
+    """
+    Prefer structured NIM from Stage-1 artifacts: data/*_metrics.json
+    Returns newest-last list of dicts:
+      [{"period": "2Q25", "value": 2.55, "source": "2Q25_CFO_presentation.pdf", "page": 6}, ...]
+    We look for pages with chart_type == "line-like" and metric containing "net interest margin".
+    """
+    items = []
+    for path in glob.glob(os.path.join(out_dir, "*_metrics.json")):
+        try:
+            with open(path, "r", encoding="utf-8") as f:
+                doc = json.load(f)
+        except Exception:
+            continue
+        if not isinstance(doc, dict):
+            continue
+        src = doc.get("source") or os.path.basename(path).replace("_metrics.json", ".pdf")
+        pages = doc.get("pages") or []
+        for pg in pages:
+            if not isinstance(pg, dict):
+                continue
+            metric = (pg.get("metric") or "").lower()
+            if pg.get("chart_type") == "line-like" and "net interest margin" in metric:
+                extracted = pg.get("extracted") or {}
+                for period, vals in extracted.items():
+                    if not isinstance(vals, dict):
+                        continue
+                    # Prefer group_nim; fallback to commercial_nim
+                    val = vals.get("group_nim")
+                    if val is None:
+                        val = vals.get("commercial_nim")
+                    if val is None:
+                        continue
+                    try:
+                        v = float(val)
+                    except Exception:
+                        continue
+                    items.append({
+                        "period": period,
+                        "value": v,
+                        "source": src,
+                        "page": pg.get("page"),
+                    })
+    # sort by (year, quarter) and return newest last
+    items.sort(key=lambda d: _pkey_quarter_label(d["period"]))
+    return items
+
+def _format_nim_answer_from_structured(items):
+    """
+    Build the exact prose/table answer format expected by Stage 3 for the NIM query,
+    using the last 5 quarters from the provided structured items.
+    """
+    if not items:
+        return None
+    last5 = items[-5:]  # newest last
+    # Build a simple markdown table
+    lines = ["NIM (%) — last 5 quarters:", "Quarter | NIM (%)", "--------|--------"]
+    for d in last5:
+        # Keep raw float; formatting can be adjusted if you prefer 2 dp
+        lines.append(f"{d['period']} | {d['value']}")
+    answer_text = "\n".join(lines)
+    # Citations: list each unique source/page once
+    cites = []
+    seen = set()
+    for d in last5:
+        src = d.get("source") or ""
+        page = d.get("page")
+        key = (src, page)
+        if key in seen:
+            continue
+        seen.add(key)
+        if src:
+            if page is not None:
+                cites.append(f"- {src}, p.{page}")
+            else:
+                cites.append(f"- {src}")
+    if cites:
+        answer_text += "\n\nCitations:\n" + "\n".join(cites)
+    return {
+        "answer": answer_text,
+        "hits": [],              # keep empty; we’re answering directly from structured cache
+        "execution_log": {"used": "structured_metrics_json", "count": len(last5)}
+    }
+def answer_with_llm_wrapped(query: str, dry_run: bool = False):
+    """
+    Wrapper around answer_with_llm that prefers structured NIM from *_metrics.json
+    when the query asks for Net Interest Margin. Falls back to Stage-2 otherwise.
+    """
+    ql = (query or "").lower()
+    is_nim_query = ("net interest margin" in ql) or (" nim" in ql) or ql.endswith("nim") or ql.startswith("nim")
+    if is_nim_query:
+        # Only use structured cache if explicitly enabled
+        if os.environ.get("USE_STRUCTURED_NIM", "0") in ("1", "true", "True"):
+            structured = _load_structured_nim_from_metrics(OUT_DIR)
+            if structured:
+                return _format_nim_answer_from_structured(structured)
+    # Fallback to the original Stage-2 baseline pipeline
+    return answer_with_llm(query, dry_run=dry_run)
 
 # --- Standardized queries (exact spec) ---
 QUERIES: List[str] = [
@@ -102,7 +216,7 @@ def run_benchmark(
         print("\n" + "="*25 + f" RUNNING AGENT BENCHMARK " + "="*25)
     else:
         mode_name = "baseline"
-        answer_func = answer_with_llm
+        answer_func = answer_with_llm_wrapped
         print("\n" + "="*24 + f" RUNNING BASELINE BENCHMARK " + "="*24)
     
     if dry_run:

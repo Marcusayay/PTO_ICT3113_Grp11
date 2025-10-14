@@ -1,0 +1,493 @@
+{
+  "source": "2Q24_CFO_presentation.pdf",
+  "pages": [
+    {
+      "page": 3,
+      "metric": "2Q net profit up 4% YoY as total income rises 9%",
+      "chart_type": "stacked-bar",
+      "extracted": {
+        "2Q24": {
+          "Markets trading": 6.0,
+          "Net fee income": 9.0,
+          "Net interest income": 9.0,
+          "Total": 9.0
+        }
+      }
+    },
+    {
+      "page": 4,
+      "metric": "Net interest margin (%)",
+      "chart_type": "line-like",
+      "extracted": {
+        "1Q24": {
+          "group_nim": 4.0,
+          "commercial_nim": 5.0
+        },
+        "2Q24": {
+          "group_nim": 4.0,
+          "commercial_nim": 3.0
+        }
+      }
+    },
+    {
+      "page": 4,
+      "metric": "2Q net profit down 5% QoQ",
+      "chart_type": "stacked-bar",
+      "extracted": {
+        "2Q24": {
+          "Other non-interest income": 15.0,
+          "Commercial book": 15.0,
+          "Non-interest income": 15.0,
+          "Total": 3.0
+        }
+      }
+    },
+    {
+      "page": 5,
+      "metric": "1H net profit up 9% to new high as total income rises 11%",
+      "chart_type": "stacked-bar",
+      "extracted": {
+        "1H24": {
+          "Commercial book": 11.0,
+          "Total": 11.0
+        }
+      }
+    },
+    {
+      "page": 6,
+      "metric": "Net interest margin (%)",
+      "chart_type": "line-like",
+      "extracted": {
+        "1H23": {
+          "group_nim": 2.14,
+          "commercial_nim": 2.75
+        },
+        "1H24": {
+          "group_nim": 2.14,
+          "commercial_nim": 2.8
+        },
+        "2Q23": {
+          "group_nim": 2.16,
+          "commercial_nim": 2.81
+        },
+        "3Q23": {
+          "group_nim": 2.19,
+          "commercial_nim": 2.82
+        },
+        "4Q23": {
+          "group_nim": 2.13,
+          "commercial_nim": 2.75
+        },
+        "1Q24": {
+          "group_nim": 2.14,
+          "commercial_nim": 2.77
+        },
+        "2Q24": {
+          "group_nim": 2.14,
+          "commercial_nim": 2.83
+        }
+      }
+    },
+    {
+      "page": 6,
+      "metric": "2Q commercial book net interest income up 3% QoQ as NIM",
+      "chart_type": "stacked-bar",
+      "extracted": {
+        "1H23": {
+          "Markets trading": -261.0
+        },
+        "1H24": {
+          "Markets trading": -317.0
+        },
+        "2Q23": {
+          "Markets trading": -148.0
+        },
+        "3Q23": {
+          "Markets trading": -180.0
+        },
+        "4Q23": {
+          "Markets trading": -203.0,
+          "Commercial book": 3.0,
+          "Net interest income": 3.0
+        },
+        "1Q24": {
+          "Markets trading": -142.0
+        },
+        "2Q24": {
+          "Markets trading": -175.0
+        }
+      }
+    },
+    {
+      "page": 7,
+      "metric": "Loans stable QoQ, up 1% over first half in constant-currency",
+      "chart_type": "stacked-bar",
+      "extracted": {
+        "1H24": {
+          "Total": 1.0
+        }
+      }
+    },
+    {
+      "page": 9,
+      "metric": "2Q fee income rises YoY due to wealth management, cards and",
+      "chart_type": "stacked-bar",
+      "extracted": {
+        "1H23": {
+          "Total": 2007.0
+        },
+        "1H24": {
+          "Total": 2535.0
+        },
+        "2Q23": {
+          "Total": 999.0
+        },
+        "3Q23": {
+          "Total": 1048.0
+        },
+        "4Q23": {
+          "Total": 1069.0
+        },
+        "1Q24": {
+          "Total": 1271.0
+        },
+        "2Q24": {
+          "Total": 1264.0
+        }
+      }
+    },
+    {
+      "page": 10,
+      "metric": "1H commercial book non-interest income up 24% YoY from",
+      "chart_type": "stacked-bar",
+      "extracted": {
+        "1H23": {
+          "Markets trading": 707.0,
+          "Net fee income": 1674.0
+        },
+        "1H24": {
+          "Markets trading": 750.0,
+          "Net fee income": 2091.0
+        },
+        "2Q23": {
+          "Markets trading": 325.0,
+          "Net fee income": 823.0
+        },
+        "3Q23": {
+          "Markets trading": 346.0,
+          "Net fee income": 843.0
+        },
+        "4Q23": {
+          "Markets trading": 316.0,
+          "Net fee income": 867.0,
+          "Commercial book": 24.0,
+          "Non-interest income": 24.0
+        },
+        "1Q24": {
+          "Markets trading": 388.0,
+          "Net fee income": 1043.0
+        },
+        "2Q24": {
+          "Markets trading": 362.0,
+          "Net fee income": 1048.0
+        }
+      }
+    },
+    {
+      "page": 12,
+      "metric": "1H CBG / WM income up 18%",
+      "chart_type": "stacked-bar",
+      "extracted": {
+        "1H24": {
+          "Cards": 420.0,
+          "Others": 23.0,
+          "Total": 396.0
+        },
+        "1H23": {
+          "Cards": 313.0,
+          "Others": 44.0,
+          "CBG / WM": 18.0,
+          "Total": 320.0
+        }
+      }
+    },
+    {
+      "page": 13,
+      "metric": "1H IBG income stable",
+      "chart_type": "stacked-bar",
+      "extracted": {
+        "1H24": {
+          "Investment banking": 46.0,
+          "Trade": 320.0,
+          "Total": 4687.0
+        },
+        "1H23": {
+          "Investment banking": 56.0,
+          "Trade": 345.0,
+          "Total": 4693.0
+        }
+      }
+    },
+    {
+      "page": 14,
+      "metric": "1H treasury customer income up 26% to record, Markets",
+      "chart_type": "stacked-bar",
+      "extracted": {
+        "1H23": {
+          "Markets trading": 446.0,
+          "Total": 1381.0
+        },
+        "1H24": {
+          "Markets trading": 433.0,
+          "Total": 1610.0
+        },
+        "2Q23": {
+          "Markets trading": 177.0,
+          "Total": 635.0
+        },
+        "3Q23": {
+          "Markets trading": 166.0,
+          "Total": 643.0
+        },
+        "4Q23": {
+          "Markets trading": 113.0,
+          "Total": 553.0
+        },
+        "1Q24": {
+          "Markets trading": 246.0,
+          "Total": 859.0
+        },
+        "2Q24": {
+          "Markets trading": 187.0,
+          "Total": 751.0
+        }
+      }
+    },
+    {
+      "page": 15,
+      "metric": "1H Hong Kong net profit down 2% YoY, up 3% HoH; ROE at 19%",
+      "chart_type": "stacked-bar",
+      "extracted": {
+        "1H23": {
+          "Total": 808.0
+        },
+        "1H24": {
+          "Total": 800.0
+        }
+      }
+    },
+    {
+      "page": 16,
+      "metric": "NPL ratio unchanged at 1.1%",
+      "chart_type": "stacked-bar",
+      "extracted": {
+        "2Q24": {
+          "Others": -152.0,
+          "CBG / WM": 5.0,
+          "Other IBG": -152.0,
+          "Total": 5221.0
+        },
+        "1H23": {
+          "Others": -138.0,
+          "CBG / WM": -16.0,
+          "Other IBG": -138.0,
+          "Total": 5125.0
+        },
+        "1H24": {
+          "Others": -77.0,
+          "CBG / WM": 48.0,
+          "Other IBG": -77.0,
+          "Total": 5077.0
+        },
+        "2Q23": {
+          "Others": -5.0,
+          "CBG / WM": -7.0,
+          "Other IBG": -5.0,
+          "Total": 4990.0
+        },
+        "3Q23": {
+          "Others": -41.0,
+          "CBG / WM": 45.0,
+          "Other IBG": -41.0,
+          "Total": 5303.0
+        },
+        "4Q23": {
+          "Others": -139.0,
+          "CBG / WM": -23.0,
+          "Other IBG": -139.0,
+          "Total": 5303.0
+        },
+        "1Q24": {
+          "Others": 75.0,
+          "CBG / WM": 43.0,
+          "Other IBG": 75.0,
+          "Total": 5221.0
+        }
+      }
+    },
+    {
+      "page": 17,
+      "metric": "2Q SP at 8bp, 1H at 9bp",
+      "chart_type": "stacked-bar",
+      "extracted": {
+        "1H23": {
+          "Others": 81.0,
+          "CBG / WM": 83.0,
+          "Other IBG": 81.0,
+          "Total": 178.0
+        },
+        "1H24": {
+          "Others": -6.0,
+          "CBG / WM": 196.0,
+          "Other IBG": -6.0,
+          "Total": 212.0
+        },
+        "2Q23": {
+          "Others": 57.0,
+          "CBG / WM": 49.0,
+          "Other IBG": 57.0,
+          "Total": 116.0
+        },
+        "3Q23": {
+          "Others": 114.0,
+          "CBG / WM": 73.0,
+          "Other IBG": 114.0,
+          "Total": 196.0
+        },
+        "4Q23": {
+          "Others": 25.0,
+          "CBG / WM": 90.0,
+          "Other IBG": 25.0,
+          "Total": 139.0
+        },
+        "1Q24": {
+          "Others": 5.0,
+          "CBG / WM": 96.0,
+          "Other IBG": 5.0,
+          "Total": 115.0
+        },
+        "2Q24": {
+          "Others": -11.0,
+          "CBG / WM": 100.0,
+          "Other IBG": -11.0,
+          "Total": 97.0
+        }
+      }
+    },
+    {
+      "page": 23,
+      "metric": "1H net profit up 9% to record $5.76bn",
+      "chart_type": "stacked-bar",
+      "extracted": {
+        "1H24": {
+          "Markets trading": 433.0,
+          "Net fee income": 2091.0,
+          "Commercial book": 10606.0,
+          "Net interest income": -317.0,
+          "Non-interest income": 750.0,
+          "Total": 6788.0
+        },
+        "1H23": {
+          "Markets trading": 446.0,
+          "Net fee income": 1674.0,
+          "Commercial book": 9535.0,
+          "Net interest income": -261.0,
+          "Non-interest income": 707.0,
+          "Total": 6168.0
+        }
+      }
+    },
+    {
+      "page": 24,
+      "metric": "Net interest margin (%)",
+      "chart_type": "line-like",
+      "extracted": {
+        "1H24": {
+          "group_nim": 1.8,
+          "commercial_nim": 2.0
+        },
+        "1H23": {
+          "group_nim": 1.79,
+          "commercial_nim": 2.0
+        }
+      }
+    },
+    {
+      "page": 24,
+      "metric": "1H Hong Kong net profit down 2%",
+      "chart_type": "stacked-bar",
+      "extracted": {
+        "1H24": {
+          "Other non-interest income": 234.0,
+          "Net fee income": 411.0,
+          "Net interest income": 1034.0,
+          "Non-interest income": 234.0
+        },
+        "1H23": {
+          "Other non-interest income": 189.0,
+          "Net fee income": 350.0,
+          "Net interest income": 1035.0,
+          "Non-interest income": 189.0,
+          "Total": 2.0
+        }
+      }
+    },
+    {
+      "page": 28,
+      "metric": "1H Wealth Management segment income up 21%",
+      "chart_type": "stacked-bar",
+      "extracted": {
+        "1H23": {
+          "Total": 2157.0
+        },
+        "1H24": {
+          "Total": 2620.0
+        },
+        "2Q23": {
+          "Total": 1083.0
+        },
+        "3Q23": {
+          "Total": 1145.0
+        },
+        "4Q23": {
+          "Wealth management": 21.0,
+          "Total": 1123.0
+        },
+        "1Q24": {
+          "Total": 1325.0
+        },
+        "2Q24": {
+          "Total": 1295.0
+        }
+      }
+    },
+    {
+      "page": 29,
+      "metric": "1H GTS income down 3%",
+      "chart_type": "stacked-bar",
+      "extracted": {
+        "1H23": {
+          "Total": 2476.0
+        },
+        "1H24": {
+          "Total": 2402.0
+        },
+        "2Q23": {
+          "Total": 1263.0
+        },
+        "3Q23": {
+          "Total": 1274.0
+        },
+        "4Q23": {
+          "Total": 1244.0
+        },
+        "1Q24": {
+          "Total": 1199.0
+        },
+        "2Q24": {
+          "Total": 1204.0
+        }
+      }
+    }
+  ]
+}

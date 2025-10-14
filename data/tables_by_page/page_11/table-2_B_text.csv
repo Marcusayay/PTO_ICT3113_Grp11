@@ -1,0 +1,27 @@
+col_1,col_2,col_3,col_4,col_5,col_6,col_7
+Volume and rate analysis ($m),,,Net,,,Net
+Increase/(decrease) due to change in,Volume,Rate,change,Volume,Rate,change
+,,,,,,
+Interest and similar income,,,,,,
+Customer non-trade loans,250,787,"1,037",85,80,165
+Trade assets,(143),125,(18),(7),43,36
+,,,,,,
+Interbank assets,319,74,393,331,(61),270
+,,,,,,
+Securities and others,250,493,743,237,294,531
+,,,,,,
+Total,676,"1,479","2,155",646,356,"1,002"
+,,,,,,
+Interest expense,,,,,,
+,,,,,,
+Customer deposits,250,"1,171","1,421",194,334,528
+,,,,,,
+Other borrowings,54,323,377,114,121,235
+,,,,,,
+Total,304,"1,494","1,798",308,455,763
+,,,,,,
+Net impact on net interest income,372,(15),357,338,(99),239
+,,,,,,
+Due to change in number of days,,,38,,,(78)
+,,,,,,
+Net Interest Income,,,395,,,161

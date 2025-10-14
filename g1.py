@@ -16,6 +16,7 @@ import numpy as np
 import pdfplumber
 import fitz  # PyMuPDF
 from PIL import Image
+import glob
 
 # Gemini Vision API
 import google.generativeai as genai
@@ -33,6 +34,75 @@ os.environ["TOKENIZERS_PARALLELISM"] = "false"
 DATA_DIR = os.environ.get("AGENT_CFO_DATA_DIR", "All")
 OUT_DIR = os.environ.get("AGENT_CFO_OUT_DIR", "data")
 CACHE_DIR = os.path.join(OUT_DIR, "vision_cache")
+
+# Directory for dumping per-page tables as CSVs (set to None to disable CSV dumps)
+DUMP_TABLES_DIR = os.path.join(OUT_DIR, "tables_by_page")  # set to None to disable CSV dumps
+
+def _plausible_nim_value(x):
+    try:
+        v = float(x)
+    except Exception:
+        return False
+    return 0.5 <= v <= 5.0
+
+def _load_nim_from_vision_cache(quarters_texts, pdf_hint=None, page_no=None, cache_dir=None):
+    """Return {"2Q24":{"group_nim":2.14,"commercial_nim":2.83}, ...} from data/vision_cache."""
+    cache_dir = cache_dir or CACHE_DIR
+
+    def _try_path(path):
+        try:
+            with open(path, "r", encoding="utf-8") as f:
+                data = json.load(f)
+            if not isinstance(data, dict):
+                return {}
+            out = {}
+            for q, d in data.items():
+                if quarters_texts and q not in quarters_texts:
+                    continue
+                if not isinstance(d, dict):
+                    continue
+                g = d.get("group_nim"); c = d.get("commercial_nim")
+                ok = (g is not None and _plausible_nim_value(g)) or (c is not None and _plausible_nim_value(c))
+                if not ok:
+                    continue
+                entry = {}
+                if g is not None and _plausible_nim_value(g):
+                    entry["group_nim"] = float(g)
+                if c is not None and _plausible_nim_value(c):
+                    entry["commercial_nim"] = float(c)
+                if entry:
+                    out[q] = entry
+            return out
+        except Exception:
+            return {}
+
+    # 1) Try hinted filenames (+/- 1 page)
+    if pdf_hint:
+        base = os.path.splitext(os.path.basename(pdf_hint))[0]
+        if page_no:
+            for pn in (page_no, page_no - 1, page_no + 1):
+                if pn and pn > 0:
+                    p = os.path.join(cache_dir, f"{base}__page_{pn}.json")
+                    if os.path.exists(p):
+                        out = _try_path(p)
+                        if out:
+                            return out
+        for p in glob.glob(os.path.join(cache_dir, f"{base}__page_*.json")):
+            out = _try_path(p)
+            if out:
+                return out
+
+    # 2) Global fallback: pick file with best quarter overlap
+    best, best_overlap = {}, -1
+    for p in glob.glob(os.path.join(cache_dir, "*.json")):
+        data = _try_path(p)
+        if not data:
+            continue
+        overlap = len(set(quarters_texts) & set(data.keys())) if quarters_texts else len(data)
+        if overlap > best_overlap:
+            best, best_overlap = data, overlap
+    return best
+
 
 # --- Vision API Toggle ---
 USE_VISION_MODEL = False
@@ -59,6 +129,40 @@ CATEGORY_LABELS = [
     "Others", "CBG / WM", "Other IBG", "Trade", "FD and others", "FCY Casa", "SGD Casa",
     "Net interest income", "Non-interest income",
 ]
+
+# ---- Table extraction helpers ----
+import csv
+def extract_tables_with_settings(page, setting_name, table_settings):
+    results = []
+    try:
+        found = page.find_tables(table_settings=table_settings)
+    except Exception as e:
+        return [{"setting": setting_name, "error": f"find_tables error: {e}", "rows": [], "headers": [], "bbox": None}]
+
+    for t in found:
+        try:
+            data = t.extract(x_tolerance=2, y_tolerance=2)
+        except Exception as e:
+            results.append({"setting": setting_name, "error": f"extract error: {e}", "rows": [], "headers": [], "bbox": getattr(t, "bbox", None)})
+            continue
+
+        if not data or len(data) < 2 or not any(data[0]):
+            results.append({"setting": setting_name, "warning": "empty_or_headerless_table", "rows": [], "headers": [], "bbox": getattr(t, "bbox", None)})
+            continue
+
+        header_row = ["" if h is None else str(h).strip() for h in data[0]]
+        body_rows = [[("" if c is None else str(c)) for c in row] for row in data[1:]]
+        # If header row looks numeric-heavy, fall back to generic headers
+        if sum(bool(re.search(r"\d", h or "")) for h in header_row) > len(header_row) // 2:
+            header_row = [f"col_{i+1}" for i in range(len(header_row))]
+
+        results.append({
+            "setting": setting_name,
+            "bbox": getattr(t, "bbox", None),
+            "headers": header_row,
+            "rows": body_rows,
+        })
+    return results
 
 def is_period_label(t: str) -> bool:
     if not t: return False
@@ -400,75 +504,92 @@ def bind_stacked_bar_like(quarters, numbers, words, page_h):
         if row: out[qw.get("text")] = row
     return out
 
-# --- Main Heuristic Consolidator ---
-def consolidate_metrics_from_page(pg: dict) -> dict:
+# --- Main Heuristic Consolidator (multi-extract) ---
+from typing import List
+
+def extract_metrics_from_page_multi(pg: dict) -> List[dict]:
+    """Return 0..N metric extracts for this page.
+    Emits a line-like NIM block (if detected) AND a stacked-bar block (if detected).
+    """
     page_no, page_h, page_w = pg.get("page_number"), pg.get("height", 540.0), pg.get("width", 960.0)
     text, words = pg.get("text", ""), pg.get("words", [])
-    
+
+    # Split tokens into quarters / numbers / plain
     quarters, numbers, plain = [], [], []
     for w in words:
         t = (w.get("text") or "").strip()
-        if not t: continue
+        if not t:
+            continue
         cx = word_cx(w)
-        if cx is None: continue
+        if cx is None:
+            continue
         if is_period_label(t):
-            quarters.append({**w, "_cx":cx})
+            quarters.append({**w, "_cx": cx})
         else:
-            val=to_float(t)
-            if val is not None: numbers.append({**w, "_cx":cx, "_num":val})
-            else: plain.append(w)
+            val = to_float(t)
+            if val is not None:
+                numbers.append({**w, "_cx": cx, "_num": val})
+            else:
+                plain.append(w)
 
     metric_title = (detect_metric_title_from_words(words, page_w, page_h) or (text.splitlines()[0] if text else "")).strip()
     mt_low = metric_title.lower()
-    # Title OR legend mention (handles hybrid slides)
-    is_nim_page = ("net interest margin" in mt_low) or any(
-        "net interest margin" in (w.get("text") or "").lower()
-        for w in words
-    )
     looks_like_chart = bool(quarters) and bool(numbers)
 
-    # Priority 1: NIM page (line chart)
-    if is_nim_page and looks_like_chart:
-        # Focus on the top band where the NIM polylines live to avoid stacked-bar numbers.
-        # TOP_BAND_1 = 0.35  # first, tighter band
-        # TOP_BAND_2 = 0.42  # second, slightly looser band (retry)
-        TOP_BAND_1 = 0.50   # many DBS NIM labels sit ~45–52% page height
-        TOP_BAND_2 = 0.58   # retry band
+    out: List[dict] = []
+    if not looks_like_chart:
+        return out
 
+    # -------- NIM detection (tolerant to missing vector text) --------
+    text_low = (text or "").lower()
+    # treat it as NIM if the phrase appears in the detected title OR anywhere in the page text
+    literal_nim = ("net interest margin" in mt_low) or ("net interest margin" in text_low)
+    has_nim_acronym = (" nim " in f" {text_low} ") or any(
+        " nim " in f" {(w.get('text') or '').lower()} " for w in words
+    )
+    legend_hint = any(
+        ("group" in (w.get("text") or "").lower()) or ("commercial" in (w.get("text") or "").lower())
+        for w in words
+    )
+    nim_numeric_count = sum(1 for n in numbers if looks_like_nim_value(n))
+    nim_numeric_hint = nim_numeric_count >= max(4, len(quarters) // 2)
+    is_nim_like = literal_nim or has_nim_acronym or (nim_numeric_hint and legend_hint)
+
+    if is_nim_like:
+        # Prefer numbers in the upper half (where NIM labels usually are), but fall back adaptively
         def _nim_filter(nums, top_ratio):
-            return [
-                n for n in nums
-                if looks_like_nim_value(n) and (n.get("top", page_h) <= page_h * top_ratio)
-            ]
+            return [n for n in nums if looks_like_nim_value(n) and (n.get("top", page_h) <= page_h * top_ratio)]
 
-        # Try tight band first
-        nim_numbers = _nim_filter(numbers, TOP_BAND_1)
-        result = bind_line_like(quarters, nim_numbers, page_h)
-
-        # If nothing bound (e.g., slightly lower labels), retry with looser band
-        if not result:
-            nim_numbers = _nim_filter(numbers, TOP_BAND_2)
-            result = bind_line_like(quarters, nim_numbers, page_h)
-            
-        if not result:
-            # Final attempt: adaptive binder without hard top-band gating
-            result = bind_line_like_adaptive(quarters, numbers, page_h)
-
-        if result:
-            return {
+        nim_numbers = _nim_filter(numbers, 0.50) or _nim_filter(numbers, 0.58)
+        nim_res = bind_line_like(quarters, nim_numbers, page_h)
+        if not nim_res:
+            nim_res = bind_line_like_adaptive(quarters, numbers, page_h)
+        if not nim_res:
+            # Vision cache fallback (cache-only; no API call here)
+            pdf_hint = pg.get("pdf_name")
+            quarter_labels = [q.get("text") for q in quarters if q.get("text")]
+            cache_series = _load_nim_from_vision_cache(quarter_labels, pdf_hint=pdf_hint, page_no=page_no)
+            if cache_series:
+                nim_res = cache_series
+        if nim_res:
+            out.append({
                 "page": page_no,
-                "metric": metric_title,
+                "metric": ("Net interest margin (%)" if "net interest margin" not in mt_low else metric_title),
                 "chart_type": "line-like",
-                "extracted": result
-            }
+                "extracted": nim_res
+            })
 
-    # Priority 2: Stacked Bar Chart (if category bands are found)
-    if looks_like_chart:
-        stacked_result = bind_stacked_bar_like(quarters, numbers, words, page_h)
-        if stacked_result: return {"page": page_no, "metric": metric_title, "chart_type": "stacked-bar", "extracted": stacked_result}
-    
-    # Fallback to text or empty
-    return {"page": page_no, "metric": metric_title, "chart_type": "text-or-table", "extracted": {}}
+    # -------- Stacked-bar detection (independent) --------
+    stacked_res = bind_stacked_bar_like(quarters, numbers, words, page_h)
+    if stacked_res:
+        out.append({
+            "page": page_no,
+            "metric": metric_title or "Net interest income (S$m)",
+            "chart_type": "stacked-bar",
+            "extracted": stacked_res
+        })
+
+    return out
 
 # --- Formatting for Indexing ---
 def format_vision_json_to_text(data: dict) -> str:
@@ -491,16 +612,26 @@ def format_heuristic_json_to_text(data: dict) -> str:
     metric, chart_type, extracted = data.get("metric"), data.get("chart_type"), data.get("extracted", {})
     if not extracted: return ""
     
-    if chart_type == "line-like": # NIM
+    if chart_type == "line-like":  # NIM
         for period, values in extracted.items():
-            if "group_nim" in values: facts.append(f"Source: {metric} (heuristic_parser). For {period}, Group NIM was {values['group_nim']}.")
-            if "commercial_nim" in values: facts.append(f"Source: {metric} (heuristic_parser). For {period}, Commercial Book NIM was {values['commercial_nim']}.")
+            g = values.get("group_nim")
+            c = values.get("commercial_nim")
+            if g is not None:
+                facts.append(
+                    f"Net interest margin (%): For {period}, Group NIM was {g}%. Source: {metric} (heuristic_parser)."
+                )
+            if c is not None:
+                facts.append(
+                    f"Net interest margin (%): For {period}, Commercial Book NIM was {c}%. Source: {metric} (heuristic_parser)."
+                )
     
     elif chart_type == "stacked-bar":
         for period, categories in extracted.items():
-            total = categories.pop("Total", None)
-            if total is not None: facts.append(f"Source: {metric} (heuristic_parser). For {period}, the Total was {total}.")
-            for cat, val in categories.items():
+            cats = categories.copy()
+            total = cats.pop("Total", None)
+            if total is not None:
+                facts.append(f"Source: {metric} (heuristic_parser). For {period}, the Total was {total}.")
+            for cat, val in cats.items():
                 facts.append(f"Source: {metric} (heuristic_parser). For {period}, the value for '{cat}' was {val}.")
 
     return "\n".join(facts)
@@ -547,25 +678,87 @@ If none are found, return {}.
         for idx, page_pl in enumerate(pdf_plumber.pages, start=1):
             page_fitz = doc_fitz[idx-1]
             row_template = {"doc_id": None, "file": fname, "page": idx, "year": year, "quarter": quarter}
-            
+
             # --- Perform full page scan for JSON output ---
-            page_scan_data = { "page_number": idx, "width": page_pl.width, "height": page_pl.height, "text": page_pl.extract_text() or "", "words": page_pl.extract_words() or [] }
+            try:
+                text = page_pl.extract_text() or ""
+            except Exception as e:
+                text, text_error = "", f"text error: {e}"
+            else:
+                text_error = None
+
+            try:
+                words = page_pl.extract_words() or []
+            except Exception as e:
+                words, words_error = [], f"words error: {e}"
+            else:
+                words_error = None
+
+            # Two table strategies (same as 1.py)
+            settings_A = dict(vertical_strategy="lines", horizontal_strategy="lines",
+                              snap_tolerance=3, join_tolerance=3, edge_min_length=15,
+                              intersection_tolerance=3)
+            settings_B = dict(vertical_strategy="text", horizontal_strategy="text",
+                              text_tolerance=2, snap_tolerance=3, join_tolerance=3,
+                              intersection_tolerance=3)
+
+            tables_A = extract_tables_with_settings(page_pl, "A_lines", settings_A)
+            tables_B = extract_tables_with_settings(page_pl, "B_text", settings_B)
+
+            page_scan_data = {
+                "page_number": idx,
+                "width": page_pl.width,
+                "height": page_pl.height,
+                "text_error": text_error,
+                "words_error": words_error,
+                "text": text,
+                "words": [
+                    {
+                        "text": w.get("text", ""),
+                        "x0": w.get("x0"),
+                        "top": w.get("top"),
+                        "x1": w.get("x1"),
+                        "bottom": w.get("bottom"),
+                        "upright": w.get("upright"),
+                        "direction": w.get("direction"),
+                        "fontname": w.get("fontname"),
+                        "size": w.get("size"),
+                    }
+                    for w in words
+                ],
+                "tables": tables_A + tables_B,
+                "pdf_name": fname
+            }
             pdf_scan_pages.append(page_scan_data)
-            
-            # --- ALWAYS run local heuristic parser on EVERY page ---
-            heuristic_metrics = consolidate_metrics_from_page(page_scan_data)
-            pdf_metrics_pages.append(heuristic_metrics)
-            heuristic_text = format_heuristic_json_to_text(heuristic_metrics)
-            if heuristic_text:
-                row = {**row_template, "doc_id": str(uuid.uuid4()), "section_hint": f"heuristic_summary_p{idx}"}
-                chunks.append((row, heuristic_text))
+
+            # Optional: dump tables per page (CSV)
+            if DUMP_TABLES_DIR:
+                outdir = os.path.join(DUMP_TABLES_DIR, f"page_{idx:02d}")
+                os.makedirs(outdir, exist_ok=True)
+                for i, t in enumerate(page_scan_data["tables"], start=1):
+                    if not t.get("rows"):
+                        continue
+                    csv_path = os.path.join(outdir, f"table-{i}_{t['setting']}.csv")
+                    with open(csv_path, "w", newline="", encoding="utf-8") as cf:
+                        writer = csv.writer(cf)
+                        writer.writerow(t.get("headers", []))
+                        writer.writerows(t.get("rows", []))
+
+            # --- ALWAYS run local heuristic parser on EVERY page (multi-extract) ---
+            metric_items = extract_metrics_from_page_multi(page_scan_data)
+            for m in metric_items:
+                pdf_metrics_pages.append(m)
+                heuristic_text = format_heuristic_json_to_text(m)
+                if heuristic_text:
+                    row = {**row_template, "doc_id": str(uuid.uuid4()), "section_hint": f"heuristic_summary_p{idx}"}
+                    chunks.append((row, heuristic_text))
 
             # --- Handle Key Pages (Vision API or Cache) ---
             if idx in all_key_page_numbers:
                 cache_filename = f"{fname.replace('.pdf', '')}__page_{idx}.json"
                 cache_filepath = os.path.join(CACHE_DIR, cache_filename)
                 parsed_json = None
-                
+
                 if os.path.exists(cache_filepath):
                     with open(cache_filepath, 'r') as f: parsed_json = json.load(f)
                     print(f"      -> CACHE HIT for key page {idx}.")
@@ -594,8 +787,9 @@ If none are found, return {}.
             if plain_text and plain_text.strip():
                 row = {**row_template, "doc_id": str(uuid.uuid4()), "section_hint": "prose"}
                 chunks.append((row, plain_text))
-            
+
             # Extract basic tables using pdfplumber's default find_tables
+            # Basic table chunks are still created from pdfplumber default, even though tables are also captured in the scan JSON
             try:
                 for i, table in enumerate(page_pl.find_tables()):
                     table_data = table.extract()
@@ -606,8 +800,9 @@ If none are found, return {}.
                         if table_md:
                             row = {**row_template, "doc_id": str(uuid.uuid4()), "section_hint": f"table_p{idx}_{i+1}"}
                             chunks.append((row, table_md))
-            except Exception: pass
-            
+            except Exception:
+                pass
+
     return chunks, pdf_scan_pages, pdf_metrics_pages
 
 def build_kb():
@@ -631,23 +826,24 @@ def build_kb():
     # --- Extraction Pass ---
     all_rows, all_texts = [], []
 
+
     for path in pdf_docs:
         fname = os.path.basename(path)
         print(f"\n[Stage1] Processing: {fname}")
         year, quarter = infer_period_from_filename(fname)
         key_pages_for_file = all_key_pages.get(fname, {})
-        
+
         doc_chunks, scan_pages, metrics_pages = process_pdf(path, fname, year, quarter, vision_model, key_pages_for_file)
-        
+
         # --- MODIFIED: Save JSON outputs for this specific PDF ---
         base_name = os.path.splitext(fname)[0]
-        scan_out_path = os.path.join(OUT_DIR, f"{base_name}_scan.json")
-        metrics_out_path = os.path.join(OUT_DIR, f"{base_name}_metrics.json")
+        scan_out_path = os.path.join(OUT_DIR, f"{base_name}_pdfplumber_scan_all.json")
+        metrics_out_path = os.path.join(OUT_DIR, f"{base_name}_metrics_all_pages.json")
 
         scan_doc = {"source": fname, "pages": scan_pages}
         with open(scan_out_path, "w", encoding="utf-8") as f:
             json.dump(scan_doc, f, ensure_ascii=False, indent=2)
-        
+
         metrics_doc = {"source": fname, "pages": metrics_pages}
         with open(metrics_out_path, "w", encoding="utf-8") as f:
             json.dump(metrics_doc, f, indent=2)
@@ -659,8 +855,9 @@ def build_kb():
         else:
             print(f"      ⚠️ WARNING: No content extracted from {fname}.")
 
+
     if not all_texts: raise SystemExit("No data was indexed.")
-    
+
     # --- Finalization Pass (Embedding, Indexing, Saving) ---
     print(f"\n[Stage1] Total chunks to be indexed: {len(all_texts)}")
     kb = pd.DataFrame(all_rows)
