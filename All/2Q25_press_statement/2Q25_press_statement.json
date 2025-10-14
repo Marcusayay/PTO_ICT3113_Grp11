@@ -1,0 +1,4038 @@
+{
+  "children": [
+    {
+      "id": "/page/0/Page/112",
+      "block_type": "Page",
+      "html": "<content-ref src='/page/0/Picture/0'></content-ref><content-ref src='/page/0/SectionHeader/1'></content-ref><content-ref src='/page/0/Text/2'></content-ref><content-ref src='/page/0/SectionHeader/3'></content-ref><content-ref src='/page/0/Text/4'></content-ref><content-ref src='/page/0/SectionHeader/5'></content-ref><content-ref src='/page/0/Text/6'></content-ref><content-ref src='/page/0/Text/7'></content-ref><content-ref src='/page/0/Text/8'></content-ref><content-ref src='/page/0/Text/9'></content-ref><content-ref src='/page/0/Text/10'></content-ref><content-ref src='/page/0/Text/11'></content-ref><content-ref src='/page/0/PageFooter/12'></content-ref>",
+      "polygon": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          596.0,
+          0.0
+        ],
+        [
+          596.0,
+          842.0
+        ],
+        [
+          0.0,
+          842.0
+        ]
+      ],
+      "bbox": [
+        0.0,
+        0.0,
+        596.0,
+        842.0
+      ],
+      "children": [
+        {
+          "id": "/page/0/Picture/0",
+          "block_type": "Picture",
+          "html": "",
+          "polygon": [
+            [
+              411.146875,
+              35.7685546875
+            ],
+            [
+              534.071875,
+              35.7685546875
+            ],
+            [
+              534.071875,
+              80.9931640625
+            ],
+            [
+              411.146875,
+              80.9931640625
+            ]
+          ],
+          "bbox": [
+            411.146875,
+            35.7685546875,
+            534.071875,
+            80.9931640625
+          ],
+          "children": null,
+          "section_hierarchy": {},
+          "images": {
+            "/page/0/Picture/0": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCAB5AUgDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD3+iiigAooooAKKKKACjNFIaADIoyKYWxzmuV1P4i+HNJ1P7Dc3p81ThyiFgh9zSk1HdmlKjUqu1OLfodbkUuapWGpWep26z2V1FPEf4o2Bq3mne+xDTi7SHUmRTSwHeuZ1zx54f0GXyrq+R5u8cPzsPrjpSckt2XTpVKr5aauzqc0Vm6RrVhrdit5p9ws0LcZHUH0I9a0V6UJ3V0RKLi+WSsxaKTI556UZHrTELRRmjIoAKKTcPWjIoAWikyKMigBaKTI9aMjFAC0UmR60ZFAC0UmQO9GR60ALRSb1zjcM+maNwoAWikBBpaACiiigAooooAKKKKACiiigAooooAKKKKACiiigAprU6mtQBwniv4l6Z4dvzp3kzXNyo/eeXgBPxPevAbuUXF5NPliHctl+vJ711/xQ0eTTfGE9yQTFefvVPv0IrkbKWGO4AuIzJC3DhfvAeo9xXk4ipKU3Fn6Bk+Fo0cOqtLVyWo6z1G906XzbK6mt3/vRSFT+lb0fxE8VxRhBrExA7sFJ/Mis3VtDm01YrqNhcWFwMw3CD5W9j6MO4rKIxxWfNOOlz0PZYfELncVL5G3feMPEOpKUutWuWQjBVX2g/UDg1ikk5JP4+ppY4pJXEcSlnY4CgcmtjUNLTQoFhu8NqUoyYeogU92/wBo+nak3KWrHFUaLUIKzfY3/AXju28IQXUVxbzzrPIrYjIAUAHOM9Tz7dK930XWbLW9Lhv7GQvBIMjIwR7EetfKHXgD2xX0j8O9Gk0bwhaQS58yTMrD03c4rtwlST93oj5niHB0aaVePxSZzvxs0vZ4KutetLm5tr2yaMh4ZmQMjOEKkA4/iHvxXzdZ+IdduL2GA6zqGJZFQ/6Q3c49a+pvjGm74T68D2jiP5Soa+StHG7WrEetwn/oQruPlD6sPwh0x4lB13xCHwMut+eT+INc3rfwe8SWaNdeFvGWqeenKw3dwQW9g64A/EY969pooA+YNM+MfjbwZqz6X4lgN8IG2yw3I2yqP9lx1+p3CvffCXjPR/Gel/btKmzjiWB+JI29GH9elcP8cvBUWueF31y2iA1HTV3MwHMkP8QPrjqPxHevn/wV4uvPB3iO21K1dvLBCzx9pE7g0AfWPjrRotW8KaiTLNDcW9vJLDNFIVZGVSeo7cYr4/PiXXsn/ic3+Qcf8fDf419k6pfw6l4Gv763bdDPp0kiH2MZNfELfeP1oA+nPAfw+tNf8E6Zq2o6vrb3V1GXcpfOo+8QMD6U/wAT/B+/+xSXPhvxPq8V2ikrBc3ZdHx2DDBH45rsPhcu34ZeHx/06g/qa648CgD5B0f4q+NfC2pmKfUp7tYn2y2t8xkBweRk8j8K+nPBniuy8ZeG4NZs1KK5KSxMeY3HVSe/bn0NfLvxetobb4n6wsQAV5BI2PUgE16n+za039ha6r5+zi5jKem4qd36BaAOj+KfxWj8Exrp+nxxz6vMu4B+VhX1P+FeUeE7Dxt8XNVmN7r91Fp0JzPIWIQZ/hRBgZrjPiBqMurePdbupmJYXbxDPZUO0fyr6D/Z/e2Pw7CxbfOFzJ5uOvXjP4UAWbT4G+FraELJNqc8neRrxlOfouBVDWfhbr+kWsl14O8W6tDOgz9kubkuj+wPGPxBr1vcKQ88CgDg/hBfarf+DHk1qaaXUFvJklMxywII4rvqrWdjb2XneREI/OkMsmO7Hqf0qzQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFNanUhoA80+MunpN4YgvQP3lvOAD7GvCl6ZHWvoP4uOF8DyA950A/WvnzHpXl4tL2h93w5JvB69GzqfCPiOCwkk0vVYxPpF2cSI3Plt03j0963NX+E+pC5WXQ3ju7Cb5o2Z8FQemfWvPoLeW6njt7eNpJZWCoqjJJPavpPRLmy8M+HtN07VtStoblYgpEsoUk+nPp0qqEFUjaexnm1aeCqqph3rLdb387HnE+l2Hw00hbi5MV34huFIhXqsPuK8znuJbm4lnndpJZCWZ2OSSa9G+L+lXI1mHWFJlsZ41RZF5VWHbPv1rzQ9ayr6S5VsduUpTpfWJSvKW/l5fI1/C9iuo+J9NtH+7JOoP0r6ojUIiqowAMACvmPwE6p440kt3nAr6eX7orrwduVnz/Esn7eEeiRxPxdXPwr1/wD64p/6MWvkfQ/+Q9p//Xwn/oQr66+Ln/JK9f8A+uK/+jFr5G0HnxBp3/Xwn/oQrsPmz7uooooArX1ql5ZXFvIoaOWNkYHuCORXwpqVodP1S8sm628zxH/gLEf0r70r4g8chV8d68F6fbpv/QjQB798MtTfUPgZfRyNlrW2uYv+AhTivmI/eP1r6L+EMTp8FvEEh+7Ilzt/CMivnQ/eP1oA+1PhsBH8NvD4PA+xIfzGai8XfEbw/wCE7CV7m9jluwD5dtEwZ2PbOOlJ4L0y11D4Z+H7e8hSaI2EJ2N0+6D/AFrE8R/BDwprcTvbQyWF0RxLC2Rn3U8GgD55ttK8QfEzxddXVpaPLNdTF5ZMYjiBPc+1fVXgfwlbeCvDFvpNuQ7KTJPLjmSQ9T/ID2Ar5tub7xj8HfEL6bFeERZ8xFIzDOvrg/5Fe+fDf4kWfj7T5AUFtqcABnt85BH95fb+VAHgnxi8H3Ph3xndXqxN9g1CQzxSAcBjyyn8c1z/AIP8daz4JvWn0uUbJCPNgcZR/wD6/vX2Lq+iafr+nyWGp2sdxbydVcdD6j0NeL+JP2c43dpvD2qeUD0guxkD6MOf0NAFvRf2itKnCLrGlz2z/wATwEOv5da9I8PfELwv4mcR6bqsTTnpC52P+R618va58JvGegq8k+kPcQrz5tq3mjHrgfN+lcdFLJbzLJGzRyIeCpwQaAPvkEGlryH4I/EO48TWM2japKZL60UNHK3WROnPuK9ezQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFNY4p1MkoA8h+NOtIRZaRG3zZM0gB6dhXj/ODXYfEixv4fGl7Lco5jlYGF8ZBXHSuWtJ2s5/ORR5yfcLD7rf3seoryK75qjbP0bKqapYOMaer3+87DSbq08C2X26eNbjxBOv7i3bkWykfef/AGvb+Wa5LUNSu9UvZLy+neaeQ5ZmP+cD2qu7vPI0kjM8jnLMTksfem8Hr1rOU7qy2OmjhVCTqS1k+v6I67w54w+xWUmjazGbzRpxtaM8tF/tJ9OuKxdd0f8Asq8XyZluLGcb7a4Xo6+h9GHQj/61ZfSrEV9IlrJaN89u53bD/C3Zh6H+dPnurMFh1TqupT0vuunr6jtOvH0/Uba8T70MiuPwNfVemX8Wo6bb3kLBo5Yw4I96+TFSSQjajNk8YGcmvor4ZWl7ZeDLWK+DK5LMit1CE8CurByabR4HEtKDhGpfVaDfi6cfCrX/APrin/oxa+R9CONf08/9PCf+hCvrH4yybPhNrgzyViUfjKlfJujHbrdix7XCf+hCvQPjz7wopu7il3UAV7y8isrGe7mYJFDG0jMegAGc18MaldPq2t3l6qkyXdy8uPdmJ/rX0B8cPiLbW+lS+F9KuFku7kYu3jbIjT+5n1PH4Vy/wb+GE+qajD4h1i3KafCd0Eci4MzDocf3R+tAHqfh/QW8NfBSewkGJv7NnllH+0yEmvkY9a+4/FTBPCGtZ4/0Gb/0Wa+G+9AH294DG34f+HR/1Dbc/wDkNa6A9DWB4IwPAPh3/sGW3/opa3iwxQB4t+0XpsUnhXTdSZR50F15IOOzKT/7LXj3ws1ebSfiRokkLMBPcrbyDPDI52nP55/AelenftE+Jbaa2sPD1vKskySfaLhVOdnGFB9+TXB/Bnw1ca58QLK6VCbXTm+0yydgV+6PqTj9aAPrgfepTzXE+EfHNlqusatol3cqmpWd3Iio5wXjzxj1x0rtgwNADWXIxxivmP8AaB8N2ekeJrLUrOJYv7RjdpkUYBdSMt9TuH5e9fTrOFUsSAo5JNfKfxw8W2vibxdDa2EoltdOjaISA8NIT82PbgUAR/Ad5U+J1uEPDW8gb6YFfWIrwb9n7wZc2puPE15EY1kTybYMMEj+JvpXvIGKAFooooAKKKKACiiigAooooAKKKKACiiigAooooAKawzTqQ0AVbi0guFxNDHJ6blBxXzhrvgrXbPXZ7ZLCecPITHJEhKsCeOe1fS5GetJgA9jWVWiqisz0MvzKrgpScVdPueG6H8HdSvI1l1S6W0UjPloNzf4V1MXwX0VUAe8umb1yBXpYHpSjipjhqcehrVzrGVJX57eh5PqHwUs2jJsdSljfsJVDLXn+ueAPEOiS4eye4izgS26lwfwHIr6XIzTcc4I4pTwtOWxrh8+xdL4nzLzPN/hZ4UudM0q4uNUtUV53Vo4pFBKAZ59s5r0lVwoAAFAHpTh0rWEFBcqPMxWJniarqz6nEeP/Bmr+NbA6ZHq0FnpzMrOnklmcjnk56ZrzZP2bp0cOviJAwOQRCeD+dfQNFWYHnVp4Q8e2kCQp43jdVGAZLQMcfXNUtS+HnjXVkMV148lWFvvJDDs/lXqVFAHmHhz4HeG9GulvL95tUugd2bg/Ln1x3/GvS0hWNFSMBUUYVQMAD0qSigDmfGWgar4j0aXS7DUorGG4TZM7RlmI7geleR/8M1y/wDQwp/34P8AjX0FRQB5npXgTxto2n29jaeNU+zwII41e13bVHQdalvPBvj29iMbeOREpGD5VrtNej0UAeH237O8M961zrHiC4umdtz7EwX+pPNer+HfC+leFdNWw0i2WCEcserOfVj3NbNFAHmWq/BPQ9T1G51Nb++ttRnnaYzxPjaT2ApV8G/EDTYvL03xuk0a8KLy23N+Yr0yigDxzVPh/wDEfxFE1tqfjOGO2bho4IioYfgas+GvgJ4e0i4S51OaTU5lO4JINsefp3r1nFLQBHDCkEaxxqqxqMKqjAAqSiigAooooAKKKKACiiigAooooAKKKKACioL27jsLKe7mJEUEbSOQM4UDJ/lVXQtbs/EWjW+q6e7PaXALRsy4JAJB4+oNAGjRVDWtWg0PRrrU7lXaG2jMjrGuWIHoKXStUh1jSrXULdXWG5jEiB1wcH1FAF6kxRu9qTd7UALigrmjNAOaAsAFLSE4NJu9qAFxSFaXNGaADFLSZoDUALRTd3PSjdQA6ikDZozQAtFFFABRXAy/GDwrDdz2xe+eSCQxuY7R2AYHBGRWz4d8d+H/ABRO9vpl6GuUGWgkUpIB64NAHS0UmaM+1AC0U3dS7qAForJ8Sa2vh3w5fau8JmW0iMhjBwWx2qfR9SGr6PaagkZjW5iWQITyMjpQBfopobNZfiXW18OeHL7V3hMy2kTSmNTgtjtQBrUVQ0fUhq+j2eoLGY1uYllCk8jIzir27mgBaKTPtRmgBaKTdzik3UAOooooAKKKKACiiigDJ8Uf8ilrP/XjP/6Lauc+Dw/4tVoR/wCmcn/o166PxSceEtZ/68Z//RbVzXwgkVfhVoQ3DIjk79P3j0Ab3jPUpdH8HarqMCo8tvbs6rIuVJ9xXKa34u1fSvhnpXie0ghbiJ7yIJwI24JUdsf1rc+I7hvhxr4HP+iMP5VD4b02HWfhVp+m3ABhudOETe2R1/CgDeudZtbXw7JrTSA2iWxuN4PBULurjNK8eX1r8Lx4t16FPNnJa3giXBYE4RfxPeuAGsX2ofD6x+HZdhq76sdKmHUrbxkMW+gXaPoDXY/GTSRB8NrWC0Dx2dhPBuEf3ljXCgj6cH8KAHS6p8TbfSD4glj0owLH576aEIcR4yRv9cV3nhnXbbxL4es9XtQViuUDbT1U9wfoa4e0+HkGraXFcQ+O/FE1rcxAjF+pVlI6fdrsvCHh2y8K+HYNI0+4mntoSxWSZgzHcSTyAB39KAJvE+oTaT4a1PUbfb51tbSSoGGRkDNef6L4g+IXjDQLfV9JXTdPgZPlE6F2nYcE/wCyM9K7Xx1/yIuu+9jL/wCgmqPwzQL8NtBC8D7MCMD3NAHJ6B418Z+NIJbTSbKy0+6sWMV9dTgunmA9EX6c81ueDvFWuTeLNT8J+JY7Y6laQrcxT24wksZIBOO33h+tUfhCo2+KSBj/AIm8n8hS2Zx+0Xf/APYAH/oxKALWv+LtbvfFsnhbwnBbm7t4hLeXdzykIPQAdzyPzqtD4r8T+Ftf0/TvFy2dxZai/lQX1qpTZJ2Vl96g8IyJpnxi8YWV4wS4vRFcW5c48xAoBx68/wAqX4wTx3MXh3SIWD39zqkTxop+YKp5OPT/AAoA1PiF43u/Bt/oAgtvtMN/NLHJCo+dyFG0L6EswFXvDZ8aNfSXfiOTTobJoiy2tupLRN2BbvgZrn/iQg/4TT4dq/ONSbP1GyvRdQiaXTbmOMfO0TKv1xQB53a+JPGHjO6vJ/CxsLLSbaYwxz3SF2uGXqQOwra8EeLb3WbvUtG1q2jt9a0xwswjJ2SKfuuufXFec/C/wims+GnhPi3X9PvLS4eK4s7S7CLGwPXaVzzXo3hbwDY+GdbvdTj1jUtQvrmNY5WvZlc4B4PAB/OgDtaKpWWr6fqLTrZX1tctbtsmEMqv5bejYPB+tXaAPEPh14r8N6C3iKDWdQtradtUlZVlBJIz9KvWsmn+Lvi/o2seF4lax02CQX95GmxJCQwVBnG48+n8ql+FGmafeReJJLyzt5nGqygNLGGOM9s1B4rgsNB+Kfg9fDSRWt/d3Jjv7e2wA8BK5LqOOm459vagD0XxLJ4iWziXw5HZNcvJiR7piFjXB5AHU5xxXHSeJvGHhTxBpVt4lfT73T9Sm8hZraMxtE/bjuKf4p1fWdU+I1l4N07VG0i3az+1z3MSgyyDLDahPT7vWuU8eaJDoOveFYW8R6tqV1LqKEw3915u1QR8wXHHPegDufiL40v/AAhc6CthaLdm/uHhaE/ec4G0A9slhWVrWp/EvQNJn164OkTWtuvnT2MaHKIOuH6nA5qX4ngN4s8BAjI/tRu3+7XUePv+SeeIu/8AxLpx/wCOGgDH8aapFrXwY1PU4AVjutP80Ke2QMj8OlUF8Y/8I/4G0Gw06D7brl5axpaWqnPb7zeiiqlwcfs3sT/0Cu9cvollqHw9k0XxneztqWm31skF67RjdZg/dK99ooA9w0ZdQTS4BqskUl8VzKYlwufQe1YPxR/5Jnr/AP16P/Kuntp4rqGOeB1khkUMjqchgehFcx8Uf+SZ+IB/05v/ACoAh0/Xbbwz8KrDV7vJit7CNto6sccAfU1hJqPxOutJ/t+GLS44jGZ00xkJdkxnBb1IrP8AGtpPd/ACyECsxhgt5XCddgHOKvaL4Dh1fRLO+s/HviiS3miVl2X64Ax0+729PagDch+Idtc/DGTxjDbFhHCzNb55WRTgrn0z+lZFjP8AE3U9Ot9WtrzRBHcosqWpjONpGQC/0rofDfgvR/DnhSfw/HJJeafM8hk+1Mrbt/DAkACuQ1rwnqfw+0251nwj4gnis7ZTI+mXrebCy9wpPK/zoA6jxr4rv/C3h+xeO2gl1S9mjtowzERJI3Uk+maqWUPxKgv7aS5vdGu7VpFE8YiKFEJ5KkdSK1Ft9M+IHgqzOsWi+TfRLL5RbBRsdVPUGuI1iPXvhR9hvrPXZtV0CS5jt5NPvsNKgbP+rbqenT8wRQB7AhytOpF6UtABRRRQAUUUUAQXlrFfWU9pMCYp42jcA4O1hg/zrz9fgh4ORQqJqCqOABdsBXo9FAHM2PgTRdP8MXfh6Fbg2F1u81XmLMc4zgnp0rb03TbbStOt7C1VhBboI4wxyQB71booA5yPwNoUXjF/FS2zf2q6kb93yglduQPXHH4mt25tILy3kt7iJZYZAVdGGQwPUGpqKAPPW+DPhfzG+zzara27Nk2sF6yxH8P/AK9dtpWl2mi6Zb6dYRmO1t0CRoWLYA9zzVyigCrqOnwarp1zYXQYwXEbRSBTglSMGo9J0m10TSbbTbJWW2t02RhmyQPrV6igDH0Lwzp3h37Z/Z6SL9snNxLvbdlzQnhrTY/FMviNUk/tGW2+ys2/5fLyDjH1ArYooA53xL4I0TxUYZNRgkW5g/1NzBIY5Y/owqr4e+HWgeHNQOowLc3d+V2i6vZzLIo9ATwPyrrKKAMfVfDWna1qWl394kjT6ZKZrYq2AGOM5HfoK19opaKAON1z4YeHNc1N9TZLqxvpP9ZPYzmJpP8Ae7H8qtaD4P0zwfaXkmkxXE1xMu53uJjI8pUHaMngc+1dRTO7fhQBxfww8M3PhnwqV1BNupXtw91dZOcMx4H4AD867eo1+6fqakoA4Cb4O+FZrqe5xqEck8hkk8q7ZQWPXgVr+G/h74a8K3LXWmWGLt8g3EzmSTB64J6fhXUUUAcz4m8CaJ4rmt7m+S4ivLfiK6tZTFKg9MiqVr8LfDNqI2MNzcXKTLN9ruJzJMWXoCx7ewrs6KAMfWPDOna5e6bd3qSNLp03nW5VsANx19elXdT0231bSrrTboMbe6iaGQKcEqwwcGrdFAGK3hbTG8Kf8I2Uk/s3yfI27/m2fWpxoGnf2ANEeDzLDyfIMTnOU/z3rTooAy9A0Gz8N6TFplg0xtYc+Wsr7yo9AfSptZ0m113SLnTL5Wa2uUMcgU4JB96vUUAUrXSrSz0mLTI4g1pFEIgj/NlcYwfWuLm+DfhdppHtpdUsYpG3Nb2l4yRk/TmvQaKAMKPwdokXhP8A4RlbVhpWxl8rzGzyxYndnOdxJrnY/g/4cDoLm61e8t0IItbm+Z4uP9niu/ooAwdf8IaR4j0uDT72GRIbdg0JgkMbREDA2kdKxtN+Ffh6w1GC+mk1HUZ7dt0H9oXbTLE3qo6Zrt6KAADHSiiigAooooA//9k="
+          }
+        },
+        {
+          "id": "/page/0/SectionHeader/1",
+          "block_type": "SectionHeader",
+          "html": "<h1><b>News Release</b></h1>",
+          "polygon": [
+            [
+              89.923828125,
+              152.119140625
+            ],
+            [
+              238.59933471679688,
+              152.119140625
+            ],
+            [
+              238.59933471679688,
+              170.07623291015625
+            ],
+            [
+              89.923828125,
+              170.07623291015625
+            ]
+          ],
+          "bbox": [
+            89.923828125,
+            152.119140625,
+            238.59933471679688,
+            170.07623291015625
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/1"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/0/Text/2",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">Ref No. 03/2025</p>",
+          "polygon": [
+            [
+              90.02399444580078,
+              189.5322265625
+            ],
+            [
+              170.3364715576172,
+              189.5322265625
+            ],
+            [
+              170.3364715576172,
+              201.1392822265625
+            ],
+            [
+              90.02399444580078,
+              201.1392822265625
+            ]
+          ],
+          "bbox": [
+            90.02399444580078,
+            189.5322265625,
+            170.3364715576172,
+            201.1392822265625
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/1"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/0/SectionHeader/3",
+          "block_type": "SectionHeader",
+          "html": "<h2><b>DBS SECOND-QUARTER PROFIT BEFORE TAX UP 5% TO SGD 3.39 BILLION,</b> <b>NET PROFIT RISES 1% TO SGD 2.82</b> <b>BILLION</b></h2>",
+          "polygon": [
+            [
+              93.125,
+              378.6492919921875
+            ],
+            [
+              500.80914306640625,
+              378.6492919921875
+            ],
+            [
+              500.80914306640625,
+              402.2892761230469
+            ],
+            [
+              93.125,
+              402.2892761230469
+            ]
+          ],
+          "bbox": [
+            93.125,
+            378.6492919921875,
+            500.80914306640625,
+            402.2892761230469
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/1",
+            "2": "/page/0/SectionHeader/3"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/0/Text/4",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\"><b>* * *</b></p>",
+          "polygon": [
+            [
+              287.5234375,
+              416.4775390625
+            ],
+            [
+              307.2029724121094,
+              416.4775390625
+            ],
+            [
+              307.2029724121094,
+              427.6092834472656
+            ],
+            [
+              287.5234375,
+              427.6092834472656
+            ]
+          ],
+          "bbox": [
+            287.5234375,
+            416.4775390625,
+            307.2029724121094,
+            427.6092834472656
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/1",
+            "2": "/page/0/SectionHeader/3"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/0/SectionHeader/5",
+          "block_type": "SectionHeader",
+          "html": "<h4><i>First-half total income and profit before tax reach new highs</i></h4>",
+          "polygon": [
+            [
+              140.8515625,
+              441.8892822265625
+            ],
+            [
+              455.1484375,
+              441.8892822265625
+            ],
+            [
+              455.1484375,
+              452.9292907714844
+            ],
+            [
+              140.8515625,
+              452.9292907714844
+            ]
+          ],
+          "bbox": [
+            140.8515625,
+            441.8892822265625,
+            455.1484375,
+            452.9292907714844
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/1",
+            "2": "/page/0/SectionHeader/3",
+            "4": "/page/0/SectionHeader/5"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/0/Text/6",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">Singapore, 7 Aug 2025 – DBS Group achieved net profit of SGD 2.82 billion  for second-quarter 2025, 1% higher than a year ago, despite heightened  macroeconomic uncertainty, sharp declines in Sora and Hibor, significant currency  fluctuations, and the implementation of the 15% global minimum tax. Total income  rose 5% to SGD 5.73 billion. Net interest income was higher, supported by strong  deposit growth and proactive balance sheet hedging. Fee income and treasury  customer sales rose to their second highest quarterly levels, while markets trading  performance strengthened. The cost-income ratio was stable at 40%. Profit before</p>",
+          "polygon": [
+            [
+              90.02399444580078,
+              505.2692565917969
+            ],
+            [
+              497.923828125,
+              505.2692565917969
+            ],
+            [
+              497.923828125,
+              695.2255859375
+            ],
+            [
+              90.02399444580078,
+              695.2255859375
+            ]
+          ],
+          "bbox": [
+            90.02399444580078,
+            505.2692565917969,
+            497.923828125,
+            695.2255859375
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/1",
+            "2": "/page/0/SectionHeader/3",
+            "4": "/page/0/SectionHeader/5"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/0/Text/7",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">DBS/Second-quarter 2025 results Page 1 of 7 DBS Group Holdings Ltd</p>",
+          "polygon": [
+            [
+              87.3046875,
+              721.9342575073242
+            ],
+            [
+              446.5783386230469,
+              721.9342575073242
+            ],
+            [
+              446.5783386230469,
+              731.4052734375
+            ],
+            [
+              87.3046875,
+              731.4052734375
+            ]
+          ],
+          "bbox": [
+            87.3046875,
+            721.9342575073242,
+            446.5783386230469,
+            731.4052734375
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/1",
+            "2": "/page/0/SectionHeader/3",
+            "4": "/page/0/SectionHeader/5"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/0/Text/8",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\"></p>",
+          "polygon": [
+            [
+              280.248046875,
+              722.3603515625
+            ],
+            [
+              320.408203125,
+              722.3603515625
+            ],
+            [
+              320.408203125,
+              731.4052734375
+            ],
+            [
+              280.248046875,
+              731.4052734375
+            ]
+          ],
+          "bbox": [
+            280.248046875,
+            722.3603515625,
+            320.408203125,
+            731.4052734375
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/1",
+            "2": "/page/0/SectionHeader/3",
+            "4": "/page/0/SectionHeader/5"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/0/Text/9",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">12 Marina Boulevard DBS Asia Central @  Marina Bay Financial  Centre Tower 3 Singapore 018982</p>",
+          "polygon": [
+            [
+              361.150390625,
+              720.7158203125
+            ],
+            [
+              449.037109375,
+              720.7158203125
+            ],
+            [
+              449.037109375,
+              776.0502624511719
+            ],
+            [
+              361.150390625,
+              776.0502624511719
+            ]
+          ],
+          "bbox": [
+            361.150390625,
+            720.7158203125,
+            449.037109375,
+            776.0502624511719
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/1",
+            "2": "/page/0/SectionHeader/3",
+            "4": "/page/0/SectionHeader/5"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/0/Text/10",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">Tel: 65.6878 8888</p>",
+          "polygon": [
+            [
+              469.69921875,
+              721.9342575073242
+            ],
+            [
+              536.05078125,
+              721.9342575073242
+            ],
+            [
+              536.05078125,
+              737.9833984375
+            ],
+            [
+              469.69921875,
+              737.9833984375
+            ]
+          ],
+          "bbox": [
+            469.69921875,
+            721.9342575073242,
+            536.05078125,
+            737.9833984375
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/1",
+            "2": "/page/0/SectionHeader/3",
+            "4": "/page/0/SectionHeader/5"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/0/Text/11",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\"><a href=\"http://www.dbs.com/\">www.dbs.com</a></p>",
+          "polygon": [
+            [
+              438.560546875,
+              768.0102615356445
+            ],
+            [
+              520.7160034179688,
+              768.0102615356445
+            ],
+            [
+              520.7160034179688,
+              777.4521484375
+            ],
+            [
+              438.560546875,
+              777.4521484375
+            ]
+          ],
+          "bbox": [
+            438.560546875,
+            768.0102615356445,
+            520.7160034179688,
+            777.4521484375
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/1",
+            "2": "/page/0/SectionHeader/3",
+            "4": "/page/0/SectionHeader/5"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/0/PageFooter/12",
+          "block_type": "PageFooter",
+          "html": "",
+          "polygon": [
+            [
+              90.02399444580078,
+              794.7197265625
+            ],
+            [
+              185.21759033203125,
+              794.7197265625
+            ],
+            [
+              185.21759033203125,
+              805.9302558898926
+            ],
+            [
+              90.02399444580078,
+              805.9302558898926
+            ]
+          ],
+          "bbox": [
+            90.02399444580078,
+            794.7197265625,
+            185.21759033203125,
+            805.9302558898926
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/1",
+            "2": "/page/0/SectionHeader/3",
+            "4": "/page/0/SectionHeader/5"
+          },
+          "images": {}
+        }
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/1",
+        "2": "/page/0/SectionHeader/3",
+        "4": "/page/0/SectionHeader/5"
+      },
+      "images": null
+    },
+    {
+      "id": "/page/1/Page/153",
+      "block_type": "Page",
+      "html": "<content-ref src='/page/1/Picture/0'></content-ref><content-ref src='/page/1/Text/1'></content-ref><content-ref src='/page/1/Text/2'></content-ref><content-ref src='/page/1/Text/3'></content-ref><content-ref src='/page/1/SectionHeader/4'></content-ref><content-ref src='/page/1/Text/5'></content-ref><content-ref src='/page/1/Text/6'></content-ref><content-ref src='/page/1/Text/7'></content-ref><content-ref src='/page/1/Text/8'></content-ref><content-ref src='/page/1/Text/9'></content-ref><content-ref src='/page/1/Text/10'></content-ref><content-ref src='/page/1/Text/11'></content-ref><content-ref src='/page/1/Text/12'></content-ref><content-ref src='/page/1/Text/13'></content-ref><content-ref src='/page/1/PageFooter/14'></content-ref>",
+      "polygon": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          596.0,
+          0.0
+        ],
+        [
+          596.0,
+          842.0
+        ],
+        [
+          0.0,
+          842.0
+        ]
+      ],
+      "bbox": [
+        0.0,
+        0.0,
+        596.0,
+        842.0
+      ],
+      "children": [
+        {
+          "id": "/page/1/Picture/0",
+          "block_type": "Picture",
+          "html": "",
+          "polygon": [
+            [
+              412.7474609375,
+              33.58955078125
+            ],
+            [
+              532.4712890625,
+              33.58955078125
+            ],
+            [
+              532.4712890625,
+              81.52763671875
+            ],
+            [
+              412.7474609375,
+              81.52763671875
+            ]
+          ],
+          "bbox": [
+            412.7474609375,
+            33.58955078125,
+            532.4712890625,
+            81.52763671875
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/1",
+            "2": "/page/0/SectionHeader/3",
+            "4": "/page/0/SectionHeader/5"
+          },
+          "images": {
+            "/page/1/Picture/0": "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"
+          }
+        },
+        {
+          "id": "/page/1/Text/1",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">tax rose 5% to SGD 3.39 billion. Compared to the previous quarter, profit before tax  and net profit were 1% and 3% lower respectively.</p>",
+          "polygon": [
+            [
+              88.46875,
+              100.9393310546875
+            ],
+            [
+              499.15386962890625,
+              100.9393310546875
+            ],
+            [
+              499.15386962890625,
+              137.318359375
+            ],
+            [
+              88.46875,
+              137.318359375
+            ]
+          ],
+          "bbox": [
+            88.46875,
+            100.9393310546875,
+            499.15386962890625,
+            137.318359375
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/1",
+            "2": "/page/0/SectionHeader/3",
+            "4": "/page/0/SectionHeader/5"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/1/Text/2",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">For the first half, total income and profit before tax rose 5% and 3%  respectively to new highs of SGD 11.6 billion and SGD 6.83 billion. Net profit was  little changed at SGD 5.72 billion despite higher tax expenses. Return on equity was  17.0%, while return on tangible equity was 18.8%.</p>",
+          "polygon": [
+            [
+              89.6328125,
+              150.8857421875
+            ],
+            [
+              502.3333435058594,
+              150.8857421875
+            ],
+            [
+              502.3333435058594,
+              238.45928955078125
+            ],
+            [
+              89.6328125,
+              238.45928955078125
+            ]
+          ],
+          "bbox": [
+            89.6328125,
+            150.8857421875,
+            502.3333435058594,
+            238.45928955078125
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/1",
+            "2": "/page/0/SectionHeader/3",
+            "4": "/page/0/SectionHeader/5"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/1/Text/3",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">Asset quality continued to be resilient with the non-performing loan ratio at  1.0% and specific allowances at 15 basis points of loans for the second quarter and  12 basis points of loans for the first half.</p>",
+          "polygon": [
+            [
+              89.6328125,
+              252.73931884765625
+            ],
+            [
+              499.1094055175781,
+              252.73931884765625
+            ],
+            [
+              499.1094055175781,
+              315.3388671875
+            ],
+            [
+              89.6328125,
+              315.3388671875
+            ]
+          ],
+          "bbox": [
+            89.6328125,
+            252.73931884765625,
+            499.1094055175781,
+            315.3388671875
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/1",
+            "2": "/page/0/SectionHeader/3",
+            "4": "/page/0/SectionHeader/5"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/1/SectionHeader/4",
+          "block_type": "SectionHeader",
+          "html": "<h2><b>Second quarter 2025 vs. second quarter 2024</b></h2>",
+          "polygon": [
+            [
+              89.05078125,
+              353.92926025390625
+            ],
+            [
+              326.7547302246094,
+              353.92926025390625
+            ],
+            [
+              326.7547302246094,
+              365.4970703125
+            ],
+            [
+              89.05078125,
+              365.4970703125
+            ]
+          ],
+          "bbox": [
+            89.05078125,
+            353.92926025390625,
+            326.7547302246094,
+            365.4970703125
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/1",
+            "2": "/page/1/SectionHeader/4"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/1/Text/5",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">Commercial book net interest income fell 4% to SGD 3.63 billion due to a 28 basis-point decline in net interest margin to 2.55% from US Fed rate cuts and lower  Sora and Hibor. The impact of lower interest rates was mitigated by balance sheet  hedging and partly offset by strong deposit growth, which funded loans and an  increased deployment into liquid assets.</p>",
+          "polygon": [
+            [
+              88.46875,
+              378.2421875
+            ],
+            [
+              500.546875,
+              378.2421875
+            ],
+            [
+              500.546875,
+              491.58929443359375
+            ],
+            [
+              88.46875,
+              491.58929443359375
+            ]
+          ],
+          "bbox": [
+            88.46875,
+            378.2421875,
+            500.546875,
+            491.58929443359375
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/1",
+            "2": "/page/1/SectionHeader/4"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/1/Text/6",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">Loans rose 4% or SGD 19 billion in constant-currency terms to SGD 433  billion, led by non-trade corporate loans from broad-based growth across industries.  Deposits increased 7% or SGD 40 billion in constant-currency terms to SGD 574 billion, with the Casa ratio improving to 52%. Surplus deposits were deployed into  liquid assets. This was accretive to net interest income and return on equity but  modestly reduced net interest margin.</p>",
+          "polygon": [
+            [
+              87.3046875,
+              504.4599609375
+            ],
+            [
+              500.3653564453125,
+              504.4599609375
+            ],
+            [
+              500.3653564453125,
+              643.269287109375
+            ],
+            [
+              87.3046875,
+              643.269287109375
+            ]
+          ],
+          "bbox": [
+            87.3046875,
+            504.4599609375,
+            500.3653564453125,
+            643.269287109375
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/1",
+            "2": "/page/1/SectionHeader/4"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/1/Text/7",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">Commercial book net fee income rose 11% to SGD 1.17 billion. The increase  was largely due to wealth management fees, which rose 25% to SGD 649 million</p>",
+          "polygon": [
+            [
+              89.6328125,
+              657.5792846679688
+            ],
+            [
+              502.9381408691406,
+              657.5792846679688
+            ],
+            [
+              502.9381408691406,
+              695.2255859375
+            ],
+            [
+              89.6328125,
+              695.2255859375
+            ]
+          ],
+          "bbox": [
+            89.6328125,
+            657.5792846679688,
+            502.9381408691406,
+            695.2255859375
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/1",
+            "2": "/page/1/SectionHeader/4"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/1/Text/8",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">DBS/Second-quarter 2025 results Page 2 of 7 DBS Group Holdings Ltd</p>",
+          "polygon": [
+            [
+              88.34400177001953,
+              721.9342575073242
+            ],
+            [
+              446.5783386230469,
+              721.9342575073242
+            ],
+            [
+              446.5783386230469,
+              731.4052734375
+            ],
+            [
+              88.34400177001953,
+              731.4052734375
+            ]
+          ],
+          "bbox": [
+            88.34400177001953,
+            721.9342575073242,
+            446.5783386230469,
+            731.4052734375
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/1",
+            "2": "/page/1/SectionHeader/4"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/1/Text/9",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\"></p>",
+          "polygon": [
+            [
+              278.79296875,
+              722.3603515625
+            ],
+            [
+              317.20703125,
+              722.3603515625
+            ],
+            [
+              317.20703125,
+              731.4052734375
+            ],
+            [
+              278.79296875,
+              731.4052734375
+            ]
+          ],
+          "bbox": [
+            278.79296875,
+            722.3603515625,
+            317.20703125,
+            731.4052734375
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/1",
+            "2": "/page/1/SectionHeader/4"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/1/Text/10",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">12 Marina Boulevard DBS Asia Central @  Marina Bay Financial  Centre Tower 3</p>",
+          "polygon": [
+            [
+              361.732421875,
+              719.482421875
+            ],
+            [
+              448.6608581542969,
+              719.482421875
+            ],
+            [
+              448.6608581542969,
+              767.173828125
+            ],
+            [
+              361.732421875,
+              767.173828125
+            ]
+          ],
+          "bbox": [
+            361.732421875,
+            719.482421875,
+            448.6608581542969,
+            767.173828125
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/1",
+            "2": "/page/1/SectionHeader/4"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/1/Text/11",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">Singapore 018982</p>",
+          "polygon": [
+            [
+              381.07000732421875,
+              764.70703125
+            ],
+            [
+              462.423828125,
+              764.70703125
+            ],
+            [
+              462.423828125,
+              776.0502624511719
+            ],
+            [
+              381.07000732421875,
+              776.0502624511719
+            ]
+          ],
+          "bbox": [
+            381.07000732421875,
+            764.70703125,
+            462.423828125,
+            776.0502624511719
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/1",
+            "2": "/page/1/SectionHeader/4"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/1/Text/12",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\"><a href=\"http://www.dbs.com/\">www.dbs.com</a></p>",
+          "polygon": [
+            [
+              470.8599853515625,
+              765.1181640625
+            ],
+            [
+              520.91796875,
+              765.1181640625
+            ],
+            [
+              520.91796875,
+              776.0502624511719
+            ],
+            [
+              470.8599853515625,
+              776.0502624511719
+            ]
+          ],
+          "bbox": [
+            470.8599853515625,
+            765.1181640625,
+            520.91796875,
+            776.0502624511719
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/1",
+            "2": "/page/1/SectionHeader/4"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/1/Text/13",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">Co. Reg. No. 199901152M</p>",
+          "polygon": [
+            [
+              90.02399444580078,
+              794.30859375
+            ],
+            [
+              185.376953125,
+              794.30859375
+            ],
+            [
+              185.376953125,
+              805.9302558898926
+            ],
+            [
+              90.02399444580078,
+              805.9302558898926
+            ]
+          ],
+          "bbox": [
+            90.02399444580078,
+            794.30859375,
+            185.376953125,
+            805.9302558898926
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/1",
+            "2": "/page/1/SectionHeader/4"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/1/PageFooter/14",
+          "block_type": "PageFooter",
+          "html": "",
+          "polygon": [
+            [
+              470.28125,
+              721.9342575073242
+            ],
+            [
+              535.46875,
+              721.9342575073242
+            ],
+            [
+              535.46875,
+              731.81640625
+            ],
+            [
+              470.28125,
+              731.81640625
+            ]
+          ],
+          "bbox": [
+            470.28125,
+            721.9342575073242,
+            535.46875,
+            731.81640625
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/1",
+            "2": "/page/1/SectionHeader/4"
+          },
+          "images": {}
+        }
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/1",
+        "2": "/page/1/SectionHeader/4"
+      },
+      "images": null
+    },
+    {
+      "id": "/page/2/Page/150",
+      "block_type": "Page",
+      "html": "<content-ref src='/page/2/Picture/0'></content-ref><content-ref src='/page/2/Text/1'></content-ref><content-ref src='/page/2/Text/2'></content-ref><content-ref src='/page/2/Text/3'></content-ref><content-ref src='/page/2/Text/4'></content-ref><content-ref src='/page/2/Text/5'></content-ref><content-ref src='/page/2/SectionHeader/6'></content-ref><content-ref src='/page/2/Text/7'></content-ref><content-ref src='/page/2/Text/8'></content-ref><content-ref src='/page/2/Text/9'></content-ref><content-ref src='/page/2/Text/10'></content-ref><content-ref src='/page/2/Text/11'></content-ref><content-ref src='/page/2/Text/14'></content-ref><content-ref src='/page/2/Text/12'></content-ref><content-ref src='/page/2/PageFooter/13'></content-ref>",
+      "polygon": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          596.0,
+          0.0
+        ],
+        [
+          596.0,
+          842.0
+        ],
+        [
+          0.0,
+          842.0
+        ]
+      ],
+      "bbox": [
+        0.0,
+        0.0,
+        596.0,
+        842.0
+      ],
+      "children": [
+        {
+          "id": "/page/2/Picture/0",
+          "block_type": "Picture",
+          "html": "",
+          "polygon": [
+            [
+              416.676171875,
+              34.8640625
+            ],
+            [
+              533.198828125,
+              34.8640625
+            ],
+            [
+              533.198828125,
+              81.89765625
+            ],
+            [
+              416.676171875,
+              81.89765625
+            ]
+          ],
+          "bbox": [
+            416.676171875,
+            34.8640625,
+            533.198828125,
+            81.89765625
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/1",
+            "2": "/page/1/SectionHeader/4"
+          },
+          "images": {
+            "/page/2/Picture/0": "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"
+          }
+        },
+        {
+          "id": "/page/2/Text/1",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">from broad-based growth in investment products and bancassurance. Investment  banking fees were also higher from increased debt and equity capital market activity.</p>",
+          "polygon": [
+            [
+              89.6328125,
+              100.9393310546875
+            ],
+            [
+              501.7109375,
+              100.9393310546875
+            ],
+            [
+              501.7109375,
+              137.318359375
+            ],
+            [
+              89.6328125,
+              137.318359375
+            ]
+          ],
+          "bbox": [
+            89.6328125,
+            100.9393310546875,
+            501.7109375,
+            137.318359375
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/1",
+            "2": "/page/1/SectionHeader/4"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/2/Text/2",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">Commercial book other non-interest income increased 9% to SGD 522  million. Excluding non-recurring items a year ago, it rose 18% driven by strong  treasury customer sales to both wealth management and corporate customers.</p>",
+          "polygon": [
+            [
+              88.46875,
+              151.296875
+            ],
+            [
+              474.9375,
+              151.296875
+            ],
+            [
+              474.9375,
+              213.25927734375
+            ],
+            [
+              88.46875,
+              213.25927734375
+            ]
+          ],
+          "bbox": [
+            88.46875,
+            151.296875,
+            474.9375,
+            213.25927734375
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/1",
+            "2": "/page/1/SectionHeader/4"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/2/Text/3",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">Markets trading income more than doubled to SGD 418 million from higher  contributions across a range of activities, benefiting from lower funding costs and a  more conducive trading environment.</p>",
+          "polygon": [
+            [
+              89.6328125,
+              227.3564453125
+            ],
+            [
+              495.51519775390625,
+              227.3564453125
+            ],
+            [
+              495.51519775390625,
+              289.1292724609375
+            ],
+            [
+              89.6328125,
+              289.1292724609375
+            ]
+          ],
+          "bbox": [
+            89.6328125,
+            227.3564453125,
+            495.51519775390625,
+            289.1292724609375
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/1",
+            "2": "/page/1/SectionHeader/4"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/2/Text/4",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">Expenses increased 5% to SGD 2.27 billion led by higher staff costs. The  cost-income ratio was stable at 40%.</p>",
+          "polygon": [
+            [
+              88.46875,
+              303.4093017578125
+            ],
+            [
+              488.31805419921875,
+              303.4093017578125
+            ],
+            [
+              488.31805419921875,
+              339.769287109375
+            ],
+            [
+              88.46875,
+              339.769287109375
+            ]
+          ],
+          "bbox": [
+            88.46875,
+            303.4093017578125,
+            488.31805419921875,
+            339.769287109375
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/1",
+            "2": "/page/1/SectionHeader/4"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/2/Text/5",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">For the Group, total income rose 5% to SGD 5.73 billion. Net interest income  increased 2% to SGD 3.65 billion due to balance sheet growth. Net interest margin  fell nine basis points to 2.05% as the decline in the commercial book was partially  offset by stronger markets trading, supported by lower funding costs. Non-interest  income grew 10% to SGD 2.08 billion, driven by higher fee income, treasury  customer sales and markets trading gains.</p>",
+          "polygon": [
+            [
+              88.46875,
+              353.92926025390625
+            ],
+            [
+              502.1662902832031,
+              353.92926025390625
+            ],
+            [
+              502.1662902832031,
+              492.537109375
+            ],
+            [
+              88.46875,
+              492.537109375
+            ]
+          ],
+          "bbox": [
+            88.46875,
+            353.92926025390625,
+            502.1662902832031,
+            492.537109375
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/1",
+            "2": "/page/1/SectionHeader/4"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/2/SectionHeader/6",
+          "block_type": "SectionHeader",
+          "html": "<h4><b>Second quarter 2025 vs. first quarter 2025</b></h4>",
+          "polygon": [
+            [
+              89.6328125,
+              531.0692749023438
+            ],
+            [
+              308.958251953125,
+              531.0692749023438
+            ],
+            [
+              308.958251953125,
+              542.1092834472656
+            ],
+            [
+              89.6328125,
+              542.1092834472656
+            ]
+          ],
+          "bbox": [
+            89.6328125,
+            531.0692749023438,
+            308.958251953125,
+            542.1092834472656
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/1",
+            "2": "/page/1/SectionHeader/4",
+            "4": "/page/2/SectionHeader/6"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/2/Text/7",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">Commercial book net interest income declined 3% as net interest margin  narrowed 13 basis points from lower Sora and Hibor. Loans rose 1% or SGD 5 billion  in constant-currency terms, led by a SGD 3 billion growth in non-trade corporate  loans. Deposits increased 2% or SGD 11 billion in constant-currency terms from  growth in both fixed deposits and Casa.</p>",
+          "polygon": [
+            [
+              88.46875,
+              556.3892822265625
+            ],
+            [
+              506.4423828125,
+              556.3892822265625
+            ],
+            [
+              506.4423828125,
+              668.6192932128906
+            ],
+            [
+              88.46875,
+              668.6192932128906
+            ]
+          ],
+          "bbox": [
+            88.46875,
+            556.3892822265625,
+            506.4423828125,
+            668.6192932128906
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/1",
+            "2": "/page/1/SectionHeader/4",
+            "4": "/page/2/SectionHeader/6"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/2/Text/8",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">DBS/Second-quarter 2025 results Page 3 of 7 DBS Group Holdings Ltd</p>",
+          "polygon": [
+            [
+              88.34400177001953,
+              721.9342575073242
+            ],
+            [
+              446.5783386230469,
+              721.9342575073242
+            ],
+            [
+              446.5783386230469,
+              731.4052734375
+            ],
+            [
+              88.34400177001953,
+              731.4052734375
+            ]
+          ],
+          "bbox": [
+            88.34400177001953,
+            721.9342575073242,
+            446.5783386230469,
+            731.4052734375
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/1",
+            "2": "/page/1/SectionHeader/4",
+            "4": "/page/2/SectionHeader/6"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/2/Text/9",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\"></p>",
+          "polygon": [
+            [
+              280.830078125,
+              722.3603515625
+            ],
+            [
+              319.826171875,
+              722.3603515625
+            ],
+            [
+              319.826171875,
+              731.4052734375
+            ],
+            [
+              280.830078125,
+              731.4052734375
+            ]
+          ],
+          "bbox": [
+            280.830078125,
+            722.3603515625,
+            319.826171875,
+            731.4052734375
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/1",
+            "2": "/page/1/SectionHeader/4",
+            "4": "/page/2/SectionHeader/6"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/2/Text/10",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">12 Marina Boulevard DBS Asia Central @  Marina Bay Financial  Centre Tower 3</p>",
+          "polygon": [
+            [
+              365.806640625,
+              719.482421875
+            ],
+            [
+              458.349609375,
+              719.482421875
+            ],
+            [
+              458.349609375,
+              767.173828125
+            ],
+            [
+              365.806640625,
+              767.173828125
+            ]
+          ],
+          "bbox": [
+            365.806640625,
+            719.482421875,
+            458.349609375,
+            767.173828125
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/1",
+            "2": "/page/1/SectionHeader/4",
+            "4": "/page/2/SectionHeader/6"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/2/Text/11",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\"></p>",
+          "polygon": [
+            [
+              463.296875,
+              764.70703125
+            ],
+            [
+              505.203125,
+              764.70703125
+            ],
+            [
+              505.203125,
+              774.57421875
+            ],
+            [
+              463.296875,
+              774.57421875
+            ]
+          ],
+          "bbox": [
+            463.296875,
+            764.70703125,
+            505.203125,
+            774.57421875
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/1",
+            "2": "/page/1/SectionHeader/4",
+            "4": "/page/2/SectionHeader/6"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/2/Text/14",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">Tel: 65.6878 8888</p>",
+          "polygon": [
+            [
+              470.8599853515625,
+              721.9342575073242
+            ],
+            [
+              535.4130859375,
+              721.9342575073242
+            ],
+            [
+              535.4130859375,
+              729.9742584228516
+            ],
+            [
+              470.8599853515625,
+              729.9742584228516
+            ]
+          ],
+          "bbox": [
+            470.8599853515625,
+            721.9342575073242,
+            535.4130859375,
+            729.9742584228516
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/1",
+            "2": "/page/1/SectionHeader/4",
+            "4": "/page/2/SectionHeader/6"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/2/Text/12",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">Singapore 018982 <a href=\"http://www.dbs.com/\">www.dbs.com</a></p>",
+          "polygon": [
+            [
+              381.07000732421875,
+              768.0102615356445
+            ],
+            [
+              520.7160034179688,
+              768.0102615356445
+            ],
+            [
+              520.7160034179688,
+              777.4521484375
+            ],
+            [
+              381.07000732421875,
+              777.4521484375
+            ]
+          ],
+          "bbox": [
+            381.07000732421875,
+            768.0102615356445,
+            520.7160034179688,
+            777.4521484375
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/1",
+            "2": "/page/1/SectionHeader/4",
+            "4": "/page/2/SectionHeader/6"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/2/PageFooter/13",
+          "block_type": "PageFooter",
+          "html": "",
+          "polygon": [
+            [
+              90.02399444580078,
+              794.7197265625
+            ],
+            [
+              185.21759033203125,
+              794.7197265625
+            ],
+            [
+              185.21759033203125,
+              805.9302558898926
+            ],
+            [
+              90.02399444580078,
+              805.9302558898926
+            ]
+          ],
+          "bbox": [
+            90.02399444580078,
+            794.7197265625,
+            185.21759033203125,
+            805.9302558898926
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/1",
+            "2": "/page/1/SectionHeader/4",
+            "4": "/page/2/SectionHeader/6"
+          },
+          "images": {}
+        }
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/1",
+        "2": "/page/1/SectionHeader/4",
+        "4": "/page/2/SectionHeader/6"
+      },
+      "images": null
+    },
+    {
+      "id": "/page/3/Page/154",
+      "block_type": "Page",
+      "html": "<content-ref src='/page/3/Picture/0'></content-ref><content-ref src='/page/3/Text/1'></content-ref><content-ref src='/page/3/Text/2'></content-ref><content-ref src='/page/3/Text/3'></content-ref><content-ref src='/page/3/SectionHeader/4'></content-ref><content-ref src='/page/3/Text/5'></content-ref><content-ref src='/page/3/Text/6'></content-ref><content-ref src='/page/3/Text/7'></content-ref><content-ref src='/page/3/Text/8'></content-ref><content-ref src='/page/3/Text/9'></content-ref><content-ref src='/page/3/Text/10'></content-ref><content-ref src='/page/3/Text/11'></content-ref><content-ref src='/page/3/Text/12'></content-ref><content-ref src='/page/3/Text/13'></content-ref><content-ref src='/page/3/Text/14'></content-ref><content-ref src='/page/3/Text/16'></content-ref><content-ref src='/page/3/Text/15'></content-ref>",
+      "polygon": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          596.0,
+          0.0
+        ],
+        [
+          596.0,
+          842.0
+        ],
+        [
+          0.0,
+          842.0
+        ]
+      ],
+      "bbox": [
+        0.0,
+        0.0,
+        596.0,
+        842.0
+      ],
+      "children": [
+        {
+          "id": "/page/3/Picture/0",
+          "block_type": "Picture",
+          "html": "",
+          "polygon": [
+            [
+              411.146875,
+              33.9595703125
+            ],
+            [
+              534.071875,
+              33.9595703125
+            ],
+            [
+              534.071875,
+              82.8021484375
+            ],
+            [
+              411.146875,
+              82.8021484375
+            ]
+          ],
+          "bbox": [
+            411.146875,
+            33.9595703125,
+            534.071875,
+            82.8021484375
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/1",
+            "2": "/page/1/SectionHeader/4",
+            "4": "/page/2/SectionHeader/6"
+          },
+          "images": {
+            "/page/3/Picture/0": "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"
+          }
+        },
+        {
+          "id": "/page/3/Text/1",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">Commercial book net fee income was the second highest on record. It was  8% lower as wealth management and loan-related fees eased from record levels.</p>",
+          "polygon": [
+            [
+              89.6328125,
+              100.9393310546875
+            ],
+            [
+              492.3984375,
+              100.9393310546875
+            ],
+            [
+              492.3984375,
+              137.318359375
+            ],
+            [
+              89.6328125,
+              137.318359375
+            ]
+          ],
+          "bbox": [
+            89.6328125,
+            100.9393310546875,
+            492.3984375,
+            137.318359375
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/1",
+            "2": "/page/1/SectionHeader/4",
+            "4": "/page/2/SectionHeader/6"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/3/Text/2",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">Commercial book other non-interest income declined 5% due to a moderation  in treasury customer sales from the previous quarter's record, while markets trading  income rose 15% to a 13-quarter high.</p>",
+          "polygon": [
+            [
+              87.3046875,
+              151.296875
+            ],
+            [
+              506.35577392578125,
+              151.296875
+            ],
+            [
+              506.35577392578125,
+              213.25927734375
+            ],
+            [
+              87.3046875,
+              213.25927734375
+            ]
+          ],
+          "bbox": [
+            87.3046875,
+            151.296875,
+            506.35577392578125,
+            213.25927734375
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/1",
+            "2": "/page/1/SectionHeader/4",
+            "4": "/page/2/SectionHeader/6"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/3/Text/3",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">Expenses increased 3% from higher non-staff costs.</p>",
+          "polygon": [
+            [
+              125.71875,
+              227.4193115234375
+            ],
+            [
+              380.53912353515625,
+              227.4193115234375
+            ],
+            [
+              380.53912353515625,
+              238.8681640625
+            ],
+            [
+              125.71875,
+              238.8681640625
+            ]
+          ],
+          "bbox": [
+            125.71875,
+            227.4193115234375,
+            380.53912353515625,
+            238.8681640625
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/1",
+            "2": "/page/1/SectionHeader/4",
+            "4": "/page/2/SectionHeader/6"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/3/SectionHeader/4",
+          "block_type": "SectionHeader",
+          "html": "<h4><b>First half 2025 vs. first half 2024</b></h4>",
+          "polygon": [
+            [
+              90.02399444580078,
+              278.08929443359375
+            ],
+            [
+              256.67578125,
+              278.08929443359375
+            ],
+            [
+              256.67578125,
+              289.1292724609375
+            ],
+            [
+              90.02399444580078,
+              289.1292724609375
+            ]
+          ],
+          "bbox": [
+            90.02399444580078,
+            278.08929443359375,
+            256.67578125,
+            289.1292724609375
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/1",
+            "2": "/page/1/SectionHeader/4",
+            "4": "/page/3/SectionHeader/4"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/3/Text/5",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">Commercial book net interest income was 1% lower at SGD 7.34 billion. A  19-basis-point decline in net interest margin to 2.61% from lower interest rates,  softened by balance sheet hedging, was mostly offset by balance sheet growth. Over  the first six months, loans grew 3% or SGD 12 billion and deposits increased 5% or  SGD 29 billion in constant-currency terms.</p>",
+          "polygon": [
+            [
+              89.6328125,
+              303.0048828125
+            ],
+            [
+              506.6665954589844,
+              303.0048828125
+            ],
+            [
+              506.6665954589844,
+              415.6092834472656
+            ],
+            [
+              89.6328125,
+              415.6092834472656
+            ]
+          ],
+          "bbox": [
+            89.6328125,
+            303.0048828125,
+            506.6665954589844,
+            415.6092834472656
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/1",
+            "2": "/page/1/SectionHeader/4",
+            "4": "/page/3/SectionHeader/4"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/3/Text/6",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">Commercial book net fee income rose 17% to a record SGD 2.44 billion, led  by a 30% increase in wealth management fees to SGD 1.37 billion. Loan-related fees  rose 11% to a record SGD 412 million. Investment banking and transaction service  fees were also higher.</p>",
+          "polygon": [
+            [
+              88.46875,
+              429.8892822265625
+            ],
+            [
+              507.8843078613281,
+              429.8892822265625
+            ],
+            [
+              507.8843078613281,
+              516.7939453125
+            ],
+            [
+              88.46875,
+              516.7939453125
+            ]
+          ],
+          "bbox": [
+            88.46875,
+            429.8892822265625,
+            507.8843078613281,
+            516.7939453125
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/1",
+            "2": "/page/1/SectionHeader/4",
+            "4": "/page/3/SectionHeader/4"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/3/Text/7",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">Commercial book other non-interest income declined 3% to SGD 1.07 billion.  Excluding non-recurring items in the first half of 2024, it grew 11% from record  treasury customer sales.</p>",
+          "polygon": [
+            [
+              88.46875,
+              528.716796875
+            ],
+            [
+              503.42608642578125,
+              528.716796875
+            ],
+            [
+              503.42608642578125,
+              592.7492828369141
+            ],
+            [
+              88.46875,
+              592.7492828369141
+            ]
+          ],
+          "bbox": [
+            88.46875,
+            528.716796875,
+            503.42608642578125,
+            592.7492828369141
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/1",
+            "2": "/page/1/SectionHeader/4",
+            "4": "/page/3/SectionHeader/4"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/3/Text/8",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">Markets trading income increased 80% to SGD 781 million, reflecting lower  funding costs and a more conducive trading environment.</p>",
+          "polygon": [
+            [
+              90.02399444580078,
+              607.0292816162109
+            ],
+            [
+              494.2208557128906,
+              607.0292816162109
+            ],
+            [
+              494.2208557128906,
+              643.269287109375
+            ],
+            [
+              90.02399444580078,
+              643.269287109375
+            ]
+          ],
+          "bbox": [
+            90.02399444580078,
+            607.0292816162109,
+            494.2208557128906,
+            643.269287109375
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/1",
+            "2": "/page/1/SectionHeader/4",
+            "4": "/page/3/SectionHeader/4"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/3/Text/9",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">Expenses rose 5% to SGD 4.48 billion led by higher staff costs. The costincome ratio was stable at 39%.</p>",
+          "polygon": [
+            [
+              88.46875,
+              657.4013671875
+            ],
+            [
+              483.29632568359375,
+              657.4013671875
+            ],
+            [
+              483.29632568359375,
+              693.9392852783203
+            ],
+            [
+              88.46875,
+              693.9392852783203
+            ]
+          ],
+          "bbox": [
+            88.46875,
+            657.4013671875,
+            483.29632568359375,
+            693.9392852783203
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/1",
+            "2": "/page/1/SectionHeader/4",
+            "4": "/page/3/SectionHeader/4"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/3/Text/10",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">DBS/Second-quarter 2025 results Page 4 of 7 DBS Group Holdings Ltd</p>",
+          "polygon": [
+            [
+              88.34400177001953,
+              721.9342575073242
+            ],
+            [
+              446.5783386230469,
+              721.9342575073242
+            ],
+            [
+              446.5783386230469,
+              731.4052734375
+            ],
+            [
+              88.34400177001953,
+              731.4052734375
+            ]
+          ],
+          "bbox": [
+            88.34400177001953,
+            721.9342575073242,
+            446.5783386230469,
+            731.4052734375
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/1",
+            "2": "/page/1/SectionHeader/4",
+            "4": "/page/3/SectionHeader/4"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/3/Text/11",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\"></p>",
+          "polygon": [
+            [
+              278.2109375,
+              722.3603515625
+            ],
+            [
+              317.7890625,
+              722.3603515625
+            ],
+            [
+              317.7890625,
+              731.4052734375
+            ],
+            [
+              278.2109375,
+              731.4052734375
+            ]
+          ],
+          "bbox": [
+            278.2109375,
+            722.3603515625,
+            317.7890625,
+            731.4052734375
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/1",
+            "2": "/page/1/SectionHeader/4",
+            "4": "/page/3/SectionHeader/4"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/3/Text/12",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">12 Marina Boulevard DBS Asia Central @  Marina Bay Financial</p>",
+          "polygon": [
+            [
+              363.76953125,
+              717.837890625
+            ],
+            [
+              460.38671875,
+              717.837890625
+            ],
+            [
+              460.38671875,
+              762.240234375
+            ],
+            [
+              363.76953125,
+              762.240234375
+            ]
+          ],
+          "bbox": [
+            363.76953125,
+            717.837890625,
+            460.38671875,
+            762.240234375
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/1",
+            "2": "/page/1/SectionHeader/4",
+            "4": "/page/3/SectionHeader/4"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/3/Text/13",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">Centre Tower 3 Singapore 018982</p>",
+          "polygon": [
+            [
+              380.939453125,
+              758.12890625
+            ],
+            [
+              452.529296875,
+              758.12890625
+            ],
+            [
+              452.529296875,
+              776.0502624511719
+            ],
+            [
+              380.939453125,
+              776.0502624511719
+            ]
+          ],
+          "bbox": [
+            380.939453125,
+            758.12890625,
+            452.529296875,
+            776.0502624511719
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/1",
+            "2": "/page/1/SectionHeader/4",
+            "4": "/page/3/SectionHeader/4"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/3/Text/14",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\"><a href=\"http://www.dbs.com/\">www.dbs.com</a></p>",
+          "polygon": [
+            [
+              470.8599853515625,
+              768.0102615356445
+            ],
+            [
+              520.7160034179688,
+              768.0102615356445
+            ],
+            [
+              520.7160034179688,
+              777.4521484375
+            ],
+            [
+              470.8599853515625,
+              777.4521484375
+            ]
+          ],
+          "bbox": [
+            470.8599853515625,
+            768.0102615356445,
+            520.7160034179688,
+            777.4521484375
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/1",
+            "2": "/page/1/SectionHeader/4",
+            "4": "/page/3/SectionHeader/4"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/3/Text/16",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">Tel: 65.6878 8888</p>",
+          "polygon": [
+            [
+              470.8599853515625,
+              721.9342575073242
+            ],
+            [
+              535.4130859375,
+              721.9342575073242
+            ],
+            [
+              535.4130859375,
+              729.9742584228516
+            ],
+            [
+              470.8599853515625,
+              729.9742584228516
+            ]
+          ],
+          "bbox": [
+            470.8599853515625,
+            721.9342575073242,
+            535.4130859375,
+            729.9742584228516
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/1",
+            "2": "/page/1/SectionHeader/4",
+            "4": "/page/3/SectionHeader/4"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/3/Text/15",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">Co. Reg. No. 199901152M</p>",
+          "polygon": [
+            [
+              89.341796875,
+              794.30859375
+            ],
+            [
+              185.21759033203125,
+              794.30859375
+            ],
+            [
+              185.21759033203125,
+              805.9302558898926
+            ],
+            [
+              89.341796875,
+              805.9302558898926
+            ]
+          ],
+          "bbox": [
+            89.341796875,
+            794.30859375,
+            185.21759033203125,
+            805.9302558898926
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/1",
+            "2": "/page/1/SectionHeader/4",
+            "4": "/page/3/SectionHeader/4"
+          },
+          "images": {}
+        }
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/1",
+        "2": "/page/1/SectionHeader/4",
+        "4": "/page/3/SectionHeader/4"
+      },
+      "images": null
+    },
+    {
+      "id": "/page/4/Page/150",
+      "block_type": "Page",
+      "html": "<content-ref src='/page/4/Picture/0'></content-ref><content-ref src='/page/4/SectionHeader/1'></content-ref><content-ref src='/page/4/Text/2'></content-ref><content-ref src='/page/4/SectionHeader/3'></content-ref><content-ref src='/page/4/Text/4'></content-ref><content-ref src='/page/4/Text/5'></content-ref><content-ref src='/page/4/Text/6'></content-ref><content-ref src='/page/4/Text/7'></content-ref><content-ref src='/page/4/Text/8'></content-ref><content-ref src='/page/4/Text/9'></content-ref><content-ref src='/page/4/Text/10'></content-ref><content-ref src='/page/4/Text/11'></content-ref><content-ref src='/page/4/Text/13'></content-ref><content-ref src='/page/4/PageFooter/12'></content-ref>",
+      "polygon": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          596.0,
+          0.0
+        ],
+        [
+          596.0,
+          842.0
+        ],
+        [
+          0.0,
+          842.0
+        ]
+      ],
+      "bbox": [
+        0.0,
+        0.0,
+        596.0,
+        842.0
+      ],
+      "children": [
+        {
+          "id": "/page/4/Picture/0",
+          "block_type": "Picture",
+          "html": "",
+          "polygon": [
+            [
+              416.9962890625,
+              35.7685546875
+            ],
+            [
+              532.8787109375,
+              35.7685546875
+            ],
+            [
+              532.8787109375,
+              80.9931640625
+            ],
+            [
+              416.9962890625,
+              80.9931640625
+            ]
+          ],
+          "bbox": [
+            416.9962890625,
+            35.7685546875,
+            532.8787109375,
+            80.9931640625
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/1",
+            "2": "/page/1/SectionHeader/4",
+            "4": "/page/3/SectionHeader/4"
+          },
+          "images": {
+            "/page/4/Picture/0": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCAB5ATUDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD3+iiigAooooAKM0UhoAMijIphbHOa5XU/iL4c0nU/sNzenzVOHKIWCH3NKTUd2aUqNSq7U4t+h1uRS5qlYalZ6nbrPZXUU8R/ijYGread77ENOLtIdSZFNLAd65nXPHnh/QZfKur5Hm7xw/Ow+uOlJyS3ZdOlUqvlpq7OpzRWbpGtWGt2K3mn3CzQtxkdQfQj1rRXpQndXREouL5ZKzFopMjnnpRketMQtFGaMigAopNw9aMigBaKTIoyKAFopMj1oyMUALRSZHrRkUALRSZA70ZHrQAtFJvXONwz6Zo3CgBaKQEGloAKKKKACiiigAooooAKKKKACiiigAooooAKa1OprUAcJ4r+JemeHb86d5M1zcqP3nl4AT8T3rwG7lFxeTT5Yh3LZfrye9df8UNHk03xhPckExXn71T79CK5GylhjuALiMyQtw4X7wHqPcV5OIqSlNxZ+gZPhaNHDqrS1clqOs9RvdOl82yuprd/70UhU/pW9H8RPFcUYQaxMQO7BSfzIrN1bQ5tNWK6jYXFhcDMNwg+VvY+jDuKyiMcVnzTjpc9D2WHxC53FS+Rt33jDxDqSlLrVrlkIwVV9oP1A4NYpJOST+PqaWOKSVxHEpZ2OAoHJrY1DS00KBYbvDalKMmHqIFPdv8AaPp2pNylqxxVGi1CCs32N/wF47tvCEF1FcW886zyK2IyAFABzjPU8+3Svd9F1my1vS4b+xkLwSDIyMEexHrXyh14A9sV9I/DvRpNG8IWkEufMkzKw9N3OK7cJUk/d6I+Z4hwdGmlXj8Umc78bNL2eCrrXrS5uba9smjIeGZkDIzhCpAOP4h78V83WfiHXbi9hgOs6hiWRUP+kN3OPWvqb4xpu+E+vA9o4j+UqGvkrRxu1qxHrcJ/6EK7j5Q+rD8IdMeJQdd8Qh8DLrfnk/iDXN638HvElmjXXhbxlqnnpysN3cEFvYOuAPxGPevaaKAPmDTPjH428Gas+l+JYDfCBtssNyNsqj/Zcdfqdwr33wl4z0fxnpf27Sps44lgfiSNvRh/XpXD/HLwVFrnhd9ctogNR01dzMBzJD/ED646j8R3r5/8FeLrzwd4jttStXbywQs8faRO4NAH1j460aLVvCmokyzQ3FvbySwzRSFWRlUnqO3GK+Pz4l17J/4nN/kHH/Hw3+NfZOqX8OpeBr++t23Qz6dJIh9jGTXxC33j9aAPpzwH8PrTX/BOmatqOr6291dRl3KXzqPvEDA+lP8AE/wfv/sUlz4b8T6vFdopKwXN2XR8dgwwR+Oa7D4XLt+GXh8f9OoP6muuPAoA+QdH+KvjXwtqZin1Ke7WJ9strfMZAcHkZPI/CvpzwZ4rsvGXhuDWbNSiuSksTHmNx1Unv259DXy78XraG2+J+sLEAFeQSNj1IBNep/s2tN/YWuq+fs4uYynpuKnd+gWgDo/in8Vo/BMa6fp8cc+rzLuAflYV9T/hXlHhOw8bfFzVZje6/dRadCczyFiEGf4UQYGa4z4gajLq3j3W7qZiWF28Qz2VDtH8q+g/2f3tj8OwsW3zhcyebjr14z+FAFm0+Bvha2hCyTanPJ3ka8ZTn6LgVQ1n4W6/pFrJdeDvFurQzoM/ZLm5Lo/sDxj8Qa9b3CkPPAoA4P4QX2q3/gx5Namml1BbyZJTMcsCCOK76q1nY29l53kRCPzpDLJjux6n9Ks0AFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFNanUhoA80+MunpN4YgvQP3lvOAD7GvCl6ZHWvoP4uOF8DyA950A/WvnzHpXl4tL2h93w5JvB69GzqfCPiOCwkk0vVYxPpF2cSI3Plt03j0963NX+E+pC5WXQ3ju7Cb5o2Z8FQemfWvPoLeW6njt7eNpJZWCoqjJJPavpPRLmy8M+HtN07VtStoblYgpEsoUk+nPp0qqEFUjaexnm1aeCqqph3rLdb387HnE+l2Hw00hbi5MV34huFIhXqsPuK8znuJbm4lnndpJZCWZ2OSSa9G+L+lXI1mHWFJlsZ41RZF5VWHbPv1rzQ9ayr6S5VsduUpTpfWJSvKW/l5fI1/C9iuo+J9NtH+7JOoP0r6ojUIiqowAMACvmPwE6p440kt3nAr6eX7orrwduVnz/Esn7eEeiRxPxdXPwr1/wD64p/6MWvkfQ/+Q9p//Xwn/oQr66+Ln/JK9f8A+uK/+jFr5G0HnxBp3/Xwn/oQrsPmz7uooooArX1ql5ZXFvIoaOWNkYHuCORXwpqVodP1S8sm628zxH/gLEf0r70r4g8chV8d68F6fbpv/QjQB798MtTfUPgZfRyNlrW2uYv+AhTivmI/eP1r6L+EMTp8FvEEh+7Ilzt/CMivnQ/eP1oA+1PhsBH8NvD4PA+xIfzGai8XfEbw/wCE7CV7m9jluwD5dtEwZ2PbOOlJ4L0y11D4Z+H7e8hSaI2EJ2N0+6D/AFrE8R/BDwprcTvbQyWF0RxLC2Rn3U8GgD55ttK8QfEzxddXVpaPLNdTF5ZMYjiBPc+1fVXgfwlbeCvDFvpNuQ7KTJPLjmSQ9T/ID2Ar5tub7xj8HfEL6bFeERZ8xFIzDOvrg/5Fe+fDf4kWfj7T5AUFtqcABnt85BH95fb+VAHgnxi8H3Ph3xndXqxN9g1CQzxSAcBjyyn8c1z/AIP8daz4JvWn0uUbJCPNgcZR/wD6/vX2Lq+iafr+nyWGp2sdxbydVcdD6j0NeL+JP2c43dpvD2qeUD0guxkD6MOf0NAFvRf2itKnCLrGlz2z/wATwEOv5da9I8PfELwv4mcR6bqsTTnpC52P+R618va58JvGegq8k+kPcQrz5tq3mjHrgfN+lcdFLJbzLJGzRyIeCpwQaAPvkEGlryH4I/EO48TWM2japKZL60UNHK3WROnPuK9ezQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAU1jinUySgDyH4060hFlpEbfNkzSAHp2FeP84Ndh8SLG/h8aXstyjmOVgYXxkFcdK5a0nazn85FHnJ9wsPut/ex6ivIrvmqNs/Rsqpqlg4xp6vf7zsNJurTwLZfbp41uPEE6/uLduRbKR95/8Aa9v5ZrktQ1K71S9kvL6d5p5DlmY/5wPaq7u88jSSMzyOcsxOSx96bwevWs5TurLY6aOFUJOpLWT6/ojrvDnjD7FZSaNrMZvNGnG1ozy0X+0n064rF13R/wCyrxfJmW4sZxvtrhejr6H0YdCP/rVl9KsRX0iWslo3z27ndsP8LdmHof50+e6swWHVOq6lPS+66evqO068fT9RtrxPvQyK4/A19V6ZfxajptveQsGjljDgj3r5MVJJCNqM2TxgZya+ivhlaXtl4MtYr4MrksyK3UITwK6sHJptHgcS0oOEal9VoN+Lpx8Ktf8A+uKf+jFr5H0I41/Tz/08J/6EK+sfjLJs+E2uDPJWJR+MqV8m6Mdut2LHtcJ/6EK9A+PPvCim7uKXdQBXvLyKysZ7uZgkUMbSMx6AAZzXwxqV0+ra3eXqqTJd3Ly492Yn+tfQHxw+Ittb6VL4X0q4WS7uRi7eNsiNP7mfU8fhXL/Bv4YT6pqMPiHWLcpp8J3QRyLgzMOhx/dH60Aep+H9Bbw18FJ7CQYm/s2eWUf7TISa+Rj1r7j8VME8Ia1nj/QZv/RZr4b70Afb3gMbfh/4dH/UNtz/AOQ1roD0NYHgjA8A+Hf+wZbf+ilreLDFAHi37RemxSeFdN1JlHnQXXkg47MpP/stePfCzV5tJ+JGiSQswE9ytvIM8Mjnac/nn8B6V6d+0T4ltpraw8PW8qyTJJ9ouFU52cYUH35NcH8GfDVxrnxAsrpUJtdOb7TLJ2BX7o+pOP1oA+uB96lPNcT4R8c2Wq6xq2iXdyqalZ3ciKjnBePPGPXHSu2DA0ANZcjHGK+Y/wBoHw3Z6R4mstSs4li/tGN2mRRgF1Iy31O4fl719Os4VSxICjkk18p/HDxba+JvF0NrYSiW106NohIDw0hPzY9uBQBH8B3lT4nW4Q8NbyBvpgV9YivBv2fvBlzam48TXkRjWRPJtgwwSP4m+le8gYoAWiiigAooooAKKKKACiiigAooooAKKKKACmsM06kNAFW4tILhcTQxyem5QcV84a74K12z12e2SwnnDyExyRISrAnjntX0uRnrSYAPY1lVoqorM9DL8yq4KUnFXT7nhuh/B3UryNZdUultFIz5aDc3+FdTF8F9FVAHvLpm9cgV6WB6Uo4qY4anHoa1c6xlSV+e3oeT6h8FLNoybHUpY37CVQy15/rngDxDokuHsnuIs4EtupcH8ByK+lyM03HOCOKU8LTlsa4fPsXS+J8y8zzf4WeFLnTNKuLjVLVFed1aOKRQSgGefbOa9JVcKAABQB6U4dK1hBQXKjzMViZ4mq6s+pxHj/wZq/jWwOmR6tBZ6czKzp5JZnI55Oema82T9m6dHDr4iQMDkEQng/nX0DRVmB51aeEPHtpAkKeN43VRgGS0DHH1zVLUvh5411ZDFdePJVhb7yQw7P5V6lRQB5h4c+B3hvRrpby/ebVLoHdm4Py59cd/xr0tIVjRUjAVFGFUDAA9KkooA5nxloGq+I9Gl0uw1KKxhuE2TO0ZZiO4HpXkf/DNcv8A0MKf9+D/AI19BUUAeZ6V4E8baNp9vY2njVPs8CCONXtd21R0HWpbzwb49vYjG3jkRKRg+Va7TXo9FAHh9t+zvDPetc6x4guLpnbc+xMF/qTzXq/h3wvpXhXTVsNItlghHLHqzn1Y9zWzRQB5lqvwT0PU9RudTW/vrbUZ52mM8T42k9gKVfBvxA02Ly9N8bpNGvCi8ttzfmK9MooA8c1T4f8AxH8RRNban4zhjtm4aOCIqGH4GrPhr4CeHtIuEudTmk1OZTuCSDbHn6d69ZxS0ARwwpBGscaqsajCqowAKkoooAKKKKACiiigAooooAKKKKACioL27jsLKe7mJEUEbSOQM4UDJ/lVXQtbs/EWjW+q6e7PaXALRsy4JAJB4+oNAGjRVDWtWg0PRrrU7lXaG2jMjrGuWIHoKXStUh1jSrXULdXWG5jEiB1wcH1FAF6kxRu9qTd7UALigrmjNAOaAsAFLSE4NJu9qAFxSFaXNGaADFLSZoDUALRTd3PSjdQA6ikDZozQAtFFFABRXAy/GDwrDdz2xe+eSCQxuY7R2AYHBGRWz4d8d+H/ABRO9vpl6GuUGWgkUpIB64NAHS0UmaM+1AC0U3dS7qAForJ8Sa2vh3w5fau8JmW0iMhjBwWx2qfR9SGr6PaagkZjW5iWQITyMjpQBfopobNZfiXW18OeHL7V3hMy2kTSmNTgtjtQBrUVQ0fUhq+j2eoLGY1uYllCk8jIzir27mgBaKTPtRmgBaKTdzik3UAOooooAKKKKAMnxR/yKWs/9eM//otq5z4PD/i1WhH/AKZyf+jXro/FJx4S1n/rxn/9FtXNfCCRV+FWhDcMiOTv0/ePQBveM9Sl0fwdquowKjy29uzqsi5Un3Fcprfi7V9K+GeleJ7SCFuInvIgnAjbglR2x/Wtz4juG+HGvgc/6Iw/lUPhvTYdZ+FWn6bcAGG504RN7ZHX8KAN651m1tfDsmtNIDaJbG43g8FQu6uM0rx5fWvwvHi3XoU82clreCJcFgThF/E964Aaxfah8PrH4dl2Grvqx0qYdStvGQxb6Bdo+gNdj8ZNJEHw2tYLQPHZ2E8G4R/eWNcKCPpwfwoAdLqnxNt9IPiCWPSjAsfnvpoQhxHjJG/1xXeeGddtvEvh6z1e1BWK5QNtPVT3B+hrh7T4eQatpcVxD478UTWtzECMX6lWUjp92uy8IeHbLwr4dg0jT7iae2hLFZJmDMdxJPIAHf0oAm8T6hNpPhrU9Rt9vnW1tJKgYZGQM15/oviD4heMNAt9X0ldN0+Bk+UToXadhwT/ALIz0rtfHX/Ii6772Mv/AKCao/DNAvw20ELwPswIwPc0AcnoHjXxn40gltNJsrLT7qxYxX11OC6eYD0RfpzzW54O8Va5N4s1Pwn4ljtjqVpCtzFPbjCSxkgE47feH61R+EKjb4pIGP8AibyfyFLZnH7Rd/8A9gAf+jEoAta/4u1u98WyeFvCcFubu3iEt5d3PKQg9AB3PI/Oq0PivxP4W1/T9O8XLZ3FlqL+VBfWqlNknZWX3qDwjImmfGLxhZXjBLi9EVxblzjzECgHHrz/ACpfjBPHcxeHdIhYPf3OqRPGin5gqnk49P8ACgDU+IXje78G3+gCC2+0w380sckKj53IUbQvoSzAVe8Nnxo19Jd+I5NOhsmiLLa26ktE3YFu+Bmuf+JCD/hNPh2r841Js/UbK9F1CJpdNuY4x87RMq/XFAHndr4k8YeM7q8n8LGwstJtpjDHPdIXa4ZepA7CtrwR4tvdZu9S0bWraO31rTHCzCMnZIp+6659cV5z8L/CKaz4aeE+Ldf0+8tLh4riztLsIsbA9dpXPNejeFvANj4Z1u91OPWNS1C+uY1jla9mVzgHg8AH86AO1oqlZavp+otOtlfW1y1u2yYQyq/lt6Ng8H61doA8Q+HXivw3oLeIoNZ1C2tp21SVlWUEkjP0q9ayaf4u+L+jax4XiVrHTYJBf3kabEkJDBUGcbjz6fyqX4UaZp95F4kkvLO3mcarKA0sYY4z2zUHiuCw0H4p+D18NJFa393cmO/t7bADwErkuo46bjn29qAPRfEsniJbOJfDkdk1y8mJHumIWNcHkAdTnHFcdJ4m8YeFPEGlW3iV9PvdP1KbyFmtozG0T9uO4p/inV9Z1T4jWXg3TtUbSLdrP7XPcxKDLIMsNqE9Pu9a5Tx5okOg694VhbxHq2pXUuooTDf3Xm7VBHzBccc96AO5+IvjS/8ACFzoK2Fot2b+4eFoT95zgbQD2yWFZWtan8S9A0mfXrg6RNa26+dPYxocog64fqcDmpfieA3izwECMj+1G7f7tdR4+/5J54i7/wDEunH/AI4aAMfxpqkWtfBjU9TgBWO60/zQp7ZAyPw6VQXxj/wj/gbQbDToPtuuXlrGlpaqc9vvN6KKqXBx+zexP/QK71y+iWWofD2TRfGd7O2pabfWyQXrtGN1mD90r32igD3DRl1BNLgGqyRSXxXMpiXC59B7Vg/FH/kmev8A/Xo/8q6e2niuoY54HWSGRQyOpyGB6EVzHxR/5Jn4gH/Tm/8AKgCHT9dtvDPwqsNXu8mK3sI22jqxxwB9TWEmo/E660n+34YtLjiMZnTTGQl2TGcFvUis/wAa2k938ALIQKzGGC3lcJ12Ac4q9ovgOHV9Es76z8e+KJLeaJWXZfrgDHT7vb09qANyH4h21z8MZPGMNsWEcLM1vnlZFOCufTP6VkWM/wATdT0631a2vNEEdyiypamM42kZAL/Suh8N+C9H8OeFJ/D8ckl5p8zyGT7Uytu38MCQAK5DWvCep/D7TbnWfCPiCeKztlMj6Zet5sLL3Ck8r/OgDqPGviu/8LeH7F47aCXVL2aO2jDMREkjdST6ZqpZQ/EqC/tpLm90a7tWkUTxiIoUQnkqR1IrUW30z4geCrM6xaL5N9EsvlFsFGx1U9Qa4jWI9e+FH2G+s9dm1XQJLmO3k0++w0qBs/6tup6dPzBFAHsCHK06kXpS0AFFFFAEF5axX1lPaTAmKeNo3AODtYYP868/X4IeDkUKiagqjgAXbAV6PRQBzNj4E0XT/DF34ehW4NhdbvNV5izHOM4J6dK29N0220rTrewtVYQW6COMMckAe9W6KAOcj8DaFF4xfxUts39qupG/d8oJXbkD1xx+JrdubSC8t5Le4iWWGQFXRhkMD1BqaigDz1vgz4X8xvs82q2tuzZNrBessR/D/wCvXbaVpdpoumW+nWEZjtbdAkaFi2APc81cooAq6jp8Gq6dc2F0GMFxG0UgU4JUjBqPSdJtdE0m202yVltrdNkYZskD61eooAx9C8M6d4d+2f2eki/bJzcS723Zc0J4a02PxTL4jVJP7RltvsrNv+Xy8g4x9QK2KKAOd8S+CNE8VGGTUYJFuYP9TcwSGOWP6MKq+Hvh1oHhzUDqMC3N3fldour2cyyKPQE8D8q6yigDH1Xw1p2talpd/eJI0+mSma2KtgBjjOR36CtfaKWigDjdc+GHhzXNTfU2S6sb6T/WT2M5iaT/AHux/KrWg+D9M8H2l5JpMVxNcTLud7iYyPKVB2jJ4HPtXUUzu34UAcX8MPDNz4Z8KldQTbqV7cPdXWTnDMeB+AA/Ou3qNfun6mpKAOAm+DvhWa6nucahHJPIZJPKu2UFj14Fa/hv4e+GvCty11plhi7fINxM5kkweuCen4V1FFAHM+JvAmieK5re5vkuIry34iurWUxSoPTIqla/C3wzaiNjDc3Fykyzfa7icyTFl6Ase3sK7OigDH1jwzp2uXum3d6kjS6dN51uVbADcdfXpV3U9Nt9W0q6026DG3uomhkCnBKsMHBq3RQBit4W0xvCn/CNlJP7N8nyNu/5tn1qcaBp39gDRHg8yw8nyDE5zlP89606KAMvQNBs/DekxaZYNMbWHPlrK+8qPQH0qbWdJtdd0i50y+VmtrlDHIFOCQfer1FAFK10q0s9Ji0yOINaRRCII/zZXGMH1ri5vg34XaaR7aXVLGKRtzW9peMkZP05r0GigDCj8HaJF4T/AOEZW1YaVsZfK8xs8sWJ3ZzncSa52P4P+HA6C5utXvLdCCLW5vmeLj/Z4rv6KAMHX/CGkeI9Lg0+9hkSG3YNCYJDG0RAwNpHSsbTfhX4esNRgvppNR1Ge3bdB/aF20yxN6qOma7eigAAx0ooooAKKKKAP//Z"
+          }
+        },
+        {
+          "id": "/page/4/SectionHeader/1",
+          "block_type": "SectionHeader",
+          "html": "<h3><b>Business unit performance</b></h3>",
+          "polygon": [
+            [
+              88.759765625,
+              100.7275390625
+            ],
+            [
+              232.521484375,
+              100.7275390625
+            ],
+            [
+              232.521484375,
+              111.97930908203125
+            ],
+            [
+              88.759765625,
+              111.97930908203125
+            ]
+          ],
+          "bbox": [
+            88.759765625,
+            100.7275390625,
+            232.521484375,
+            111.97930908203125
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/1",
+            "2": "/page/1/SectionHeader/4",
+            "3": "/page/4/SectionHeader/1"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/4/Text/2",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">For the first half, Consumer Banking / Wealth Management income rose 4%  to SGD 5.28 billion, underpinned by higher net new money inflows and stronger  investment product and bancassurance sales. The gains were partially offset by the  impact of lower interest rates on deposit income. Institutional Banking income fell 4%  to SGD 4.51 billion as a decline in cash management income due to lower interest  rates more than offset higher income from treasury product sales. Markets Trading  delivered its strongest performance in four years, with income rising to SGD 781 million.</p>",
+          "polygon": [
+            [
+              89.6328125,
+              126.2177734375
+            ],
+            [
+              505.36907958984375,
+              126.2177734375
+            ],
+            [
+              505.36907958984375,
+              314.44927978515625
+            ],
+            [
+              89.6328125,
+              314.44927978515625
+            ]
+          ],
+          "bbox": [
+            89.6328125,
+            126.2177734375,
+            505.36907958984375,
+            314.44927978515625
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/1",
+            "2": "/page/1/SectionHeader/4",
+            "3": "/page/4/SectionHeader/1"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/4/SectionHeader/3",
+          "block_type": "SectionHeader",
+          "html": "<h4><b>Balance sheet</b></h4>",
+          "polygon": [
+            [
+              89.05078125,
+              353.92926025390625
+            ],
+            [
+              164.13551330566406,
+              353.92926025390625
+            ],
+            [
+              164.13551330566406,
+              364.9692687988281
+            ],
+            [
+              89.05078125,
+              364.9692687988281
+            ]
+          ],
+          "bbox": [
+            89.05078125,
+            353.92926025390625,
+            164.13551330566406,
+            364.9692687988281
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/1",
+            "2": "/page/1/SectionHeader/4",
+            "3": "/page/4/SectionHeader/1",
+            "4": "/page/4/SectionHeader/3"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/4/Text/4",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">Asset quality remained resilient. The non-performing loan ratio improved from  1.1% to 1.0% during the quarter, as new non-performing asset formation stayed low and was more than offset by higher repayments and write-offs. Total non-performing  assets fell 8% from a year ago to SGD 4.69 billion.</p>",
+          "polygon": [
+            [
+              89.6328125,
+              377.8310546875
+            ],
+            [
+              505.7461853027344,
+              377.8310546875
+            ],
+            [
+              505.7461853027344,
+              466.2492980957031
+            ],
+            [
+              89.6328125,
+              466.2492980957031
+            ]
+          ],
+          "bbox": [
+            89.6328125,
+            377.8310546875,
+            505.7461853027344,
+            466.2492980957031
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/1",
+            "2": "/page/1/SectionHeader/4",
+            "3": "/page/4/SectionHeader/1",
+            "4": "/page/4/SectionHeader/3"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/4/Text/5",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">Specific allowances were SGD 150 million or 15 basis points of loans for the  second quarter, bringing the first-half total to SGD 270 million or 12 basis points.  Allowance coverage stood at 137% and at 236% after considering collateral.</p>",
+          "polygon": [
+            [
+              88.46875,
+              479.7919921875
+            ],
+            [
+              499.6391296386719,
+              479.7919921875
+            ],
+            [
+              499.6391296386719,
+              542.1092834472656
+            ],
+            [
+              88.46875,
+              542.1092834472656
+            ]
+          ],
+          "bbox": [
+            88.46875,
+            479.7919921875,
+            499.6391296386719,
+            542.1092834472656
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/1",
+            "2": "/page/1/SectionHeader/4",
+            "3": "/page/4/SectionHeader/1",
+            "4": "/page/4/SectionHeader/3"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/4/Text/6",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">Liquidity continued to be ample. The liquidity coverage ratio of 147% and the  net stable funding ratio of 114% were both well above regulatory requirements of  100%.</p>",
+          "polygon": [
+            [
+              87.3046875,
+              555.4404296875
+            ],
+            [
+              501.3966369628906,
+              555.4404296875
+            ],
+            [
+              501.3966369628906,
+              618.0692901611328
+            ],
+            [
+              87.3046875,
+              618.0692901611328
+            ]
+          ],
+          "bbox": [
+            87.3046875,
+            555.4404296875,
+            501.3966369628906,
+            618.0692901611328
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/1",
+            "2": "/page/1/SectionHeader/4",
+            "3": "/page/4/SectionHeader/1",
+            "4": "/page/4/SectionHeader/3"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/4/Text/7",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">The reported Common Equity Tier-1 ratio was 17.0% based on transitional  arrangements, while the pro-forma ratio on a fully phased-in basis was 15.1%. The  leverage ratio of 6.5% was more than twice the regulatory minimum of 3%.</p>",
+          "polygon": [
+            [
+              89.6328125,
+              632.2292785644531
+            ],
+            [
+              494.7947082519531,
+              632.2292785644531
+            ],
+            [
+              494.7947082519531,
+              695.2255859375
+            ],
+            [
+              89.6328125,
+              695.2255859375
+            ]
+          ],
+          "bbox": [
+            89.6328125,
+            632.2292785644531,
+            494.7947082519531,
+            695.2255859375
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/1",
+            "2": "/page/1/SectionHeader/4",
+            "3": "/page/4/SectionHeader/1",
+            "4": "/page/4/SectionHeader/3"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/4/Text/8",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">DBS/Second-quarter 2025 results Page 5 of 7 DBS Group Holdings Ltd</p>",
+          "polygon": [
+            [
+              87.595703125,
+              721.9342575073242
+            ],
+            [
+              446.5783386230469,
+              721.9342575073242
+            ],
+            [
+              446.5783386230469,
+              731.4052734375
+            ],
+            [
+              87.595703125,
+              731.4052734375
+            ]
+          ],
+          "bbox": [
+            87.595703125,
+            721.9342575073242,
+            446.5783386230469,
+            731.4052734375
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/1",
+            "2": "/page/1/SectionHeader/4",
+            "3": "/page/4/SectionHeader/1",
+            "4": "/page/4/SectionHeader/3"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/4/Text/9",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\"></p>",
+          "polygon": [
+            [
+              278.501953125,
+              719.0712890625
+            ],
+            [
+              317.498046875,
+              719.0712890625
+            ],
+            [
+              317.498046875,
+              728.1162109375
+            ],
+            [
+              278.501953125,
+              728.1162109375
+            ]
+          ],
+          "bbox": [
+            278.501953125,
+            719.0712890625,
+            317.498046875,
+            728.1162109375
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/1",
+            "2": "/page/1/SectionHeader/4",
+            "3": "/page/4/SectionHeader/1",
+            "4": "/page/4/SectionHeader/3"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/4/Text/10",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">12 Marina Boulevard DBS Asia Central @  Marina Bay Financial  Centre Tower 3</p>",
+          "polygon": [
+            [
+              361.732421875,
+              719.0712890625
+            ],
+            [
+              448.6608581542969,
+              719.0712890625
+            ],
+            [
+              448.6608581542969,
+              767.5849609375
+            ],
+            [
+              361.732421875,
+              767.5849609375
+            ]
+          ],
+          "bbox": [
+            361.732421875,
+            719.0712890625,
+            448.6608581542969,
+            767.5849609375
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/1",
+            "2": "/page/1/SectionHeader/4",
+            "3": "/page/4/SectionHeader/1",
+            "4": "/page/4/SectionHeader/3"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/4/Text/11",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">Singapore 018982 <a href=\"http://www.dbs.com/\">www.dbs.com</a></p>",
+          "polygon": [
+            [
+              381.07000732421875,
+              764.2958984375
+            ],
+            [
+              520.7160034179688,
+              764.2958984375
+            ],
+            [
+              520.7160034179688,
+              776.0502624511719
+            ],
+            [
+              381.07000732421875,
+              776.0502624511719
+            ]
+          ],
+          "bbox": [
+            381.07000732421875,
+            764.2958984375,
+            520.7160034179688,
+            776.0502624511719
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/1",
+            "2": "/page/1/SectionHeader/4",
+            "3": "/page/4/SectionHeader/1",
+            "4": "/page/4/SectionHeader/3"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/4/Text/13",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">Tel: 65.6878 8888</p>",
+          "polygon": [
+            [
+              470.8599853515625,
+              721.9342575073242
+            ],
+            [
+              535.4130859375,
+              721.9342575073242
+            ],
+            [
+              535.4130859375,
+              729.9742584228516
+            ],
+            [
+              470.8599853515625,
+              729.9742584228516
+            ]
+          ],
+          "bbox": [
+            470.8599853515625,
+            721.9342575073242,
+            535.4130859375,
+            729.9742584228516
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/1",
+            "2": "/page/1/SectionHeader/4",
+            "3": "/page/4/SectionHeader/1",
+            "4": "/page/4/SectionHeader/3"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/4/PageFooter/12",
+          "block_type": "PageFooter",
+          "html": "",
+          "polygon": [
+            [
+              90.02399444580078,
+              794.7197265625
+            ],
+            [
+              185.21759033203125,
+              794.7197265625
+            ],
+            [
+              185.21759033203125,
+              805.9302558898926
+            ],
+            [
+              90.02399444580078,
+              805.9302558898926
+            ]
+          ],
+          "bbox": [
+            90.02399444580078,
+            794.7197265625,
+            185.21759033203125,
+            805.9302558898926
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/1",
+            "2": "/page/1/SectionHeader/4",
+            "3": "/page/4/SectionHeader/1",
+            "4": "/page/4/SectionHeader/3"
+          },
+          "images": {}
+        }
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/1",
+        "2": "/page/1/SectionHeader/4",
+        "3": "/page/4/SectionHeader/1",
+        "4": "/page/4/SectionHeader/3"
+      },
+      "images": null
+    },
+    {
+      "id": "/page/5/Page/104",
+      "block_type": "Page",
+      "html": "<content-ref src='/page/5/Picture/0'></content-ref><content-ref src='/page/5/Text/1'></content-ref><content-ref src='/page/5/Text/2'></content-ref><content-ref src='/page/5/Text/3'></content-ref><content-ref src='/page/5/PageFooter/4'></content-ref><content-ref src='/page/5/PageFooter/5'></content-ref><content-ref src='/page/5/PageFooter/6'></content-ref><content-ref src='/page/5/PageFooter/7'></content-ref><content-ref src='/page/5/PageFooter/8'></content-ref><content-ref src='/page/5/PageFooter/9'></content-ref>",
+      "polygon": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          596.0,
+          0.0
+        ],
+        [
+          596.0,
+          842.0
+        ],
+        [
+          0.0,
+          842.0
+        ]
+      ],
+      "bbox": [
+        0.0,
+        0.0,
+        596.0,
+        842.0
+      ],
+      "children": [
+        {
+          "id": "/page/5/Picture/0",
+          "block_type": "Picture",
+          "html": "",
+          "polygon": [
+            [
+              417.31640625,
+              34.9462890625
+            ],
+            [
+              532.55859375,
+              34.9462890625
+            ],
+            [
+              532.55859375,
+              80.1708984375
+            ],
+            [
+              417.31640625,
+              80.1708984375
+            ]
+          ],
+          "bbox": [
+            417.31640625,
+            34.9462890625,
+            532.55859375,
+            80.1708984375
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/1",
+            "2": "/page/1/SectionHeader/4",
+            "3": "/page/4/SectionHeader/1",
+            "4": "/page/4/SectionHeader/3"
+          },
+          "images": {
+            "/page/5/Picture/0": "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"
+          }
+        },
+        {
+          "id": "/page/5/Text/1",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">The Board declared an ordinary dividend of SGD 60 cents per share and a  Capital Return dividend of SGD 15 cents per share for the second quarter, bringing  the first-half amounts to SGD 120 cents per share and SGD 30 cents per share  respectively.</p>",
+          "polygon": [
+            [
+              89.6328125,
+              100.7275390625
+            ],
+            [
+              495.8876037597656,
+              100.7275390625
+            ],
+            [
+              495.8876037597656,
+              187.9393310546875
+            ],
+            [
+              89.6328125,
+              187.9393310546875
+            ]
+          ],
+          "bbox": [
+            89.6328125,
+            100.7275390625,
+            495.8876037597656,
+            187.9393310546875
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/1",
+            "2": "/page/1/SectionHeader/4",
+            "3": "/page/4/SectionHeader/1",
+            "4": "/page/4/SectionHeader/3"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/5/Text/2",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">DBS CEO Tan Su Shan said, \"We delivered a strong set of results for the first  half despite the challenging environment. Our ability to manage the balance sheet  nimbly, grow deposits and capture market opportunities helped offset the external  pressures. Net interest income, fee income and treasury customer sales reached  record levels, while markets trading performance was the strongest in four years.  Return on equity was 17% even after the impact of the global minimum tax, reflecting  the benefit of our investments to deepen customer relationships across wealth  management and corporate banking. We are also pleased to be recognised once  again as the World's Best Bank by Euromoney.</p>",
+          "polygon": [
+            [
+              89.6328125,
+              202.21929931640625
+            ],
+            [
+              506.4527282714844,
+              202.21929931640625
+            ],
+            [
+              506.4527282714844,
+              416.06640625
+            ],
+            [
+              89.6328125,
+              416.06640625
+            ]
+          ],
+          "bbox": [
+            89.6328125,
+            202.21929931640625,
+            506.4527282714844,
+            416.06640625
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/1",
+            "2": "/page/1/SectionHeader/4",
+            "3": "/page/4/SectionHeader/1",
+            "4": "/page/4/SectionHeader/3"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/5/Text/3",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">\"While external uncertainties remain, we have opportunities ahead of us. Our  proactive management of the balance sheet puts us in a good position to navigate  the interest rate cycle, while strong capital and liquidity ensure we are well placed to  support customers.\"</p>",
+          "polygon": [
+            [
+              88.46875,
+              429.8892822265625
+            ],
+            [
+              502.8265380859375,
+              429.8892822265625
+            ],
+            [
+              502.8265380859375,
+              516.7939453125
+            ],
+            [
+              88.46875,
+              516.7939453125
+            ]
+          ],
+          "bbox": [
+            88.46875,
+            429.8892822265625,
+            502.8265380859375,
+            516.7939453125
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/1",
+            "2": "/page/1/SectionHeader/4",
+            "3": "/page/4/SectionHeader/1",
+            "4": "/page/4/SectionHeader/3"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/5/PageFooter/4",
+          "block_type": "PageFooter",
+          "html": "",
+          "polygon": [
+            [
+              88.34400177001953,
+              721.9342575073242
+            ],
+            [
+              446.5783386230469,
+              721.9342575073242
+            ],
+            [
+              446.5783386230469,
+              731.4052734375
+            ],
+            [
+              88.34400177001953,
+              731.4052734375
+            ]
+          ],
+          "bbox": [
+            88.34400177001953,
+            721.9342575073242,
+            446.5783386230469,
+            731.4052734375
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/1",
+            "2": "/page/1/SectionHeader/4",
+            "3": "/page/4/SectionHeader/1",
+            "4": "/page/4/SectionHeader/3"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/5/PageFooter/5",
+          "block_type": "PageFooter",
+          "html": "",
+          "polygon": [
+            [
+              280.248046875,
+              719.0712890625
+            ],
+            [
+              320.408203125,
+              719.0712890625
+            ],
+            [
+              320.408203125,
+              728.1162109375
+            ],
+            [
+              280.248046875,
+              728.1162109375
+            ]
+          ],
+          "bbox": [
+            280.248046875,
+            719.0712890625,
+            320.408203125,
+            728.1162109375
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/1",
+            "2": "/page/1/SectionHeader/4",
+            "3": "/page/4/SectionHeader/1",
+            "4": "/page/4/SectionHeader/3"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/5/PageFooter/6",
+          "block_type": "PageFooter",
+          "html": "",
+          "polygon": [
+            [
+              361.44140625,
+              723.59375
+            ],
+            [
+              448.74609375,
+              723.59375
+            ],
+            [
+              448.74609375,
+              776.21875
+            ],
+            [
+              361.44140625,
+              776.21875
+            ]
+          ],
+          "bbox": [
+            361.44140625,
+            723.59375,
+            448.74609375,
+            776.21875
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/1",
+            "2": "/page/1/SectionHeader/4",
+            "3": "/page/4/SectionHeader/1",
+            "4": "/page/4/SectionHeader/3"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/5/PageFooter/7",
+          "block_type": "PageFooter",
+          "html": "",
+          "polygon": [
+            [
+              470.28125,
+              721.9342575073242
+            ],
+            [
+              535.46875,
+              721.9342575073242
+            ],
+            [
+              535.46875,
+              731.4052734375
+            ],
+            [
+              470.28125,
+              731.4052734375
+            ]
+          ],
+          "bbox": [
+            470.28125,
+            721.9342575073242,
+            535.46875,
+            731.4052734375
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/1",
+            "2": "/page/1/SectionHeader/4",
+            "3": "/page/4/SectionHeader/1",
+            "4": "/page/4/SectionHeader/3"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/5/PageFooter/8",
+          "block_type": "PageFooter",
+          "html": "",
+          "polygon": [
+            [
+              470.28125,
+              768.0102615356445
+            ],
+            [
+              521.5,
+              768.0102615356445
+            ],
+            [
+              521.5,
+              777.4521484375
+            ],
+            [
+              470.28125,
+              777.4521484375
+            ]
+          ],
+          "bbox": [
+            470.28125,
+            768.0102615356445,
+            521.5,
+            777.4521484375
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/1",
+            "2": "/page/1/SectionHeader/4",
+            "3": "/page/4/SectionHeader/1",
+            "4": "/page/4/SectionHeader/3"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/5/PageFooter/9",
+          "block_type": "PageFooter",
+          "html": "",
+          "polygon": [
+            [
+              90.02399444580078,
+              794.7197265625
+            ],
+            [
+              185.21759033203125,
+              794.7197265625
+            ],
+            [
+              185.21759033203125,
+              805.9302558898926
+            ],
+            [
+              90.02399444580078,
+              805.9302558898926
+            ]
+          ],
+          "bbox": [
+            90.02399444580078,
+            794.7197265625,
+            185.21759033203125,
+            805.9302558898926
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/1",
+            "2": "/page/1/SectionHeader/4",
+            "3": "/page/4/SectionHeader/1",
+            "4": "/page/4/SectionHeader/3"
+          },
+          "images": {}
+        }
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/1",
+        "2": "/page/1/SectionHeader/4",
+        "3": "/page/4/SectionHeader/1",
+        "4": "/page/4/SectionHeader/3"
+      },
+      "images": null
+    },
+    {
+      "id": "/page/6/Page/184",
+      "block_type": "Page",
+      "html": "<content-ref src='/page/6/Picture/0'></content-ref><content-ref src='/page/6/SectionHeader/1'></content-ref><content-ref src='/page/6/Text/2'></content-ref><content-ref src='/page/6/Text/3'></content-ref><content-ref src='/page/6/Text/4'></content-ref><content-ref src='/page/6/Text/5'></content-ref><content-ref src='/page/6/Text/6'></content-ref><content-ref src='/page/6/Text/7'></content-ref><content-ref src='/page/6/Text/8'></content-ref><content-ref src='/page/6/Text/9'></content-ref><content-ref src='/page/6/Text/10'></content-ref><content-ref src='/page/6/Text/11'></content-ref><content-ref src='/page/6/Text/12'></content-ref><content-ref src='/page/6/Text/13'></content-ref><content-ref src='/page/6/PageFooter/14'></content-ref><content-ref src='/page/6/PageFooter/15'></content-ref><content-ref src='/page/6/PageFooter/16'></content-ref><content-ref src='/page/6/PageFooter/17'></content-ref><content-ref src='/page/6/PageFooter/18'></content-ref><content-ref src='/page/6/PageFooter/19'></content-ref>",
+      "polygon": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          596.0,
+          0.0
+        ],
+        [
+          596.0,
+          842.0
+        ],
+        [
+          0.0,
+          842.0
+        ]
+      ],
+      "bbox": [
+        0.0,
+        0.0,
+        596.0,
+        842.0
+      ],
+      "children": [
+        {
+          "id": "/page/6/Picture/0",
+          "block_type": "Picture",
+          "html": "",
+          "polygon": [
+            [
+              412.1072265625,
+              36.5908203125
+            ],
+            [
+              533.1115234375,
+              36.5908203125
+            ],
+            [
+              533.1115234375,
+              81.8154296875
+            ],
+            [
+              412.1072265625,
+              81.8154296875
+            ]
+          ],
+          "bbox": [
+            412.1072265625,
+            36.5908203125,
+            533.1115234375,
+            81.8154296875
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/1",
+            "2": "/page/1/SectionHeader/4",
+            "3": "/page/4/SectionHeader/1",
+            "4": "/page/4/SectionHeader/3"
+          },
+          "images": {
+            "/page/6/Picture/0": "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"
+          }
+        },
+        {
+          "id": "/page/6/SectionHeader/1",
+          "block_type": "SectionHeader",
+          "html": "<h4><b>About</b> <b>DBS </b></h4>",
+          "polygon": [
+            [
+              89.923828125,
+              100.31640625
+            ],
+            [
+              145.4944305419922,
+              100.31640625
+            ],
+            [
+              145.4944305419922,
+              110.69586181640625
+            ],
+            [
+              89.923828125,
+              110.69586181640625
+            ]
+          ],
+          "bbox": [
+            89.923828125,
+            100.31640625,
+            145.4944305419922,
+            110.69586181640625
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/1",
+            "2": "/page/1/SectionHeader/4",
+            "3": "/page/4/SectionHeader/1",
+            "4": "/page/6/SectionHeader/1"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/6/Text/2",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">DBS is a leading financial services group in Asia with a presence in 19 markets.  Headquartered and listed in Singapore, DBS is in the three key Asian axes of growth: Greater  China, Southeast Asia and South Asia. The bank's \"AA-\" and \"Aa1\" credit ratings are among  the highest in the world.</p>",
+          "polygon": [
+            [
+              88.46875,
+              123.33984375
+            ],
+            [
+              506.1060485839844,
+              123.33984375
+            ],
+            [
+              506.1060485839844,
+              168.17584228515625
+            ],
+            [
+              88.46875,
+              168.17584228515625
+            ]
+          ],
+          "bbox": [
+            88.46875,
+            123.33984375,
+            506.1060485839844,
+            168.17584228515625
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/1",
+            "2": "/page/1/SectionHeader/4",
+            "3": "/page/4/SectionHeader/1",
+            "4": "/page/6/SectionHeader/1"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/6/Text/3",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">Recognised for its global leadership, DBS has been named <a href=\"https://www.dbs.com/newsroom/DBS_named_Worlds_Best_Bank_for_fifth_year_running\">\"World's Best Bank\"</a> by Global  Finance, <a href=\"https://www.dbs.com/newsroom/DBS_conferred_three_global_awards_including_the_most_prestigious_Worlds_Best_Bank_accolade_by_Euromoney_2025\">\"World's Best Bank\"</a> by Euromoney and <a href=\"https://www.dbs.com/about-us/who-we-are/awards-accolades/a-world-first/awards-2021#global-bank-of-the-year-2021\">\"Global Bank of the Year\"</a> by The Banker.  The bank is at the forefront of leveraging digital technology to shape the future of banking,  having been named <a href=\"https://www.dbs.com/about-us/who-we-are/awards-accolades/a-world-first/awards-2021#world-best-digital-bank-2021\">\"World's Best Digital Bank\"</a> by Euromoney and the world's <a href=\"https://www.dbs.com/newsroom/DBS_clinches_global_accolade_for_innovation_in_digital_banking\">\"Most </a> <a href=\"https://www.dbs.com/newsroom/DBS_clinches_global_accolade_for_innovation_in_digital_banking\">Innovative in Digital Banking\"</a> by The Banker. In addition, DBS has been accorded the <a href=\"https://www.dbs.com/newsroom/DBS_named_Safest_Bank_in_Asia_for_the_16th_consecutive_year_by_Global_Finance_sg\">\"Safest </a> <a href=\"https://www.dbs.com/newsroom/DBS_named_Safest_Bank_in_Asia_for_the_16th_consecutive_year_by_Global_Finance_sg\">Bank in Asia\"</a> award by Global Finance for 16 consecutive years from 2009 to 2024.</p>",
+          "polygon": [
+            [
+              89.6328125,
+              181.25592041015625
+            ],
+            [
+              506.3752136230469,
+              181.25592041015625
+            ],
+            [
+              506.3752136230469,
+              249.5576171875
+            ],
+            [
+              89.6328125,
+              249.5576171875
+            ]
+          ],
+          "bbox": [
+            89.6328125,
+            181.25592041015625,
+            506.3752136230469,
+            249.5576171875
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/1",
+            "2": "/page/1/SectionHeader/4",
+            "3": "/page/4/SectionHeader/1",
+            "4": "/page/6/SectionHeader/1"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/6/Text/4",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">DBS provides a full range of services in consumer, SME and corporate banking. As a bank  born and bred in Asia, DBS understands the intricacies of doing business in the region's most  dynamic markets.</p>",
+          "polygon": [
+            [
+              88.46875,
+              261.77593994140625
+            ],
+            [
+              505.5054016113281,
+              261.77593994140625
+            ],
+            [
+              505.5054016113281,
+              294.68585205078125
+            ],
+            [
+              88.46875,
+              294.68585205078125
+            ]
+          ],
+          "bbox": [
+            88.46875,
+            261.77593994140625,
+            505.5054016113281,
+            294.68585205078125
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/1",
+            "2": "/page/1/SectionHeader/4",
+            "3": "/page/4/SectionHeader/1",
+            "4": "/page/6/SectionHeader/1"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/6/Text/5",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">DBS is committed to building lasting relationships with customers, as it banks the Asian  way. Through the DBS Foundation, the bank creates impact beyond banking by uplifting lives  and livelihoods of those in need. It provides essential needs to the underprivileged, and  fosters inclusion by equipping the underserved with financial and digital literacy skills. It also  nurtures innovative social enterprises that create positive impact.</p>",
+          "polygon": [
+            [
+              88.46875,
+              307.52734375
+            ],
+            [
+              504.2797546386719,
+              307.52734375
+            ],
+            [
+              504.2797546386719,
+              363.6858825683594
+            ],
+            [
+              88.46875,
+              363.6858825683594
+            ]
+          ],
+          "bbox": [
+            88.46875,
+            307.52734375,
+            504.2797546386719,
+            363.6858825683594
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/1",
+            "2": "/page/1/SectionHeader/4",
+            "3": "/page/4/SectionHeader/1",
+            "4": "/page/6/SectionHeader/1"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/6/Text/6",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">With its extensive network of operations in Asia and emphasis on engaging and empowering  its staff, DBS presents exciting career opportunities. For more information, please  visit <a href=\"https://www.dbs.com/default.page\">www.dbs.com.</a></p>",
+          "polygon": [
+            [
+              88.46875,
+              376.765869140625
+            ],
+            [
+              501.0234680175781,
+              376.765869140625
+            ],
+            [
+              501.0234680175781,
+              409.765869140625
+            ],
+            [
+              88.46875,
+              409.765869140625
+            ]
+          ],
+          "bbox": [
+            88.46875,
+            376.765869140625,
+            501.0234680175781,
+            409.765869140625
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/1",
+            "2": "/page/1/SectionHeader/4",
+            "3": "/page/4/SectionHeader/1",
+            "4": "/page/6/SectionHeader/1"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/6/Text/7",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\">[End]</p>",
+          "polygon": [
+            [
+              284.904296875,
+              422.80926513671875
+            ],
+            [
+              311.99920654296875,
+              422.80926513671875
+            ],
+            [
+              311.99920654296875,
+              433.8492736816406
+            ],
+            [
+              284.904296875,
+              433.8492736816406
+            ]
+          ],
+          "bbox": [
+            284.904296875,
+            422.80926513671875,
+            311.99920654296875,
+            433.8492736816406
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/1",
+            "2": "/page/1/SectionHeader/4",
+            "3": "/page/4/SectionHeader/1",
+            "4": "/page/6/SectionHeader/1"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/6/Text/8",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\"><i>For more information, contact:</i></p>",
+          "polygon": [
+            [
+              90.02399444580078,
+              460.97320556640625
+            ],
+            [
+              242.91775512695312,
+              460.97320556640625
+            ],
+            [
+              242.91775512695312,
+              472.029296875
+            ],
+            [
+              90.02399444580078,
+              472.029296875
+            ]
+          ],
+          "bbox": [
+            90.02399444580078,
+            460.97320556640625,
+            242.91775512695312,
+            472.029296875
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/1",
+            "2": "/page/1/SectionHeader/4",
+            "3": "/page/4/SectionHeader/1",
+            "4": "/page/6/SectionHeader/1"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/6/Text/9",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\"><i>Edna Koh</i> <i>Group Strategic Marketing &amp; Communications</i> <i>DBS Bank</i> <i>Email: ednakoh@dbs.com</i></p>",
+          "polygon": [
+            [
+              95.42399597167969,
+              486.0531921386719
+            ],
+            [
+              319.2821044921875,
+              486.0531921386719
+            ],
+            [
+              319.2821044921875,
+              538.1728515625
+            ],
+            [
+              95.42399597167969,
+              538.1728515625
+            ]
+          ],
+          "bbox": [
+            95.42399597167969,
+            486.0531921386719,
+            319.2821044921875,
+            538.1728515625
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/1",
+            "2": "/page/1/SectionHeader/4",
+            "3": "/page/4/SectionHeader/1",
+            "4": "/page/6/SectionHeader/1"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/6/Text/10",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\" class=\"has-continuation\"><i>Tel: (65) 6878 8134</i> <i>Mobile: (65) 9753 0117</i></p>",
+          "polygon": [
+            [
+              95.42399597167969,
+              536.6932067871094
+            ],
+            [
+              211.568359375,
+              536.6932067871094
+            ],
+            [
+              211.568359375,
+              561.607421875
+            ],
+            [
+              95.42399597167969,
+              561.607421875
+            ]
+          ],
+          "bbox": [
+            95.42399597167969,
+            536.6932067871094,
+            211.568359375,
+            561.607421875
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/1",
+            "2": "/page/1/SectionHeader/4",
+            "3": "/page/4/SectionHeader/1",
+            "4": "/page/6/SectionHeader/1"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/6/Text/11",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\"><i>Nicholas Teh</i> <i>Investor Relations</i> <i>DBS Bank</i></p>",
+          "polygon": [
+            [
+              334.8699951171875,
+              483.9033203125
+            ],
+            [
+              424.009765625,
+              483.9033203125
+            ],
+            [
+              424.009765625,
+              522.5498046875
+            ],
+            [
+              334.8699951171875,
+              522.5498046875
+            ]
+          ],
+          "bbox": [
+            334.8699951171875,
+            483.9033203125,
+            424.009765625,
+            522.5498046875
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/1",
+            "2": "/page/1/SectionHeader/4",
+            "3": "/page/4/SectionHeader/1",
+            "4": "/page/6/SectionHeader/1"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/6/Text/12",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\"><i>Email: nicholasteh@dbs.com</i></p>",
+          "polygon": [
+            [
+              332.921875,
+              520.9052734375
+            ],
+            [
+              477.265625,
+              520.9052734375
+            ],
+            [
+              477.265625,
+              538.1728515625
+            ],
+            [
+              332.921875,
+              538.1728515625
+            ]
+          ],
+          "bbox": [
+            332.921875,
+            520.9052734375,
+            477.265625,
+            538.1728515625
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/1",
+            "2": "/page/1/SectionHeader/4",
+            "3": "/page/4/SectionHeader/1",
+            "4": "/page/6/SectionHeader/1"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/6/Text/13",
+          "block_type": "Text",
+          "html": "<p block-type=\"Text\"><i>Tel: (65) 6682</i> <i>0404</i> <i>Mobile: (65) 8322</i> <i>8217</i></p>",
+          "polygon": [
+            [
+              334.8699951171875,
+              536.6932067871094
+            ],
+            [
+              450.783203125,
+              536.6932067871094
+            ],
+            [
+              450.783203125,
+              560.5731811523438
+            ],
+            [
+              334.8699951171875,
+              560.5731811523438
+            ]
+          ],
+          "bbox": [
+            334.8699951171875,
+            536.6932067871094,
+            450.783203125,
+            560.5731811523438
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/1",
+            "2": "/page/1/SectionHeader/4",
+            "3": "/page/4/SectionHeader/1",
+            "4": "/page/6/SectionHeader/1"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/6/PageFooter/14",
+          "block_type": "PageFooter",
+          "html": "",
+          "polygon": [
+            [
+              88.34400177001953,
+              721.9342575073242
+            ],
+            [
+              446.5783386230469,
+              721.9342575073242
+            ],
+            [
+              446.5783386230469,
+              731.4052734375
+            ],
+            [
+              88.34400177001953,
+              731.4052734375
+            ]
+          ],
+          "bbox": [
+            88.34400177001953,
+            721.9342575073242,
+            446.5783386230469,
+            731.4052734375
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/1",
+            "2": "/page/1/SectionHeader/4",
+            "3": "/page/4/SectionHeader/1",
+            "4": "/page/6/SectionHeader/1"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/6/PageFooter/15",
+          "block_type": "PageFooter",
+          "html": "",
+          "polygon": [
+            [
+              278.2109375,
+              722.3603515625
+            ],
+            [
+              317.7890625,
+              722.3603515625
+            ],
+            [
+              317.7890625,
+              731.4052734375
+            ],
+            [
+              278.2109375,
+              731.4052734375
+            ]
+          ],
+          "bbox": [
+            278.2109375,
+            722.3603515625,
+            317.7890625,
+            731.4052734375
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/1",
+            "2": "/page/1/SectionHeader/4",
+            "3": "/page/4/SectionHeader/1",
+            "4": "/page/6/SectionHeader/1"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/6/PageFooter/16",
+          "block_type": "PageFooter",
+          "html": "",
+          "polygon": [
+            [
+              360.27734375,
+              719.482421875
+            ],
+            [
+              449.91015625,
+              719.482421875
+            ],
+            [
+              449.91015625,
+              776.0502624511719
+            ],
+            [
+              360.27734375,
+              776.0502624511719
+            ]
+          ],
+          "bbox": [
+            360.27734375,
+            719.482421875,
+            449.91015625,
+            776.0502624511719
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/1",
+            "2": "/page/1/SectionHeader/4",
+            "3": "/page/4/SectionHeader/1",
+            "4": "/page/6/SectionHeader/1"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/6/PageFooter/17",
+          "block_type": "PageFooter",
+          "html": "",
+          "polygon": [
+            [
+              470.8599853515625,
+              721.9342575073242
+            ],
+            [
+              536.341796875,
+              721.9342575073242
+            ],
+            [
+              536.341796875,
+              731.81640625
+            ],
+            [
+              470.8599853515625,
+              731.81640625
+            ]
+          ],
+          "bbox": [
+            470.8599853515625,
+            721.9342575073242,
+            536.341796875,
+            731.81640625
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/1",
+            "2": "/page/1/SectionHeader/4",
+            "3": "/page/4/SectionHeader/1",
+            "4": "/page/6/SectionHeader/1"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/6/PageFooter/18",
+          "block_type": "PageFooter",
+          "html": "",
+          "polygon": [
+            [
+              445.544921875,
+              768.0102615356445
+            ],
+            [
+              520.7160034179688,
+              768.0102615356445
+            ],
+            [
+              520.7160034179688,
+              777.4521484375
+            ],
+            [
+              445.544921875,
+              777.4521484375
+            ]
+          ],
+          "bbox": [
+            445.544921875,
+            768.0102615356445,
+            520.7160034179688,
+            777.4521484375
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/1",
+            "2": "/page/1/SectionHeader/4",
+            "3": "/page/4/SectionHeader/1",
+            "4": "/page/6/SectionHeader/1"
+          },
+          "images": {}
+        },
+        {
+          "id": "/page/6/PageFooter/19",
+          "block_type": "PageFooter",
+          "html": "",
+          "polygon": [
+            [
+              90.02399444580078,
+              794.7197265625
+            ],
+            [
+              185.21759033203125,
+              794.7197265625
+            ],
+            [
+              185.21759033203125,
+              805.9302558898926
+            ],
+            [
+              90.02399444580078,
+              805.9302558898926
+            ]
+          ],
+          "bbox": [
+            90.02399444580078,
+            794.7197265625,
+            185.21759033203125,
+            805.9302558898926
+          ],
+          "children": null,
+          "section_hierarchy": {
+            "1": "/page/0/SectionHeader/1",
+            "2": "/page/1/SectionHeader/4",
+            "3": "/page/4/SectionHeader/1",
+            "4": "/page/6/SectionHeader/1"
+          },
+          "images": {}
+        }
+      ],
+      "section_hierarchy": {
+        "1": "/page/0/SectionHeader/1",
+        "2": "/page/1/SectionHeader/4",
+        "3": "/page/4/SectionHeader/1",
+        "4": "/page/6/SectionHeader/1"
+      },
+      "images": null
+    }
+  ],
+  "block_type": "Document"
+}

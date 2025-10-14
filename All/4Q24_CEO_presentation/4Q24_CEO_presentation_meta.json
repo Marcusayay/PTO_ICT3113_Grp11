@@ -1,0 +1,454 @@
+{
+  "table_of_contents": [
+    {
+      "title": "CEO and Deputy CEO observations",
+      "heading_level": null,
+      "page_id": 0,
+      "polygon": [
+        [
+          274.760009765625,
+          198.80859375
+        ],
+        [
+          880.8126220703125,
+          198.80859375
+        ],
+        [
+          880.8126220703125,
+          236.24319458007812
+        ],
+        [
+          274.760009765625,
+          236.24319458007812
+        ]
+      ]
+    },
+    {
+      "title": "Operating trends sustained in 4Q",
+      "heading_level": null,
+      "page_id": 1,
+      "polygon": [
+        [
+          62.8125,
+          37.96875
+        ],
+        [
+          505.794921875,
+          37.96875
+        ],
+        [
+          505.794921875,
+          67.6767578125
+        ],
+        [
+          62.8125,
+          67.6767578125
+        ]
+      ]
+    },
+    {
+      "title": "Operating trends sustained in 4Q",
+      "heading_level": null,
+      "page_id": 2,
+      "polygon": [
+        [
+          62.8125,
+          37.96875
+        ],
+        [
+          505.794921875,
+          37.96875
+        ],
+        [
+          505.794921875,
+          67.6767578125
+        ],
+        [
+          62.8125,
+          67.6767578125
+        ]
+      ]
+    },
+    {
+      "title": "2025 outlook",
+      "heading_level": null,
+      "page_id": 3,
+      "polygon": [
+        [
+          66.0042953491211,
+          36.123046875
+        ],
+        [
+          237.08314514160156,
+          36.123046875
+        ],
+        [
+          237.08314514160156,
+          65.99346923828125
+        ],
+        [
+          66.0042953491211,
+          65.99346923828125
+        ]
+      ]
+    },
+    {
+      "title": "Distributing our earnings to stakeholders",
+      "heading_level": null,
+      "page_id": 4,
+      "polygon": [
+        [
+          65.625,
+          36.650390625
+        ],
+        [
+          615.5355834960938,
+          36.650390625
+        ],
+        [
+          615.5355834960938,
+          65.99346923828125
+        ],
+        [
+          65.625,
+          65.99346923828125
+        ]
+      ]
+    },
+    {
+      "title": "Shareholders",
+      "heading_level": null,
+      "page_id": 4,
+      "polygon": [
+        [
+          63.31349563598633,
+          101.3995361328125
+        ],
+        [
+          213.90505981445312,
+          101.3995361328125
+        ],
+        [
+          213.90505981445312,
+          122.89202880859375
+        ],
+        [
+          63.31349563598633,
+          122.89202880859375
+        ]
+      ]
+    },
+    {
+      "title": "Community",
+      "heading_level": null,
+      "page_id": 4,
+      "polygon": [
+        [
+          62.8125,
+          269.3995056152344
+        ],
+        [
+          196.03138732910156,
+          269.3995056152344
+        ],
+        [
+          196.03138732910156,
+          290.8919982910156
+        ],
+        [
+          62.8125,
+          290.8919982910156
+        ]
+      ]
+    },
+    {
+      "title": "Employees",
+      "heading_level": null,
+      "page_id": 4,
+      "polygon": [
+        [
+          63.31349563598633,
+          361.494140625
+        ],
+        [
+          191.22178649902344,
+          361.494140625
+        ],
+        [
+          191.22178649902344,
+          383.8919982910156
+        ],
+        [
+          63.31349563598633,
+          383.8919982910156
+        ]
+      ]
+    },
+    {
+      "title": "CEO and Deputy CEO observations",
+      "heading_level": null,
+      "page_id": 5,
+      "polygon": [
+        [
+          274.760009765625,
+          198.80859375
+        ],
+        [
+          880.8126220703125,
+          198.80859375
+        ],
+        [
+          880.8126220703125,
+          236.24319458007812
+        ],
+        [
+          274.760009765625,
+          236.24319458007812
+        ]
+      ]
+    }
+  ],
+  "page_stats": [
+    {
+      "page_id": 0,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          7
+        ],
+        [
+          "Line",
+          4
+        ],
+        [
+          "Picture",
+          1
+        ],
+        [
+          "SectionHeader",
+          1
+        ],
+        [
+          "Text",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 1,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          35
+        ],
+        [
+          "Line",
+          11
+        ],
+        [
+          "ListItem",
+          8
+        ],
+        [
+          "SectionHeader",
+          1
+        ],
+        [
+          "Picture",
+          1
+        ],
+        [
+          "PageFooter",
+          1
+        ],
+        [
+          "ListGroup",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 2,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          24
+        ],
+        [
+          "Line",
+          8
+        ],
+        [
+          "ListItem",
+          6
+        ],
+        [
+          "SectionHeader",
+          1
+        ],
+        [
+          "Picture",
+          1
+        ],
+        [
+          "PageFooter",
+          1
+        ],
+        [
+          "ListGroup",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 3,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          37
+        ],
+        [
+          "Line",
+          12
+        ],
+        [
+          "ListItem",
+          10
+        ],
+        [
+          "SectionHeader",
+          1
+        ],
+        [
+          "Picture",
+          1
+        ],
+        [
+          "PageFooter",
+          1
+        ],
+        [
+          "ListGroup",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 4,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          52
+        ],
+        [
+          "Line",
+          15
+        ],
+        [
+          "SectionHeader",
+          4
+        ],
+        [
+          "ListItem",
+          3
+        ],
+        [
+          "Text",
+          2
+        ],
+        [
+          "PageFooter",
+          2
+        ],
+        [
+          "Picture",
+          1
+        ],
+        [
+          "ListGroup",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 5,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          7
+        ],
+        [
+          "Line",
+          4
+        ],
+        [
+          "Picture",
+          1
+        ],
+        [
+          "SectionHeader",
+          1
+        ],
+        [
+          "Text",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    }
+  ],
+  "debug_data_path": "debug_data/4Q24_CEO_presentation"
+}

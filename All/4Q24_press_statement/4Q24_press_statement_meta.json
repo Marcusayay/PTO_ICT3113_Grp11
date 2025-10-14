@@ -1,0 +1,479 @@
+{
+  "table_of_contents": [
+    {
+      "title": "News Release",
+      "heading_level": null,
+      "page_id": 0,
+      "polygon": [
+        [
+          89.923828125,
+          151.7080078125
+        ],
+        [
+          238.59933471679688,
+          151.7080078125
+        ],
+        [
+          238.59933471679688,
+          170.07623291015625
+        ],
+        [
+          89.923828125,
+          170.07623291015625
+        ]
+      ]
+    },
+    {
+      "title": "Dividends",
+      "heading_level": null,
+      "page_id": 1,
+      "polygon": [
+        [
+          89.341796875,
+          403.732421875
+        ],
+        [
+          142.71824645996094,
+          403.732421875
+        ],
+        [
+          142.71824645996094,
+          415.6092834472656
+        ],
+        [
+          89.341796875,
+          415.6092834472656
+        ]
+      ]
+    },
+    {
+      "title": "Full-year performance",
+      "heading_level": null,
+      "page_id": 2,
+      "polygon": [
+        [
+          89.05078125,
+          303.4093017578125
+        ],
+        [
+          205.70480346679688,
+          303.4093017578125
+        ],
+        [
+          205.70480346679688,
+          314.5166015625
+        ],
+        [
+          89.05078125,
+          314.5166015625
+        ]
+      ]
+    },
+    {
+      "title": "Fourth quarter 2024 vs. fourth quarter 2023",
+      "heading_level": null,
+      "page_id": 3,
+      "polygon": [
+        [
+          89.6328125,
+          404.1435546875
+        ],
+        [
+          315.0964660644531,
+          404.1435546875
+        ],
+        [
+          315.0964660644531,
+          415.6092834472656
+        ],
+        [
+          89.6328125,
+          415.6092834472656
+        ]
+      ]
+    },
+    {
+      "title": "Fourth quarter 2024 vs. third quarter 2024",
+      "heading_level": null,
+      "page_id": 4,
+      "polygon": [
+        [
+          89.05078125,
+          227.4193115234375
+        ],
+        [
+          307.7658996582031,
+          227.4193115234375
+        ],
+        [
+          307.7658996582031,
+          238.8681640625
+        ],
+        [
+          89.05078125,
+          238.8681640625
+        ]
+      ]
+    },
+    {
+      "title": "Business unit performance",
+      "heading_level": null,
+      "page_id": 4,
+      "polygon": [
+        [
+          88.759765625,
+          607.0292816162109
+        ],
+        [
+          232.521484375,
+          607.0292816162109
+        ],
+        [
+          232.521484375,
+          618.0692901611328
+        ],
+        [
+          88.759765625,
+          618.0692901611328
+        ]
+      ]
+    },
+    {
+      "title": "Balance sheet",
+      "heading_level": null,
+      "page_id": 5,
+      "polygon": [
+        [
+          89.05078125,
+          227.3564453125
+        ],
+        [
+          164.13551330566406,
+          227.3564453125
+        ],
+        [
+          164.13551330566406,
+          238.45928955078125
+        ],
+        [
+          89.05078125,
+          238.45928955078125
+        ]
+      ]
+    },
+    {
+      "title": "About DBS",
+      "heading_level": null,
+      "page_id": 7,
+      "polygon": [
+        [
+          89.05078125,
+          100.7275390625
+        ],
+        [
+          145.4944305419922,
+          100.7275390625
+        ],
+        [
+          145.4944305419922,
+          110.69586181640625
+        ],
+        [
+          89.05078125,
+          110.69586181640625
+        ]
+      ]
+    }
+  ],
+  "page_stats": [
+    {
+      "page_id": 0,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          65
+        ],
+        [
+          "Line",
+          23
+        ],
+        [
+          "Text",
+          12
+        ],
+        [
+          "Picture",
+          1
+        ],
+        [
+          "SectionHeader",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 1,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          91
+        ],
+        [
+          "Line",
+          30
+        ],
+        [
+          "Text",
+          12
+        ],
+        [
+          "Picture",
+          1
+        ],
+        [
+          "SectionHeader",
+          1
+        ],
+        [
+          "Footnote",
+          1
+        ],
+        [
+          "Reference",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 2,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          97
+        ],
+        [
+          "Line",
+          31
+        ],
+        [
+          "Text",
+          12
+        ],
+        [
+          "Picture",
+          1
+        ],
+        [
+          "SectionHeader",
+          1
+        ],
+        [
+          "PageFooter",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 3,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          80
+        ],
+        [
+          "Line",
+          30
+        ],
+        [
+          "Text",
+          14
+        ],
+        [
+          "Picture",
+          1
+        ],
+        [
+          "SectionHeader",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 4,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          97
+        ],
+        [
+          "Line",
+          30
+        ],
+        [
+          "Text",
+          13
+        ],
+        [
+          "SectionHeader",
+          2
+        ],
+        [
+          "Picture",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 5,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          94
+        ],
+        [
+          "Line",
+          30
+        ],
+        [
+          "Text",
+          13
+        ],
+        [
+          "Picture",
+          1
+        ],
+        [
+          "SectionHeader",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 6,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          39
+        ],
+        [
+          "Line",
+          16
+        ],
+        [
+          "PageFooter",
+          6
+        ],
+        [
+          "Text",
+          2
+        ],
+        [
+          "Picture",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 7,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          117
+        ],
+        [
+          "Line",
+          46
+        ],
+        [
+          "Text",
+          11
+        ],
+        [
+          "PageFooter",
+          6
+        ],
+        [
+          "Picture",
+          1
+        ],
+        [
+          "SectionHeader",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    }
+  ],
+  "debug_data_path": "debug_data/4Q24_press_statement"
+}

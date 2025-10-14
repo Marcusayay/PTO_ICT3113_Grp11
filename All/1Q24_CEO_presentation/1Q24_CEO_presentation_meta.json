@@ -1,0 +1,500 @@
+{
+  "table_of_contents": [
+    {
+      "title": "CEO observations",
+      "heading_level": null,
+      "page_id": 0,
+      "polygon": [
+        [
+          568.7598876953125,
+          199.599609375
+        ],
+        [
+          880.7718505859375,
+          199.599609375
+        ],
+        [
+          880.7718505859375,
+          236.24319458007812
+        ],
+        [
+          568.7598876953125,
+          236.24319458007812
+        ]
+      ]
+    },
+    {
+      "title": "Strong start to the year",
+      "heading_level": null,
+      "page_id": 1,
+      "polygon": [
+        [
+          62.8125,
+          39.0234375
+        ],
+        [
+          371.5730285644531,
+          39.0234375
+        ],
+        [
+          371.5730285644531,
+          67.6767578125
+        ],
+        [
+          62.8125,
+          67.6767578125
+        ]
+      ]
+    },
+    {
+      "title": "Record 1Q performance",
+      "heading_level": null,
+      "page_id": 1,
+      "polygon": [
+        [
+          62.8125,
+          93.8408203125
+        ],
+        [
+          313.6063537597656,
+          93.8408203125
+        ],
+        [
+          313.6063537597656,
+          115.33331298828125
+        ],
+        [
+          62.8125,
+          115.33331298828125
+        ]
+      ]
+    },
+    {
+      "title": "Loan growth better than recent quarters",
+      "heading_level": null,
+      "page_id": 1,
+      "polygon": [
+        [
+          60.9375,
+          167.431640625
+        ],
+        [
+          465.54962158203125,
+          167.431640625
+        ],
+        [
+          465.54962158203125,
+          189.381103515625
+        ],
+        [
+          60.9375,
+          189.381103515625
+        ]
+      ]
+    },
+    {
+      "title": "Group NIM stable, underlying trends in line with guidance",
+      "heading_level": null,
+      "page_id": 1,
+      "polygon": [
+        [
+          61.875,
+          265.8240966796875
+        ],
+        [
+          632.6070556640625,
+          265.8240966796875
+        ],
+        [
+          632.6070556640625,
+          287.31658935546875
+        ],
+        [
+          61.875,
+          287.31658935546875
+        ]
+      ]
+    },
+    {
+      "title": "Strong start to the year",
+      "heading_level": null,
+      "page_id": 2,
+      "polygon": [
+        [
+          62.8125,
+          39.0234375
+        ],
+        [
+          372.1875,
+          39.0234375
+        ],
+        [
+          372.1875,
+          67.67645263671875
+        ],
+        [
+          62.8125,
+          67.67645263671875
+        ]
+      ]
+    },
+    {
+      "title": "Notwithstanding MAS decision not to extend 6-month pause on \nnon-essential activities, will continue to focus on technology \nresiliency",
+      "heading_level": null,
+      "page_id": 3,
+      "polygon": [
+        [
+          63.42280197143555,
+          39.287109375
+        ],
+        [
+          915.2996826171875,
+          39.287109375
+        ],
+        [
+          915.2996826171875,
+          135.41030883789062
+        ],
+        [
+          63.42280197143555,
+          135.41030883789062
+        ]
+      ]
+    },
+    {
+      "title": "Progress made in executing on technology resiliency roadmap, enabling:",
+      "heading_level": null,
+      "page_id": 3,
+      "polygon": [
+        [
+          61.875,
+          161.39212036132812
+        ],
+        [
+          786.281494140625,
+          161.39212036132812
+        ],
+        [
+          786.281494140625,
+          182.88461303710938
+        ],
+        [
+          61.875,
+          182.88461303710938
+        ]
+      ]
+    },
+    {
+      "title": "Several areas remain a work-in-progress",
+      "heading_level": null,
+      "page_id": 3,
+      "polygon": [
+        [
+          60.0,
+          331.4320983886719
+        ],
+        [
+          475.2987365722656,
+          331.4320983886719
+        ],
+        [
+          475.2987365722656,
+          352.9245910644531
+        ],
+        [
+          60.0,
+          352.9245910644531
+        ]
+      ]
+    },
+    {
+      "title": "Outlook",
+      "heading_level": null,
+      "page_id": 4,
+      "polygon": [
+        [
+          64.6875,
+          36.123046875
+        ],
+        [
+          171.5561065673828,
+          36.123046875
+        ],
+        [
+          171.5561065673828,
+          65.99346923828125
+        ],
+        [
+          64.6875,
+          65.99346923828125
+        ]
+      ]
+    },
+    {
+      "title": "CEO observations",
+      "heading_level": null,
+      "page_id": 5,
+      "polygon": [
+        [
+          568.7598876953125,
+          199.599609375
+        ],
+        [
+          880.7718505859375,
+          199.599609375
+        ],
+        [
+          880.7718505859375,
+          236.24319458007812
+        ],
+        [
+          568.7598876953125,
+          236.24319458007812
+        ]
+      ]
+    }
+  ],
+  "page_stats": [
+    {
+      "page_id": 0,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          7
+        ],
+        [
+          "Line",
+          4
+        ],
+        [
+          "Picture",
+          1
+        ],
+        [
+          "SectionHeader",
+          1
+        ],
+        [
+          "Text",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 1,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          38
+        ],
+        [
+          "Line",
+          12
+        ],
+        [
+          "SectionHeader",
+          4
+        ],
+        [
+          "Text",
+          2
+        ],
+        [
+          "ListItem",
+          2
+        ],
+        [
+          "Picture",
+          1
+        ],
+        [
+          "PageFooter",
+          1
+        ],
+        [
+          "ListGroup",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 2,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          40
+        ],
+        [
+          "Line",
+          13
+        ],
+        [
+          "ListItem",
+          9
+        ],
+        [
+          "SectionHeader",
+          1
+        ],
+        [
+          "Picture",
+          1
+        ],
+        [
+          "PageFooter",
+          1
+        ],
+        [
+          "ListGroup",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 3,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          123
+        ],
+        [
+          "Line",
+          14
+        ],
+        [
+          "ListItem",
+          8
+        ],
+        [
+          "SectionHeader",
+          3
+        ],
+        [
+          "ListGroup",
+          2
+        ],
+        [
+          "Picture",
+          1
+        ],
+        [
+          "PageFooter",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 4,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          28
+        ],
+        [
+          "Line",
+          10
+        ],
+        [
+          "ListItem",
+          8
+        ],
+        [
+          "SectionHeader",
+          1
+        ],
+        [
+          "Picture",
+          1
+        ],
+        [
+          "PageFooter",
+          1
+        ],
+        [
+          "ListGroup",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 5,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          7
+        ],
+        [
+          "Line",
+          4
+        ],
+        [
+          "Picture",
+          1
+        ],
+        [
+          "SectionHeader",
+          1
+        ],
+        [
+          "Text",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    }
+  ],
+  "debug_data_path": "debug_data/1Q24_CEO_presentation"
+}

@@ -1,0 +1,485 @@
+{
+  "table_of_contents": [
+    {
+      "title": "CEO observations",
+      "heading_level": null,
+      "page_id": 0,
+      "polygon": [
+        [
+          568.7598876953125,
+          199.599609375
+        ],
+        [
+          880.7718505859375,
+          199.599609375
+        ],
+        [
+          880.7718505859375,
+          236.24319458007812
+        ],
+        [
+          568.7598876953125,
+          236.24319458007812
+        ]
+      ]
+    },
+    {
+      "title": "Strong quarter, bringing first half to new high",
+      "heading_level": null,
+      "page_id": 1,
+      "polygon": [
+        [
+          63.386802673339844,
+          38.49609375
+        ],
+        [
+          667.1688842773438,
+          38.49609375
+        ],
+        [
+          667.1688842773438,
+          67.6767578125
+        ],
+        [
+          63.386802673339844,
+          67.6767578125
+        ]
+      ]
+    },
+    {
+      "title": "2025 outlook",
+      "heading_level": null,
+      "page_id": 2,
+      "polygon": [
+        [
+          65.625,
+          36.123046875
+        ],
+        [
+          237.08314514160156,
+          36.123046875
+        ],
+        [
+          237.08314514160156,
+          65.99346923828125
+        ],
+        [
+          65.625,
+          65.99346923828125
+        ]
+      ]
+    },
+    {
+      "title": "Head start in digital assets since 2021",
+      "heading_level": null,
+      "page_id": 3,
+      "polygon": [
+        [
+          63.75,
+          22.412109375
+        ],
+        [
+          570.75,
+          22.412109375
+        ],
+        [
+          570.75,
+          49.306640625
+        ],
+        [
+          63.75,
+          49.306640625
+        ]
+      ]
+    },
+    {
+      "title": "Venue for customers to trade digital assets and STOs",
+      "heading_level": null,
+      "page_id": 3,
+      "polygon": [
+        [
+          259.5,
+          113.37890625
+        ],
+        [
+          444.75,
+          113.37890625
+        ],
+        [
+          444.75,
+          141.85546875
+        ],
+        [
+          259.5,
+          141.85546875
+        ]
+      ]
+    },
+    {
+      "title": "Custody for safekeeping purpose",
+      "heading_level": null,
+      "page_id": 3,
+      "polygon": [
+        [
+          259.5,
+          208.30078125
+        ],
+        [
+          471.0,
+          208.30078125
+        ],
+        [
+          471.0,
+          222.01171875
+        ],
+        [
+          259.5,
+          222.01171875
+        ]
+      ]
+    },
+    {
+      "title": "Trading and structuring of digital assets",
+      "heading_level": null,
+      "page_id": 3,
+      "polygon": [
+        [
+          260.25,
+          299.00390625
+        ],
+        [
+          468.75,
+          299.00390625
+        ],
+        [
+          468.75,
+          325.37109375
+        ],
+        [
+          260.25,
+          325.37109375
+        ]
+      ]
+    },
+    {
+      "title": "DBS Token Services",
+      "heading_level": null,
+      "page_id": 3,
+      "polygon": [
+        [
+          551.71875,
+          118.5
+        ],
+        [
+          684.0,
+          118.5
+        ],
+        [
+          684.0,
+          133.681640625
+        ],
+        [
+          551.71875,
+          133.681640625
+        ]
+      ]
+    },
+    {
+      "title": "Programmable Rewards",
+      "heading_level": null,
+      "page_id": 3,
+      "polygon": [
+        [
+          503.25,
+          244.5
+        ],
+        [
+          643.5,
+          244.5
+        ],
+        [
+          643.5,
+          258.3984375
+        ],
+        [
+          503.25,
+          258.3984375
+        ]
+      ]
+    },
+    {
+      "title": "Tokenised Deposits",
+      "heading_level": null,
+      "page_id": 3,
+      "polygon": [
+        [
+          501.09375,
+          282.0
+        ],
+        [
+          618.0,
+          282.0
+        ],
+        [
+          618.0,
+          295.048828125
+        ],
+        [
+          501.09375,
+          295.048828125
+        ]
+      ]
+    },
+    {
+      "title": "Central Bank Digital Currencies (\"CBDC\")",
+      "heading_level": null,
+      "page_id": 3,
+      "polygon": [
+        [
+          493.125,
+          355.5
+        ],
+        [
+          736.5,
+          355.5
+        ],
+        [
+          736.5,
+          369.140625
+        ],
+        [
+          493.125,
+          369.140625
+        ]
+      ]
+    },
+    {
+      "title": "CEO observations",
+      "heading_level": null,
+      "page_id": 4,
+      "polygon": [
+        [
+          568.7598876953125,
+          199.599609375
+        ],
+        [
+          880.7718505859375,
+          199.599609375
+        ],
+        [
+          880.7718505859375,
+          236.24319458007812
+        ],
+        [
+          568.7598876953125,
+          236.24319458007812
+        ]
+      ]
+    }
+  ],
+  "page_stats": [
+    {
+      "page_id": 0,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          7
+        ],
+        [
+          "Line",
+          4
+        ],
+        [
+          "Picture",
+          1
+        ],
+        [
+          "SectionHeader",
+          1
+        ],
+        [
+          "Text",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 1,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          35
+        ],
+        [
+          "Line",
+          12
+        ],
+        [
+          "ListItem",
+          8
+        ],
+        [
+          "SectionHeader",
+          1
+        ],
+        [
+          "Text",
+          1
+        ],
+        [
+          "Picture",
+          1
+        ],
+        [
+          "PageFooter",
+          1
+        ],
+        [
+          "ListGroup",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 2,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          32
+        ],
+        [
+          "Line",
+          10
+        ],
+        [
+          "ListItem",
+          8
+        ],
+        [
+          "SectionHeader",
+          1
+        ],
+        [
+          "Picture",
+          1
+        ],
+        [
+          "PageFooter",
+          1
+        ],
+        [
+          "ListGroup",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 3,
+      "text_extraction_method": "surya",
+      "block_counts": [
+        [
+          "Line",
+          89
+        ],
+        [
+          "Span",
+          37
+        ],
+        [
+          "Text",
+          20
+        ],
+        [
+          "SectionHeader",
+          8
+        ],
+        [
+          "Picture",
+          5
+        ],
+        [
+          "ListItem",
+          4
+        ],
+        [
+          "ListGroup",
+          2
+        ],
+        [
+          "PageFooter",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 4,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          7
+        ],
+        [
+          "Line",
+          4
+        ],
+        [
+          "Picture",
+          1
+        ],
+        [
+          "SectionHeader",
+          1
+        ],
+        [
+          "Text",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    }
+  ],
+  "debug_data_path": "debug_data/2Q25_CEO_presentation"
+}

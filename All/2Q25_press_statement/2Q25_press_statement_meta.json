@@ -1,0 +1,472 @@
+{
+  "table_of_contents": [
+    {
+      "title": "News Release",
+      "heading_level": null,
+      "page_id": 0,
+      "polygon": [
+        [
+          89.923828125,
+          152.119140625
+        ],
+        [
+          238.59933471679688,
+          152.119140625
+        ],
+        [
+          238.59933471679688,
+          170.07623291015625
+        ],
+        [
+          89.923828125,
+          170.07623291015625
+        ]
+      ]
+    },
+    {
+      "title": "DBS SECOND-QUARTER PROFIT BEFORE TAX UP 5% TO SGD 3.39 BILLION,\nNET PROFIT RISES 1% TO SGD 2.82 BILLION",
+      "heading_level": null,
+      "page_id": 0,
+      "polygon": [
+        [
+          93.125,
+          378.6492919921875
+        ],
+        [
+          500.80914306640625,
+          378.6492919921875
+        ],
+        [
+          500.80914306640625,
+          402.2892761230469
+        ],
+        [
+          93.125,
+          402.2892761230469
+        ]
+      ]
+    },
+    {
+      "title": "First-half total income and profit before tax reach new highs",
+      "heading_level": null,
+      "page_id": 0,
+      "polygon": [
+        [
+          140.8515625,
+          441.8892822265625
+        ],
+        [
+          455.1484375,
+          441.8892822265625
+        ],
+        [
+          455.1484375,
+          452.9292907714844
+        ],
+        [
+          140.8515625,
+          452.9292907714844
+        ]
+      ]
+    },
+    {
+      "title": "Second quarter 2025 vs. second quarter 2024",
+      "heading_level": null,
+      "page_id": 1,
+      "polygon": [
+        [
+          89.05078125,
+          353.92926025390625
+        ],
+        [
+          326.7547302246094,
+          353.92926025390625
+        ],
+        [
+          326.7547302246094,
+          365.4970703125
+        ],
+        [
+          89.05078125,
+          365.4970703125
+        ]
+      ]
+    },
+    {
+      "title": "Second quarter 2025 vs. first quarter 2025",
+      "heading_level": null,
+      "page_id": 2,
+      "polygon": [
+        [
+          89.6328125,
+          531.0692749023438
+        ],
+        [
+          308.958251953125,
+          531.0692749023438
+        ],
+        [
+          308.958251953125,
+          542.1092834472656
+        ],
+        [
+          89.6328125,
+          542.1092834472656
+        ]
+      ]
+    },
+    {
+      "title": "First half 2025 vs. first half 2024",
+      "heading_level": null,
+      "page_id": 3,
+      "polygon": [
+        [
+          90.02399444580078,
+          278.08929443359375
+        ],
+        [
+          256.67578125,
+          278.08929443359375
+        ],
+        [
+          256.67578125,
+          289.1292724609375
+        ],
+        [
+          90.02399444580078,
+          289.1292724609375
+        ]
+      ]
+    },
+    {
+      "title": "Business unit performance",
+      "heading_level": null,
+      "page_id": 4,
+      "polygon": [
+        [
+          88.759765625,
+          100.7275390625
+        ],
+        [
+          232.521484375,
+          100.7275390625
+        ],
+        [
+          232.521484375,
+          111.97930908203125
+        ],
+        [
+          88.759765625,
+          111.97930908203125
+        ]
+      ]
+    },
+    {
+      "title": "Balance sheet",
+      "heading_level": null,
+      "page_id": 4,
+      "polygon": [
+        [
+          89.05078125,
+          353.92926025390625
+        ],
+        [
+          164.13551330566406,
+          353.92926025390625
+        ],
+        [
+          164.13551330566406,
+          364.9692687988281
+        ],
+        [
+          89.05078125,
+          364.9692687988281
+        ]
+      ]
+    },
+    {
+      "title": "About DBS",
+      "heading_level": null,
+      "page_id": 6,
+      "polygon": [
+        [
+          89.923828125,
+          100.31640625
+        ],
+        [
+          145.4944305419922,
+          100.31640625
+        ],
+        [
+          145.4944305419922,
+          110.69586181640625
+        ],
+        [
+          89.923828125,
+          110.69586181640625
+        ]
+      ]
+    }
+  ],
+  "page_stats": [
+    {
+      "page_id": 0,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          77
+        ],
+        [
+          "Line",
+          23
+        ],
+        [
+          "Text",
+          8
+        ],
+        [
+          "SectionHeader",
+          3
+        ],
+        [
+          "Picture",
+          1
+        ],
+        [
+          "PageFooter",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 1,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          107
+        ],
+        [
+          "Line",
+          32
+        ],
+        [
+          "Text",
+          12
+        ],
+        [
+          "Picture",
+          1
+        ],
+        [
+          "SectionHeader",
+          1
+        ],
+        [
+          "PageFooter",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 2,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          105
+        ],
+        [
+          "Line",
+          31
+        ],
+        [
+          "Text",
+          12
+        ],
+        [
+          "Picture",
+          1
+        ],
+        [
+          "SectionHeader",
+          1
+        ],
+        [
+          "PageFooter",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 3,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          106
+        ],
+        [
+          "Line",
+          32
+        ],
+        [
+          "Text",
+          15
+        ],
+        [
+          "Picture",
+          1
+        ],
+        [
+          "SectionHeader",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 4,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          105
+        ],
+        [
+          "Line",
+          32
+        ],
+        [
+          "Text",
+          10
+        ],
+        [
+          "SectionHeader",
+          2
+        ],
+        [
+          "Picture",
+          1
+        ],
+        [
+          "PageFooter",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 5,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          69
+        ],
+        [
+          "Line",
+          26
+        ],
+        [
+          "PageFooter",
+          6
+        ],
+        [
+          "Text",
+          3
+        ],
+        [
+          "Picture",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 6,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          120
+        ],
+        [
+          "Line",
+          45
+        ],
+        [
+          "Text",
+          12
+        ],
+        [
+          "PageFooter",
+          6
+        ],
+        [
+          "Picture",
+          1
+        ],
+        [
+          "SectionHeader",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    }
+  ],
+  "debug_data_path": "debug_data/2Q25_press_statement"
+}
