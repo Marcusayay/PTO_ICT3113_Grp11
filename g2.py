@@ -104,17 +104,17 @@ def _llm_respond(prompt: str, system: str = "You are a helpful finance analyst."
         
 # --- Core Logic Functions ---
 def _classify_query(q: str) -> Optional[str]:
-    ql = q.lower()
-    if re.search(r"\boperating\s+efficiency\s+ratio\b|\boer\b", ql) or ("÷" in ql and "operating" in ql and "income" in ql):
-        return "oer"
-    if "nim" in ql or "net interest margin" in ql: 
+    ql = (q or "").lower()
+    if re.search(r"\b(net\s+interest\s+margin|nim)\b", ql, re.I):
         return "nim"
-    if "opex" in ql or "operating expense" in ql or re.search(r"\bexpenses\b", ql): 
-        return "opex"
-    if re.search(r"\b(total\s+income|operating\s+income)\b", ql):
-        return "income"
-    if re.search(r"\bcti\b|cost[\s\-_\/]*to?\s*[\s\-_\/]*income", ql): 
+    if re.search(r"\bcost[\s_/-]*to[\s_/-]*income\b|\bcti\b|\boperating\s+efficien(cy|t)y\b", ql):
         return "cti"
+    if re.search(r"\boperating\s+efficiency\s+ratio\b|\boer\b", ql, re.I):
+        return "cti"
+    if re.search(r"\bopex\b|\boperating\s+expenses?\b", ql, re.I):
+        return "opex"
+    if re.search(r"\b(total\s+income|operating\s+income)\b", ql, re.I):
+        return "income"
     return None
 
 class _EmbedLoader:
@@ -474,36 +474,35 @@ def answer_with_llm_baseline(query: str, topk: int = 5) -> Dict[str, Any]:
     ql = query.lower()
 
     # Intent router for the 3 standardized prompts
-    if "net interest margin" in ql or "gross margin" in ql:
+    if ("net interest margin" in ql) or ("gross margin" in ql) or re.search(r"\bnim\b", ql, re.I):
+        print("[Router] baseline path: nim")
         return baseline_nim_5q()
 
-    if "operating expenses" in ql and ("last 3 fiscal years" in ql or "year-on-year" in ql or "yoy" in ql):
+    # CTI / Operating efficiency
+    if re.search(r"\bcost[\s_/\-]*to[\s_/\-]*income\b|\bcti\b|\boperating\s+efficien(cy|t)y\b", ql, re.I):
+        print("[Router] baseline path: cti")
+        return baseline_cti_3y()  # or baseline_efficiency_ratio_3y if that's your function name
+
+    # Opex last 3 years
+    if re.search(r"\bopex\b|\boperating\s+expenses?\b", ql, re.I) and re.search(r"\b(last\s+3\s+fiscal\s+years|yoy|year[-\s]*on[-\s]*year)\b", ql, re.I):
+        print("[Router] baseline path: opex")
         return baseline_opex_3y()
 
-    if ("operating efficiency ratio" in ql) or ("opex ÷ operating income" in ql) or ("opex / operating income" in ql):
-        return baseline_efficiency_ratio_3y()
-
+    # 2) Generic RAG fallback (single-pass)
     def _pos_of_docid(did: str) -> Optional[int]:
         mask = (kb["doc_id"] == did).to_numpy()
         idxs = np.flatnonzero(mask)
-        return int(idxs[0]) if idxs.size else None
+        return int(idxs) if idxs.size else None
 
-    # Opex-aware retrieval expansion (more table/vision leaning)
-    ql = query.lower()
-    is_opex = ("opex" in ql) or ("operating expense" in ql) or re.search(r"\bexpenses\b", ql)
-
-    if is_opex:
-        expanded = query + " | Operating expenses Opex ($m) fiscal year table vision_summary"
-        hits = hybrid_search(expanded, top_k=max(1, int(topk) * 2))  # e.g., 10 if topk=5
-    else:
-        hits = hybrid_search(query, top_k=max(1, int(topk)))
-
+    # Retrieval (no Opex over-expansion here)
+    hits = hybrid_search(query, top_k=max(1, int(topk)))
     if not hits:
-        return "No relevant material found."
+        return {"answer": "No relevant material found.", "hits": [], "execution_log": None}
 
-    # Build context and citations
+    # Build compact context and citations
     ctx_lines, cits = [], []
-    for h in hits[:topk]:
+    take = hits[:topk] if hasattr(hits, "__getitem__") else []
+    for h in take:
         pos = _pos_of_docid(h.get("doc_id", ""))
         snippet = (str(texts[pos]) if pos is not None else "")
         snippet = re.sub(r"\s+", " ", snippet).strip()
@@ -511,7 +510,6 @@ def answer_with_llm_baseline(query: str, topk: int = 5) -> Dict[str, Any]:
             ctx_lines.append(f"- {snippet[:800]}")
         cits.append(format_citation(h))
 
-    # Strict prompt: stick to retrieved text; include citations at the end
     prompt = (
         "You are a finance analyst.\n"
         "Using ONLY the CONTEXT below, answer the USER QUERY. Quote numbers exactly as reported.\n"
@@ -523,11 +521,14 @@ def answer_with_llm_baseline(query: str, topk: int = 5) -> Dict[str, Any]:
 
     answer = _call_llm(prompt, dry_run=False)
 
-    # Ensure at least some citations if the model forgets
     if "Citations:" not in answer:
         answer += "\n\nCitations:\n" + "\n".join(f"- {c}" for c in cits[:3])
 
-    return {"answer": answer, "hits": hits[:min(5, len(hits))].to_dict("records") if hasattr(hits, "to_dict") else [], "execution_log": None}
+    return {
+        "answer": answer,
+        "hits": take.to_dict("records") if hasattr(take, "to_dict") else [],
+        "execution_log": None
+    }
 
 
 def _call_llm(prompt: str, dry_run: bool = False) -> str:
@@ -1506,15 +1507,20 @@ if __name__ == "__main__":
     for p in ["openai", "rank_bm25", "faiss-cpu"]:
         _pip(p)
 
-    # Groq config (read from env; do NOT hardcode secrets)
     os.environ.setdefault("LLM_PROVIDER", "groq")
     os.environ.setdefault("GROQ_MODEL", "openai/gpt-oss-20b")
     if not os.getenv("GROQ_API_KEY"):
-        print("⚠️  GROQ_API_KEY not set. Please set it in your environment before running.")
-    
-    # Initialize Stage-2 and run the deterministic Opex baseline
+        print("⚠️ GROQ_API_KEY not set. Please set it in your environment before running.")
+
     init_stage2("data")
-    query = "Show Operating Expenses for the last 3 fiscal years"
+
+    # Accept CLI arg or use a default demo
+    query = " ".join(sys.argv[1:]) or "Report the Net Interest Margin over the last 5 quarters, with values"
     print(f"→ Query: {query}\n")
-    print(answer_opex_3y_baseline())
+
+    # Use the routered baseline so classification controls the path
+    kind = _classify_query(query)
+    print(f"[Router] classified as: {kind}")
+    res = answer_with_llm_baseline(query, {})
+    print(res.get("answer", ""))
 

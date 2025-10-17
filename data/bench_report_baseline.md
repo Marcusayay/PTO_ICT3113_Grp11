@@ -1,4 +1,4 @@
-# Agent CFO â€” Baseline Benchmark Report
+# Agent CFO — Baseline Benchmark Report
 
 
 ---
@@ -7,7 +7,7 @@
 
 **Answer**
 
-NIM (%) â€” last 5 quarters (Group):
+NIM (%) — last 5 quarters (Group):
 Quarter | NIM (%)
 --------|--------
 2Q25 | 2.05
@@ -35,7 +35,7 @@ Citations:
 
 **Answer**
 
-Opex (S$ m) â€” last 3 fiscal years:
+Opex (S$ m) — last 3 fiscal years:
 Year | Opex (S$ m) | YoY %
 -----|-------------|------
 2024 | 9,360.00 | 
@@ -61,22 +61,20 @@ Citations:
 
 ---
 
-## Q3. Calculate the Operating Efficiency Ratio (Opex Ã· Operating Income) for the last 3 fiscal years, showing the working.
+## Q3. Calculate the Operating Efficiency Ratio (Opex ÷ Operating Income) for the last 3 fiscal years, showing the working.
 
 **Answer**
 
-Operating Efficiency Ratio (Opex Ã· Operating Income):
-Year | Opex (S$ m) | Operating Income (S$ m) | Ratio
------|-------------|-------------------------|------
-2024 | 9,360.00 | 17,260.00 | 54.2%
-2023 | 8,060.00 | 20,162.00 | 40.0%
-2022 | 3,800.00 | 16,502.00 | 23.0%
+Opex (S$ m) — last 3 fiscal years:
+Year | Opex (S$ m) | YoY %
+-----|-------------|------
+2024 | 9,360.00 | 
+2023 | 8,060.00 | -13.9%
+2022 | 3,800.00 | -52.9%
 
 Citations:
 - dbs-annual-report-2024.pdf, 2024, p.15, prose
-- dbs-annual-report-2024.pdf, 2024, p.91, prose
 - dbs-annual-report-2023.pdf, 2023, p.15, prose
-- dbs-annual-report-2023.pdf, 2023, p.63, prose
 - dbs-annual-report-2022.pdf, 2022, p.14, prose
 
 **Execution Log**

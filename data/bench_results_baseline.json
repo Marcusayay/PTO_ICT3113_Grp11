@@ -7,7 +7,7 @@
       "execution_log": {
         "built_from": "tool_nim_series"
       },
-      "latency_ms": 5330.76
+      "latency_ms": 9638.86
     },
     {
       "query": "Show Operating Expenses for the last 3 fiscal years, year-on-year comparison.",
@@ -20,11 +20,11 @@
           2022
         ]
       },
-      "latency_ms": 115.0
+      "latency_ms": 245.3
     },
     {
       "query": "Calculate the Operating Efficiency Ratio (Opex \u00f7 Operating Income) for the last 3 fiscal years, showing the working.",
-      "answer": "Operating Efficiency Ratio (Opex \u00f7 Operating Income):\nYear | Opex (S$ m) | Operating Income (S$ m) | Ratio\n-----|-------------|-------------------------|------\n2024 | 9,360.00 | 17,260.00 | 54.2%\n2023 | 8,060.00 | 20,162.00 | 40.0%\n2022 | 3,800.00 | 16,502.00 | 23.0%\n\nCitations:\n- dbs-annual-report-2024.pdf, 2024, p.15, prose\n- dbs-annual-report-2024.pdf, 2024, p.91, prose\n- dbs-annual-report-2023.pdf, 2023, p.15, prose\n- dbs-annual-report-2023.pdf, 2023, p.63, prose\n- dbs-annual-report-2022.pdf, 2022, p.14, prose",
+      "answer": "Opex (S$ m) \u2014 last 3 fiscal years:\nYear | Opex (S$ m) | YoY %\n-----|-------------|------\n2024 | 9,360.00 | \n2023 | 8,060.00 | -13.9%\n2022 | 3,800.00 | -52.9%\n\nCitations:\n- dbs-annual-report-2024.pdf, 2024, p.15, prose\n- dbs-annual-report-2023.pdf, 2023, p.15, prose\n- dbs-annual-report-2022.pdf, 2022, p.14, prose",
       "hits": [],
       "execution_log": {
         "years": [
@@ -33,7 +33,7 @@
           2022
         ]
       },
-      "latency_ms": 221.52
+      "latency_ms": 244.77
     }
   ]
 }

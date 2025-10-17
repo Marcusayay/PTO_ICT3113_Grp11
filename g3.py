@@ -132,7 +132,7 @@ def answer_with_llm_wrapped(query: str, dry_run: bool = False):
             if structured:
                 return _format_nim_answer_from_structured(structured)
     # Fallback to the original Stage-2 baseline pipeline
-    return answer_with_llm(query, dry_run=dry_run)
+    return answer_with_llm(query)
 
 # --- Standardized queries (exact spec) ---
 QUERIES: List[str] = [
