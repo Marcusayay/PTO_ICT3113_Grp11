@@ -1,6 +1,6 @@
-# Two-Mode RAG — Agentic Benchmark Report
+# Agentic Benchmark Report
 
-**Pipeline**: Plan → Tool Execution → Multi-step Reasoning
+**Pipeline**: Parallel Sub-Queries -> Tool Execution -> Multi-step Reasoning
 
 
 ---
@@ -9,36 +9,43 @@
 
 **Answer**
 
-**Analysis**
-- Vector contexts: 12 found.
-- Table rows matched: 50
-- User requested quarters but none found in indexed tables.
+**Execution**
+- Retrieved 12 contexts
+- Metric: net interest margin
+- YoY: False, Quarterly: True
+- Tools used: table_extraction
 
+**Data**
+- dbs-annual-report-2024: 2022: 1.75, 2023: 2.15, 2024: 2.13
+- dbs-annual-report-2024: 2022: 1.75, 2023: 2.15, 2024: 2.13
+- dbs-annual-report-2023: 2021: 1.45, 2022: 1.75, 2023: 2.15
 
 
 **Citations**
 
-- dbs-annual-report-2022 — p.nan [marker]
-- 2Q24_performance_summary — p.9.0 [marker]
-- dbs-annual-report-2022 — p.96.0 [marker]
-- dbs-annual-report-2022 — p.96.0 [marker]
-- dbs-annual-report-2023 — p.95.0 [marker]
+- dbs-annual-report-2022 p.nan [marker] 
+- 2Q24_performance_summary p.9.0 [marker] 
+- dbs-annual-report-2022 p.96.0 [marker] 
+- dbs-annual-report-2022 p.96.0 [marker] 
+- dbs-annual-report-2023 p.95.0 [marker] 
 
 **Execution Log**
-
 ```
 {
-  "plan": [
-    "1) Ground the question with vector search for context.",
-    "2) Extract the metric row from tables for the requested (or last 3) years."
-  ],
+  "plan": "Analyze query \u2192 Extract net interest margin \u2192 Report",
   "actions": [
-    "TableExtractionTool.get_metric_rows(metric='net interest margin', limit=5)"
+    "table_extraction"
+  ],
+  "observations": [
+    "Retrieved 12 contexts",
+    "Metric: net interest margin",
+    "YoY: False, Quarterly: True",
+    "Tools used: table_extraction"
   ]
 }
 ```
 
-**Latency**: 24554.29 ms
+**Latency**: 2931.98 ms
 
 ---
 
@@ -46,41 +53,43 @@
 
 **Answer**
 
-**Analysis**
-- Vector contexts: 12 found.
-- Table rows matched: 50
-- Quarterly data available; showing last 5 quarters where present.
+**Execution**
+- Retrieved 12 contexts
+- Metric: operating expenses
+- YoY: False, Quarterly: False
+- Tools used: table_extraction
 
-**Data Found**
-- 2Q25_CFO_presentation | nan: 2Q2025: 5732.0
-- 2Q25_CFO_presentation | nan: 2Q2025: 5314.0
-- 2Q25_CFO_presentation | nan: 2Q2025: 418.0
-
+**Data**
+- 2Q25_CFO_presentation: 2Q2025: 5732.0
+- 2Q25_CFO_presentation: 2Q2025: 5314.0
+- 2Q25_CFO_presentation: 2Q2025: 418.0
 
 
 **Citations**
 
-- dbs-annual-report-2022 — p.nan [marker]
-- dbs-annual-report-2024 — p.22.0 [marker]
-- dbs-annual-report-2022 — p.nan [marker]
-- dbs-annual-report-2024 — p.22.0 [marker]
-- dbs-annual-report-2022 — p.63.0 [marker]
+- dbs-annual-report-2022 p.nan [marker] 
+- dbs-annual-report-2024 p.22.0 [marker] 
+- dbs-annual-report-2022 p.nan [marker] 
+- dbs-annual-report-2024 p.22.0 [marker] 
+- dbs-annual-report-2022 p.63.0 [marker] 
 
 **Execution Log**
-
 ```
 {
-  "plan": [
-    "1) Ground the question with vector search for context.",
-    "2) Extract the metric row from tables for the requested (or last 3) years."
-  ],
+  "plan": "Analyze query \u2192 Extract operating expenses \u2192 Report",
   "actions": [
-    "TableExtractionTool.get_metric_rows(metric='operating expenses', limit=5)"
+    "table_extraction"
+  ],
+  "observations": [
+    "Retrieved 12 contexts",
+    "Metric: operating expenses",
+    "YoY: False, Quarterly: False",
+    "Tools used: table_extraction"
   ]
 }
 ```
 
-**Latency**: 3967.95 ms
+**Latency**: 3585.2 ms
 
 ---
 
@@ -88,48 +97,48 @@
 
 **Answer**
 
-**Analysis**
-- Vector contexts: 12 found.
-- Table rows matched: 50
-- Quarterly data available; showing last 5 quarters where present.
+**Execution**
+- Retrieved 12 contexts
+- Metric: operating income
+- YoY: False, Quarterly: False
+- Tools used: table_extraction, calculation
 
-**Data Found**
-- 2Q25_CFO_presentation | nan: 2Q2025: 5732.0
-- 2Q25_CFO_presentation | nan: 2Q2025: 5314.0
-- 2Q25_CFO_presentation | nan: 2Q2025: 418.0
-
+**Data**
+- 2Q25_CFO_presentation: 2Q2025: 5732.0
+- 2Q25_CFO_presentation: 2Q2025: 5314.0
+- 2Q25_CFO_presentation: 2Q2025: 418.0
 
 
 **Citations**
 
-- dbs-annual-report-2022 — p.nan [marker]
-- 4Q24_performance_summary — p.34.0 [marker]
-- 4Q24_performance_summary — p.28.0 [marker]
-- 4Q24_performance_summary — p.4.0 [marker]
-- 4Q24_performance_summary — p.34.0 [marker]
+- dbs-annual-report-2022 p.nan [marker] 
+- 4Q24_performance_summary p.34.0 [marker] 
+- 4Q24_performance_summary p.nan [marker] 
+- 4Q24_performance_summary p.12.0 [marker] 
+- dbs-annual-report-2023 p.51.0 [marker] 
 
 **Execution Log**
-
 ```
 {
-  "plan": [
-    "1) Ground the question with vector search for context.",
-    "2) Extract the metric row from tables for the requested (or last 3) years."
-  ],
+  "plan": "Analyze query \u2192 Extract operating income \u2192 Calculate",
   "actions": [
-    "TableExtractionTool.get_metric_rows(metric='operating income', limit=5)"
+    "table_extraction",
+    "calculation"
+  ],
+  "observations": [
+    "Retrieved 12 contexts",
+    "Metric: operating income",
+    "YoY: False, Quarterly: False",
+    "Tools used: table_extraction, calculation"
   ]
 }
 ```
 
-**Latency**: 8778.28 ms
+**Latency**: 9045.36 ms
 
 ---
 
 ## Summary
 
-- **Queries**: 3
-- **P50 Latency**: 8778.3 ms
-- **P95 Latency**: 22976.7 ms
-- **Mean Latency**: 12433.5 ms
-- **Total Time**: 37300.5 ms
+- P50: 3585.2 ms
+- P95: 8499.3 ms

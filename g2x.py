@@ -29,10 +29,12 @@ from rank_bm25 import BM25Okapi
 from sentence_transformers import CrossEncoder, SentenceTransformer
 from typing import List, Dict, Any, Optional, Tuple
 from openai import OpenAI
+from concurrent.futures import ThreadPoolExecutor
 
 import re, json, math, ast
 import numpy as np
 import pandas as pd
+import asyncio
 import faiss
 import os
 
@@ -869,8 +871,7 @@ class MultiDocCompareTool:
             out.append({"doc": r["doc"], "label": r["label"], "years": years, "values": values})
         return out
 
-
-# ----------------------------- Agent: plan → act → observe -----------------------------
+# ----------------------------- Agent Mode: plan → act → observe -----------------------------
 
 @dataclass
 class AgentResult:
@@ -879,143 +880,309 @@ class AgentResult:
     observations: List[str]
     final: Dict[str, Any]
 
-class Agent:
-    """
-    Very small rule-based planner:
-      - If query has 'compare', 'vs', 'across docs' → MultiDocCompareTool
-      - Else try TableExtractionTool for a metric row
-      - If calculation phrasing (yoy, growth, %), compute deltas with CalculatorTool
-      - Always fetch top-k vector contexts for grounding
-    """
-
-    def __init__(self, kb: KBEnv):
-        self.kb = kb
-        self.calc = CalculatorTool()
-        self.table = TableExtractionTool(kb.tables_df)
-        self.compare_tool = MultiDocCompareTool(self.table)
-        self.text_tool = TextExtractionTool(kb)
-
+# ----------------------------- QUERY ANALYSIS UTILITIES-----------------------------
+class QueryAnalyzer:
+    """Utility methods for parsing financial queries"""
+    
     @staticmethod
-    def _extract_metric(query: str) -> Optional[str]:
-        # naive metric detection: quoted phrase or capitalized words
+    def extract_metric(query: str) -> Optional[str]:
+        """
+        Extract metric name from query
+        Priority: quoted phrase > regex patterns > capitalized words
+        """
+        # 1. Quoted phrase (highest priority)
         quoted = re.findall(r'"([^"]+)"', query)
         if quoted:
             return quoted[0]
-        # common finance metrics heuristics
+        
+        # 2. Common finance metrics (regex patterns)
         candidates = [
             r"net interest margin", r"nim", r"gross margin",
-            r"operating expenses(?: &| and)?(?: income)?",
+            r"operating expenses?(?: &| and)?(?: income)?",
             r"operating income", r"operating profit",
-            r"total income", r"cost-to-income", r"allowances", r"profit before tax",
+            r"total income", r"cost-to-income", r"allowances", 
+            r"profit before tax", r"efficiency ratio",
+            r"return on equity", r"roe", r"return on assets", r"roa"
         ]
         ql = query.lower()
         for pat in candidates:
             m = re.search(pat, ql)
             if m:
                 return m.group(0)
-        # fallback: capitalized phrase
+        
+        # 3. Fallback: capitalized phrase
         m2 = re.findall(r'\b([A-Z][A-Za-z&% ]{3,})\b', query)
         return m2[0] if m2 else None
-
+    
     @staticmethod
-    def _want_compare(query: str) -> bool:
-        return bool(re.search(r"\b(compare|vs\.?|versus|across docs?|between)\b", query, re.I))
-
+    def want_compare(query: str) -> bool:
+        """Check if query requests comparison across documents"""
+        return bool(re.search(
+            r"\b(compare|vs\.?|versus|across docs?|between|multi-?doc)\b", 
+            query, re.I
+        ))
+    
     @staticmethod
-    def _want_yoy(query: str) -> bool:
-        return bool(re.search(r"\b(yoy|year[- ]over[- ]year|growth|change|%|delta)\b", query, re.I))
-
+    def want_yoy(query: str) -> bool:
+        """Check if query requests year-over-year analysis"""
+        return bool(re.search(
+            r"\b(yoy|year[- ]over[- ]year|growth|change|%|delta|annual growth)\b", 
+            query, re.I
+        ))
+    
     @staticmethod
-    def _want_quarters(query: str) -> bool:
-        return bool(re.search(r"\bquarter|quarters|\bq[1-4]\b", query, re.I))
-
+    def want_quarters(query: str) -> bool:
+        """Check if query requests quarterly data"""
+        return bool(re.search(
+            r"\b(quarter|quarters|\bq[1-4]\b|quarterly|half[- ]?year)\b", 
+            query, re.I
+        ))
+    
     @staticmethod
-    def _extract_years(query: str) -> List[int]:
+    def extract_years(query: str) -> List[int]:
+        """Extract year numbers from query"""
         years = [int(y) for y in re.findall(r"\b(20\d{2})\b", query)]
-        # de-dup and sort
+        # Deduplicate and sort
         return sorted(set(years))
+    
+    @staticmethod
+    def extract_num_periods(query: str) -> Optional[int]:
+        """Extract number of periods (e.g., 'last 5 quarters', 'last 3 years')"""
+        # Pattern: "last N quarters/years"
+        m = re.search(r"\blast\s+(\d+)\s+(quarters?|years?|periods?)", query, re.I)
+        if m:
+            return int(m.group(1))
+        
+        # Pattern: "N quarters/years"
+        m2 = re.search(r"\b(\d+)\s+(quarters?|years?|periods?)", query, re.I)
+        if m2:
+            return int(m2.group(1))
+        
+        return None
+    
+    @staticmethod
+    def needs_calculation(query: str) -> bool:
+        """Check if query requires calculation"""
+        return bool(re.search(
+            r"\b(calculate|compute|derive|ratio|÷|divided by|/|percentage of)\b", 
+            query, re.I
+        ))
 
-    def run(self, query: str, k_ctx: int = 6) -> AgentResult:
-        plan, actions, observations = [], [], []
-        final: Dict[str, Any] = {}
 
-        plan.append("1) Ground the question with vector search for context.")
-        ctx_df = self.kb.search(query, k=k_ctx)
-        observations.append(f"Vector contexts: {len(ctx_df)} found.")
-        final["contexts"] = ctx_df
+# ----------------------------- PARALLEL QUERY DECOMPOSER -----------------------------
 
-        metric = self._extract_metric(query)
-        years = self._extract_years(query)
+class ParallelQueryDecomposer:
+    """Decomposes complex queries using QueryAnalyzer"""
+    
+    @staticmethod
+    def decompose(query: str) -> List[str]:
+        """
+        Intelligent query decomposition using query analysis
+        """
+        analyzer = QueryAnalyzer
+        
+        # Extract intent
+        needs_calc = analyzer.needs_calculation(query)
+        metric = analyzer.extract_metric(query)
+        years = analyzer.extract_years(query)
+        num_periods = analyzer.extract_num_periods(query)
+        
+        # Q3: Efficiency Ratio (Opex ÷ Income)
+        if needs_calc and metric and "efficiency" in metric.lower():
+            return [
+                f"Extract Operating Expenses for the last {num_periods or 3} fiscal years",
+                f"Extract Total Income for the last {num_periods or 3} fiscal years"
+            ]
+        
+        # Q3: Any ratio calculation (A ÷ B)
+        if needs_calc and ("ratio" in query.lower() or "÷" in query or "/" in query):
+            # Try to extract both metrics
+            parts = re.split(r'[÷/]|\bdivided by\b', query, flags=re.I)
+            if len(parts) == 2:
+                metric_a = analyzer.extract_metric(parts[0])
+                metric_b = analyzer.extract_metric(parts[1])
+                if metric_a and metric_b:
+                    return [
+                        f"Extract {metric_a} for the last {num_periods or 3} fiscal years",
+                        f"Extract {metric_b} for the last {num_periods or 3} fiscal years"
+                    ]
+        
+        # Multi-metric comparison
+        if analyzer.want_compare(query) and metric:
+            # Decompose by year if multiple years specified
+            if len(years) > 2:
+                return [f"Extract {metric} for FY{y}" for y in years]
+        
+        # Single metric query (no decomposition)
+        return [query]
 
-        if self._want_compare(query):
-            plan.append("2) Compare the metric across multiple documents via table extraction.")
-            if not metric:
-                metric = "net interest margin"  # default guess
-                observations.append("No explicit metric found; defaulting to 'net interest margin'.")
-            actions.append(f"MultiDocCompareTool.compare(metric='{metric}', years={years or 'last3'})")
-            compare_rows = self.compare_tool.compare(metric, years=years or None)
-            observations.append(f"Compare results: {len(compare_rows)} docs.")
-            final["compare"] = compare_rows
-        else:
-            plan.append("2) Extract the metric row from tables for the requested (or last 3) years.")
-            if not metric:
-                metric = "net interest margin"
-                observations.append("No explicit metric found; defaulting to 'net interest margin'.")
-            actions.append(f"TableExtractionTool.get_metric_rows(metric='{metric}', limit=5)")
-            # Prefer quarters strictly when requested; otherwise fallback to any rows
-            rows = self.table.get_metric_rows(metric, limit=50)  # fetch more candidates for better recall
-            observations.append(f"Table rows matched: {len(rows)}")
+    @staticmethod
+    async def execute_parallel_async(kb: KBEnv, sub_queries: List[str], k_ctx: int) -> List[pd.DataFrame]:
+        """Execute sub-queries in parallel"""
+        loop = asyncio.get_event_loop()
+        
+        def search_sync(query):
+            return kb.search(query, k=k_ctx)
+        
+        with ThreadPoolExecutor(max_workers=min(len(sub_queries), 4)) as executor:
+            tasks = [loop.run_in_executor(executor, search_sync, sq) for sq in sub_queries]
+            results = await asyncio.gather(*tasks)
+        
+        return results
+    
+    @staticmethod
+    def execute_parallel(kb: KBEnv, sub_queries: List[str], k_ctx: int) -> List[pd.DataFrame]:
+        """Blocking wrapper for async parallel execution"""
+        try:
+            loop = asyncio.get_event_loop()
+            if loop.is_running():
+                # Already in event loop (e.g., Jupyter), use nest_asyncio
+                try:
+                    import nest_asyncio
+                    nest_asyncio.apply()
+                except ImportError:
+                    pass
+        except RuntimeError:
+            loop = asyncio.new_event_loop()
+            asyncio.set_event_loop(loop)
+        
+        return loop.run_until_complete(
+            ParallelQueryDecomposer.execute_parallel_async(kb, sub_queries, k_ctx)
+        )
+    
+    @staticmethod
+    def merge_results(results: List[pd.DataFrame], k_ctx: int) -> pd.DataFrame:
+        """Merge and deduplicate parallel results"""
+        if not results:
+            return pd.DataFrame()
+        
+        # Concatenate
+        merged = pd.concat([r for r in results if not r.empty], ignore_index=True)
+        if merged.empty:
+            return merged
+        
+        # Deduplicate by text (keep highest score)
+        merged = merged.sort_values('score', ascending=False)
+        merged = merged.drop_duplicates(subset=['text'], keep='first')
+        
+        # Take top-k
+        merged = merged.head(k_ctx)
+        
+        # Re-rank
+        merged = merged.sort_values('score', ascending=False).reset_index(drop=True)
+        merged['rank'] = range(1, len(merged) + 1)
+        
+        return merged
 
-            prefer_quarters = self._want_quarters(query)
-            rows_q = [r for r in rows if r.get("series_q") and len(r.get("series_q") or {}) > 0]
+# ----------------------------- Agent: plan → act → observe -----------------------------
 
-            if prefer_quarters:
-                if rows_q:
-                    observations.append("User requested quarters; prioritizing rows with quarter columns.")
-                    final["table_rows"] = rows_q[:5]
-                else:
-                    # Fallback: try text extraction for quarter-form percentages (e.g., NIM)
-                    series_q_txt = self.text_tool.extract_quarter_pct(metric, top_k_text=200)
-                    if series_q_txt:
-                        observations.append("Quarter tables missing; recovered quarter % series from text.")
-                        final["table_rows"] = [{
-                            "doc": "(text_fallback)",
-                            "table_id": -1,
-                            "row_id": -1,
-                            "label": metric,
-                            "series": {},
-                            "series_q": series_q_txt,
-                        }]
-                    else:
-                        observations.append("User requested quarters but none found in indexed tables.")
-                        final["table_rows"] = []
-                        final["notice"] = "No quarterly data found for the requested metric in the indexed tables."
+class Agent:
+    """
+    Unified Agent with query analysis and parallel sub-queries
+    """
+    
+    def __init__(
+        self, 
+        kb: KBEnv, 
+        use_parallel_subqueries: bool = False,
+        verbose: bool = True
+    ):
+        self.kb = kb
+        self.use_parallel_subqueries = use_parallel_subqueries
+        self.verbose = verbose
+        
+        # Tools
+        self.calc_tool = CalculatorTool() if 'CalculatorTool' in globals() else None
+        self.table_tool = TableExtractionTool(kb.tables_df) if kb.tables_df is not None else None
+        self.text_tool = TextExtractionTool(kb) if 'TextExtractionTool' in globals() else None
+        
+        # Analyzers
+        self.analyzer = QueryAnalyzer()
+        self.decomposer = ParallelQueryDecomposer() if use_parallel_subqueries else None
+    
+    def run(self, query: str, k_ctx: int = 12) -> 'AgentResult':
+        """
+        Execute query with intelligent analysis and decomposition
+        """
+        if self.verbose:
+            print(f"\n[Agent] Query: {query[:60]}...")
+        
+        # Step 1: Analyze query
+        metric = self.analyzer.extract_metric(query)
+        wants_yoy = self.analyzer.want_yoy(query)
+        wants_quarters = self.analyzer.want_quarters(query)
+        wants_compare = self.analyzer.want_compare(query)
+        needs_calc = self.analyzer.needs_calculation(query)
+        years = self.analyzer.extract_years(query)
+        num_periods = self.analyzer.extract_num_periods(query)
+        
+        if self.verbose:
+            print(f"[Agent] Analysis:")
+            print(f"  Metric: {metric}")
+            print(f"  YoY: {wants_yoy}, Quarterly: {wants_quarters}, Compare: {wants_compare}")
+            print(f"  Calculation: {needs_calc}, Years: {years}, Periods: {num_periods}")
+        
+        # Step 2: Decompose & retrieve
+        if self.use_parallel_subqueries and self.decomposer:
+            sub_queries = self.decomposer.decompose(query)
+            
+            if len(sub_queries) > 1:
+                if self.verbose:
+                    print(f"[Agent] Decomposed into {len(sub_queries)} sub-queries")
+                
+                sub_results = self.decomposer.execute_parallel(self.kb, sub_queries, k_ctx)
+                contexts = self.decomposer.merge_results(sub_results, k_ctx)
+                
+                if self.verbose:
+                    print(f"[Agent] Merged → {len(contexts)} contexts")
             else:
-                final["table_rows"] = rows[:5]
-                if rows_q:
-                    observations.append("Quarterly data available; showing last 5 quarters where present.")
-
-            if self._want_yoy(query) and (final.get("table_rows") and len(final["table_rows"]) > 0):
-                plan.append("3) Compute YoY or growth using CalculatorTool on extracted series.")
-                # pick the first row’s series
-                series = final["table_rows"][0]["series"]
-                ys = years if years else sorted(series.keys())[-2:]  # last 2 years if none given
-                calc_out = []
-                if len(ys) >= 2:
-                    for i in range(1, len(ys)):
-                        y0, y1 = ys[i-1], ys[i]
-                        a, b = series.get(y1), series.get(y0)
-                        if a is not None and b is not None:
-                            yoy = self.calc.yoy(a, b)
-                            calc_out.append({"from": y0, "to": y1, "value_from": b, "value_to": a, "yoy_pct": None if yoy is None else round(yoy, 2)})
-                actions.append(f"CalculatorTool.yoy on years={ys}")
-                observations.append(f"Computed {len(calc_out)} YoY deltas.")
-                final["calc"] = calc_out
-
-        final["plan"] = plan
-        final["actions"] = actions
-        final["observations"] = observations
-        return AgentResult(plan, actions, observations, final)
+                contexts = self.kb.search(query, k=k_ctx)
+        else:
+            contexts = self.kb.search(query, k=k_ctx)
+        
+        # Step 3: Tool selection based on analysis
+        actions = []
+        table_rows = []
+        
+        # Use table tool if metric identified
+        if metric and self.table_tool:
+            actions.append("table_extraction")
+            table_rows = self.table_tool.get_metric_rows(metric, limit=10)
+            if self.verbose:
+                print(f"[Agent] Extracted {len(table_rows)} table rows for '{metric}'")
+        
+        # Use calculator if calculation needed
+        if needs_calc and self.calc_tool:
+            actions.append("calculation")
+        
+        # Use text tool for fallback
+        if not table_rows and self.text_tool:
+            actions.append("text_extraction")
+        
+        # Step 4: Build result
+        observations = [
+            f"Retrieved {len(contexts)} contexts",
+            f"Metric: {metric}",
+            f"YoY: {wants_yoy}, Quarterly: {wants_quarters}",
+            f"Tools used: {', '.join(actions)}"
+        ]
+        
+        result = AgentResult(
+            plan=f"Analyze query → Extract {metric} → {'Calculate' if needs_calc else 'Report'}",
+            actions=actions,
+            observations=observations,
+            final={
+                "contexts": contexts,
+                "table_rows": table_rows,
+                "metric": metric,
+                "wants_yoy": wants_yoy,
+                "wants_quarters": wants_quarters,
+                "years": years,
+                "num_periods": num_periods
+            }
+        )
+        
+        return result
 
 
 # ----------------------------- Pretty print helpers -----------------------------
