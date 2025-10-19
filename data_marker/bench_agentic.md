@@ -9,25 +9,27 @@
 
 **Answer**
 
-**Execution**
+**Execution Summary**
 - Retrieved 12 contexts
 - Metric: net interest margin
 - YoY: False, Quarterly: True
 - Tools used: table_extraction
 
-**Data**
-- dbs-annual-report-2024: 2022: 1.75, 2023: 2.15, 2024: 2.13
-- dbs-annual-report-2024: 2022: 1.75, 2023: 2.15, 2024: 2.13
-- dbs-annual-report-2023: 2021: 1.45, 2022: 1.75, 2023: 2.15
+**Extracted Data**
+- dbs-annual-report-2024 | Net interest margin: 2022: 1.75, 2023: 2.15, 2024: 2.13
+- dbs-annual-report-2024 | Net interest margin: 2022: 1.75, 2023: 2.15, 2024: 2.13
+- dbs-annual-report-2023 | Net interest margin: 2021: 1.45, 2022: 1.75, 2023: 2.15
+- dbs-annual-report-2023 | Net interest margin: 2021: 1.45, 2022: 1.75, 2023: 2.15
+- dbs-annual-report-2022 | Net interest margin: 2020: 1.62, 2021: 1.45, 2022: 1.75
 
 
 **Citations**
 
-- dbs-annual-report-2022 p.nan [marker] 
-- 2Q24_performance_summary p.9.0 [marker] 
-- dbs-annual-report-2022 p.96.0 [marker] 
-- dbs-annual-report-2022 p.96.0 [marker] 
-- dbs-annual-report-2023 p.95.0 [marker] 
+- dbs-annual-report-2022 p.nan [marker] (score: 0.6558)
+- 2Q24_performance_summary p.9.0 [marker] (score: -0.5437)
+- dbs-annual-report-2022 p.96.0 [marker] (score: -0.7675)
+- dbs-annual-report-2022 p.96.0 [marker] (score: -0.7991)
+- dbs-annual-report-2023 p.95.0 [marker] (score: -1.0668)
 
 **Execution Log**
 ```
@@ -45,7 +47,7 @@
 }
 ```
 
-**Latency**: 2931.98 ms
+**Latency**: 4901.72 ms
 
 ---
 
@@ -53,25 +55,27 @@
 
 **Answer**
 
-**Execution**
+**Execution Summary**
 - Retrieved 12 contexts
 - Metric: operating expenses
 - YoY: False, Quarterly: False
 - Tools used: table_extraction
 
-**Data**
-- 2Q25_CFO_presentation: 2Q2025: 5732.0
-- 2Q25_CFO_presentation: 2Q2025: 5314.0
-- 2Q25_CFO_presentation: 2Q2025: 418.0
+**Extracted Data**
+- 2Q25_CFO_presentation | nan: 2Q2025: 5732.0
+- 2Q25_CFO_presentation | nan: 2Q2025: 5314.0
+- 2Q25_CFO_presentation | nan: 2Q2025: 418.0
+- 2Q25_CFO_presentation | nan: 2Q2025: 2270.0
+- 2Q25_CFO_presentation | nan: 2Q2025: 3462.0
 
 
 **Citations**
 
-- dbs-annual-report-2022 p.nan [marker] 
-- dbs-annual-report-2024 p.22.0 [marker] 
-- dbs-annual-report-2022 p.nan [marker] 
-- dbs-annual-report-2024 p.22.0 [marker] 
-- dbs-annual-report-2022 p.63.0 [marker] 
+- dbs-annual-report-2022 p.nan [marker] (score: -6.7801)
+- dbs-annual-report-2024 p.22.0 [marker] (score: -6.8893)
+- dbs-annual-report-2022 p.nan [marker] (score: -7.0523)
+- dbs-annual-report-2024 p.22.0 [marker] (score: -7.0675)
+- dbs-annual-report-2022 p.63.0 [marker] (score: -7.0783)
 
 **Execution Log**
 ```
@@ -89,7 +93,7 @@
 }
 ```
 
-**Latency**: 3585.2 ms
+**Latency**: 6713.61 ms
 
 ---
 
@@ -97,25 +101,27 @@
 
 **Answer**
 
-**Execution**
+**Execution Summary**
 - Retrieved 12 contexts
 - Metric: operating income
 - YoY: False, Quarterly: False
 - Tools used: table_extraction, calculation
 
-**Data**
-- 2Q25_CFO_presentation: 2Q2025: 5732.0
-- 2Q25_CFO_presentation: 2Q2025: 5314.0
-- 2Q25_CFO_presentation: 2Q2025: 418.0
+**Extracted Data**
+- 2Q25_CFO_presentation | nan: 2Q2025: 5732.0
+- 2Q25_CFO_presentation | nan: 2Q2025: 5314.0
+- 2Q25_CFO_presentation | nan: 2Q2025: 418.0
+- 2Q25_CFO_presentation | nan: 2Q2025: 2270.0
+- 2Q25_CFO_presentation | nan: 2Q2025: 3462.0
 
 
 **Citations**
 
-- dbs-annual-report-2022 p.nan [marker] 
-- 4Q24_performance_summary p.34.0 [marker] 
-- 4Q24_performance_summary p.nan [marker] 
-- 4Q24_performance_summary p.12.0 [marker] 
-- dbs-annual-report-2023 p.51.0 [marker] 
+- dbs-annual-report-2022 p.nan [marker] (score: -4.8519)
+- 4Q24_performance_summary p.34.0 [marker] (score: -7.2142)
+- 4Q24_performance_summary p.nan [marker] (score: -8.8156)
+- 4Q24_performance_summary p.12.0 [marker] (score: -9.9208)
+- dbs-annual-report-2023 p.51.0 [marker] (score: -9.9659)
 
 **Execution Log**
 ```
@@ -134,11 +140,11 @@
 }
 ```
 
-**Latency**: 9045.36 ms
+**Latency**: 16084.9 ms
 
 ---
 
 ## Summary
 
-- P50: 3585.2 ms
-- P95: 8499.3 ms
+- P50: 6713.6 ms
+- P95: 15147.8 ms

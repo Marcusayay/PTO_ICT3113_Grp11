@@ -1078,7 +1078,11 @@ class ParallelQueryDecomposer:
 
 class Agent:
     """
-    Unified Agent with query analysis and parallel sub-queries
+    Unified Agent with all tools:
+    - CalculatorTool
+    - TableExtractionTool
+    - TextExtractionTool
+    - MultiDocCompareTool (NEW)
     """
     
     def __init__(
@@ -1091,19 +1095,33 @@ class Agent:
         self.use_parallel_subqueries = use_parallel_subqueries
         self.verbose = verbose
         
-        # Tools
-        self.calc_tool = CalculatorTool() if 'CalculatorTool' in globals() else None
+        # Initialize all tools
+        self.calc_tool = CalculatorTool()
+        
+        # Table tool (required for multi-doc compare)
         self.table_tool = TableExtractionTool(kb.tables_df) if kb.tables_df is not None else None
-        self.text_tool = TextExtractionTool(kb) if 'TextExtractionTool' in globals() else None
+        
+        # Text extraction fallback
+        self.text_tool = TextExtractionTool(kb)
+        
+        # ✅ Multi-doc compare tool (NEW)
+        self.multidoc_tool = MultiDocCompareTool(self.table_tool) if self.table_tool else None
         
         # Analyzers
         self.analyzer = QueryAnalyzer()
         self.decomposer = ParallelQueryDecomposer() if use_parallel_subqueries else None
+        
+        if self.verbose:
+            tools_status = []
+            tools_status.append(f"Calculator: ✓")
+            tools_status.append(f"Table: {'✓' if self.table_tool else '✗'}")
+            tools_status.append(f"Text: ✓")
+            tools_status.append(f"MultiDoc: {'✓' if self.multidoc_tool else '✗'}")
+            print(f"[Agent] Tools: {' | '.join(tools_status)}")
     
     def run(self, query: str, k_ctx: int = 12) -> 'AgentResult':
-        """
-        Execute query with intelligent analysis and decomposition
-        """
+        """Execute query with all available tools"""
+        
         if self.verbose:
             print(f"\n[Agent] Query: {query[:60]}...")
         
@@ -1111,7 +1129,7 @@ class Agent:
         metric = self.analyzer.extract_metric(query)
         wants_yoy = self.analyzer.want_yoy(query)
         wants_quarters = self.analyzer.want_quarters(query)
-        wants_compare = self.analyzer.want_compare(query)
+        wants_compare = self.analyzer.want_compare(query)  # NEW: Check for comparison
         needs_calc = self.analyzer.needs_calculation(query)
         years = self.analyzer.extract_years(query)
         num_periods = self.analyzer.extract_num_periods(query)
@@ -1119,10 +1137,11 @@ class Agent:
         if self.verbose:
             print(f"[Agent] Analysis:")
             print(f"  Metric: {metric}")
-            print(f"  YoY: {wants_yoy}, Quarterly: {wants_quarters}, Compare: {wants_compare}")
-            print(f"  Calculation: {needs_calc}, Years: {years}, Periods: {num_periods}")
+            print(f"  YoY: {wants_yoy}, Quarterly: {wants_quarters}")
+            print(f"  Compare: {wants_compare}, Calc: {needs_calc}")  # NEW
+            print(f"  Years: {years}, Periods: {num_periods}")
         
-        # Step 2: Decompose & retrieve
+        # Step 2: Retrieve contexts (parallel or standard)
         if self.use_parallel_subqueries and self.decomposer:
             sub_queries = self.decomposer.decompose(query)
             
@@ -1140,49 +1159,149 @@ class Agent:
         else:
             contexts = self.kb.search(query, k=k_ctx)
         
-        # Step 3: Tool selection based on analysis
+        # Step 3: Tool selection and execution
         actions = []
         table_rows = []
+        comparison_results = []
         
-        # Use table tool if metric identified
-        if metric and self.table_tool:
+        # ========== NEW: Multi-doc compare tool ==========
+        if wants_compare and metric and self.multidoc_tool:
+            actions.append("multi_doc_compare")
+            comparison_results = self.multidoc_tool.compare(
+                metric=metric,
+                years=years if years else None,
+                top_docs=6
+            )
+            if self.verbose:
+                print(f"[Agent] MultiDoc compare: {len(comparison_results)} documents")
+        
+        # Table extraction (standard)
+        elif metric and self.table_tool:
             actions.append("table_extraction")
             table_rows = self.table_tool.get_metric_rows(metric, limit=10)
             if self.verbose:
-                print(f"[Agent] Extracted {len(table_rows)} table rows for '{metric}'")
+                print(f"[Agent] Extracted {len(table_rows)} table rows")
         
-        # Use calculator if calculation needed
+        # Text extraction fallback
+        if not table_rows and not comparison_results and self.text_tool:
+            actions.append("text_extraction")
+            if wants_quarters and metric:
+                quarter_data = self.text_tool.extract_quarter_pct(metric, top_k_text=50)
+                if self.verbose:
+                    print(f"[Agent] Text extraction: {len(quarter_data)} quarters")
+        
+        # Calculator for YoY or ratios
         if needs_calc and self.calc_tool:
             actions.append("calculation")
         
-        # Use text tool for fallback
-        if not table_rows and self.text_tool:
-            actions.append("text_extraction")
+        # Step 4: LLM Synthesis
+        answer = self._synthesize_with_llm(
+            query, 
+            contexts, 
+            table_rows, 
+            comparison_results,  
+            metric, 
+            wants_yoy,
+            wants_compare  
+        )
         
-        # Step 4: Build result
+        # Step 5: Build result
         observations = [
             f"Retrieved {len(contexts)} contexts",
             f"Metric: {metric}",
-            f"YoY: {wants_yoy}, Quarterly: {wants_quarters}",
+            f"YoY: {wants_yoy}, Quarterly: {wants_quarters}, Compare: {wants_compare}",
             f"Tools used: {', '.join(actions)}"
         ]
         
         result = AgentResult(
-            plan=f"Analyze query → Extract {metric} → {'Calculate' if needs_calc else 'Report'}",
+            plan=f"Analyze → {'Compare' if wants_compare else 'Extract'} {metric} → Synthesize",
             actions=actions,
             observations=observations,
             final={
                 "contexts": contexts,
                 "table_rows": table_rows,
+                "comparison_results": comparison_results,  # NEW
+                "answer": answer,
                 "metric": metric,
                 "wants_yoy": wants_yoy,
                 "wants_quarters": wants_quarters,
-                "years": years,
-                "num_periods": num_periods
+                "wants_compare": wants_compare
             }
         )
         
         return result
+    
+    def _synthesize_with_llm(
+        self, 
+        query: str, 
+        contexts: pd.DataFrame, 
+        table_rows: List[Dict],
+        comparison_results: List[Dict],  # NEW parameter
+        metric: str,
+        wants_yoy: bool,
+        wants_compare: bool  # NEW parameter
+    ) -> str:
+        """Synthesize final answer using LLM"""
+        
+        prompt_parts = [f"USER QUESTION:\n{query}\n"]
+        
+        # ========== NEW: Add multi-doc comparison results ==========
+        if comparison_results:
+            prompt_parts.append("\nMULTI-DOCUMENT COMPARISON:")
+            for comp in comparison_results:
+                doc = comp.get("doc", "Unknown")
+                label = comp.get("label", metric)
+                years = comp.get("years", [])
+                values = comp.get("values", [])
+                
+                if years and values:
+                    year_val_pairs = ", ".join(f"{y}: {v}" for y, v in zip(years, values))
+                    prompt_parts.append(f"- {doc} | {label}: {year_val_pairs}")
+        
+        # Add table rows if available
+        elif table_rows:
+            prompt_parts.append("\nSTRUCTURED DATA:")
+            for r in table_rows[:5]:
+                if r.get("series_q"):
+                    qkeys = sorted(r["series_q"].keys())[-5:]
+                    ser = ", ".join(f"{k}: {r['series_q'][k]}" for k in qkeys)
+                    prompt_parts.append(f"- {r['doc']} | {r['label']}: {ser}")
+                else:
+                    ys = sorted(r["series"].keys())[-3:]
+                    ser = ", ".join(f"{y}: {r['series'][y]}" for y in ys)
+                    prompt_parts.append(f"- {r['doc']} | {r['label']}: {ser}")
+        
+        # Add retrieved contexts
+        if not contexts.empty:
+            prompt_parts.append("\nCONTEXT:")
+            for _, row in contexts.head(5).iterrows():
+                text = str(row["text"])[:500]
+                doc = row.get("doc", "Unknown")
+                prompt_parts.append(f"- [{doc}] {text}")
+        
+        # Add instructions
+        prompt_parts.append("\nINSTRUCTIONS:")
+        prompt_parts.append("- Use ONLY the data provided above")
+        
+        if wants_compare:
+            prompt_parts.append("- Compare the metric across different documents")
+            prompt_parts.append("- Highlight similarities and differences")
+        
+        if wants_yoy:
+            prompt_parts.append("- Calculate year-over-year growth percentages")
+        
+        prompt_parts.append("- Provide a concise answer with specific numbers and document names")
+        prompt_parts.append("- If data is incomplete, state what's missing explicitly")
+        
+        prompt = "\n".join(prompt_parts)
+        
+        # Call LLM
+        if self.verbose:
+            print(f"[Agent] Synthesizing with LLM...")
+        
+        answer = _llm_single_call(prompt)
+        
+        return answer
 
 
 # ----------------------------- Pretty print helpers -----------------------------
