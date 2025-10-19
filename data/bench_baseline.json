@@ -1,0 +1,163 @@
+{
+  "results": [
+    {
+      "query": "Report the Gross Margin (or Net Interest Margin, if a bank) over the last 5 quarters, with values.",
+      "answer": "The structured rows provide only annual Net Interest Margin figures, not quarterly data. Therefore, quarterly values for the last five quarters cannot be derived from the information supplied.\n\n**Available annual Net Interest Margin (NIM) from the structured rows**\n\n| Year | Net Interest Margin |\n|------|---------------------|\n| 2020 | 1.62 |\n| 2021 | 1.45 |\n| 2022 | 1.75 |\n| 2023 | 2.15 |\n| 2024 | 2.13 |\n\nNo quarterly figures are present in the provided data.",
+      "citations": [
+        {
+          "file": "dbs-annual-report-2022",
+          "year": null,
+          "quarter": null,
+          "page": null,
+          "section_hint": "A Di erent \nKind of Bank",
+          "index_source": "marker",
+          "score": 0.6558135747909546
+        },
+        {
+          "file": "2Q24_performance_summary",
+          "year": null,
+          "quarter": null,
+          "page": 9,
+          "section_hint": "Unaudited Financial Results for the First Half/ Second Quarter Ended 30 June 2024",
+          "index_source": "marker",
+          "score": -0.5436882376670837
+        },
+        {
+          "file": "dbs-annual-report-2022",
+          "year": null,
+          "quarter": null,
+          "page": 96,
+          "section_hint": "A Di erent \nKind of Bank",
+          "index_source": "marker",
+          "score": -0.7675231695175171
+        },
+        {
+          "file": "dbs-annual-report-2022",
+          "year": null,
+          "quarter": null,
+          "page": 96,
+          "section_hint": "A Di erent \nKind of Bank",
+          "index_source": "marker",
+          "score": -0.7990608215332031
+        },
+        {
+          "file": "dbs-annual-report-2023",
+          "year": null,
+          "quarter": null,
+          "page": 95,
+          "section_hint": "Building a Advantage",
+          "index_source": "marker",
+          "score": -1.0668282508850098
+        }
+      ],
+      "execution_log": null,
+      "latency_ms": 4785.21
+    },
+    {
+      "query": "Show Operating Expenses for the last 3 fiscal years, year-on-year comparison.",
+      "answer": "I\u2019m sorry, but the structured data you provided only contains figures for the 2Q\u202f2025 period. There are no entries for the last three fiscal years, so I cannot provide a year\u2011on\u2011year comparison of operating expenses.",
+      "citations": [
+        {
+          "file": "dbs-annual-report-2022",
+          "year": null,
+          "quarter": null,
+          "page": null,
+          "section_hint": "A Di erent \nKind of Bank",
+          "index_source": "marker",
+          "score": -6.780072212219238
+        },
+        {
+          "file": "dbs-annual-report-2024",
+          "year": null,
+          "quarter": null,
+          "page": 22,
+          "section_hint": "Making Greater\nIMPACT",
+          "index_source": "marker",
+          "score": -6.889344215393066
+        },
+        {
+          "file": "dbs-annual-report-2022",
+          "year": null,
+          "quarter": null,
+          "page": null,
+          "section_hint": "A Di erent \nKind of Bank",
+          "index_source": "marker",
+          "score": -7.052289962768555
+        },
+        {
+          "file": "dbs-annual-report-2024",
+          "year": null,
+          "quarter": null,
+          "page": 22,
+          "section_hint": "Making Greater\nIMPACT",
+          "index_source": "marker",
+          "score": -7.067477226257324
+        },
+        {
+          "file": "dbs-annual-report-2022",
+          "year": null,
+          "quarter": null,
+          "page": 63,
+          "section_hint": "A Di erent \nKind of Bank",
+          "index_source": "marker",
+          "score": -7.07827615737915
+        }
+      ],
+      "execution_log": null,
+      "latency_ms": 5484.42
+    },
+    {
+      "query": "Calculate the Operating Efficiency Ratio (Opex \u00f7 Operating Income) for the last 3 fiscal years, showing the working.",
+      "answer": "I\u2019m sorry, but the structured rows only contain data for 2Q\u202f2025.  There are no figures for the last three fiscal years, so the Operating Efficiency Ratio cannot be calculated from the information provided.",
+      "citations": [
+        {
+          "file": "dbs-annual-report-2022",
+          "year": null,
+          "quarter": null,
+          "page": null,
+          "section_hint": "A Di erent \nKind of Bank",
+          "index_source": "marker",
+          "score": -5.03797721862793
+        },
+        {
+          "file": "4Q24_performance_summary",
+          "year": null,
+          "quarter": null,
+          "page": 34,
+          "section_hint": "Financial Results for the Year Ended 31 December 2024",
+          "index_source": "marker",
+          "score": -5.4760589599609375
+        },
+        {
+          "file": "4Q24_performance_summary",
+          "year": null,
+          "quarter": null,
+          "page": 28,
+          "section_hint": "Financial Results for the Year Ended 31 December 2024",
+          "index_source": "marker",
+          "score": -7.612120151519775
+        },
+        {
+          "file": "4Q24_performance_summary",
+          "year": null,
+          "quarter": null,
+          "page": 4,
+          "section_hint": "Financial Results for the Year Ended 31 December 2024",
+          "index_source": "marker",
+          "score": -7.710261821746826
+        },
+        {
+          "file": "4Q24_performance_summary",
+          "year": null,
+          "quarter": null,
+          "page": 34,
+          "section_hint": "Financial Results for the Year Ended 31 December 2024",
+          "index_source": "marker",
+          "score": -7.718294143676758
+        }
+      ],
+      "execution_log": null,
+      "latency_ms": 6184.98
+    }
+  ]
+}

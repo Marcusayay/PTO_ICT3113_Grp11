@@ -1,0 +1,142 @@
+{
+  "results": [
+    {
+      "query": "Report the Gross Margin (or Net Interest Margin, if a bank) over the last 5 quarters, with values.",
+      "answer": "**Analysis**\n- Vector contexts: 12 found.\n- Table rows matched: 50\n- User requested quarters but none found in indexed tables.\n",
+      "citations": [
+        {
+          "file": "dbs-annual-report-2022",
+          "page": NaN,
+          "section_hint": "A Di erent \nKind of Bank",
+          "index_source": "marker"
+        },
+        {
+          "file": "2Q24_performance_summary",
+          "page": 9.0,
+          "section_hint": "Unaudited Financial Results for the First Half/ Second Quarter Ended 30 June 2024",
+          "index_source": "marker"
+        },
+        {
+          "file": "dbs-annual-report-2022",
+          "page": 96.0,
+          "section_hint": "A Di erent \nKind of Bank",
+          "index_source": "marker"
+        },
+        {
+          "file": "dbs-annual-report-2022",
+          "page": 96.0,
+          "section_hint": "A Di erent \nKind of Bank",
+          "index_source": "marker"
+        },
+        {
+          "file": "dbs-annual-report-2023",
+          "page": 95.0,
+          "section_hint": "Building a Advantage",
+          "index_source": "marker"
+        }
+      ],
+      "execution_log": {
+        "plan": [
+          "1) Ground the question with vector search for context.",
+          "2) Extract the metric row from tables for the requested (or last 3) years."
+        ],
+        "actions": [
+          "TableExtractionTool.get_metric_rows(metric='net interest margin', limit=5)"
+        ]
+      },
+      "latency_ms": 24554.29
+    },
+    {
+      "query": "Show Operating Expenses for the last 3 fiscal years, year-on-year comparison.",
+      "answer": "**Analysis**\n- Vector contexts: 12 found.\n- Table rows matched: 50\n- Quarterly data available; showing last 5 quarters where present.\n\n**Data Found**\n- 2Q25_CFO_presentation | nan: 2Q2025: 5732.0\n- 2Q25_CFO_presentation | nan: 2Q2025: 5314.0\n- 2Q25_CFO_presentation | nan: 2Q2025: 418.0\n",
+      "citations": [
+        {
+          "file": "dbs-annual-report-2022",
+          "page": NaN,
+          "section_hint": "A Di erent \nKind of Bank",
+          "index_source": "marker"
+        },
+        {
+          "file": "dbs-annual-report-2024",
+          "page": 22.0,
+          "section_hint": "Making Greater\nIMPACT",
+          "index_source": "marker"
+        },
+        {
+          "file": "dbs-annual-report-2022",
+          "page": NaN,
+          "section_hint": "A Di erent \nKind of Bank",
+          "index_source": "marker"
+        },
+        {
+          "file": "dbs-annual-report-2024",
+          "page": 22.0,
+          "section_hint": "Making Greater\nIMPACT",
+          "index_source": "marker"
+        },
+        {
+          "file": "dbs-annual-report-2022",
+          "page": 63.0,
+          "section_hint": "A Di erent \nKind of Bank",
+          "index_source": "marker"
+        }
+      ],
+      "execution_log": {
+        "plan": [
+          "1) Ground the question with vector search for context.",
+          "2) Extract the metric row from tables for the requested (or last 3) years."
+        ],
+        "actions": [
+          "TableExtractionTool.get_metric_rows(metric='operating expenses', limit=5)"
+        ]
+      },
+      "latency_ms": 3967.95
+    },
+    {
+      "query": "Calculate the Operating Efficiency Ratio (Opex \u00f7 Operating Income) for the last 3 fiscal years, showing the working.",
+      "answer": "**Analysis**\n- Vector contexts: 12 found.\n- Table rows matched: 50\n- Quarterly data available; showing last 5 quarters where present.\n\n**Data Found**\n- 2Q25_CFO_presentation | nan: 2Q2025: 5732.0\n- 2Q25_CFO_presentation | nan: 2Q2025: 5314.0\n- 2Q25_CFO_presentation | nan: 2Q2025: 418.0\n",
+      "citations": [
+        {
+          "file": "dbs-annual-report-2022",
+          "page": NaN,
+          "section_hint": "A Di erent \nKind of Bank",
+          "index_source": "marker"
+        },
+        {
+          "file": "4Q24_performance_summary",
+          "page": 34.0,
+          "section_hint": "Financial Results for the Year Ended 31 December 2024",
+          "index_source": "marker"
+        },
+        {
+          "file": "4Q24_performance_summary",
+          "page": 28.0,
+          "section_hint": "Financial Results for the Year Ended 31 December 2024",
+          "index_source": "marker"
+        },
+        {
+          "file": "4Q24_performance_summary",
+          "page": 4.0,
+          "section_hint": "Financial Results for the Year Ended 31 December 2024",
+          "index_source": "marker"
+        },
+        {
+          "file": "4Q24_performance_summary",
+          "page": 34.0,
+          "section_hint": "Financial Results for the Year Ended 31 December 2024",
+          "index_source": "marker"
+        }
+      ],
+      "execution_log": {
+        "plan": [
+          "1) Ground the question with vector search for context.",
+          "2) Extract the metric row from tables for the requested (or last 3) years."
+        ],
+        "actions": [
+          "TableExtractionTool.get_metric_rows(metric='operating income', limit=5)"
+        ]
+      },
+      "latency_ms": 8778.28
+    }
+  ]
+}

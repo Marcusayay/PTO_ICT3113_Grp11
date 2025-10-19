@@ -1,20 +1,9 @@
-def _page_or_none(x):
-    try:
-        import math
-        import pandas as pd
-        if x is None:
-            return None
-        # pandas NA or float NaN
-        if (hasattr(pd, 'isna') and pd.isna(x)) or (isinstance(x, float) and math.isnan(x)):
-            return None
-        return int(x)
-    except Exception:
-        return None
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 """
 g2x.py — Agentic RAG with tools on top of data_marker/ (FAISS + Marker outputs)
+       - BM25, Reciprocal Rank Fusion, and Cross-Encoder Reranking
 
 Artifacts required in ./data_marker:
   - kb_index.faiss
@@ -36,50 +25,33 @@ Agent runtime: Plan -> Act -> Observe -> (optional) Refine -> Final
 
 from pathlib import Path
 from dataclasses import dataclass
+from rank_bm25 import BM25Okapi
+from sentence_transformers import CrossEncoder, SentenceTransformer
 from typing import List, Dict, Any, Optional, Tuple
+from openai import OpenAI
 
 import re, json, math, ast
 import numpy as np
 import pandas as pd
 import faiss
-from sentence_transformers import SentenceTransformer
+import os
 
 # ----------------------------- LLM (single-call baseline) -----------------------------
-import os
-from openai import OpenAI
 
 def _make_llm_client():
-    """
-    Minimal provider selection for the baseline single-call LLM.
-    - Prefer GROQ if GROQ_API_KEY is set (OpenAI-compatible endpoint)
-    - Else use Gemini if GEMINI_API_KEY is set
-    - Else raise a clear error with setup instructions
-
-    Env:
-      GROQ_API_KEY  (preferred)
-      GROQ_MODEL    (default: "openai/gpt-oss-20b")
-      GEMINI_API_KEY (fallback)
-      GEMINI_MODEL_NAME (default: "models/gemini-2.5-flash")
-    """
-    # Prefer GROQ if available
+    """Minimal provider selection for LLM"""
     groq_key = os.environ.get("GROQ_API_KEY")
     if groq_key:
         client = OpenAI(api_key=groq_key, base_url="https://api.groq.com/openai/v1")
         model = os.getenv("GROQ_MODEL", "openai/gpt-oss-20b")
         return ("groq", client, model)
-
-    # Fallback to Gemini
+    
     gem_key = os.environ.get("GEMINI_API_KEY")
     if gem_key:
         return ("gemini", None, os.getenv("GEMINI_MODEL_NAME", "models/gemini-2.5-flash"))
+    
+    raise RuntimeError("No LLM credentials found. Set GROQ_API_KEY or GEMINI_API_KEY.")
 
-    # Nothing configured
-    raise RuntimeError(
-        "No LLM credentials found. Set GROQ_API_KEY (preferred) or GEMINI_API_KEY in your environment/.env."
-    )
-
-
-# Helper to expose which provider/model is being used
 def _llm_provider_info() -> str:
     try:
         prov, _, model = _make_llm_client()
@@ -87,7 +59,7 @@ def _llm_provider_info() -> str:
     except Exception as e:
         return f"unconfigured ({e})"
 
-def _llm_single_call(prompt: str, system: str = "You are a precise finance analyst. Only use the provided context; do not invent numbers.") -> str:
+def _llm_single_call(prompt: str, system: str = "You are a precise finance analyst.") -> str:
     prov, client, model = _make_llm_client()
     print(f"[LLM] provider={prov} model={model}")
     if prov == "groq":
@@ -103,7 +75,7 @@ def _llm_single_call(prompt: str, system: str = "You are a precise finance analy
             return chat.choices[0].message.content.strip()
         except Exception as e:
             return f"LLM error: {e}"
-    # Gemini path
+    
     try:
         from google import generativeai as genai
         genai.configure(api_key=os.environ["GEMINI_API_KEY"])
@@ -114,70 +86,204 @@ def _llm_single_call(prompt: str, system: str = "You are a precise finance analy
         return f"LLM error (Gemini): {e}"
 
 
-# ----------------------------- KB loader -----------------------------
+def _page_or_none(x):
+    try:
+        import math
+        import pandas as pd
+        if x is None:
+            return None
+        if (hasattr(pd, 'isna') and pd.isna(x)) or (isinstance(x, float) and math.isnan(x)):
+            return None
+        return int(x)
+    except Exception:
+        return None
+
+
+# ----------------------------- KB loader with BM25 + Reranker -----------------------------
 
 class KBEnv:
-    def __init__(self, base="./data_marker"):
+    def __init__(self, base="./data_marker", enable_bm25=True, enable_reranker=True):
         self.base = Path(base)
-        self.faiss_path  = self.base / "kb_index.faiss"
-        self.meta_path   = self.base / "kb_index_meta.json"
-        self.texts_path  = self.base / "kb_texts.npy"
+        self.faiss_path = self.base / "kb_index.faiss"
+        self.meta_path = self.base / "kb_index_meta.json"
+        self.texts_path = self.base / "kb_texts.npy"
         self.chunks_path = self.base / "kb_chunks.parquet"
         self.tables_path = self.base / "kb_tables.parquet"
-        self.outline_path= self.base / "kb_outline.parquet"
+        self.outline_path = self.base / "kb_outline.parquet"
 
-        if not self.faiss_path.exists():  raise FileNotFoundError(self.faiss_path)
-        if not self.meta_path.exists():   raise FileNotFoundError(self.meta_path)
-        if not self.texts_path.exists():  raise FileNotFoundError(self.texts_path)
-        if not self.chunks_path.exists(): raise FileNotFoundError(self.chunks_path)
+        if not self.faiss_path.exists():
+            raise FileNotFoundError(self.faiss_path)
+        if not self.meta_path.exists():
+            raise FileNotFoundError(self.meta_path)
+        if not self.texts_path.exists():
+            raise FileNotFoundError(self.texts_path)
+        if not self.chunks_path.exists():
+            raise FileNotFoundError(self.chunks_path)
 
         self.texts: List[str] = np.load(self.texts_path, allow_pickle=True).tolist()
         self.meta_df: pd.DataFrame = pd.read_parquet(self.chunks_path)
-        # Coerce 'page' column to nullable Int64 and clean NaNs
+        
         if 'page' in self.meta_df.columns:
             self.meta_df['page'] = pd.to_numeric(self.meta_df['page'], errors='coerce').astype('Int64')
+            
         if len(self.texts) != len(self.meta_df):
             raise ValueError(f"texts ({len(self.texts)}) and meta ({len(self.meta_df)}) mismatch")
 
-        self.tables_df: Optional[pd.DataFrame] = pd.read_parquet(self.tables_path) if self.tables_path.exists() else None
-        self.outline_df: Optional[pd.DataFrame] = pd.read_parquet(self.outline_path) if self.outline_path.exists() else None
+        self.tables_df: Optional[pd.DataFrame] = (
+            pd.read_parquet(self.tables_path) if self.tables_path.exists() else None
+        )
+        self.outline_df: Optional[pd.DataFrame] = (
+            pd.read_parquet(self.outline_path) if self.outline_path.exists() else None
+        )
 
+        # FAISS index
         self.index = faiss.read_index(str(self.faiss_path))
         idx_meta = json.loads(self.meta_path.read_text(encoding="utf-8"))
         self.model_name = idx_meta.get("model", "sentence-transformers/all-MiniLM-L6-v2")
         self.embed_dim = int(idx_meta.get("dim", 384))
         self.model = SentenceTransformer(self.model_name)
 
+        # ========== NEW: BM25 Index ==========
+        self.bm25 = None
+        if enable_bm25:
+            # print("[BM25] Building BM25 index...")
+            tokenized_corpus = [text.lower().split() for text in self.texts]
+            self.bm25 = BM25Okapi(tokenized_corpus)
+            print(f"[BM25] ✓ Indexed {len(self.texts)} documents")
+        elif enable_bm25:
+            print("[BM25] ✗ rank_bm25 not installed, skipping BM25")
+
+        # ========== NEW: Reranker ==========
+        self.reranker = None
+        if enable_reranker:
+            # print("[Reranker] Loading cross-encoder...")
+            self.reranker = CrossEncoder('cross-encoder/ms-marco-MiniLM-L-6-v2')
+            print("[Reranker] ✓ Loaded cross-encoder/ms-marco-MiniLM-L-6-v2")
+        elif enable_reranker:
+            print("[Reranker] ✗ CrossEncoder unavailable")
+
     def _embed(self, texts: List[str]) -> np.ndarray:
         v = self.model.encode(texts, normalize_embeddings=True)
         return np.asarray(v, dtype="float32")
 
-    def search(self, query: str, k: int = 8) -> pd.DataFrame:
+    # ========== NEW: Hybrid Search with BM25 + Vector + RRF ==========
+    def search(
+        self, 
+        query: str, 
+        k: int = 12,
+        alpha: float = 0.6,  # Weight for vector vs BM25 (0.0=pure BM25, 1.0=pure vector)
+        rerank_top_k: int = None  # Rerank top candidates (default: 2*k)
+    ) -> pd.DataFrame:
+        """
+        Hybrid search with BM25 + Vector + optional RRF + optional Reranking
+        
+        Pipeline:
+        1. BM25 search → get scores
+        2. Vector search → get scores
+        3. Fusion: RRF (reciprocal rank) or weighted score fusion
+        4. Rerank: Cross-encoder on top candidates
+        5. Return top-k
+        """
+        if rerank_top_k is None:
+            rerank_top_k = k * 2  # Get 2x candidates for reranking
+
+        # ========== Step 1: Vector Search ==========
         qv = self._embed([query])
-        scores, idxs = self.index.search(qv, k)
-        idxs, scores = idxs[0], scores[0]
+        vec_scores, vec_idxs = self.index.search(qv, min(rerank_top_k * 2, len(self.texts)))
+        vec_idxs, vec_scores = vec_idxs[0], vec_scores[0]
+        
+        # Filter valid indices
+        vec_results = {int(i): float(s) for i, s in zip(vec_idxs, vec_scores) if i >= 0 and i < len(self.texts)}
+
+        # ========== Step 2: BM25 Search ==========
+        bm25_results = {}
+        if self.bm25 is not None:
+            query_tokens = query.lower().split()
+            bm25_scores = self.bm25.get_scores(query_tokens)
+            
+            # Normalize BM25 scores to [0, 1]
+            max_bm25 = max(bm25_scores) if len(bm25_scores) > 0 else 1.0
+            if max_bm25 > 0:
+                bm25_scores = bm25_scores / max_bm25
+            
+            # Get top candidates
+            top_bm25_idx = np.argsort(bm25_scores)[-rerank_top_k * 2:][::-1]
+            bm25_results = {int(i): float(bm25_scores[i]) for i in top_bm25_idx if bm25_scores[i] > 0}
+
+        # ========== Step 3: Fusion (RRF or Weighted Score) ==========
+        all_indices = set(vec_results.keys()) | set(bm25_results.keys())
+        
+        if self.bm25 is not None:
+            # Reciprocal Rank Fusion
+            vec_ranks = {idx: rank for rank, idx in enumerate(sorted(vec_results, key=vec_results.get, reverse=True), 1)}
+            bm25_ranks = {idx: rank for rank, idx in enumerate(sorted(bm25_results, key=bm25_results.get, reverse=True), 1)}
+            
+            k_rrf = 60  # RRF constant
+            fused_scores = {}
+            for idx in all_indices:
+                vec_rank = vec_ranks.get(idx, len(self.texts))
+                bm25_rank = bm25_ranks.get(idx, len(self.texts))
+                fused_scores[idx] = (1 / (k_rrf + vec_rank)) + (1 / (k_rrf + bm25_rank))
+            
+            print(f"[Search] RRF fusion: {len(all_indices)} candidates")
+        else:
+            # Weighted score fusion (fallback if BM25 disabled or RRF=False)
+            fused_scores = {}
+            for idx in all_indices:
+                vec_score = vec_results.get(idx, 0.0)
+                bm25_score = bm25_results.get(idx, 0.0)
+                fused_scores[idx] = alpha * vec_score + (1 - alpha) * bm25_score
+            
+            print(f"[Search] Weighted fusion (α={alpha}): {len(all_indices)} candidates")
+
+        # Sort by fused score
+        sorted_indices = sorted(fused_scores.keys(), key=fused_scores.get, reverse=True)[:rerank_top_k]
+
+        # ========== Step 4: Reranking (Optional) ==========
+        if self.reranker is not None and len(sorted_indices) > k:
+            print(f"[Rerank] Reranking top-{len(sorted_indices)} candidates...")
+            
+            # Prepare query-document pairs
+            pairs = [[query, self.texts[idx]] for idx in sorted_indices]
+            
+            # Get rerank scores
+            rerank_scores = self.reranker.predict(pairs)
+            
+            # Update fused scores with rerank scores
+            for idx, score in zip(sorted_indices, rerank_scores):
+                fused_scores[idx] = float(score)
+            
+            # Re-sort by rerank scores
+            sorted_indices = sorted(sorted_indices, key=fused_scores.get, reverse=True)
+            
+            print(f"[Rerank] ✓ Reranked to top-{k}")
+
+        # ========== Step 5: Build Results DataFrame ==========
+        final_indices = sorted_indices[:k]
         rows = []
-        for rank, (i, s) in enumerate(zip(idxs, scores), start=1):
-            if i < 0 or i >= len(self.texts): continue
-            md = self.meta_df.iloc[i]
+        for rank, idx in enumerate(final_indices, start=1):
+            md = self.meta_df.iloc[idx]
             item = {
-                "rank": rank, "score": float(s), "text": self.texts[i],
-                "doc": md.get("doc"), "path": md.get("path"),
-                "modality": md.get("modality"), "chunk": int(md.get("chunk", 0)),
+                "rank": rank,
+                "score": fused_scores[idx],
+                "text": self.texts[idx],
+                "doc": md.get("doc"),
+                "path": md.get("path"),
+                "modality": md.get("modality"),
+                "chunk": int(md.get("chunk", 0)),
                 "page": _page_or_none(md.get("page")),
             }
-            # Section hint (best-effort)
+            
+            # Section hint
             if self.outline_df is not None:
                 toc = self.outline_df[self.outline_df["doc_name"] == item["doc"]]
                 if not toc.empty:
                     item["section_hint"] = toc.iloc[0]["title"]
+            
             rows.append(item)
+        
         return pd.DataFrame(rows)
-
-
-# ----------------------------- Baseline: single-pass retrieval + one LLM call -----------------------------
-
-from typing import List
+    
 def baseline_answer_one_call(
     kb: KBEnv,
     query: str,
@@ -271,7 +377,7 @@ def baseline_answer_one_call(
             "\n\nINSTRUCTIONS:\n"
             "- Use ONLY facts present in the CONTEXT; do not invent numbers. If values are not present, explicitly state which ones are missing.\n"
             "- If the exact values for the requested periods are not present, say so explicitly.\n"
-            "- Return a concise answer, then a small table if applicable, then a 'Citations' bullet list with 2–5 items.\n"
+            "- Return a concise answer, then a small table if applicable, then a 'Citations' bullet list with 2â€“5 items.\n"
         )
 
     # 4) One LLM call
@@ -286,7 +392,7 @@ def baseline_answer_one_call(
         print(f"- {c}")
 
     return {"answer": answer, "contexts": ctx_df.head(5)}
-
+    
 
 # ----------------------------- Tool: Calculator -----------------------------
 
