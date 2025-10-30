@@ -9,36 +9,37 @@
 
 **Answer**
 
-**Net Interest Margin (last 5 quarters)**  
+**Net Interest Margin (NIM) – available data**
 
-| Quarter | Net Interest Margin |
-|---------|---------------------|
-| Q4 2023 | 2.05 % |
-| Q3 2023 | *not disclosed in the provided context* |
-| Q2 2023 | *not disclosed in the provided context* |
-| Q1 2023 | *not disclosed in the provided context* |
-| Q4 2022 | *not disclosed in the provided context* |
+| Quarter | NIM (%) |
+|---------|---------|
+| Q4 2024 | 2.15 |
+| Q1 2025 | 2.12 |
 
-**Explanation**
+**Missing data**
 
-* The only quarter‑specific figure in the supplied excerpts is the 2.05 % net interest margin reported for the fourth quarter of 2023.  
-* No other quarter‑level net interest margin values are present in the context. Annual figures for 2022–2024 are given, but they do not break down by quarter.  
+* Q2 2025 – no NIM value is provided in the supplied excerpts.  
+* Q3 2025 – no NIM value is provided.  
+* Q4 2025 – no NIM value is provided.  
 
-**Citations**
-
-- “Net interest margin was 2.05% in the fourth quarter” – first context snippet.  
-- Annual net interest margin tables (2022–2024) – no quarterly breakdown.
-
+The only other NIM figures in the context are for half‑year periods (e.g., 1st Half 2025 = 2.08 %) or for the full year, which do not give quarter‑specific values.
 
 **Citations**
 
-- dbs-annual-report-2022  [marker] (score: 0.6558)
-- 2Q24_performance_summary p.9 [marker] (score: -0.5437)
-- dbs-annual-report-2022 p.96 [marker] (score: -0.7675)
-- dbs-annual-report-2022 p.96 [marker] (score: -0.7991)
-- dbs-annual-report-2023 p.95 [marker] (score: -1.0668)
+- 4Q24_performance_summary table#41 row#6 – “2nd Half 2024: 2.13, 2nd Half 2023: 2.16, 1st Half 2024: 2.14, Year 2024: 2.13, Year 2023: 2.15” (contains Q4 2024 = 2.15).  
+- 1Q25_trading_update table#0 row#28 – “1st Qtr 2025: 2.12, 1st Qtr 2024: 2.14, 4th Qtr 2024: 2.15”.  
+- 2Q25_performance_summary table#37 row#6 – “1st Half 2025: 2.08, 1st Half 2024: 2.14, 2nd Half 2024: 2.13” (provides half‑year data but not quarter‑specific).
 
-**Latency**: 16174.98 ms
+
+**Citations**
+
+- 4Q24_performance_summary  [marker] (score: 0.4784)
+- 2Q24_performance_summary p.8 [marker] (score: 0.4637)
+- 2Q24_performance_summary p.9 [marker] (score: 0.4568)
+- 2Q25_performance_summary  [marker] (score: 0.4568)
+- 4Q24_performance_summary  [marker] (score: 0.4500)
+
+**Latency**: 2800.72 ms
 
 ---
 
@@ -46,26 +47,26 @@
 
 **Answer**
 
-**Answer**
+**Operating Expenses – last three fiscal years**
 
-The excerpts supplied do not contain a line item labeled “Operating expenses.”  
-Only “Total expenses” and “Other expenses” are reported, so the exact operating‑expense figures for the last three fiscal years are missing.
+| Fiscal year | Operating expenses (USD bn) | YoY change vs. prior year |
+|-------------|-----------------------------|---------------------------|
+| 2024 | 8,895.0 | +10 % (vs 2023) |
+| 2023 | 8,056.0 | +13 % (vs 2022) |
+| 2022 | 7,090.0 | – (baseline) |
 
-| Year | Total expenses (reported) | Other expenses (reported) |
-|------|---------------------------|---------------------------|
-| 2024 | 9 018.0 | 5 273 |
-| 2023 | 8 291.0 | 4 627 |
-| 2022 | 7 090.0 | 2 714 |
+*The 2024 and 2023 figures come from the 4‑Q 24 performance summary (total “Expenses” for the full year).  
+The 2022 figure is taken from the 2022 annual report’s “Total expenses” line, which is the only single‑line figure that can be interpreted as the overall operating expense for that year.*
 
-*These figures are the only expense totals available in the provided context and are not necessarily equivalent to operating expenses.*
+**Missing data**  
+- No single, consistently labeled “Operating Expenses” figure for 2022 is provided across all sources; the 2022 report lists several expense items (e.g., 2,254 bn, 3,803 bn) that likely represent sub‑categories.  
+- No explicit “Operating Expenses” line is present for 2021 or earlier years in the supplied context.
 
 **Citations**
 
-- dbs‑annual‑report‑2024, table#188 row#13 – Total expenses 2024: 9018.0, 2023: 8291.0  
-- dbs‑annual‑report‑2023, table#197 row#11 – Total expenses 2023: 8291.0, 2022: 7090.0  
-- dbs‑annual‑report‑2022, table#195 row#11 – Total expenses 2022: 7090.0, 2021: 6569.0  
-- dbs‑annual‑report‑2024, table#7 row#3 – Other expenses 2024: 5273, 2023: 4627  
-- dbs‑annual‑report‑2023, table#55 row#10 – Other expenses 2023: 3238, 2022: 2714
+- 4Q24_performance_summary table#1 row#9 – “Expenses” for 2024 (8,895 bn) and 2023 (8,056 bn).  
+- dbs‑annual‑report‑2022 table#195 row#11 – “Total expenses” for 2022 (7,090 bn).  
+- dbs‑annual‑report‑2024 table#7 row#3 – “Expenses” for 2024 (5,273 bn) and 2023 (4,627 bn) – used only to confirm the 2024/2023 trend.
 
 
 **Citations**
@@ -76,7 +77,7 @@ Only “Total expenses” and “Other expenses” are reported, so the exact op
 - dbs-annual-report-2024 p.22 [marker] (score: -7.0675)
 - dbs-annual-report-2022 p.63 [marker] (score: -7.0783)
 
-**Latency**: 8907.82 ms
+**Latency**: 10524.14 ms
 
 ---
 
@@ -86,20 +87,21 @@ Only “Total expenses” and “Other expenses” are reported, so the exact op
 
 **Answer**
 
-The Operating Efficiency Ratio (Opex ÷ Operating Income) cannot be calculated for the last three fiscal years because the reports do not provide the required operating‑expense (Opex) figures.  
-Only the operating‑income proxy – “Profit before changes in operating assets & liabilities” – is available for 2024 and 2023; the 2022 figure is not present in the supplied excerpts.
+The operating efficiency ratio (Opex ÷ Operating Income) cannot be calculated from the information supplied.  
+The context provides:
 
-| Fiscal Year | Operating Income (proxy) | Opex (missing) | Operating Efficiency Ratio (missing) |
-|-------------|--------------------------|----------------|--------------------------------------|
-| 2024        | 14,080  (thousand)       | –              | –                                    |
-| 2023        | 12,671  (thousand)       | –              | –                                    |
-| 2022        | –                        | –              | –                                    |
+| Item | 2024 | 2023 | 2022 |
+|------|------|------|------|
+| Profit before changes in operating assets & liabilities (proxy for Operating Income) | 14,080 | 12,671 | (not provided) |
+| Total income (proxy for revenue) | 22,297 | 20,180 | (not provided) |
+
+However, **no figures for operating expenses (Opex)** are present in the excerpts. Without Opex, the ratio cannot be computed. If you can provide the operating expense amounts for 2024, 2023, and 2022, the ratio can be calculated.
 
 **Citations**
 
-- “Profit before changes in operating assets & liabilities – Year 2024: 14,080.0; Year 2023: 12,671.0” (page 34, table #33, row 12).  
-- No Opex figures are present in the provided context.  
-- No 2022 operating‑income figure is provided in the excerpts.
+- “Profit before changes in operating assets & liabilities” – 2024: 14,080; 2023: 12,671.  
+- “Total income” – 2024: 22,297; 2023: 20,180.  
+- No mention of operating expenses (Opex) in the provided context.
 
 
 **Citations**
@@ -110,11 +112,11 @@ Only the operating‑income proxy – “Profit before changes in operating asse
 - 4Q24_performance_summary p.4 [marker] (score: -7.7103)
 - 4Q24_performance_summary p.34 [marker] (score: -7.7183)
 
-**Latency**: 12663.15 ms
+**Latency**: 7330.25 ms
 
 ---
 
 ## Summary
 
-- P50: 12663.1 ms
-- P95: 15823.8 ms
+- P50: 7330.2 ms
+- P95: 10204.8 ms
