@@ -1,0 +1,72 @@
+{
+  "table_of_contents": [
+    {
+      "title": "Hello World",
+      "heading_level": null,
+      "page_id": 0,
+      "polygon": [
+        [
+          34.6484375,
+          109.741943359375
+        ],
+        [
+          99.44332885742188,
+          109.741943359375
+        ],
+        [
+          99.44332885742188,
+          121.741943359375
+        ],
+        [
+          34.6484375,
+          121.741943359375
+        ]
+      ]
+    }
+  ],
+  "page_stats": [
+    {
+      "page_id": 0,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          3
+        ],
+        [
+          "Line",
+          2
+        ],
+        [
+          "SectionHeader",
+          1
+        ],
+        [
+          "Text",
+          1
+        ],
+        [
+          "Caption",
+          1
+        ],
+        [
+          "Figure",
+          1
+        ],
+        [
+          "FigureGroup",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    }
+  ],
+  "debug_data_path": "debug_data/Demo PDF"
+}
