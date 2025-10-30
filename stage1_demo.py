@@ -13,6 +13,7 @@ import cv2
 import numpy as np
 import pandas as pd
 
+
 def md5sum(file_path: Path, chunk_size: int = 8192) -> str:
     """Return the hex md5 of a file."""
     h = hashlib.md5()
@@ -21,13 +22,26 @@ def md5sum(file_path: Path, chunk_size: int = 8192) -> str:
             h.update(chunk)
     return h.hexdigest()
 
-# === OCR & extraction helpers (standalone in Untitled-1) ===
+# === OCR & extraction helpers ===
 NUM_PAT = re.compile(r"^[+-]?\d{1,4}(?:[.,]\d+)?%?$")
-NIM_KEYWORDS = ["net interest margin", "net interest income", "nim", "nii"]
+NIM_KEYWORDS = ["net interest margin", "nim"]
 
-QUARTER_PAT = re.compile(r"\b([1-4])Q(\d{2}|\d{4})\b", re.IGNORECASE)
+QUARTER_PAT = re.compile(r"\b([1-4Iil|])\s*[QO0]\s*([0-9O]{2,4})\b", re.IGNORECASE)
 # Simpler decade-only pattern for quarters, e.g., 2Q24, 1Q25
 QUARTER_SIMPLE_PAT = re.compile(r"\b([1-4])Q(2\d)\b", re.IGNORECASE)  # e.g., 2Q24, 1Q25
+
+# --- OCR character normalization for quarter tokens (common OCR mistakes) ---
+_CHAR_FIX = str.maketrans({
+    "O":"0","o":"0",
+    "S":"5","s":"5",
+    "I":"1","l":"1","|":"1","!":"1",
+    "D":"0",
+    "B":"3","8":"3",
+    "Z":"2","z":"2"
+})
+def normalize_token(t: str) -> str:
+    t = (t or "").strip()
+    return t.translate(_CHAR_FIX).replace(" ", "")
 
 # --- Helper: detect quarter tokens from nearby Markdown file ---
 def detect_qlabels_from_md(dest_dir: Path, image_name: str) -> list[str]:
@@ -120,13 +134,172 @@ def kmeans_1d(values, k=2, iters=20):
 
 def run_easyocr(img_rgb):
     import easyocr
-    rdr = easyocr.Reader(['en'], gpu=False, verbose=False)
-    results = rdr.readtext(img_rgb, detail=1, paragraph=False)
+    global _EASY_OCR_READER
+    try:
+        _EASY_OCR_READER
+    except NameError:
+        _EASY_OCR_READER = None
+    if _EASY_OCR_READER is None:
+        _EASY_OCR_READER = easyocr.Reader(['en'], gpu=False, verbose=False)
+    results = _EASY_OCR_READER.readtext(img_rgb, detail=1, paragraph=False)
     out = []
     for quad, text, conf in results:
         (x1,y1),(x2,y2),(x3,y3),(x4,y4) = quad
         out.append({"bbox": (int(x1),int(y1),int(x3),int(y3)), "text": str(text), "conf": float(conf)})
     return out
+
+# --- Focused bottom-axis quarter detection using EasyOCR (robust to OCR confusions) ---
+def detect_quarters_easyocr(img_bgr):
+    """
+    Use EasyOCR to read quarter labels along the bottom axis.
+    Returns a list of (x_global, 'nQyy') sorted left→right, with half-year tokens removed.
+    """
+    H, W = img_bgr.shape[:2]
+    y0 = int(H * 0.66)  # bottom ~34%
+    crop = img_bgr[y0:H, 0:W]
+    gray = cv2.cvtColor(crop, cv2.COLOR_BGR2GRAY)
+    gray = cv2.bilateralFilter(gray, d=7, sigmaColor=50, sigmaSpace=50)
+    clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8,8))
+    gray = clahe.apply(gray)
+    thr = cv2.adaptiveThreshold(gray, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C,
+                                cv2.THRESH_BINARY, 31, 8)
+    # kernel = np.ones((3,3), np.uint8)
+    # thr = cv2.morphologyEx(thr, cv2.MORPH_CLOSE, kernel, iterations=1)
+    up = cv2.resize(thr, None, fx=3.0, fy=3.0, interpolation=cv2.INTER_CUBIC)
+    img_rgb = cv2.cvtColor(up, cv2.COLOR_GRAY2RGB)
+    ocr = run_easyocr(img_rgb)
+    # PASS 1 — direct regex on normalized tokens
+    tokens = []
+    for r in ocr or []:
+        raw = str(r.get("text","")).strip()
+        x1,y1,x2,y2 = r["bbox"]
+        cx_local = (x1 + x2) // 2
+        cx_global = int(cx_local / 3.0)  # undo scaling
+        tokens.append({"x": cx_global, "raw": raw, "norm": normalize_token(raw)})
+    def _is_half_token(t: str) -> bool:
+        t = (t or "").lower().replace(" ", "")
+        return ("9m" in t) or ("1h" in t) or ("h1" in t) or ("h2" in t) or ("2h" in t)
+    quarters = []
+    for t in tokens:
+        if _is_half_token(t["norm"]):
+            continue
+        m = QUARTER_PAT.search(t["norm"])
+        if m:
+            q = f"{m.group(1)}Q{m.group(2)[-2:]}"
+            q = normalize_token(q)
+            quarters.append((t["x"], q))
+    # PASS 2 — stitch split tokens if too few quarters were found
+    if len(quarters) < 4 and tokens:
+        pieces = sorted(tokens, key=lambda d: d["x"])
+        digits_1to4 = [p for p in pieces if p["norm"] in ("1","2","3","4")]
+        q_only      = [p for p in pieces if p["norm"].upper() == "Q"]
+        q_with_year = [p for p in pieces if re.fullmatch(r"Q[0-9O]{2,4}", p["norm"], flags=re.I)]
+        years_2d    = [p for p in pieces if re.fullmatch(r"[0-9O]{2,4}", p["norm"])]
+        def near(a, b, tol=70):
+            return abs(a["x"] - b["x"]) <= tol
+        for d in digits_1to4:
+            # digit + Qyy
+            candidates = [q for q in q_with_year if near(d, q)]
+            if candidates:
+                qtok = min(candidates, key=lambda q: abs(q["x"]-d["x"]))
+                qyy = normalize_token(qtok["norm"])[1:]
+                quarters.append(((d["x"]+qtok["x"])//2, f"{d['norm']}Q{qyy[-2:]}"))
+                continue
+            # digit + Q + yy
+            qs = [q for q in q_only if near(d, q)]
+            ys = [y for y in years_2d if near(d, y, tol=120)]
+            if qs and ys:
+                qtok = min(qs, key=lambda q: abs(q["x"]-d["x"]))
+                ytok = min(ys, key=lambda y: abs(y["x"]-qtok["x"]))
+                yy = normalize_token(ytok["norm"])
+                quarters.append(((d["x"]+ytok["x"])//2, f"{d['norm']}Q{yy[-2:]}"))
+                continue
+    if not quarters:
+        return []
+    quarters.sort(key=lambda t: t[0])
+    deduped, last_x = [], -10**9
+    for x,q in quarters:
+        if abs(x - last_x) <= 22:
+            continue
+        deduped.append((x,q))
+        last_x = x
+    return deduped
+
+# NIM value band (pct) and geometry heuristics for verification
+NIM_MIN, NIM_MAX = 1.3, 3.2
+TOP_FRACTION = 0.65     # widen band: NIM labels often sit higher than 45%
+RIGHT_HALF_ONLY = True  # NIM values appear on right panel in these deck
+
+def is_strict_nim_image(img_path: Path) -> tuple[bool, str]:
+    """
+    Heuristic re-check:
+      1) Title/text contains NIM keywords (coarse gate)
+      2) Percent tokens mostly within NIM_MIN..NIM_MAX
+      3) Tokens located in the top region (and right half, if enabled)
+    Returns (ok, reason)
+    """
+    try:
+        img_bgr = load_image(img_path)
+        H, W = img_bgr.shape[:2]
+        # 1) quick-text gate (soft): don't return yet; allow numeric signature to validate
+        kw_ok = is_relevant_image(img_path, NIM_KEYWORDS)
+        # 2) numeric gate on enhanced image
+        img_up, gray, thr, scale = preprocess(img_bgr)
+        img_rgb = cv2.cvtColor(thr, cv2.COLOR_GRAY2RGB)
+        ocr = run_easyocr(img_rgb)
+        # --- Semantic gate: accept classic NIM slides based on stable labels ---
+        text_lower = " ".join(str(r.get("text", "")).lower() for r in ocr or [])
+        has_nim = "net interest margin" in text_lower
+        has_cb  = "commercial book" in text_lower
+        has_grp = "group" in text_lower
+        if has_nim and (has_cb or has_grp):
+            which = [w for w, ok in (("nim", has_nim), ("cb", has_cb), ("grp", has_grp)) if ok]
+            return (True, f"ok_semantic({'+' .join(which)})")
+        df = extract_numbers(ocr)
+        if df.empty:
+            return (False, "no_numbers")
+        # geometry filters (apply before value checks)
+        top_cut = int(img_up.shape[0] * 0.62)
+        cond_geom = (df["cy"] < top_cut)
+        if RIGHT_HALF_ONLY:
+            cond_geom &= (df["cx"] > (img_up.shape[1] // 2))
+
+        # 2a) Preferred path: explicit percentage tokens
+        df_pct = df[(df["is_pct"] == True) & cond_geom].copy()
+        if not df_pct.empty:
+            in_band = df_pct["value"].between(NIM_MIN, NIM_MAX)
+            ratio = float(in_band.sum()) / float(len(df_pct))
+            if ratio >= 0.6:
+                return (True, "ok")
+            else:
+                return (False, f"non_nim_values_out_of_band({ratio:.2f})")
+
+        # 2b) Fallback: some decks omit the % sign near the series values.
+        # Accept plain numbers in the NIM range if units are explicit or implied, or if numeric signature is strong.
+        title_text = text_lower  # already computed above
+        has_units_pct = "(%)" in title_text or "margin (%)" in title_text or has_nim
+        df_nums = df[(df["is_pct"] == False) & cond_geom].copy()
+        if not df_nums.empty:
+            in_band = df_nums["value"].between(NIM_MIN, NIM_MAX)
+            ratio = float(in_band.sum()) / float(len(df_nums))
+            # Case A: explicit or implied units in title → accept when enough in-band hits
+            if has_units_pct and ratio >= 0.6 and in_band.sum() >= 3:
+                return (True, "ok_no_percent_signs")
+            # Case B: title OCR may have missed units; if the quick keyword gate succeeded, accept with a stricter ratio
+            if kw_ok and ratio >= 0.7 and in_band.sum() >= 3:
+                return (True, "ok_numeric_signature")
+            # Case C: strong structural evidence (quarters on bottom) + numeric signature in band
+            q_xy_fallback = detect_quarters_easyocr(img_bgr)
+            if len(q_xy_fallback) >= 4 and ratio >= 0.6 and in_band.sum() >= 3:
+                return (True, "ok_structural_numeric_signature")
+
+        # Final decision: if numeric signature still failed, report clearer reason
+        if not kw_ok:
+            return (False, "irrelevant_non_nim")
+        else:
+            return (False, "no_percentages_or_units")
+    except Exception as e:
+        return (False, f"exception:{e}")
 
 
 # --- Helper: detect and order quarter labels from OCR ---
@@ -169,7 +342,7 @@ def detect_qlabels_bottom(img_bgr) -> list[str]:
     """
     try:
         H, W = img_bgr.shape[:2]
-        y0 = int(H * 0.70)  # bottom 30%
+        y0 = int(H * 0.60)  # bottom 40%
         crop = img_bgr[y0:H, 0:W]
         # Enhance: grayscale -> bilateral -> CLAHE -> adaptive threshold
         gray = cv2.cvtColor(crop, cv2.COLOR_BGR2GRAY)
@@ -178,34 +351,128 @@ def detect_qlabels_bottom(img_bgr) -> list[str]:
         gray = clahe.apply(gray)
         thr = cv2.adaptiveThreshold(gray, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C,
                                     cv2.THRESH_BINARY, 31, 8)
+        # Morphological close to strengthen thin glyphs
+        kernel = np.ones((3,3), np.uint8)
+        thr = cv2.morphologyEx(thr, cv2.MORPH_CLOSE, kernel, iterations=1)
         # Upscale for small text
-        up = cv2.resize(thr, None, fx=2.0, fy=2.0, interpolation=cv2.INTER_CUBIC)
+        up = cv2.resize(thr, None, fx=2.5, fy=2.5, interpolation=cv2.INTER_CUBIC)
         img_rgb = cv2.cvtColor(up, cv2.COLOR_GRAY2RGB)
         ocr = run_easyocr(img_rgb)
-        # Map bboxes back to global coords: for ordering we only need x
-        qtokens = []
+        # Map bboxes back to global coords: decide single-panel vs split-panel
+        mid_x = W // 2
+        left_quarters, right_quarters = [], []
+        left_tokens_text, right_tokens_text = [], []
         for r in ocr or []:
-            txt = str(r.get("text","")).strip()
-            m = QUARTER_PAT.search(txt)
+            raw = str(r.get("text", "")).strip()
+            x1,y1,x2,y2 = r["bbox"]
+            cx_local = (x1 + x2) // 2
+            cx_global = int(cx_local / 2.5)  # undo scale
+
+            if cx_global <= mid_x:
+                left_tokens_text.append(raw.lower())
+            else:
+                right_tokens_text.append(raw.lower())
+
+            m = QUARTER_PAT.search(raw)
             if not m:
                 continue
-            x1,y1,x2,y2 = r["bbox"]
-            # Convert x from upsampled-crop space back to original global space
-            cx_local = (x1 + x2) // 2
-            cx_global = int(cx_local / 2.0)  # undo scale
             q = f"{m.group(1)}Q{m.group(2)[-2:]}"
-            qtokens.append((cx_global, q))
-        qtokens.sort(key=lambda x: x[0])
-        # Dedup by proximity and text
-        ordered = []
-        last_x = -9999
-        last_q = None
+            if cx_global <= mid_x:
+                left_quarters.append((cx_global, q))
+            else:
+                right_quarters.append((cx_global, q))
+
+        def has_halfyear_or_9m(tokens: list[str]) -> bool:
+            s = " ".join(tokens)
+            return ("9m" in s) or ("1h" in s) or ("h1" in s) or ("h2" in s) or ("2h" in s)
+
+        left_has_h = has_halfyear_or_9m(left_tokens_text)
+        # Panel selection logic: prefer both halves unless left clearly half-year and right has ≥3 quarters
+        if (not left_has_h) and (len(left_quarters) + len(right_quarters) >= 2):
+            # Likely single panel or weak OCR on one side → use both halves
+            qtokens = left_quarters + right_quarters
+        elif len(right_quarters) >= 3:
+            # Strong right panel signal → use right only
+            qtokens = right_quarters
+        else:
+            # Fallback: use everything we found
+            qtokens = left_quarters + right_quarters
+
+        # Sort and dedupe close neighbors (≤18 px)
+        qtokens.sort(key=lambda t: t[0])
+        deduped = []
+        last_x = -10**9
         for x, q in qtokens:
-            if last_q == q and abs(x - last_x) < 30:
+            if abs(x - last_x) <= 18:
                 continue
-            ordered.append(q)
-            last_x, last_q = x, q
-        return ordered
+            deduped.append((x, q))
+            last_x = x
+
+        return [q for _, q in deduped]
+    except Exception:
+        return []
+
+# --- Same as detect_qlabels_bottom, but returns (x, label) for alignment ---
+def detect_qlabels_bottom_with_xy(img_bgr) -> list[tuple[int, str]]:
+    try:
+        H, W = img_bgr.shape[:2]
+        y0 = int(H * 0.60)
+        crop = img_bgr[y0:H, 0:W]
+        gray = cv2.cvtColor(crop, cv2.COLOR_BGR2GRAY)
+        gray = cv2.bilateralFilter(gray, d=7, sigmaColor=50, sigmaSpace=50)
+        clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8,8))
+        gray = clahe.apply(gray)
+        thr = cv2.adaptiveThreshold(gray, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C,
+                                    cv2.THRESH_BINARY, 31, 8)
+        kernel = np.ones((3,3), np.uint8)
+        thr = cv2.morphologyEx(thr, cv2.MORPH_CLOSE, kernel, iterations=1)
+        up = cv2.resize(thr, None, fx=2.5, fy=2.5, interpolation=cv2.INTER_CUBIC)
+        img_rgb = cv2.cvtColor(up, cv2.COLOR_GRAY2RGB)
+        ocr = run_easyocr(img_rgb)
+
+        mid_x = W // 2
+        left_quarters, right_quarters = [], []
+        left_tokens_text = []
+        for r in ocr or []:
+            raw = str(r.get("text", "")).strip()
+            x1,y1,x2,y2 = r["bbox"]
+            cx_local = (x1 + x2) // 2
+            cx_global = int(cx_local / 2.5)
+            if cx_global <= mid_x:
+                left_tokens_text.append(raw.lower())
+            m = QUARTER_PAT.search(raw)
+            if not m:
+                continue
+            q = f"{m.group(1)}Q{m.group(2)[-2:]}"
+            if cx_global <= mid_x:
+                left_quarters.append((cx_global, q))
+            else:
+                right_quarters.append((cx_global, q))
+
+        def has_halfyear_or_9m(tokens: list[str]) -> bool:
+            s = " ".join(tokens)
+            return ("9m" in s) or ("1h" in s) or ("h1" in s) or ("h2" in s) or ("2h" in s)
+
+        left_has_h = has_halfyear_or_9m(left_tokens_text)
+        if (not left_has_h) and (len(left_quarters) + len(right_quarters) >= 2):
+            # Likely single panel or weak OCR on one side → use both halves
+            qtokens = left_quarters + right_quarters
+        elif len(right_quarters) >= 3:
+            # Strong right panel signal → use right only
+            qtokens = right_quarters
+        else:
+            # Fallback: use everything we found
+            qtokens = left_quarters + right_quarters
+
+        qtokens.sort(key=lambda t: t[0])
+        deduped = []
+        last_x = -10**9
+        for x, q in qtokens:
+            if abs(x - last_x) <= 18:
+                continue
+            deduped.append((x, q))
+            last_x = x
+        return deduped
     except Exception:
         return []
 
@@ -269,60 +536,150 @@ def extract_series_from_df(df, img_up, ocr_results=None, qlabels_hint=None):
     top_band_min = int(H * 0.38)
     top_band_max = int(H * 0.58)
 
-    pct = df[(df.is_pct==True) & (df.cx > mid_x)].copy()
-    nums = df[(df.is_pct==False) & (df.cx > mid_x)].copy()
+    # Detect bottom quarter labels (with x) early to infer layout
+    detected_q_bot_xy = detect_quarters_easyocr(img_up)
+    left_count  = sum(1 for x, _ in detected_q_bot_xy if x <= mid_x)
+    right_count = sum(1 for x, _ in detected_q_bot_xy if x >  mid_x)
+    # Heuristic: if we see ≥4 quarter tokens spanning both halves, it's a single-panel timeline
+    single_panel = (len(detected_q_bot_xy) >= 4 and left_count >= 1 and right_count >= 1)
+
+    # Filter tokens: keep right-half only for split panels; keep all for single panels
+    if single_panel:
+        pct = df[(df.is_pct==True)].copy()
+        nums = df[(df.is_pct==False)].copy()
+    else:
+        pct = df[(df.is_pct==True) & (df.cx > mid_x)].copy()
+        nums = df[(df.is_pct==False) & (df.cx > mid_x)].copy()
 
     if pct.empty:
-        approx_top = int(H * 0.35)
-        cand_pct = df[(df.cx > mid_x) & (df.value.between(1.3, 3.2)) & (df.cy < approx_top)].copy()
+        # Fallback for charts that omit the '%' sign on the value dots.
+        # Use a wider top band and avoid forcing right-half on single-panel timelines.
+        approx_top = int(H * 0.60)
+        if single_panel:
+            cx_mask = (df.cx > 0)  # keep all x for single panel
+        else:
+            cx_mask = (df.cx > mid_x)
+        cand_pct = df[cx_mask & df.value.between(NIM_MIN, NIM_MAX) & (df.cy < approx_top)].copy()
         if not cand_pct.empty:
             cand_pct["is_pct"] = True
             pct = cand_pct
 
     nim_df = pd.DataFrame()
     if not pct.empty:
-        if pct.shape[0] >= 8:
+        # Try to split into two horizontal series by Y even when we have only 3 quarters (→ 6 points)
+        # Deduplicate by proximity on Y to stabilize clustering
+        y_sorted = pct.sort_values("cy")["cy"].to_numpy()
+        uniq_y = []
+        last_y = -10**9
+        for yy in y_sorted:
+            if abs(yy - last_y) >= 6:  # 6px tolerance for duplicates
+                uniq_y.append(yy)
+                last_y = yy
+        # Attempt k-means when we have at least 4 points total (≈ 2 series × 2 quarters)
+        if pct.shape[0] >= 4 and len(uniq_y) >= 2:
             labels, centers = kmeans_1d(pct["cy"].values, k=2)
             pct["series"] = labels
-            order = np.argsort(centers)
-            remap = {order[0]:"Commercial NIM (%)", order[1]:"Group NIM (%)"}
+            order = np.argsort(centers)  # top (commercial) should have smaller y
+            remap = {order[0]: "Commercial NIM (%)", order[1]: "Group NIM (%)"}
             pct["series_name"] = pct["series"].map(remap)
+            # Sanity: ensure both series have data; else collapse to one
+            counts = pct["series_name"].value_counts()
+            if any(counts.get(name, 0) == 0 for name in ["Commercial NIM (%)", "Group NIM (%)"]):
+                pct["series_name"] = "NIM (%)"
         else:
             pct["series_name"] = "NIM (%)"
 
-        # --- Dynamic quarter labels ---
+        # Reuse bottom-quarter labels captured above
+        detected_q_bot = [q for _, q in detected_q_bot_xy]
         detected_q_ocr = detect_qlabels(ocr_results or [], W) if ocr_results is not None else []
-        detected_q_bot = detect_qlabels_bottom(img_up)
-        # Prefer the source with more tokens, but merge to keep any uniques
         if len(detected_q_bot) > len(detected_q_ocr):
             detected_q = _merge_ordered(detected_q_bot, detected_q_ocr)
         else:
             detected_q = _merge_ordered(detected_q_ocr, detected_q_bot)
         rows = []
         for name, sub in pct.groupby("series_name"):
-            pick = sub.sort_values("cx").tail(5).sort_values("cx")
+            # Sort left→right and collapse near-duplicates (same x within 12px)
+            sub_sorted = sub.sort_values("cx")
+            uniq_rows = []
+            last_x = -10**9
+            for r in sub_sorted.itertuples(index=False):
+                if abs(r.cx - last_x) < 12:
+                    continue
+                uniq_rows.append(r)
+                last_x = r.cx
+            # Keep only the right-panel portion (already ensured by cx>mid_x earlier)
+            pick = list(uniq_rows)[-5:]  # cap to 5 most recent positions, but may be <5
             n = len(pick)
+            if n == 0:
+                continue
             labels = []
-            # 1) Prefer OCR-detected quarters (left→right)
-            if detected_q:
-                # Use the rightmost n (latest) detected quarters to align with right-panel values
-                labels = detected_q[-n:] if len(detected_q) >= n else detected_q
-            # 2) If insufficient, try markdown-derived hint tokens (document order)
-            if (not labels or len(labels) != n) and qlabels_hint:
-                labels = qlabels_hint[-n:] if len(qlabels_hint) >= n else qlabels_hint
-            # 3) Final fallback: infer a sequence from any anchor like 2Q24
-            if not labels or len(labels) != n:
-                # Try to infer an anchor quarter from OCR or markdown and expand
+            # Robust mapping: map each value x to its nearest bottom quarter label x (right panel).
+            # Filter any accidental half-year tokens (1H/2H/H1/H2/9M) just in case OCR returns them.
+            def _is_half_token(t: str) -> bool:
+                t = (t or "").lower().replace(" ", "")
+                return ("9m" in t) or ("1h" in t) or ("h1" in t) or ("h2" in t) or ("2h" in t) or ("h24" in t) or ("h23" in t)
+
+            # detected_q_bot_xy already respects split vs single panel. Keep right-panel positions only here.
+            q_xy = []
+            for x, q in detected_q_bot_xy:
+                if x <= mid_x:
+                    continue
+                if _is_half_token(q):
+                    continue
+                q_xy.append((x, q))
+
+            if len(q_xy) < n:
+                # Borrow from left panel if they look like quarters (and not half-year)
+                for x, q in detected_q_bot_xy:
+                    if x > mid_x:
+                        continue
+                    if _is_half_token(q):
+                        continue
+                    q_xy.append((x, q))
+
+            if q_xy:
+                q_xy.sort(key=lambda t: t[0])  # left→right
+                # Map each picked value to nearest quarter label by x-position
+                vx = [rr.cx for rr in pick]
+                qx = [x for x, _ in q_xy]
+                ql = [q for _, q in q_xy]
+                mapped = []
+                for x in vx:
+                    j = int(np.argmin([abs(x - xx) for xx in qx])) if qx else -1
+                    mapped.append(ql[j] if j >= 0 else None)
+                labels = mapped
+            else:
+                detected_q_ocr = detect_qlabels(ocr_results or [], W) if ocr_results is not None else []
+                if detected_q_ocr:
+                    labels = detected_q_ocr[-n:] if len(detected_q_ocr) >= n else detected_q_ocr
+
+            # If still short, use markdown tokens; else expand from an anchor like 2Q24
+            if (not labels) or (len(labels) != n):
+                if qlabels_hint:
+                    labels = qlabels_hint[-n:] if len(qlabels_hint) >= n else qlabels_hint
+            if (not labels) or (len(labels) != n):
                 anchor = _anchor_quarter_from_texts(ocr_results, qlabels_hint)
                 if anchor:
                     labels = _expand_quarters(anchor, n)
-            # 4) If still nothing, use neutral placeholders
-            if not labels or len(labels) != n:
+            if (not labels) or (len(labels) != n):
                 labels = [f"{i+1}Q??" for i in range(n)]
-            for i, r in enumerate(pick.itertuples(index=False)):
+            # Ensure left→right order for consistent mapping to labels
+            pick = sorted(pick, key=lambda r: r.cx)
+            labels = list(labels)[:n]
+            for i, r in enumerate(pick):
+                if i >= len(labels):
+                    break
                 rows.append({"Quarter": labels[i], "series": name, "value": r.value})
         if rows:
             nim_table = pd.DataFrame(rows)
+            # Guard: drop rows with missing labels
+            nim_table = nim_table.dropna(subset=["Quarter", "series"])  
+            # If multiple detections map to the same (Quarter, series), average them
+            if not nim_table.empty:
+                dupe_mask = nim_table.duplicated(subset=["Quarter", "series"], keep=False)
+                if dupe_mask.any():
+                    # Aggregate duplicates by mean (stable for minor OCR jitter)
+                    nim_table = nim_table.groupby(["Quarter", "series"], as_index=False)["value"].mean()
             nim_df = nim_table.pivot(index="Quarter", columns="series", values="value").reset_index()
 
     # NIM-only mode: skip NII extraction entirely
@@ -431,17 +788,62 @@ def _parse_page_and_figure_from_name(image_name: str) -> dict:
     return info
 
 def is_relevant_image(img_path, keywords):
-    """Quick OCR pass to check if an image is relevant by title text against given keywords."""
+    """Robust relevance check for NIM slides.
+    - Reuse the singleton EasyOCR reader (run_easyocr)
+    - Accept split tokens like "Net" / "interest" / "margin" (not only the exact phrase)
+    - Fallback: if we see ≥4 quarter labels on the bottom AND ≥3 top-band percent-like values in NIM range, treat as relevant.
+    """
     try:
-        import easyocr
-        rdr = easyocr.Reader(['en'], gpu=False, verbose=False)
         img = cv2.imread(str(img_path))
         if img is None:
             return False
-        small = cv2.resize(img, None, fx=0.6, fy=0.6, interpolation=cv2.INTER_AREA)
-        results = rdr.readtext(small, detail=0, paragraph=True)
-        text = " ".join([t.lower() for t in results])
-        return any(k in text for k in keywords)
+
+        # Pass A: OCR on lightly upscaled original
+        view_a = cv2.resize(img, None, fx=1.3, fy=1.3, interpolation=cv2.INTER_CUBIC)
+        ocr_a = run_easyocr(cv2.cvtColor(view_a, cv2.COLOR_BGR2RGB))
+        tokens_a = [str(r.get("text","")).lower() for r in (ocr_a or [])]
+        text_a = " ".join(tokens_a)
+
+        # Quick phrase match (exact keywords like "net interest margin")
+        if any(k in text_a for k in keywords):
+            return True
+
+        # Pass B: OCR on preprocessed thresholded view (more stable for thin fonts)
+        _, _, thr, _ = preprocess(img)
+        ocr_b = run_easyocr(cv2.cvtColor(thr, cv2.COLOR_GRAY2RGB))
+        tokens_b = [str(r.get("text","")).lower() for r in (ocr_b or [])]
+        text_b = " ".join(tokens_b)
+        if any(k in text_b for k in keywords):
+            return True
+
+        # Token-level split-word check
+        tokens = tokens_a + tokens_b
+        has_net      = any("net" in t for t in tokens)
+        has_interest = any("interest" in t for t in tokens)
+        has_margin   = any("margin" in t for t in tokens or [])
+        has_nim_abbr = any(re.search(r"\bnim\b", t) for t in tokens)
+        has_cb       = any("commercial book" in t for t in tokens)
+        has_grp      = any(re.search(r"\bgroup\b", t) for t in tokens)
+        if (has_net and has_interest and has_margin) or has_nim_abbr:
+            # Strengthen with context words if available
+            if has_cb or has_grp:
+                return True
+
+        # Structural fallback: quarters + percent values in the NIM band
+        q_xy = detect_quarters_easyocr(img)
+        if len(q_xy) >= 4:
+            # Look for ≥3 percent-ish values in the top band within NIM_MIN..NIM_MAX
+            df = extract_numbers(ocr_b)
+            if not df.empty:
+                H, W = view_a.shape[:2]
+                top_cut = int(H * 0.55)
+                in_top = df["cy"] < top_cut
+                in_band = df["value"].between(NIM_MIN, NIM_MAX)
+                pctish = in_band  # allow numbers without % (the series sometimes omit it)
+                if int((in_top & pctish).sum()) >= 3:
+                    return True
+
+        return False
     except Exception:
         return False
 
@@ -491,8 +893,8 @@ class BaseChartExtractor:
                 rec_out["_meta"] = {"source_pdf": ctx.get("source_pdf"), "image": ctx.get("image")}
                 f.write(json.dumps(rec_out, ensure_ascii=False) + "\n")
 
-    def handle_image(self, img_path: Path, dest_dir: Path, pdf_name: str):
-        if not self.is_relevant(img_path):
+    def handle_image(self, img_path: Path, dest_dir: Path, pdf_name: str, *, bypass_relevance: bool = False):
+        if not bypass_relevance and not self.is_relevant(img_path):
             return False, "Not relevant"
         df, ctx_extra = self.extract_table(img_path, dest_dir, pdf_name)
         if df is None or df.empty:
@@ -551,12 +953,121 @@ EXTRACTORS: list[BaseChartExtractor] = [
 ]
 # ============= End pluggable extractor framework =============
 
-# Toggle: if True → normal md5 skip; if False → always reprocess
-md5_check = False
+# === Single-image rebuild/verify mode (optional) ===
+# Set single_image_mode=True and point single_image_path to a specific extracted image
+# to run the two-stage gate + extraction just for that file, then exit.
+single_image_mode = False
+single_image_paths: list[Path] = [
+   
+]
+# Optional singular fallback path (legacy): set to a string/Path if you want a single-image override
+single_image_path = None
+
+# Legacy fallback (ignored i
+ # Toggle: if True → normal md5 skip; if False → always reprocess
+md5_check = True
 
 # 3. Define the path to the directory containing your PDF files
 pdf_directory = Path("/Users/marcusfoo/Documents/GitHub/PTO_ICT3113_Grp1/Demo/")
 
+# === Fast path: single image only ===
+# === Fast path: single/multi-image only ===
+if single_image_mode:
+    paths: list[Path] = []
+    if single_image_paths:
+        paths = [Path(p) for p in single_image_paths if p is not None]
+    elif single_image_path:
+        paths = [Path(single_image_path)]
+
+    if not paths:
+        print("❌ single_image_mode=True but no paths were provided.")
+        sys.exit(1)
+
+    print("--- Multi-image mode ---")
+    successes = 0
+    for img_path in paths:
+        if not img_path.exists():
+            print(f"❌ Missing: {img_path}")
+            continue
+
+        dest_dir = img_path.parent
+        pdf_name = f"{dest_dir.name}.pdf"
+        print(f"\n🖼️  Image: {img_path.name}  |  PDF: {pdf_name}")
+
+        # Quick quarter readout (EasyOCR-only, bottom axis)
+        try:
+            img_bgr_quarters = load_image(img_path)
+            q_xy = detect_quarters_easyocr(img_bgr_quarters)
+            if q_xy:
+                print("   📎 Quarters (EasyOCR):", ", ".join([q for _,q in q_xy]))
+            else:
+                print("   📎 Quarters (EasyOCR): <none>")
+        except Exception as _qe:
+            print(f"   📎 Quarters (EasyOCR): error → {_qe}")
+
+        any_hit = False
+
+        for ex in EXTRACTORS:
+            print(f"   · [{ex.name}] quick gate…", end=" ")
+            if not ex.is_relevant(img_path):
+                print("⏭️  Not relevant")
+                continue
+            print("✅ ok; strict gate…", end=" ")
+            ok_strict, reason = is_strict_nim_image(img_path)
+            if not ok_strict:
+                print(f"⏭️  Failed strict ({reason})")
+                continue
+            print("✅ Strict OK — extracting…")
+
+            # Extract directly so we can print the table; still write JSONL
+            df, ctx_extra = ex.extract_table(img_path, dest_dir, pdf_name)
+            if df is None or df.empty:
+                print("   ⚠️ No data extracted.")
+                continue
+
+            any_hit = True
+            successes += 1
+
+            # Build context + summary and write JSONL
+            ctx = ex._build_context(pdf_name, img_path, dest_dir, extra=ctx_extra if isinstance(ctx_extra, dict) else {})
+            try:
+                cols = [c for c in df.columns if c != "Quarter"]
+                if len(df) >= 2 and cols:
+                    def _pick_q(s):
+                        return s if QUARTER_PAT.match(str(s) or "") else None
+                    _fq = str(df.iloc[0]["Quarter"]); _lq = str(df.iloc[-1]["Quarter"])
+                    first_q = _pick_q(_fq) or (_fq if "??" not in _fq else "start")
+                    last_q  = _pick_q(_lq) or (_lq if "??" not in _lq else "end")
+                    pieces = []
+                    for col in cols[:2]:
+                        a = df.iloc[0][col]; b = df.iloc[-1][col]
+                        if pd.notna(a) and pd.notna(b):
+                            suffix = "%" if "NIM" in col or ctx.get("units") == "percent" else ""
+                            pieces.append(f"{col}: {a:.2f}{suffix} → {b:.2f}{suffix}")
+                    if pieces:
+                        ctx["summary"] = f"Figure shows {', '.join(pieces)} from {first_q} to {last_q}."
+            except Exception:
+                pass
+
+            out_path = img_path.with_suffix(f".{ex.name}.jsonl")
+            ex._write_jsonl(out_path, ctx, df)
+            print(f"   💾 Saved JSONL → {out_path}")
+
+            # Pretty-print the extracted table directly
+            try:
+                print("\n   📊 Extracted table:")
+                print(df.to_string(index=False))
+            except Exception:
+                print(df)
+
+        if not any_hit:
+            print("   ⏭️  No matching extractors for this image.")
+
+    print(f"\n✅ Done. Extracted from {successes} image(s).")
+    # Prevent the pipeline (marker/md5) from running if notebook catches SystemExit
+    globals()["_STOP_AFTER_SINGLE"] = True
+    sys.exit(0)
+    
 # Check if the directory exists before proceeding
 if not pdf_directory.is_dir():
     print(f"❌ ERROR: The directory was not found at '{pdf_directory}'.")
@@ -660,13 +1171,22 @@ for pdf_path in pdf_directory.glob("*.pdf"):
             print(f"   • {img_path.name}")
             any_hit = False
             for ex in EXTRACTORS:
-                print(f"      · [{ex.name}] relevance check…", end=" ")
+                # Stage 1: quick keyword/title skim
+                print(f"      · [{ex.name}] quick gate…", end=" ")
                 if not ex.is_relevant(img_path):
                     print("⏭️  Not relevant")
                     continue
+                print("✅ ok; strict gate…", end=" ")
+
+                # Stage 2: strict verifier (geometry + numeric band + semantic anchors)
+                ok_strict, reason = is_strict_nim_image(img_path)
+                if not ok_strict:
+                    print(f"⏭️  Failed strict ({reason})")
+                    continue
+
                 any_hit = True
-                print("✅ Relevant — extracting…", end=" ")
-                ok, msg = ex.handle_image(img_path, dest_dir, pdf_path.name)
+                print("✅ Strict OK — extracting…", end=" ")
+                ok, msg = ex.handle_image(img_path, dest_dir, pdf_path.name, bypass_relevance=True)
                 if ok:
                     print(f"💾 Saved → {msg}")
                 else:

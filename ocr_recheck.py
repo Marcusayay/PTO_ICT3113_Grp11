@@ -66,35 +66,59 @@ def is_strict_nim_image(img_path: Path) -> tuple[bool, str]:
     try:
         img_bgr = load_image(img_path)
         H, W = img_bgr.shape[:2]
-        # 1) quick-text gate
-        if not is_relevant_image(img_path, NIM_KEYWORDS):
-            return (False, "keyword_miss")
+        # 1) quick-text gate (soft): don't return yet; allow numeric signature to validate
+        kw_ok = is_relevant_image(img_path, NIM_KEYWORDS)
         # 2) numeric gate on enhanced image
         img_up, gray, thr, scale = preprocess(img_bgr)
         img_rgb = cv2.cvtColor(thr, cv2.COLOR_GRAY2RGB)
         ocr = run_easyocr(img_rgb)
+        # --- Semantic gate: accept classic NIM slides based on stable labels ---
+        text_lower = " ".join(str(r.get("text", "")).lower() for r in ocr or [])
+        has_nim = "net interest margin" in text_lower
+        has_cb  = "commercial book" in text_lower
+        has_grp = "group" in text_lower
+        if has_nim and (has_cb or has_grp):
+            which = [w for w, ok in (("nim", has_nim), ("cb", has_cb), ("grp", has_grp)) if ok]
+            return (True, f"ok_semantic({'+' .join(which)})")
         df = extract_numbers(ocr)
         if df.empty:
             return (False, "no_numbers")
-        # keep percents only
-        df = df[df["is_pct"] == True].copy()
-        if df.empty:
-            return (False, "no_percentages")
-        # geometry filters
+        # geometry filters (apply before value checks)
         top_cut = int(img_up.shape[0] * TOP_FRACTION)
-        cond = (df["cy"] < top_cut)
+        cond_geom = (df["cy"] < top_cut)
         if RIGHT_HALF_ONLY:
-            cond &= (df["cx"] > (img_up.shape[1] // 2))
-        df = df[cond]
-        if df.empty:
-            return (False, "wrong_region")
-        # value band
-        in_band = df["value"].between(NIM_MIN, NIM_MAX)
-        ratio = float(in_band.sum()) / float(len(df))
-        # Expect majority in band; reject if dominated by out-of-band (e.g., +10%)
-        if ratio < 0.6:
-            return (False, f"values_out_of_band({ratio:.2f})")
-        return (True, "ok")
+            cond_geom &= (df["cx"] > (img_up.shape[1] // 2))
+
+        # 2a) Preferred path: explicit percentage tokens
+        df_pct = df[(df["is_pct"] == True) & cond_geom].copy()
+        if not df_pct.empty:
+            in_band = df_pct["value"].between(NIM_MIN, NIM_MAX)
+            ratio = float(in_band.sum()) / float(len(df_pct))
+            if ratio >= 0.6:
+                return (True, "ok")
+            else:
+                return (False, f"non_nim_values_out_of_band({ratio:.2f})")
+
+        # 2b) Fallback: some decks omit the % sign near the series values.
+        # Accept plain numbers in the NIM range if units are explicit or implied, or if numeric signature is strong.
+        title_text = text_lower  # already computed above
+        has_units_pct = "(%)" in title_text or "margin (%)" in title_text or "net interest margin" in title_text
+        df_nums = df[(df["is_pct"] == False) & cond_geom].copy()
+        if not df_nums.empty:
+            in_band = df_nums["value"].between(NIM_MIN, NIM_MAX)
+            ratio = float(in_band.sum()) / float(len(df_nums))
+            # Case A: explicit or implied units in title → accept when enough in-band hits
+            if has_units_pct and ratio >= 0.6 and in_band.sum() >= 3:
+                return (True, "ok_no_percent_signs")
+            # Case B: title OCR may have missed units; if the quick keyword gate succeeded, accept with a stricter ratio
+            if kw_ok and ratio >= 0.7 and in_band.sum() >= 3:
+                return (True, "ok_numeric_signature")
+
+        # Final decision: if numeric signature still failed, report clearer reason
+        if not kw_ok:
+            return (False, "irrelevant_non_nim")
+        else:
+            return (False, "no_percentages_or_units")
     except Exception as e:
         return (False, f"exception:{e}")
 
@@ -144,13 +168,22 @@ def reverify_nim_jsonl_in_folder(dest_dir: Path):
                 continue
             ok, reason = is_strict_nim_image(img_path)
             if not ok:
-                rej = jf.with_suffix(jf.suffix + ".rejected")
+                flag = jf.with_suffix(jf.suffix + ".flag")
                 try:
-                    jf.rename(rej)
-                    print(f"   ❌ Rejected {jf.name} → {rej.name}  (reason: {reason})")
+                    with open(flag, "w", encoding="utf-8") as f:
+                        f.write(str(reason))
+                    print(f"   ⚑ Flagged {jf.name} (reason: {reason}) → {flag.name}")
                 except Exception as e:
-                    print(f"   ❌ Rejected {jf.name} (reason: {reason}) — rename failed: {e}")
+                    print(f"   ⚠️  Could not write flag for {jf.name}: {e}")
             else:
+                # If a previous flag exists but this file now validates, remove the stale flag
+                flag = jf.with_suffix(jf.suffix + ".flag")
+                if flag.exists():
+                    try:
+                        flag.unlink()
+                        print(f"   🧹 Cleared flag for {jf.name}")
+                    except Exception as e:
+                        print(f"   ⚠️  Could not clear flag for {jf.name}: {e}")
                 print(f"   ✅ Verified {jf.name}")
         except Exception as e:
             print(f"   ⚠️  Error checking {jf.name}: {e}")
@@ -571,8 +604,9 @@ def is_relevant_image(img_path, keywords):
         img = cv2.imread(str(img_path))
         if img is None:
             return False
-        small = cv2.resize(img, None, fx=0.6, fy=0.6, interpolation=cv2.INTER_AREA)
-        results = rdr.readtext(small, detail=0, paragraph=True)
+        # Upscale a bit to help EasyOCR read thin underlined headings
+        scaled = cv2.resize(img, None, fx=1.2, fy=1.2, interpolation=cv2.INTER_CUBIC)
+        results = rdr.readtext(scaled, detail=0, paragraph=True)
         text = " ".join([t.lower() for t in results])
         return any(k in text for k in keywords)
     except Exception:
@@ -692,10 +726,45 @@ process_existing_only = True
 
 # If True → ONLY scan existing *.nim.jsonl files, re-OCR their images, and DELETE irrelevant jsonl files
 reverify_only = True
-def purge_irrelevant_jsonl_in_folder(dest_dir: Path, dry_run: bool = False):
+
+# Disable auto-rebuilds during reverify; rebuild only via single-image mode
+reverify_rebuild_jsonl = False
+reverify_rebuild_on_keep = False
+reverify_rebuild_on_flag = False
+
+# Single-image regeneration mode: set to True and provide an absolute image path
+single_image_mode = False
+single_image_path = ""  # e.g., "/Users/.../All/1Q24_CFO_presentation/_page_4_Figure_1.jpeg"
+
+
+# Helper: regenerate a JSONL from a single image using the NIM extractor, bypassing the relevance gate
+def _regenerate_nim_jsonl(img_path: Path, dest_dir: Path, pdf_name_guess: str) -> tuple[bool, str]:
+    """Re-run OCR and write <image>.nim.jsonl. Returns (ok, message)."""
+    try:
+        ex = NIMExtractor()
+        nim_df, ctx_extra = ex.extract_table(img_path, dest_dir, pdf_name_guess)
+        if nim_df is None or nim_df.empty:
+            return False, "No NIM table detected"
+        ctx = ex._build_context(pdf_name_guess, img_path, dest_dir, extra=ctx_extra if isinstance(ctx_extra, dict) else {})
+        out_path = img_path.with_suffix(f".{ex.name}.jsonl")
+        ex._write_jsonl(out_path, ctx, nim_df)
+        # Clear stale flag if any
+        flag = out_path.with_suffix(out_path.suffix + ".flag")
+        if flag.exists():
+            try:
+                flag.unlink()
+            except Exception:
+                pass
+        return True, str(out_path)
+    except Exception as e:
+        return False, f"exception:{e}"
+
+
+def purge_irrelevant_jsonl_in_folder(dest_dir: Path, dry_run: bool = False, flag_only: bool = True):
     """
     For each *.nim.jsonl in dest_dir, trace back to its source image and run strict NIM verification.
-    If invalid, DELETE the jsonl file. Set dry_run=True to only log actions.
+    If invalid, flag the jsonl file with a .flag file (non-destructive by default).
+    Set dry_run=True to only log actions.
     """
     jsonl_files = sorted(dest_dir.rglob("*.nim.jsonl"))
     if not jsonl_files:
@@ -734,24 +803,36 @@ def purge_irrelevant_jsonl_in_folder(dest_dir: Path, dry_run: bool = False):
                 print(f"   ⚠️  {jf.name}: cannot find source image; skipping purge.")
                 continue
 
+            pdf_name_guess = f"{dest_dir.name}.pdf"
+
             ok, reason = is_strict_nim_image(img_path)
             if not ok:
+                flag = jf.with_suffix(jf.suffix + ".flag")
                 if dry_run:
-                    print(f"   ❌ Would delete {jf.name} (reason: {reason})")
+                    print(f"   ⚑ Would flag {jf.name} (reason: {reason}) → {flag.name}")
                 else:
                     try:
-                        jf.unlink()
-                        print(f"   ❌ Deleted {jf.name} (reason: {reason})")
+                        with open(flag, "w", encoding="utf-8") as f:
+                            f.write(str(reason))
+                        print(f"   ⚑ Flagged {jf.name} (reason: {reason}) → {flag.name}")
                     except Exception as e:
-                        print(f"   ❌ Failed to delete {jf.name}: {e}")
+                        print(f"   ⚠️  Could not write flag for {jf.name}: {e}")
             else:
+                # If previously flagged, clear the flag when valid
+                flag = jf.with_suffix(jf.suffix + '.flag')
+                if flag.exists():
+                    try:
+                        flag.unlink()
+                        print(f"   🧹 Cleared flag for {jf.name}")
+                    except Exception as e:
+                        print(f"   ⚠️  Could not clear flag for {jf.name}: {e}")
                 print(f"   ✅ Kept {jf.name}")
         except Exception as e:
             print(f"   ⚠️  Error checking {jf.name}: {e}")
 
 
 # 3. Define the path to the directory containing your PDF files
-pdf_directory = Path("/Users/marcusfoo/Documents/GitHub/PTO_ICT3113_Grp1/Demo/")
+pdf_directory = Path("/Users/marcusfoo/Documents/GitHub/PTO_ICT3113_Grp1/All/")
 
 # Check if the directory exists before proceeding
 if not pdf_directory.is_dir():
@@ -766,18 +847,38 @@ if not process_existing_only:
         print("Please ensure 'marker-pdf' is installed correctly in your environment's PATH, or set process_existing_only=True.")
         sys.exit(1)
         
+# --- Single-image regeneration entrypoint ---
+if 'single_image_mode' in globals() and single_image_mode:
+    p = Path(single_image_path)
+    if not p.is_file():
+        print(f"❌ single_image_mode: image not found: {p}")
+        if "ipykernel" not in sys.modules:
+            sys.exit(2)
+    dest_dir = p.parent
+    pdf_name_guess = f"{dest_dir.name}.pdf"
+    ok, msg = _regenerate_nim_jsonl(p, dest_dir, pdf_name_guess)
+    if ok:
+        print(f"✅ Rebuilt JSONL → {msg}")
+    else:
+        print(f"⚠️  Rebuild failed/skipped: {msg}")
+    # Exit after single-image action to avoid scanning folders
+    if "ipykernel" not in sys.modules:
+        sys.exit(0)
+             
 # Purge-only mode: walk subfolders, delete irrelevant jsonl, then exit
 if 'reverify_only' in globals() and reverify_only:
-    print("🔍 reverify_only=True → Scanning JSONL files and deleting irrelevant ones…")
+    print("🔍 reverify_only=True → Scanning JSONLs and flagging irrelevant ones (no rebuilds). Will stop after this pass…")
     for dest_dir in sorted([p for p in pdf_directory.iterdir() if p.is_dir()]):
         print(f"--- Purge pass in: {dest_dir} ---")
-        purge_irrelevant_jsonl_in_folder(dest_dir, dry_run=False)
+        purge_irrelevant_jsonl_in_folder(dest_dir, dry_run=False, flag_only=True)
         print(f"--- Done: {dest_dir.name} ---\n")
     print("✅ Reverify-only purge complete.")
+    # Prevent further processing in this run
+    globals()["_STOP_AFTER_REVERIFY"] = True
     if "ipykernel" not in sys.modules:
         sys.exit(0)
 
-if process_existing_only:
+if not globals().get("_STOP_AFTER_REVERIFY", False) and process_existing_only:
     print("🛠️  process_existing_only=True → Skipping Marker. Scanning existing extracted folders…")
     # Iterate subfolders under pdf_directory (each should be a per-PDF extraction folder)
     for dest_dir in sorted([p for p in pdf_directory.iterdir() if p.is_dir()]):
@@ -824,130 +925,131 @@ if process_existing_only:
     if "ipykernel" not in sys.modules:
         sys.exit(0)
     
-# Loop through every PDF file in the specified directory
-for pdf_path in pdf_directory.glob("*.pdf"):
-    print(f"--- Processing file: {pdf_path.name} ---")
+# Loop through PDFs only when not in reverify-only mode and not in process-existing-only mode
+if not globals().get("_STOP_AFTER_REVERIFY", False) and not process_existing_only:
+    for pdf_path in pdf_directory.glob("*.pdf"):
+        print(f"--- Processing file: {pdf_path.name} ---")
 
-    # 5. Let Marker create the <pdf_stem>/ subfolder automatically.
-    # Point --output_dir to the *parent* folder so we don't end up with Demo PDF/Demo PDF/.
-    output_parent = pdf_path.parent  # e.g., .../Demo/
+        # 5. Let Marker create the <pdf_stem>/ subfolder automatically.
+        # Point --output_dir to the *parent* folder so we don't end up with Demo PDF/Demo PDF/.
+        output_parent = pdf_path.parent  # e.g., .../Demo/
 
-    # Determine the destination folder Marker will create and a checksum sidecar file
-    dest_dir = output_parent / pdf_path.stem
-    checksum_file = dest_dir / ".marker_md5"
+        # Determine the destination folder Marker will create and a checksum sidecar file
+        dest_dir = output_parent / pdf_path.stem
+        checksum_file = dest_dir / ".marker_md5"
 
-    # Compute the current md5 of the source PDF
-    current_md5 = md5sum(pdf_path)
+        # Compute the current md5 of the source PDF
+        current_md5 = md5sum(pdf_path)
 
-    # Define the expected main outputs (Marker uses the same stem)
-    expected_md = dest_dir / f"{pdf_path.stem}.md"
-    expected_json = dest_dir / f"{pdf_path.stem}.json"
-    outputs_exist = expected_md.exists() and expected_json.exists()
+        # Define the expected main outputs (Marker uses the same stem)
+        expected_md = dest_dir / f"{pdf_path.stem}.md"
+        expected_json = dest_dir / f"{pdf_path.stem}.json"
+        outputs_exist = expected_md.exists() and expected_json.exists()
 
-    # md5 two-mode logic
-    if md5_check:
-        # Normal: skip if checksum matches and key outputs exist
-        if dest_dir.is_dir() and checksum_file.exists() and outputs_exist:
-            try:
-                saved_md5 = checksum_file.read_text().strip()
-            except Exception:
-                saved_md5 = ""
-            if saved_md5 == current_md5:
-                print(f"⏭️  Skipping {pdf_path.name}: up-to-date (md5 match). → {dest_dir}")
-                continue
+        # md5 two-mode logic
+        if md5_check:
+            # Normal: skip if checksum matches and key outputs exist
+            if dest_dir.is_dir() and checksum_file.exists() and outputs_exist:
+                try:
+                    saved_md5 = checksum_file.read_text().strip()
+                except Exception:
+                    saved_md5 = ""
+                if saved_md5 == current_md5:
+                    print(f"⏭️  Skipping {pdf_path.name}: up-to-date (md5 match). → {dest_dir}")
+                    continue
+                else:
+                    print(f"♻️  md5 mismatch → reprocessing {pdf_path.name}")
+                    print(f"    Cleaning old outputs in: {dest_dir}")
+                    try:
+                        shutil.rmtree(dest_dir)
+                    except Exception as _e:
+                        print(f"    ⚠️  Could not fully clean '{dest_dir}': {_e}")
             else:
-                print(f"♻️  md5 mismatch → reprocessing {pdf_path.name}")
-                print(f"    Cleaning old outputs in: {dest_dir}")
+                print("ℹ️  No prior checksum or outputs → processing normally.")
+        else:
+            # Force reprocess regardless of checksum
+            print("⚙️  md5_check=False → forcing reprocess (marker + OCR).")
+            if dest_dir.exists():
+                print(f"    Cleaning existing folder: {dest_dir}")
                 try:
                     shutil.rmtree(dest_dir)
                 except Exception as _e:
                     print(f"    ⚠️  Could not fully clean '{dest_dir}': {_e}")
-        else:
-            print("ℹ️  No prior checksum or outputs → processing normally.")
-    else:
-        # Force reprocess regardless of checksum
-        print("⚙️  md5_check=False → forcing reprocess (marker + OCR).")
-        if dest_dir.exists():
-            print(f"    Cleaning existing folder: {dest_dir}")
-            try:
-                shutil.rmtree(dest_dir)
-            except Exception as _e:
-                print(f"    ⚠️  Could not fully clean '{dest_dir}': {_e}")
 
-    try:
-        # ======================================================================
-        # 1. Run the CLI command to generate JSON output (with real-time output)
-        # ======================================================================
-        print(f"Running CLI command for JSON output on {pdf_path.name}...")
-        json_command = [
-            "marker_single",
-            str(pdf_path),
-            "--output_format", "json",
-            "--output_dir", str(output_parent)
-        ]
-        # By removing 'capture_output', the subprocess will stream its output directly to the console in real-time.
-        result_json = subprocess.run(json_command, check=True)
-        print("✅ JSON file generated successfully by CLI.")
-
-
-        # ======================================================================
-        # 2. Run the CLI command to generate Markdown and Image output (with real-time output)
-        # ======================================================================
-        print(f"\nRunning CLI command for Markdown and Image output on {pdf_path.name}...")
-        md_command = [
-            "marker_single",
-            str(pdf_path),
-            # Default format is markdown, so we don't need to specify it
-            "--output_dir", str(output_parent)
-        ]
-        result_md = subprocess.run(md_command, check=True)
-        print("✅ Markdown file and images generated successfully by CLI.")
-
-        print(f"\n✨ Files saved under '{output_parent / pdf_path.stem}'.")
-        print("Note: Marker creates a subfolder named after the PDF automatically.")
-
-        # === Post-processing: scan Marker images → filter relevant → save JSONL ===
-        print("🔎 Scanning extracted images for relevant charts/plots…")
-        img_exts = (".png", ".jpg", ".jpeg")
-        img_files = [p for p in dest_dir.rglob("*") if p.suffix.lower() in img_exts]
-        if not img_files:
-            print("   🖼️  No images found in extracted folder.")
-        for img_path in sorted(img_files):
-            print(f"   • {img_path.name}")
-            any_hit = False
-            for ex in EXTRACTORS:
-                print(f"      · [{ex.name}] relevance check…", end=" ")
-                if not ex.is_relevant(img_path):
-                    print("⏭️  Not relevant")
-                    continue
-                any_hit = True
-                print("✅ Relevant — extracting…", end=" ")
-                ok, msg = ex.handle_image(img_path, dest_dir, pdf_path.name)
-                if ok:
-                    print(f"💾 Saved → {msg}")
-                else:
-                    print(f"⚠️ Skipped ({msg})")
-            if not any_hit:
-                print("      ⏭️  No matching extractors for this image.")
-
-        # Post-pass: reverify all generated *.nim.jsonl against source images
-        reverify_nim_jsonl_in_folder(dest_dir)
-        # After OCR completes, write/update checksum sidecar
         try:
-            dest_dir.mkdir(parents=True, exist_ok=True)
-            checksum_file.write_text(current_md5)
-            print(f"🧾 Recorded checksum in: {checksum_file}")
-        except Exception as _e:
-            print(f"⚠️  Failed to write checksum file at '{checksum_file}': {_e}")
+            # ======================================================================
+            # 1. Run the CLI command to generate JSON output (with real-time output)
+            # ======================================================================
+            print(f"Running CLI command for JSON output on {pdf_path.name}...")
+            json_command = [
+                "marker_single",
+                str(pdf_path),
+                "--output_format", "json",
+                "--output_dir", str(output_parent)
+            ]
+            # By removing 'capture_output', the subprocess will stream its output directly to the console in real-time.
+            result_json = subprocess.run(json_command, check=True)
+            print("✅ JSON file generated successfully by CLI.")
 
-    except subprocess.CalledProcessError as e:
-        print(f"\n❌ An error occurred while processing {pdf_path.name}.")
-        print(f"Command: '{' '.join(e.cmd)}'")
-        print(f"Return Code: {e.returncode}")
-        print("Note: Outputs (if any) may be incomplete; checksum not updated.")
-    except Exception as e:
-        print(f"\nAn unexpected error occurred while processing {pdf_path.name}: {e}")
-    
-    print(f"--- Finished processing: {pdf_path.name} ---\n")
 
-print("🎉 All PDF files in the directory have been processed.")
+            # ======================================================================
+            # 2. Run the CLI command to generate Markdown and Image output (with real-time output)
+            # ======================================================================
+            print(f"\nRunning CLI command for Markdown and Image output on {pdf_path.name}...")
+            md_command = [
+                "marker_single",
+                str(pdf_path),
+                # Default format is markdown, so we don't need to specify it
+                "--output_dir", str(output_parent)
+            ]
+            result_md = subprocess.run(md_command, check=True)
+            print("✅ Markdown file and images generated successfully by CLI.")
+
+            print(f"\n✨ Files saved under '{output_parent / pdf_path.stem}'.")
+            print("Note: Marker creates a subfolder named after the PDF automatically.")
+
+            # === Post-processing: scan Marker images → filter relevant → save JSONL ===
+            print("🔎 Scanning extracted images for relevant charts/plots…")
+            img_exts = (".png", ".jpg", ".jpeg")
+            img_files = [p for p in dest_dir.rglob("*") if p.suffix.lower() in img_exts]
+            if not img_files:
+                print("   🖼️  No images found in extracted folder.")
+            for img_path in sorted(img_files):
+                print(f"   • {img_path.name}")
+                any_hit = False
+                for ex in EXTRACTORS:
+                    print(f"      · [{ex.name}] relevance check…", end=" ")
+                    if not ex.is_relevant(img_path):
+                        print("⏭️  Not relevant")
+                        continue
+                    any_hit = True
+                    print("✅ Relevant — extracting…", end=" ")
+                    ok, msg = ex.handle_image(img_path, dest_dir, pdf_path.name)
+                    if ok:
+                        print(f"💾 Saved → {msg}")
+                    else:
+                        print(f"⚠️ Skipped ({msg})")
+                if not any_hit:
+                    print("      ⏭️  No matching extractors for this image.")
+
+            # Post-pass: reverify all generated *.nim.jsonl against source images
+            reverify_nim_jsonl_in_folder(dest_dir)
+            # After OCR completes, write/update checksum sidecar
+            try:
+                dest_dir.mkdir(parents=True, exist_ok=True)
+                checksum_file.write_text(current_md5)
+                print(f"🧾 Recorded checksum in: {checksum_file}")
+            except Exception as _e:
+                print(f"⚠️  Failed to write checksum file at '{checksum_file}': {_e}")
+
+        except subprocess.CalledProcessError as e:
+            print(f"\n❌ An error occurred while processing {pdf_path.name}.")
+            print(f"Command: '{' '.join(e.cmd)}'")
+            print(f"Return Code: {e.returncode}")
+            print("Note: Outputs (if any) may be incomplete; checksum not updated.")
+        except Exception as e:
+            print(f"\nAn unexpected error occurred while processing {pdf_path.name}: {e}")
+        
+        print(f"--- Finished processing: {pdf_path.name} ---\n")
+
+    print("🎉 All PDF files in the directory have been processed.")
