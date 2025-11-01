@@ -968,7 +968,7 @@ single_image_path = None
 md5_check = True
 
 # 3. Define the path to the directory containing your PDF files
-pdf_directory = Path("/Users/marcusfoo/Documents/GitHub/PTO_ICT3113_Grp1/Demo/")
+pdf_directory = Path("/Users/marcusfoo/Documents/GitHub/PTO_ICT3113_Grp1/All/")
 
 # === Fast path: single image only ===
 # === Fast path: single/multi-image only ===
@@ -1112,6 +1112,8 @@ for pdf_path in pdf_directory.glob("*.pdf"):
                 continue
             else:
                 print(f"♻️  md5 mismatch → reprocessing {pdf_path.name}")
+                print(f"    saved={saved_md5}")
+                print(f"    current={current_md5}")
                 print(f"    Cleaning old outputs in: {dest_dir}")
                 try:
                     shutil.rmtree(dest_dir)
