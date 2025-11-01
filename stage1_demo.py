@@ -1215,3 +1215,548 @@ for pdf_path in pdf_directory.glob("*.pdf"):
     print(f"--- Finished processing: {pdf_path.name} ---\n")
 
 print("🎉 All PDF files in the directory have been processed.")
+
+
+# === Stage-1 continuation: Build KB + FAISS (inline; no external scripts) ===
+try:
+    import sys, subprocess
+    # 1) Ensure minimal deps (idempotent)
+    for _pkg in ["sentence-transformers", "faiss-cpu", "pandas", "pyarrow", "numpy", "lxml", "tqdm"]:
+        try:
+            __import__(_pkg.split("-")[0])
+        except Exception:
+            print(f"📦 Installing {_pkg} …")
+            subprocess.check_call([sys.executable, "-m", "pip", "install", _pkg, "-q"])  # noqa: S603,S607
+
+    import re, json, hashlib, time
+    import numpy as _np, pandas as _pd, faiss  # type: ignore
+    from io import StringIO as _StringIO
+    from pathlib import Path as _Path
+    from tqdm import tqdm as _tqdm
+    from sentence_transformers import SentenceTransformer as _ST
+
+    KB_IN_DIR  = str(pdf_directory)  # reuse the same directory processed above
+    KB_OUT_DIR = str((_Path("./data_marker")).resolve())
+
+    # ---- helpers (namespaced with kb_ to avoid collisions) ----
+    def kb_file_hash_key(p: _Path) -> str:
+        try:
+            s = p.stat()
+            return hashlib.md5(f"{p.resolve()}|{s.st_size}|{int(s.st_mtime)}".encode()).hexdigest()
+        except FileNotFoundError:
+            return ""
+
+    def kb_safe_read(path: _Path) -> str:
+        for enc in ("utf-8", "utf-8-sig", "latin-1"):
+            try:
+                return path.read_text(encoding=enc, errors="ignore")
+            except Exception:
+                continue
+        return ""
+
+    def kb_strip_md_basic(md: str) -> str:
+        md = re.sub(r"```.*?```", " ", md, flags=re.DOTALL)
+        md = re.sub(r"!\[[^\]]*\]\([^\)]*\)", " ", md)
+        md = re.sub(r"\[([^\]]+)\]\([^\)]*\)", r"\1", md)
+        md = re.sub(r"<[^>]+>", " ", md)
+        md = re.sub(r"\s+", " ", md)
+        return md.strip()
+
+    def kb_coerce_numbers_df(df: _pd.DataFrame) -> _pd.DataFrame:
+        df = df.copy()
+        for c in df.columns:
+            if df[c].dtype == object:
+                s = df[c].astype(str).str.replace(",", "", regex=False)
+                num = _pd.to_numeric(s, errors="coerce")
+                df[c] = _np.where(num.notna(), num, s)
+        return df
+
+    def kb_extract_tables_from_marker_json_blocks(jtxt: str):
+        try:
+            data = json.loads(jtxt)
+        except Exception:
+            return []
+        out = []
+        def _page_from_id(node: dict, fallback):
+            node_id = node.get("id") if isinstance(node.get("id"), str) else ""
+            m = re.search(r"/page/(\d+)/", node_id or "")
+            if m:
+                try:
+                    return int(m.group(1))
+                except Exception:
+                    pass
+            return fallback
+        def walk(node, current_page=None):
+            if isinstance(node, dict):
+                current_page = _page_from_id(node, current_page)
+                if node.get("block_type") == "Table" and isinstance(node.get("html"), str):
+                    html = node["html"]
+                    try:
+                        dfs = _pd.read_html(_StringIO(html))
+                        for df in dfs:
+                            out.append({"df": kb_coerce_numbers_df(df), "page": current_page})
+                    except Exception:
+                        pass
+                for v in node.values():
+                    walk(v, current_page)
+            elif isinstance(node, list):
+                for v in node:
+                    walk(v, current_page)
+        walk(data)
+        return out
+
+    def kb_extract_text_spans_with_pages(jtxt: str):
+        try:
+            data = json.loads(jtxt)
+        except Exception:
+            return []
+        spans = []
+        def _page_from_id(node: dict, fallback):
+            node_id = node.get("id") if isinstance(node.get("id"), str) else ""
+            m = re.search(r"/page/(\d+)/", node_id or "")
+            if m:
+                try:
+                    return int(m.group(1))
+                except Exception:
+                    pass
+            return fallback
+        def _strip_html(s: str) -> str:
+            s = re.sub(r"<[^>]+>", " ", s)
+            s = re.sub(r"\s+", " ", s).strip()
+            return s
+        TEXT_BLOCKS = {"Text", "SectionHeader", "Paragraph", "Heading", "ListItem", "Caption", "Footer", "Header"}
+        def walk(node, current_page=None):
+            if isinstance(node, dict):
+                current_page = _page_from_id(node, current_page)
+                bt = node.get("block_type")
+                if isinstance(bt, str) and bt in TEXT_BLOCKS:
+                    html = node.get("html")
+                    if isinstance(html, str) and html.strip():
+                        txt = _strip_html(html)
+                        if txt:
+                            spans.append({"page": current_page, "text": txt})
+                for v in node.values():
+                    walk(v, current_page)
+            elif isinstance(node, list):
+                for v in node:
+                    walk(v, current_page)
+        walk(data)
+        return spans
+
+    def kb_markdown_tables_find(md_text: str):
+        lines = md_text.splitlines()
+        i, n = 0, len(lines)
+        while i < n:
+            if '|' in lines[i]:
+                j = i + 1
+                if j < n and re.search(r'^\s*\|?\s*:?-{3,}', lines[j]):
+                    k = j + 1
+                    while k < n and '|' in lines[k] and lines[k].strip():
+                        k += 1
+                    yield "\n".join(lines[i:k])
+                    i = k; continue
+            i += 1
+
+    def kb_markdown_table_to_df(table_md: str):
+        rows = [r.strip() for r in table_md.strip().splitlines() if r.strip()]
+        if len(rows) < 2: return None
+        def split_row(r: str):
+            r = r.strip()
+            if r.startswith('|'): r = r[1:]
+            if r.endswith('|'): r = r[:-1]
+            return [c.strip() for c in r.split('|')]
+        cols = split_row(rows[0])
+        if len(split_row(rows[1])) != len(cols): return None
+        data = []
+        for r in rows[2:]:
+            cells = split_row(r)
+            if len(cells) < len(cols): cells += [""] * (len(cols) - len(cells))
+            if len(cells) > len(cols): cells = cells[:len(cols)]
+            data.append(cells)
+        try:
+            df = _pd.DataFrame(data, columns=cols)
+            return kb_coerce_numbers_df(df)
+        except Exception:
+            return None
+
+    def kb_table_rows_to_sentences(df: _pd.DataFrame, doc_name: str, table_id: int):
+        sents = []
+        if df.shape[1] == 0: return sents
+        label = df.columns[0]
+        for ridx, row in df.reset_index(drop=True).iterrows():
+            parts = [str(row[label])]
+            for c in df.columns[1:]:
+                parts.append(f"{c}: {row[c]}")
+            sents.append(f"[{doc_name}] table#{table_id} row#{ridx} :: " + " | ".join(parts))
+        return sents
+
+    def kb_table_signature(df: _pd.DataFrame) -> str:
+        try:
+            cols = [str(c).strip() for c in df.columns]
+            first_col = cols[0] if cols else ""
+            years = sorted({c for c in cols if re.fullmatch(r"\d{4}", str(c))})
+            nums = []
+            for c in df.columns:
+                s = _pd.to_numeric(_pd.Series(df[c]).astype(str).str.replace(",", "", regex=False), errors="coerce")
+                vals = [float(x) for x in s.dropna().tolist()]
+                nums.extend(vals)
+            nums = [round(x, 3) for x in nums[:8]]
+            return "|".join([
+                f"first:{first_col.lower()}",
+                "years:" + ",".join(years),
+                "nums:" + ",".join(map(str, nums))
+            ])
+        except Exception:
+            return ""
+
+    def kb_encode(texts, model_name):
+        model = _ST(model_name)
+        embs = model.encode(texts, batch_size=64, show_progress_bar=True, normalize_embeddings=True)
+        return _np.asarray(embs, dtype="float32")
+
+    def kb_build_faiss(embs):
+        d = int(embs.shape[1])
+        idx = faiss.IndexFlatIP(d)  # cosine via normalized inner product
+        idx.add(embs)
+        return idx
+
+    def kb_discover_docs(in_dir: _Path):
+        docs = {}
+        for f in sorted(in_dir.iterdir()):
+            if not f.is_dir():
+                continue
+            nested = f / f.name
+            md = list(f.glob("*.md")) + (list(nested.glob("*.md")) if nested.is_dir() else [])
+            js = list(f.glob("*.json")) + (list(nested.glob("*.json")) if nested.is_dir() else [])
+            jl = list(f.glob("*.jsonl")) + (list(nested.glob("*.jsonl")) if nested.is_dir() else [])
+            if md or js or jl:
+                docs[f.name] = {"md": sorted(md), "json": sorted(js), "jsonl": sorted(jl), "root": f}
+        return docs
+
+    def kb_load_jsonl(path: _Path) -> list:
+        rows = []
+        try:
+            with open(path, "r", encoding="utf-8") as f:
+                for line in f:
+                    s = line.strip()
+                    if not s:
+                        continue
+                    try:
+                        rows.append(json.loads(s))
+                    except Exception:
+                        continue
+        except Exception:
+            return []
+        return rows
+
+    def kb_chunk_text(text: str, max_chars: int = 1600, overlap: int = 200):
+        if not text: return []
+        paras = [p.strip() for p in re.split(r"\n\s*\n", text) if p.strip()]
+        chunks, buf, cur = [], [], 0
+        def flush():
+            nonlocal buf, cur
+            if not buf: return
+            s = "\n\n".join(buf).strip()
+            step = max_chars - overlap
+            for i in range(0, len(s), step):
+                piece = s[i:i+step].strip()
+                if piece: chunks.append(piece)
+            buf.clear(); cur = 0
+        for p in paras:
+            if cur + len(p) + 2 <= max_chars:
+                buf.append(p); cur += len(p) + 2
+            else:
+                flush(); buf.append(p); cur = len(p)
+        flush(); return chunks
+
+    def build_kb_with_tables(
+        in_dir=KB_IN_DIR,
+        out_dir=KB_OUT_DIR,
+        model_name="sentence-transformers/all-MiniLM-L6-v2",
+        max_chars=1600,
+        overlap=200,
+    ):
+        in_path, out_path = _Path(in_dir), _Path(out_dir)
+        out_path.mkdir(parents=True, exist_ok=True)
+
+        kb_parquet     = out_path / "kb_chunks.parquet"
+        kb_texts_npy   = out_path / "kb_texts.npy"
+        kb_meta_json   = out_path / "kb_meta.json"
+        kb_index_path  = out_path / "kb_index.faiss"
+        kb_index_meta  = out_path / "kb_index_meta.json"
+        kb_tables_parq = out_path / "kb_tables.parquet"
+        kb_outline_parq = out_path / "kb_outline.parquet"
+
+        cache = {}
+        if kb_meta_json.exists():
+            try:
+                cache = json.loads(kb_meta_json.read_text(encoding="utf-8"))
+            except Exception:
+                cache = {}
+
+        docs = kb_discover_docs(in_path)
+        if not docs:
+            print(f"ℹ️ No Marker artefacts found under: {in_path}")
+            return {"docs_processed": 0, "chunks_total": 0, "tables_long_rows": 0, "paths": {}}
+        print(f"🔎 Found {len(docs)} docs under {in_path}")
+
+        # outlines (optional)
+        outline_rows = []
+        for doc_name, art in docs.items():
+            root = art.get("root", in_path / doc_name)
+            candidates = list(root.glob("*_meta.json"))
+            nested_same = root / doc_name
+            if nested_same.is_dir():
+                candidates += list(nested_same.glob("*_meta.json"))
+            for meta_path in candidates:
+                try:
+                    data = json.loads(kb_safe_read(meta_path))
+                    toc = data.get("table_of_contents") or data.get("toc") or []
+                    for i, item in enumerate(toc):
+                        outline_rows.append({
+                            "doc_name": doc_name,
+                            "source_path": str(meta_path),
+                            "order": int(i),
+                            "title": item.get("title"),
+                            "page_id": item.get("page_id"),
+                            "polygon": item.get("polygon"),
+                        })
+                except Exception:
+                    pass
+        if outline_rows:
+            _pd.DataFrame(outline_rows).to_parquet(kb_outline_parq, engine="pyarrow", index=False)
+            print(f"📑 Saved outline → {kb_outline_parq} (rows={len(outline_rows)})")
+        else:
+            print("ℹ️ No *_meta.json outlines found.")
+
+        rows_meta, chunk_texts = [], []
+        tables_long = []
+        json_sig_to_page = {}
+        changed_any = False
+
+        for name, art in _tqdm(docs.items(), desc="Processing docs"):
+            md_files, json_files = art["md"], art["json"]
+            jsonl_files = art.get("jsonl", [])
+            keys = [kb_file_hash_key(p) for p in (md_files + json_files + jsonl_files)]
+            doc_key = hashlib.md5("|".join(keys).encode()).hexdigest()
+
+            if cache.get(name, {}).get("cache_key") == doc_key:
+                continue
+            changed_any = True
+
+            # 1) JSON → tables + page-text
+            table_id = 0
+            for jp in json_files:
+                jtxt = kb_safe_read(jp)
+                # tables with page capture
+                for tb in kb_extract_tables_from_marker_json_blocks(jtxt):
+                    df = tb["df"]; page_no = tb.get("page")
+                    try:
+                        sig = kb_table_signature(df)
+                        if page_no is not None and sig:
+                            json_sig_to_page[sig] = int(page_no)
+                    except Exception:
+                        pass
+                    for sent in kb_table_rows_to_sentences(df, name, table_id):
+                        if page_no is not None:
+                            sent = f"[page {page_no}] " + sent
+                        rows_meta.append({
+                            "doc": name, "path": str(jp), "modality": "table_row",
+                            "chunk": len(chunk_texts), "cache_key": doc_key,
+                            "page": int(page_no) if page_no is not None else None,
+                        })
+                        chunk_texts.append(sent)
+                    for ridx, row in df.reset_index(drop=True).iterrows():
+                        for col in df.columns:
+                            _val = row[col]
+                            _val_str = "" if _pd.isna(_val) else str(_val)
+                            try:
+                                _val_num = _pd.to_numeric(_val_str.replace(",", ""), errors="coerce")
+                            except Exception:
+                                _val_num = _np.nan
+                            tables_long.append({
+                                "doc_name": name, "source_path": str(jp), "table_id": table_id,
+                                "row_id": int(ridx), "column": str(col),
+                                "value_str": _val_str,
+                                "value_num": float(_val_num) if _pd.notna(_val_num) else None,
+                                "page": int(page_no) if page_no is not None else None,
+                            })
+                    table_id += 1
+                # page narrative
+                spans = kb_extract_text_spans_with_pages(jtxt)
+                by_page = {}
+                for sp in spans:
+                    by_page.setdefault(sp.get("page"), []).append(sp["text"])
+                for page_no, texts in by_page.items():
+                    page_text = kb_strip_md_basic("\n\n".join(texts))
+                    for ch in kb_chunk_text(page_text, max_chars, overlap):
+                        rows_meta.append({
+                            "doc": name, "path": str(jp), "modality": "json",
+                            "chunk": len(chunk_texts), "cache_key": doc_key,
+                            "page": int(page_no) if page_no is not None else None,
+                        })
+                        chunk_texts.append(ch)
+
+            # 1b) JSONL (extractor outputs)
+            for jlp in jsonl_files:
+                records = kb_load_jsonl(jlp)
+                if not records:
+                    continue
+                ctx, data_recs = None, []
+                for r in records:
+                    if isinstance(r, dict) and "_context" in r:
+                        ctx = r.get("_context")
+                    elif isinstance(r, dict):
+                        data_recs.append(r)
+                page_no = None
+                if isinstance(ctx, dict):
+                    p = ctx.get("page")
+                    if isinstance(p, int):
+                        page_no = p
+                df_jl = None
+                if data_recs:
+                    try:
+                        df_jl = _pd.DataFrame(data_recs)
+                        if "_meta" in df_jl.columns:
+                            try:
+                                df_jl = df_jl.drop(columns=["_meta"])
+                            except Exception:
+                                pass
+                        df_jl = kb_coerce_numbers_df(df_jl)
+                    except Exception:
+                        df_jl = None
+                if df_jl is not None and not df_jl.empty:
+                    for sent in kb_table_rows_to_sentences(df_jl, name, table_id):
+                        if page_no is not None:
+                            sent = f"[page {page_no}] " + sent
+                        rows_meta.append({
+                            "doc": name, "path": str(jlp), "modality": "jsonl_row",
+                            "chunk": len(chunk_texts), "cache_key": doc_key, "page": page_no,
+                        })
+                        chunk_texts.append(sent)
+                    for ridx, row in df_jl.reset_index(drop=True).iterrows():
+                        for col in df_jl.columns:
+                            _val = row[col]
+                            _val_str = "" if _pd.isna(_val) else str(_val)
+                            try:
+                                _val_num = _pd.to_numeric(_val_str.replace(",", ""), errors="coerce")
+                            except Exception:
+                                _val_num = _np.nan
+                            tables_long.append({
+                                "doc_name": name, "source_path": str(jlp), "table_id": table_id,
+                                "row_id": int(ridx), "column": str(col),
+                                "value_str": _val_str,
+                                "value_num": float(_val_num) if _pd.notna(_val_num) else None,
+                                "page": page_no,
+                            })
+                    table_id += 1
+                if isinstance(ctx, dict) and isinstance(ctx.get("summary"), str) and ctx["summary"].strip():
+                    rows_meta.append({
+                        "doc": name, "path": str(jlp), "modality": "jsonl_summary",
+                        "chunk": len(chunk_texts), "cache_key": doc_key, "page": page_no,
+                    })
+                    chunk_texts.append(f"[{name}] {ctx['summary'].strip()}")
+
+            # 2) Markdown → tables + non-table text
+            for mp in md_files:
+                md = kb_safe_read(mp)
+                for tblock in kb_markdown_tables_find(md):
+                    df = kb_markdown_table_to_df(tblock)
+                    if df is None: 
+                        continue
+                    md_page = None
+                    try:
+                        md_sig = kb_table_signature(df)
+                        if md_sig and md_sig in json_sig_to_page:
+                            md_page = int(json_sig_to_page[md_sig])
+                    except Exception:
+                        md_page = None
+                    for sent in kb_table_rows_to_sentences(df, name, table_id):
+                        rows_meta.append({
+                            "doc": name, "path": str(mp), "modality": "table_row",
+                            "chunk": len(chunk_texts), "cache_key": doc_key, "page": md_page
+                        })
+                        chunk_texts.append(sent)
+                    for ridx, row in df.reset_index(drop=True).iterrows():
+                        for col in df.columns:
+                            _val = row[col]
+                            _val_str = "" if _pd.isna(_val) else str(_val)
+                            try:
+                                _val_num = _pd.to_numeric(_val_str.replace(",", ""), errors="coerce")
+                            except Exception:
+                                _val_num = _np.nan
+                            tables_long.append({
+                                "doc_name": name, "source_path": str(mp), "table_id": table_id,
+                                "row_id": int(ridx), "column": str(col),
+                                "value_str": _val_str,
+                                "value_num": float(_val_num) if _pd.notna(_val_num) else None,
+                                "page": md_page,
+                            })
+                    table_id += 1
+
+                md_no_tables = md
+                for tblock in kb_markdown_tables_find(md):
+                    md_no_tables = md_no_tables.replace(tblock, "")
+                for ch in kb_chunk_text(kb_strip_md_basic(md_no_tables), max_chars, overlap):
+                    rows_meta.append({"doc": name, "path": str(mp), "modality": "md",
+                                      "chunk": len(chunk_texts), "cache_key": doc_key, "page": None})
+                    chunk_texts.append(ch)
+
+            added_for_doc = sum(1 for r in rows_meta if r["cache_key"] == doc_key)
+            cache[name] = {"cache_key": doc_key, "chunk_count": added_for_doc, "updated_at": int(time.time())}
+
+        # If nothing changed and KB exists → keep existing artifacts
+        if (not changed_any) and ((out_path/"kb_chunks.parquet").exists()):
+            print("✅ No changes detected. Keeping existing KB and FAISS index.")
+            texts_existing = _np.load(out_path/"kb_texts.npy", allow_pickle=True)
+            return {
+                "docs_processed": len(docs),
+                "chunks_total": int(len(texts_existing)),
+                "tables_long_rows": (_pd.read_parquet(out_path/"kb_tables.parquet").shape[0] if (out_path/"kb_tables.parquet").exists() else 0),
+                "paths": {
+                    "kb_chunks_parquet": str(out_path/"kb_chunks.parquet"),
+                    "kb_texts_npy": str(out_path/"kb_texts.npy"),
+                    "kb_meta_json": str(out_path/"kb_meta.json"),
+                    "kb_tables_parquet": str(out_path/"kb_tables.parquet") if (out_path/"kb_tables.parquet").exists() else None,
+                    "kb_index_faiss": str(out_path/"kb_index.faiss") if (out_path/"kb_index.faiss").exists() else None,
+                    "kb_index_meta_json": str(out_path/"kb_index_meta.json") if (out_path/"kb_index_meta.json").exists() else None,
+                }
+            }
+
+        # Persist KB + tables
+        total = len(chunk_texts)
+        print(f"🧾 Total new/updated text chunks (incl. table rows): {total}")
+        _pd.DataFrame(rows_meta).to_parquet(out_path/"kb_chunks.parquet", engine="pyarrow", index=False)
+        _np.save(out_path/"kb_texts.npy", _np.array(chunk_texts, dtype=object))
+        if tables_long:
+            _pd.DataFrame(tables_long).to_parquet(out_path/"kb_tables.parquet", engine="pyarrow", index=False)
+            print(f"📑 Saved structured tables → {out_path / 'kb_tables.parquet'} (rows={len(tables_long)})")
+        else:
+            print("📑 No structured tables detected this run.")
+        (out_path/"kb_meta.json").write_text(json.dumps(cache, indent=2), encoding="utf-8")
+
+        if total == 0:
+            print("⚠️ No new chunks produced. Skipping embedding/index rebuild.")
+            return {"docs_processed": len(docs), "chunks_total": 0, "tables_long_rows": len(tables_long), "paths": {}}
+
+        # Embeddings + FAISS
+        print("🧠 Encoding embeddings …")
+        embs = kb_encode(chunk_texts, model_name)
+        print(f"✅ Embeddings shape: {embs.shape}")
+        print("📦 Building FAISS index …")
+        idx = kb_build_faiss(embs)
+        faiss.write_index(idx, str(out_path/"kb_index.faiss"))
+        (out_path/"kb_index_meta.json").write_text(json.dumps({
+            "model": model_name, "dim": int(embs.shape[1]), "total_vectors": int(embs.shape[0]),
+            "metric": "cosine (via inner product on normalized vectors)",
+        }, indent=2), encoding="utf-8")
+        print(f"🎉 KB + index saved to: {out_path}")
+        return {"docs_processed": len(docs), "chunks_total": int(total), "tables_long_rows": len(tables_long)}
+
+    # ---- execute inline build ----
+    print("\n🚀 Building KB/index from extracted artifacts (JSON/MD/JSONL)…")
+    _summary = build_kb_with_tables()
+    print(_summary)
+    print("✅ KB build completed.")
+except Exception as _e:
+    print(f"❌ Inline KB build failed: {_e}")

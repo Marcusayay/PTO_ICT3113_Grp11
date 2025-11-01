@@ -1,122 +1,122 @@
 {
   "1Q24_CEO_presentation": {
-    "cache_key": "8f880190d4bf3a5ad4f018c36b325541",
+    "cache_key": "cd3224012a396b9a1730e843a27dbd31",
     "chunk_count": 8,
-    "updated_at": 1760443374
+    "updated_at": 1761981658
   },
   "1Q24_CFO_presentation": {
-    "cache_key": "47cd75bbcc6542a92efc920cfd0c407e",
-    "chunk_count": 55,
-    "updated_at": 1760443374
+    "cache_key": "fd4f2336459ee499dfd0afe6c87ca447",
+    "chunk_count": 61,
+    "updated_at": 1761981658
   },
   "1Q24_trading_update": {
-    "cache_key": "dac8dad91e77914c53b5136362e8e8e8",
+    "cache_key": "aaab4a6da7e952dfffc13cc5d6aa00ac",
     "chunk_count": 75,
-    "updated_at": 1760443374
+    "updated_at": 1761981658
   },
   "1Q25_CEO_presentation": {
-    "cache_key": "3dab2ed35b7983a4f1d08ba641a547cd",
+    "cache_key": "350779b3f0fc38342c546937a46260dd",
     "chunk_count": 8,
-    "updated_at": 1760443374
+    "updated_at": 1761981658
   },
   "1Q25_CFO_presentation": {
-    "cache_key": "9d37d23235b147ab1080d355b97cde9c",
-    "chunk_count": 84,
-    "updated_at": 1760443374
+    "cache_key": "128f0d4f74de24517cc4a308dc805612",
+    "chunk_count": 90,
+    "updated_at": 1761981658
   },
   "1Q25_trading_update": {
-    "cache_key": "bc4371c9bad25dc6978176d42ae411fe",
+    "cache_key": "f9a4b3a511bd353d321341dd3d58891d",
     "chunk_count": 50,
-    "updated_at": 1760443374
+    "updated_at": 1761981658
   },
   "2Q24_CEO_presentation": {
-    "cache_key": "b8a2f651d47aba360f4b6b442082d1aa",
+    "cache_key": "7ad96d396fcde4d19bf4e8339114d68c",
     "chunk_count": 6,
-    "updated_at": 1760443374
+    "updated_at": 1761981658
   },
   "2Q24_CFO_presentation": {
-    "cache_key": "37f809acca2582788b6656218f8ea859",
-    "chunk_count": 237,
-    "updated_at": 1760443375
+    "cache_key": "423198201fb637ff9c7616eac433f92f",
+    "chunk_count": 243,
+    "updated_at": 1761981658
   },
   "2Q24_performance_summary": {
-    "cache_key": "2b7ec7de9741f54a74e053b5245efe5f",
+    "cache_key": "0e7156132a0a113fa892330f7e190f47",
     "chunk_count": 947,
-    "updated_at": 1760443375
+    "updated_at": 1761981658
   },
   "2Q24_press_statement": {
-    "cache_key": "9aba5f7bef9be4a569b6aa497aa7097d",
+    "cache_key": "2fd8596e491b9458c7adc84b70a0f509",
     "chunk_count": 17,
-    "updated_at": 1760443375
+    "updated_at": 1761981658
   },
   "2Q25_CEO_presentation": {
-    "cache_key": "2494773a7c0abe91cb4af2f31706655a",
+    "cache_key": "fcaea00f31f6e03cbe7d3dd4fee55cf2",
     "chunk_count": 7,
-    "updated_at": 1760443375
+    "updated_at": 1761981658
   },
   "2Q25_CFO_presentation": {
-    "cache_key": "81ac9eab2f0ec7c53ffb75c37bf0c62e",
-    "chunk_count": 272,
-    "updated_at": 1760443375
+    "cache_key": "8776ee7fa10e3404cbf2032ccf65ca6d",
+    "chunk_count": 278,
+    "updated_at": 1761981659
   },
   "2Q25_performance_summary": {
-    "cache_key": "793b5684fa7a352e3124464fd411f36a",
+    "cache_key": "fda64783d1ac1780daf6e3b640c6f7dc",
     "chunk_count": 1002,
-    "updated_at": 1760443375
+    "updated_at": 1761981659
   },
   "2Q25_press_statement": {
-    "cache_key": "bcc232f0897e4ceac1d1378fe1b2a00f",
+    "cache_key": "036b1d236638d0dcca0e2cc61f365373",
     "chunk_count": 20,
-    "updated_at": 1760443375
+    "updated_at": 1761981659
   },
   "3Q24_CEO_presentation": {
-    "cache_key": "fa9d33bad91d3f47f84a1851046f3115",
+    "cache_key": "5ab2b324f37fd3878d3ff32acc438087",
     "chunk_count": 6,
-    "updated_at": 1760443375
+    "updated_at": 1761981659
   },
   "3Q24_CFO_presentation": {
-    "cache_key": "4697ee41425ab65c9e707f598909c3d4",
-    "chunk_count": 95,
-    "updated_at": 1760443376
+    "cache_key": "0543a53b1857e6ebae091b18cc05ce7f",
+    "chunk_count": 99,
+    "updated_at": 1761981659
   },
   "3Q24_trading_update": {
-    "cache_key": "8558b0ba8bfa6dbc75b8698814f66b58",
+    "cache_key": "cd3c5d56e83dc77573799c957a51b1f2",
     "chunk_count": 63,
-    "updated_at": 1760443376
+    "updated_at": 1761981659
   },
   "4Q24_CEO_presentation": {
-    "cache_key": "aa848dd9fbfa27a58930f2c39e4d27c9",
+    "cache_key": "856e39302ece441c040ae46c6054d336",
     "chunk_count": 8,
-    "updated_at": 1760443376
+    "updated_at": 1761981659
   },
   "4Q24_CFO_presentation": {
-    "cache_key": "f43e79e2b36bb0e9df3d4ff45e8a929a",
-    "chunk_count": 259,
-    "updated_at": 1760443376
+    "cache_key": "66254feea2277d1e273cb3a598e683a3",
+    "chunk_count": 264,
+    "updated_at": 1761981659
   },
   "4Q24_performance_summary": {
-    "cache_key": "ba2e27b2234e5f88c58e226eba0a8b20",
+    "cache_key": "6f5cce0ef3471973430c2a2881473f13",
     "chunk_count": 1106,
-    "updated_at": 1760443376
+    "updated_at": 1761981660
   },
   "4Q24_press_statement": {
-    "cache_key": "2b3c1d125b60aad735f23f54bf96e8a0",
+    "cache_key": "a3e554972e1a547a9801090b074f9429",
     "chunk_count": 23,
-    "updated_at": 1760443376
+    "updated_at": 1761981660
   },
   "dbs-annual-report-2022": {
-    "cache_key": "4343aa2a69f16eeb333b4412a4309f26",
+    "cache_key": "b490caa771b18a8a6280bc38e1adc391",
     "chunk_count": 3071,
-    "updated_at": 1760443378
+    "updated_at": 1761981661
   },
   "dbs-annual-report-2023": {
-    "cache_key": "950de3ee5eda0275e7029905eaeefad5",
-    "chunk_count": 3021,
-    "updated_at": 1760443379
+    "cache_key": "51499b1b3c1ef12e4b137c2f94d98d10",
+    "chunk_count": 3027,
+    "updated_at": 1761981662
   },
   "dbs-annual-report-2024": {
-    "cache_key": "4550fa8a18bdf2cd0fa67afc9b5496ce",
+    "cache_key": "3fac0947bc8b23e3a04b960315022641",
     "chunk_count": 3108,
-    "updated_at": 1760443380
+    "updated_at": 1761981664
   }
 }

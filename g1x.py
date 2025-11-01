@@ -101,12 +101,14 @@ def _chunk_text(text: str, max_chars: int = 1600, overlap: int = 200):
 def _discover_docs(in_dir: Path):
     docs = {}
     for f in sorted(in_dir.iterdir()):
-        if not f.is_dir(): continue
+        if not f.is_dir():
+            continue
         nested = f / f.name
         md = list(f.glob("*.md")) + (list(nested.glob("*.md")) if nested.is_dir() else [])
         js = list(f.glob("*.json")) + (list(nested.glob("*.json")) if nested.is_dir() else [])
-        if md or js:
-            docs[f.name] = {"md": sorted(md), "json": sorted(js), "root": f}
+        jl = list(f.glob("*.jsonl")) + (list(nested.glob("*.jsonl")) if nested.is_dir() else [])
+        if md or js or jl:
+            docs[f.name] = {"md": sorted(md), "json": sorted(js), "jsonl": sorted(jl), "root": f}
     return docs
 
 # ---- JSON table parsing (from 'html' field of Table blocks) ----
@@ -214,6 +216,23 @@ def _extract_text_spans_with_pages(jtxt: str):
     walk(data)
     return spans
 
+# --- NEW: Load JSONL files safely ---
+def _load_jsonl(path: Path) -> list:
+    rows = []
+    try:
+        with open(path, "r", encoding="utf-8") as f:
+            for line in f:
+                s = line.strip()
+                if not s:
+                    continue
+                try:
+                    rows.append(json.loads(s))
+                except Exception:
+                    continue
+    except Exception:
+        return []
+    return rows
+
 def _markdown_tables_find(md_text: str):
     lines = md_text.splitlines()
     i, n = 0, len(lines)
@@ -301,7 +320,7 @@ def _build_faiss(embs):
 
 # ---------- main (notebook-friendly) ----------
 def build_marker_kb_with_tables(
-    in_dir="/Users/marcusfoo/Documents/GitHub/PTO_ICT3113_Grp1/All",
+    in_dir="./All",
     out_dir="./data_marker",
     model_name="sentence-transformers/all-MiniLM-L6-v2",
     max_chars=1600,
@@ -372,7 +391,8 @@ def build_marker_kb_with_tables(
     changed_any = False
     for name, art in tqdm(docs.items(), desc="Processing docs"):
         md_files, json_files = art["md"], art["json"]
-        keys = [_file_hash_key(p) for p in (md_files + json_files)]
+        jsonl_files = art.get("jsonl", [])
+        keys = [_file_hash_key(p) for p in (md_files + json_files + jsonl_files)]
         doc_key = hashlib.md5("|".join(keys).encode()).hexdigest()
 
         # If unchanged, skip reprocessing this doc
@@ -449,6 +469,86 @@ def build_marker_kb_with_tables(
                         "page": int(page_no) if page_no is not None else None,
                     })
                     chunk_texts.append(ch)
+
+        # 1b) JSONL (extractor outputs) → rows + optional summary
+        for jlp in jsonl_files:
+            records = _load_jsonl(jlp)
+            if not records:
+                continue
+            ctx = None
+            data_recs = []
+            for r in records:
+                if isinstance(r, dict) and "_context" in r:
+                    ctx = r.get("_context")
+                elif isinstance(r, dict):
+                    data_recs.append(r)
+
+            page_no = None
+            if isinstance(ctx, dict):
+                p = ctx.get("page")
+                if isinstance(p, int):
+                    page_no = p
+
+            df_jl = None
+            if data_recs:
+                try:
+                    df_jl = pd.DataFrame(data_recs)
+                    if "_meta" in df_jl.columns:
+                        try:
+                            df_jl = df_jl.drop(columns=["_meta"])  # purely metadata
+                        except Exception:
+                            pass
+                    df_jl = _coerce_numbers_df(df_jl)
+                except Exception:
+                    df_jl = None
+
+            if df_jl is not None and not df_jl.empty:
+                # Emit retrieval sentences for each row
+                for sent in _table_rows_to_sentences(df_jl, name, table_id):
+                    if page_no is not None:
+                        sent = f"[page {page_no}] " + sent
+                    rows_meta.append({
+                        "doc": name,
+                        "path": str(jlp),
+                        "modality": "jsonl_row",
+                        "chunk": len(chunk_texts),
+                        "cache_key": doc_key,
+                        "page": page_no,
+                    })
+                    chunk_texts.append(sent)
+
+                # Persist long-form for analytics
+                for ridx, row in df_jl.reset_index(drop=True).iterrows():
+                    for col in df_jl.columns:
+                        _val = row[col]
+                        _val_str = "" if pd.isna(_val) else str(_val)
+                        try:
+                            _val_num = pd.to_numeric(_val_str.replace(",", ""), errors="coerce")
+                        except Exception:
+                            _val_num = np.nan
+                        tables_long.append({
+                            "doc_name": name,
+                            "source_path": str(jlp),
+                            "table_id": table_id,
+                            "row_id": int(ridx),
+                            "column": str(col),
+                            "value_str": _val_str,
+                            "value_num": float(_val_num) if pd.notna(_val_num) else None,
+                            "page": page_no,
+                        })
+                table_id += 1
+
+            # Also add a concise summary sentence if available in context
+            if isinstance(ctx, dict) and isinstance(ctx.get("summary"), str) and ctx["summary"].strip():
+                rows_meta.append({
+                    "doc": name,
+                    "path": str(jlp),
+                    "modality": "jsonl_summary",
+                    "chunk": len(chunk_texts),
+                    "cache_key": doc_key,
+                    "page": page_no,
+                })
+                chunk_texts.append(f"[{name}] {ctx['summary'].strip()}")
 
         # 2) Markdown → tables + non-table text
         for mp in md_files:
