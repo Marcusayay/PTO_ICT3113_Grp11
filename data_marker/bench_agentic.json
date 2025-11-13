@@ -2,42 +2,42 @@
   "results": [
     {
       "query": "Report the Gross Margin (or Net Interest Margin, if a bank) over the last 5 quarters, with values.",
-      "answer": "**Net Interest Margin (DBS Bank) – last 5 quarters**\n\n| Quarter | Net Interest Margin | Source |\n|---------|---------------------|--------|\n| Q2 2024 | 2.80 % | 2Q24_performance_summary (first‑half 2024) |\n| Q3 2024 | 2.13 % | 4Q24_performance_summary (second‑half 2024) |\n| Q4 2024 | 2.13 % | 4Q24_performance_summary (second‑half 2024) |\n| Q1 2025 | 2.08 % | 2Q25_performance_summary (first‑half 2025) |\n| Q2 2025 | 2.08 % | 2Q25_performance_summary (first‑half 2025) |\n\n**Notes**\n\n* The data available are half‑year averages.  \n  * 2Q24_performance_summary gives the first‑half 2024 NIM (2.80 %) – we apply it to both Q1 2024 and Q2 2024.  \n  * 4Q24_performance_summary gives the second‑half 2024 NIM (2.13 %) – we apply it to Q3 2024 and Q4 2024.  \n  * 2Q25_performance_summary gives the first‑half 2025 NIM (2.08 %) – we apply it to Q1 2025 and Q2 2025.  \n\n* Quarter‑specific values for Q1 2024 and Q2 2024 are not provided separately; the first‑half figure is the best available proxy.",
+      "answer": "**Net Interest Margin (DBS – bank)**  \n\n| Quarter | Net Interest Margin | Source |\n|---------|---------------------|--------|\n| 2Q 2025 | **2.08 %** | *2Q25_performance_summary* (five‑basis‑point decline to 2.08 %) |\n| 2Q 2024 | – | *2Q24_performance_summary* (no explicit NIM value provided) |\n| 4Q 2024 | – | *4Q24_performance_summary* (mentions “net interest margin expanded” but no numeric figure) |\n| 3Q 2024 | – | No data supplied |\n| 1Q 2024 | – | No data supplied |\n\n**What’s missing**\n\n- Net interest margin figures for 2Q 2024, 4Q 2024, 3Q 2024, and 1Q 2024 are not present in the provided documents.\n- The annual figures (2020‑2024) are available but do not break down into quarterly values.\n\nThus, only the 2Q 2025 net interest margin (2.08 %) can be reported from the supplied information.",
       "citations": [
         {
+          "file": "2Q25_performance_summary",
+          "page": NaN,
+          "section_hint": "Unaudited Financial Results for the First Half/ Second Quarter Ended 30 June 2025",
+          "index_source": "marker",
+          "score": 0.16303070809248554
+        },
+        {
           "file": "2Q24_performance_summary",
-          "page": 9.0,
+          "page": NaN,
           "section_hint": "Unaudited Financial Results for the First Half/ Second Quarter Ended 30 June 2024",
           "index_source": "marker",
-          "score": 0.6149732620320856
-        },
-        {
-          "file": "2Q25_performance_summary",
-          "page": NaN,
-          "section_hint": "Unaudited Financial Results for the First Half/ Second Quarter Ended 30 June 2025",
-          "index_source": "marker",
-          "score": 0.6099858690532266
+          "score": 0.16149906588192534
         },
         {
           "file": "4Q24_performance_summary",
           "page": NaN,
           "section_hint": "Financial Results for the Year Ended 31 December 2024",
           "index_source": "marker",
-          "score": 0.5677611940298507
+          "score": 0.15164326131687242
         },
         {
           "file": "2Q25_performance_summary",
-          "page": 9.0,
+          "page": NaN,
           "section_hint": "Unaudited Financial Results for the First Half/ Second Quarter Ended 30 June 2025",
           "index_source": "marker",
-          "score": 0.5503329416372895
+          "score": 0.14699881687242797
         },
         {
           "file": "4Q24_performance_summary",
           "page": NaN,
           "section_hint": "Financial Results for the Year Ended 31 December 2024",
           "index_source": "marker",
-          "score": 0.4783950617283951
+          "score": 0.1447821502057613
         }
       ],
       "execution_log": {
@@ -52,46 +52,46 @@
           "Tools used: table_extraction"
         ]
       },
-      "latency_ms": 3460.45
+      "latency_ms": 4006.95
     },
     {
       "query": "Show Operating Expenses for the last 3 fiscal years, year-on-year comparison.",
-      "answer": "**Operating Expenses – Last 3 Fiscal Years**\n\n| Fiscal Year | Operating Expenses (USD m) | Source | YoY Change |\n|-------------|---------------------------|--------|------------|\n| 2024 | 8,895.0 | *4Q24_performance_summary* (table #1, row 9) | +10.0 % (vs 2023) |\n| 2023 | 8,056.0 | *4Q24_performance_summary* (table #1, row 9) | – |\n| 2022 | 3,803.0 | *dbs‑annual‑report‑2022* (table #159, row 1) | +112 % (vs 2022) |\n\n**Year‑on‑Year Comparison**\n\n* 2024 vs 2023: 8,895 m → 8,056 m → **+10.0 %** (as reported in the 4Q24 summary).  \n* 2023 vs 2022: 8,056 m → 3,803 m → **+112 %** (calculated from the 2022 figure of 3,803 m).\n\n**Notes**\n\n* The 2022 operating‑expense figure of 3,803 m comes from the *dbs‑annual‑report‑2022* (table #159).  \n* A second 2022 figure (2,254 m) appears in the same report (table #159, row 1) but is likely a different expense category; the higher figure (3,803 m) is used here for consistency with the 2023 and 2024 totals.  \n* No data for 2021 or earlier years are provided, so the comparison is limited to the last three fiscal years.",
+      "answer": "**Operating Expenses (Full‑Year)**  \n\n| Fiscal Year | Operating Expenses | Source |\n|-------------|--------------------|--------|\n| 2024 | **$8.90 billion** | *4Q24_performance_summary* – “For the full year, expenses rose 10% to $8.90 billion.” |\n\n**Year‑on‑Year Comparison**\n\n- **2024 vs. 2023** – 2023 operating‑expense data are not present in the supplied documents, so the YoY change cannot be calculated.\n- **2023 vs. 2022** – 2022 operating‑expense data are also missing from the provided material, preventing a YoY comparison.\n\n**Missing Information**\n\n- Full‑year operating expenses for **2023** and **2022** are not included in the provided documents. Without those figures, a complete year‑on‑year comparison cannot be performed.",
       "citations": [
         {
           "file": "4Q24_performance_summary",
-          "page": 4.0,
+          "page": NaN,
           "section_hint": "Financial Results for the Year Ended 31 December 2024",
           "index_source": "marker",
-          "score": -5.9014668464660645
+          "score": -6.717452049255371
+        },
+        {
+          "file": "4Q24_performance_summary",
+          "page": 12.0,
+          "section_hint": "Financial Results for the Year Ended 31 December 2024",
+          "index_source": "marker",
+          "score": -6.787047386169434
         },
         {
           "file": "dbs-annual-report-2022",
-          "page": 20.0,
+          "page": NaN,
           "section_hint": "A Di erent \nKind of Bank",
           "index_source": "marker",
-          "score": -6.348987579345703
+          "score": -7.254082679748535
         },
         {
-          "file": "dbs-annual-report-2022",
-          "page": 21.0,
-          "section_hint": "A Di erent \nKind of Bank",
+          "file": "dbs-annual-report-2024",
+          "page": 68.0,
+          "section_hint": "Making Greater\nIMPACT",
           "index_source": "marker",
-          "score": -6.360118389129639
+          "score": -8.375669479370117
         },
         {
-          "file": "dbs-annual-report-2022",
-          "page": 20.0,
-          "section_hint": "A Di erent \nKind of Bank",
+          "file": "1Q24_trading_update",
+          "page": 2.0,
+          "section_hint": "Trading Update for the First Quarter Ended 31 March 2024",
           "index_source": "marker",
-          "score": -6.373236656188965
-        },
-        {
-          "file": "dbs-annual-report-2022",
-          "page": 21.0,
-          "section_hint": "A Di erent \nKind of Bank",
-          "index_source": "marker",
-          "score": -6.466753959655762
+          "score": -8.38936710357666
         }
       ],
       "execution_log": {
@@ -106,11 +106,11 @@
           "Tools used: table_extraction"
         ]
       },
-      "latency_ms": 10007.22
+      "latency_ms": 9028.39
     },
     {
       "query": "Calculate the Operating Efficiency Ratio (Opex ÷ Operating Income) for the last 3 fiscal years, showing the working.",
-      "answer": "**Operating Efficiency Ratio (Opex ÷ Operating Income) – Last 3 Fiscal Years**\n\n| Fiscal Year | Opex (SGD m) | Operating Income (SGD m) | Operating Efficiency Ratio |\n|-------------|-------------|--------------------------|----------------------------|\n| 2023 | *data missing* | *data missing* | *cannot compute* |\n| 2022 | *data missing* | *data missing* | *cannot compute* |\n| 2021 | *data missing* | *data missing* | *cannot compute* |\n\n**Explanation**\n\n- The only numeric figures supplied are five values from the “2Q25_CFO_presentation” (5732.0, 5314.0, 418.0, 2270.0, 3462.0).  \n- None of these values are explicitly labeled as **Opex** or **Operating Income**.  \n- The contextual excerpts (cost‑income ratios, net profit, etc.) do not provide the raw Opex or Operating Income figures required for the ratio.  \n\n**Missing Data**\n\nTo calculate the Operating Efficiency Ratio for the last three fiscal years, we need:\n\n1. **Operating Expenses (Opex)** for FY 2023, FY 2022, and FY 2021.  \n2. **Operating Income** for FY 2023, FY 2022, and FY 2021.  \n\nThese figures are not present in the provided documents. Without them, the ratio cannot be computed.",
+      "answer": "**Operating Efficiency Ratio (Opex ÷ Operating Income)**  \n*Calculated only for the data that is explicitly provided.*\n\n| Fiscal Period | Opex (SGD m) | Operating Income (SGD m) | Operating Efficiency Ratio |\n|---------------|--------------|--------------------------|----------------------------|\n| 2Q 2025 (CFO presentation) | 5 732.0 | 5 314.0 | 1.08 |\n| 2Q 2025 (CFO presentation) | 418.0 | 2 270.0 | 0.18 |\n| 2Q 2025 (CFO presentation) | 3 462.0 | – | – |\n\n**Working**\n\n1. **First entry**  \n   - Opex = 5 732.0 m  \n   - Operating Income = 5 314.0 m  \n   - Ratio = 5 732.0 ÷ 5 314.0 = **1.08**\n\n2. **Second entry**  \n   - Opex = 418.0 m  \n   - Operating Income = 2 270.0 m  \n   - Ratio = 418.0 ÷ 2 270.0 = **0.18**\n\n3. **Third entry**  \n   - Opex = 3 462.0 m  \n   - Operating Income not provided → ratio cannot be computed.\n\n---\n\n### What’s missing\n\n- **Operating Income figures for the third data point** (and any other fiscal years beyond the two Q2 2025 entries).  \n- **Operating Income for the other two Q2 2025 entries** (if they are meant to represent different fiscal years).  \n- **Clear identification of which numbers correspond to Opex and which to Operating Income** for each fiscal year.\n\nWithout these missing values, a complete Operating Efficiency Ratio for the last three fiscal years cannot be calculated.",
       "citations": [
         {
           "file": "dbs-annual-report-2022",
@@ -118,13 +118,6 @@
           "section_hint": "A Di erent \nKind of Bank",
           "index_source": "marker",
           "score": -4.851889610290527
-        },
-        {
-          "file": "4Q24_performance_summary",
-          "page": 34.0,
-          "section_hint": "Financial Results for the Year Ended 31 December 2024",
-          "index_source": "marker",
-          "score": -7.214166164398193
         },
         {
           "file": "3Q24_trading_update",
@@ -146,6 +139,13 @@
           "section_hint": "Trading Update for the Third Quarter Ended 30 September 2024",
           "index_source": "marker",
           "score": -8.740503311157227
+        },
+        {
+          "file": "dbs-annual-report-2024",
+          "page": 52.0,
+          "section_hint": "Making Greater\nIMPACT",
+          "index_source": "marker",
+          "score": -9.19389820098877
         }
       ],
       "execution_log": {
@@ -161,7 +161,7 @@
           "Tools used: table_extraction, calculation"
         ]
       },
-      "latency_ms": 14037.4
+      "latency_ms": 14053.91
     }
   ]
 }

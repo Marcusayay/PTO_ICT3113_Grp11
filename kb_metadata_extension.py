@@ -25,20 +25,22 @@ def search_with_metadata(
     enable_metadata_boost: bool = True,
     enable_metadata_filter: bool = False,
     boost_weights: Optional[Dict[str, float]] = None,
-    filter_strict: bool = False
+    filter_strict: bool = False,
+    apply_recency_decay: bool = True
 ) -> pd.DataFrame:
     """
-    Enhanced search with metadata filtering and boosting
+    Enhanced search with metadata filtering, boosting, and recency decay
     
     Args:
         query: Search query
         k: Number of final results to return
         alpha: Weight for vector vs BM25 (used in base search)
         rerank_top_k: Number of candidates for reranking
-        enable_metadata_boost: Apply metadata-based score boosting
-        enable_metadata_filter: Pre-filter results by metadata
-        boost_weights: Custom boost multipliers (default: year=1.5, quarter=2.0, etc.)
+        enable_metadata_boost: Apply metadata-based score boosting (adaptive)
+        enable_metadata_filter: Pre-filter results by metadata (soft filter)
+        boost_weights: Custom boost multipliers (if None, uses adaptive weights)
         filter_strict: If True, require ALL metadata hints to match (AND logic)
+        apply_recency_decay: Apply time-based recency decay
     
     Returns:
         DataFrame with search results, metadata columns, and boost info
@@ -59,7 +61,8 @@ def search_with_metadata(
         return self.search(query, k=k, alpha=alpha, rerank_top_k=rerank_top_k)
     
     # Log detected metadata (if verbose mode exists in self)
-    if hasattr(self, 'verbose') and getattr(self, 'verbose', False):
+    verbose = hasattr(self, 'verbose') and getattr(self, 'verbose', False)
+    if verbose:
         print(f"[Metadata] Detected hints:")
         if hints.years:
             print(f"  Years: {hints.years}")
@@ -71,8 +74,9 @@ def search_with_metadata(
             print(f"  Sections: {hints.sections}")
     
     # Step 2: Get initial results (LARGER pool for filtering/boosting)
-    # Use k*10 to give enough room for low-ranked but metadata-matching docs to get boosted to top
-    initial_k = k * 10 if enable_metadata_filter or enable_metadata_boost else k
+    # Use k*12 to give enough room for metadata boosting to rerank effectively
+    # (k*15 was too slow, k*10 was too small)
+    initial_k = k * 12 if enable_metadata_filter or enable_metadata_boost else k
     results = self.search(query, k=initial_k, alpha=alpha, rerank_top_k=rerank_top_k)
 
     # If the base KBEnv.search() doesn't include metadata columns, merge them
@@ -112,28 +116,44 @@ def search_with_metadata(
     if results is None or results.empty:
         return results
 
-    # Step 3: Apply metadata filtering (optional)
-    if enable_metadata_filter:
-        filtered = MetadataBooster.filter_by_metadata(results, hints, strict=filter_strict)
-
-        if hasattr(self, 'verbose') and getattr(self, 'verbose', False):
-            print(f"[Metadata] Filtered: {len(results)} → {len(filtered)} results")
-
+    # Step 3: Apply soft metadata filtering (optional, keeps reasonable time window)
+    if enable_metadata_filter and hints.years:
+        # Soft filter: keep docs within ±2 years of target
+        target_year = max(hints.years)
+        pre_filter_count = len(results)
+        
+        # Apply soft year filter
+        results = results[
+            (results['year'] >= target_year - 2) & 
+            (results['year'] <= target_year + 1)
+        ]
+        
+        if verbose:
+            print(f"[Metadata] Soft filtered: {pre_filter_count} → {len(results)} results (±2 year window)")
+        
         # If filtering removed too many results, fall back to unfiltered
-        if len(filtered) < k // 2:
-            if hasattr(self, 'verbose') and getattr(self, 'verbose', False):
-                print(f"[Metadata] Too few filtered results, using unfiltered")
-            filtered = results
+        if len(results) < k // 2:
+            if verbose:
+                print(f"[Metadata] Too few filtered results, expanding window")
+            results = self.search(query, k=initial_k, alpha=alpha, rerank_top_k=rerank_top_k)
 
-        results = filtered
-
-    # Step 4: Apply metadata boosting (optional)
+    # Step 4: Apply metadata boosting with adaptive weights and recency decay
     if enable_metadata_boost:
-        results = MetadataBooster.apply_boost(results, hints, boost_weights)
+        results = MetadataBooster.apply_boost(
+            results, 
+            hints, 
+            boost_weights=boost_weights,
+            query=query,  # Pass query for adaptive weights
+            apply_recency=apply_recency_decay
+        )
 
-        if hasattr(self, 'verbose') and getattr(self, 'verbose', False):
+        if verbose:
             boosted_count = (results.get('boost_factor', 1.0) > 1.0).sum()
-            print(f"[Metadata] Boosted {boosted_count}/{len(results)} results")
+            avg_boost = results.get('boost_factor', 1.0).mean()
+            print(f"[Metadata] Boosted {boosted_count}/{len(results)} results (avg boost: {avg_boost:.2f}x)")
+            if apply_recency_decay and 'recency_boost' in results.columns:
+                avg_recency = results['recency_boost'].mean()
+                print(f"[Metadata] Applied recency decay (avg: {avg_recency:.2f}x)")
 
     # Step 5: Return top-k
     final_results = results.head(k).reset_index(drop=True)

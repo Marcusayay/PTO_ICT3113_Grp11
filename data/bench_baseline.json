@@ -2,43 +2,23 @@
   "results": [
     {
       "query": "Report the Gross Margin (or Net Interest Margin, if a bank) over the last 5 quarters, with values.",
-      "answer": "**Net Interest Margin (NIM) – available data**\n\n| Quarter | NIM (%) |\n|---------|---------|\n| Q4 2024 | 2.15 |\n| Q1 2025 | 2.12 |\n\n**Missing data**\n\n* Q2 2025 – no NIM value is provided in the supplied excerpts.  \n* Q3 2025 – no NIM value is provided.  \n* Q4 2025 – no NIM value is provided.  \n\nThe only other NIM figures in the context are for half‑year periods (e.g., 1st Half 2025 = 2.08 %) or for the full year, which do not give quarter‑specific values.\n\n**Citations**\n\n- 4Q24_performance_summary table#41 row#6 – “2nd Half 2024: 2.13, 2nd Half 2023: 2.16, 1st Half 2024: 2.14, Year 2024: 2.13, Year 2023: 2.15” (contains Q4 2024 = 2.15).  \n- 1Q25_trading_update table#0 row#28 – “1st Qtr 2025: 2.12, 1st Qtr 2024: 2.14, 4th Qtr 2024: 2.15”.  \n- 2Q25_performance_summary table#37 row#6 – “1st Half 2025: 2.08, 1st Half 2024: 2.14, 2nd Half 2024: 2.13” (provides half‑year data but not quarter‑specific).",
+      "answer": "**Answer**\n\nThe context does not contain net‑interest‑margin (NIM) figures for the last five individual quarters.  \nOnly the following NIM values are explicitly mentioned:\n\n| Period (as given in the excerpts) | Net‑interest‑margin |\n|----------------------------------|---------------------|\n| Previous half‑year (unspecified) | **2.08 %** |\n| Second‑half 2024 (Q3‑Q4 2024)     | **2.80 %** |\n| First‑half 2025 (Q1‑Q2 2025)      | **2.80 %** (five‑basis‑point rise) |\n| First‑half 2025 (Q1‑Q2 2025)      | **2.61 %** (decline of 19 bp) |\n\nNo quarter‑level NIM values for the most recent five quarters are present in the supplied excerpts, so those figures cannot be reported.\n\n**Citations**\n\n- “net interest margin to 2.08 %” – first excerpt.  \n- “two‑basis‑point rise in net interest margin to 2.80 %” – second‑half 2024 excerpt.  \n- “five‑basis‑point rise in net interest margin to 2.80 %” – first‑half 2025 excerpt.  \n- “net interest margin declined 19 basis points to 2.61 %” – first‑half 2025 excerpt.",
       "citations": [
         {
           "file": "4Q24_performance_summary",
           "page": null,
           "text": ".0%. Total income grew 10% to \\$22.3 billion as commercial book net interest margin expanded, fee income crossed \\$4 billion for the first time, treasury customer sales reached a new high and markets trading income rebounded. The cost-income ratio was unchanged at 40%. Asset quality was sound with specific allowances at 13 basis points of loans. As part of DBS's CSR commitment of up to \\$1 billion over 10 years to support vulnerable communities, \\$100 million was set aside from the year's profits. #### **NET INTEREST INCOME** 1 Net interest margin is net interest income expressed as a percentage of average interest-bearing assets. 2 Includes non-restricted balances with central banks Second-half net interest income increased 6% from a year ago to \\$7.33 billion, led by the commercial book. The increase in commercial book net interest income was due to balance sheet growth and a two-basis point rise in net interest margin to 2.80% due mainly to fixed-rate asset repricing. Compared to the previous half, net interest income rose 3% from balance sheet growth. For the full year, net interest income rose 6% to \\$14.4 billion, led by a four-basis-point expansion in commercial book net interest margin and balance sheet growth. ## **NET FEE AND COMMISSION INCOME 1 ** #### Notes: - 1 Excludes impact arising from Citi Integration - 2 Includes trade & remittances, guarantees and deposit-re",
-          "score": 0.4783950617283951,
+          "score": 0.15164326131687242,
           "year": 2024,
           "quarter": "4Q2024",
           "section_hint": "Financial Results for the Year Ended 31 December 2024",
           "index_source": "marker"
         },
         {
-          "file": "2Q24_performance_summary",
-          "page": 8,
-          "text": "were little changed. The cost-income ratio was at 39%. Profit before allowances increased 10% to a record $6.79 billion. Including one-time integration costs of $19 million for Citi Taiwan, first-half net profit amounted to $5.74 billion. Second Quarter Second-quarter net profit rose 4% from a year ago to $2.80 billion, with return on equity at 18.2%. Total income increased 9% to $5.48 billion. Commercial book net interest income was higher due to balance sheet growth and a slightly higher net interest margin, fee income was at a record, and treasury customer sales remained strong. Markets trading income was also higher. The cost-income ratio was at 40%. Compared to the previous quarter's record, net profit was 5% lower. Commercial book net interest income increased 5% from a year ago to $3.77 billion as net interest margin rose two basis points to 2.83%, while loans and deposits grew 3% and 6% in constant-currency terms respectively, bolstered by the consolidation of Citi Taiwan. Compared to the previous quarter, net interest income rose 3% as net interest margin increased six basis points led by fixed-rate asset repricing. Loans were stable in constant-currency terms as growth in trade loans and wealth management loans offset a decline in non-trade corporate loans. Deposits were also stable in constant-currency terms, with Casa and fixed deposits little changed. Commercial bo",
-          "score": 0.4637430470763804,
-          "year": 2024,
-          "quarter": "2Q2024",
-          "section_hint": "Unaudited Financial Results for the First Half/ Second Quarter Ended 30 June 2024",
-          "index_source": "marker"
-        },
-        {
-          "file": "2Q24_performance_summary",
-          "page": 9,
-          "text": "NET INTEREST INCOME Notes: 1 Excludes Markets Trading 2 Net interest margin is net interest income expressed as a percentage of average interest-bearing assets 3 Includes non-restricted balances with central bank First-half net interest income rose 6% from a year ago to $7.10 billion, driven by the commercial book. The increase in commercial book net interest income was due to asset growth and a five-basis point rise in net interest margin to 2.80% from higher interest rates. Markets trading net interest income was lower due to higher funding costs. Compared to the previous half-year, net interest income increased 2% from asset growth, partially offset by a twobasis point decline in net interest margin.",
-          "score": 0.4567500400833734,
-          "year": 2024,
-          "quarter": "2Q2024",
-          "section_hint": "Unaudited Financial Results for the First Half/ Second Quarter Ended 30 June 2024",
-          "index_source": "marker"
-        },
-        {
           "file": "2Q25_performance_summary",
           "page": null,
-          "text": "[2Q25_performance_summary] table#37 row#6 :: Net interest margin (%)1 | 1st Half 2025: 2.08 | 1st Half 2024: 2.14 | 2nd Half 2024: 2.13",
-          "score": 0.4567500400833734,
+          "text": "[2Q25_performance_summary] table#38 row#22 :: Income tax expense and<br>non-controlling interests | Singapore: 421.0 | Hong<br>Kong: 153.0 | Rest of<br>Greater<br>China: 33.0 | South and<br>South-east<br>Asia: 43.0 | Rest of<br>the World: 101.0 | Total: 751.0",
+          "score": 0.14699881687242797,
           "year": 2025,
           "quarter": "2Q2025",
           "section_hint": "Unaudited Financial Results for the First Half/ Second Quarter Ended 30 June 2025",
@@ -47,8 +27,28 @@
         {
           "file": "4Q24_performance_summary",
           "page": null,
-          "text": "[4Q24_performance_summary] table#41 row#6 :: Net interest margin (%)1 | 2nd Half 2024: 2.13 | 2nd Half 2023: 2.16 | 1st Half 2024: 2.14 | Year 2024: 2.13 | Year 2023: 2.15",
-          "score": 0.4499657795677696,
+          "text": "[4Q24_performance_summary] table#42 row#31 :: Allowances for credit and other losses | Singapore: 174.0 | Hong<br>Kong: 93.0 | Rest of<br>Greater<br>China: 47.0 | South and<br>South-east<br>Asia: 34.0 | Rest of<br>the World: 9.0 | Total: 357.0",
+          "score": 0.1447821502057613,
+          "year": 2024,
+          "quarter": "4Q2024",
+          "section_hint": "Financial Results for the Year Ended 31 December 2024",
+          "index_source": "marker"
+        },
+        {
+          "file": "4Q24_performance_summary",
+          "page": 10,
+          "text": "Second-half net interest income increased 6% from a year ago to $7.33 billion, led by the commercial book. The increase in commercial book net interest income was due to balance sheet growth and a two-basis point rise in net interest margin to 2.80% due mainly to fixed-rate asset repricing. Compared to the previous half, net interest income rose 3% from balance sheet growth. For the full year, net interest income rose 6% to $14.4 billion, led by a four-basis-point expansion in commercial book net interest margin and balance sheet growth.",
+          "score": 0.13654881687242795,
+          "year": 2024,
+          "quarter": "4Q2024",
+          "section_hint": "Financial Results for the Year Ended 31 December 2024",
+          "index_source": "marker"
+        },
+        {
+          "file": "4Q24_performance_summary",
+          "page": 10,
+          "text": "[page 10] [4Q24_performance_summary] table#8 row#0 :: Interest and similar income | ('Unnamed: 1_level_0', 'Volume'): nan | ('Year 2024 vs Year 2023', 'Rate'): nan | ('Unnamed: 3_level_0', 'Net Change'): nan",
+          "score": 0.13277520576131685,
           "year": 2024,
           "quarter": "4Q2024",
           "section_hint": "Financial Results for the Year Ended 31 December 2024",
@@ -56,17 +56,17 @@
         }
       ],
       "execution_log": null,
-      "latency_ms": 2800.72
+      "latency_ms": 4341.75
     },
     {
       "query": "Show Operating Expenses for the last 3 fiscal years, year-on-year comparison.",
-      "answer": "**Operating Expenses – last three fiscal years**\n\n| Fiscal year | Operating expenses (USD bn) | YoY change vs. prior year |\n|-------------|-----------------------------|---------------------------|\n| 2024 | 8,895.0 | +10 % (vs 2023) |\n| 2023 | 8,056.0 | +13 % (vs 2022) |\n| 2022 | 7,090.0 | – (baseline) |\n\n*The 2024 and 2023 figures come from the 4‑Q 24 performance summary (total “Expenses” for the full year).  \nThe 2022 figure is taken from the 2022 annual report’s “Total expenses” line, which is the only single‑line figure that can be interpreted as the overall operating expense for that year.*\n\n**Missing data**  \n- No single, consistently labeled “Operating Expenses” figure for 2022 is provided across all sources; the 2022 report lists several expense items (e.g., 2,254 bn, 3,803 bn) that likely represent sub‑categories.  \n- No explicit “Operating Expenses” line is present for 2021 or earlier years in the supplied context.\n\n**Citations**\n\n- 4Q24_performance_summary table#1 row#9 – “Expenses” for 2024 (8,895 bn) and 2023 (8,056 bn).  \n- dbs‑annual‑report‑2022 table#195 row#11 – “Total expenses” for 2022 (7,090 bn).  \n- dbs‑annual‑report‑2024 table#7 row#3 – “Expenses” for 2024 (5,273 bn) and 2023 (4,627 bn) – used only to confirm the 2024/2023 trend.",
+      "answer": "**Operating Expenses – last 3 fiscal years**\n\n| Fiscal year | Operating expenses (USD bn) | YoY change |\n|-------------|-----------------------------|------------|\n| 2023 | 8.90 bn | – |\n| 2022 | *not disclosed in the provided excerpts* | *cannot be calculated* |\n| 2021 | *not disclosed in the provided excerpts* | *cannot be calculated* |\n\n**Key points**\n\n* The only full‑year operating‑expense figure that appears in the context is **$8.90 billion** for the most recent fiscal year (the snippet refers to a 10 % increase and cites Citi Taiwan’s contribution).  \n* No comparable full‑year expense amounts for the two preceding fiscal years are present in the supplied text, so a year‑on‑year comparison cannot be made.  \n\n**Citations**\n\n- “For the full year, expenses rose 10% to **$8.90 billion** with Citi Taiwan accounting for three percentage points of the increase.”  \n- “Second‑half expenses increased 9% from a year ago to **$4.64 billion**.”  \n- “Expenses rose 5% to **$4.48 billion**.” (quarter‑level figure)",
       "citations": [
         {
           "file": "dbs-annual-report-2022",
           "page": null,
-          "text": "[dbs-annual-report-2022] table#195 row#11 :: Total expenses | Note:  | 2022: 7090.0 | 2021: 6569.0",
-          "score": -6.7800726890563965,
+          "text": "losses from sale of loans carried at amortised cost and rental income from operating leases* - *(b) Share of proȴ ts or losses of associates and joint ventures has been reclassiȴ ed from 'Other income' to a separate line on the face of Income statement. Comparatives have been restated* ## **9. Employee Beneȴ ts** - *(a) 2022 includes \\$1 million (2021: \\$25 million) of government grants recognised (deducted against salaries and bonuses)* - *(b) Excludes share-based expenses of \\$8 million (2021: \\$4 million) relating to sales incentive plan and non-executive Directors' remuneration which are reȵ ected under other expenses* # **10. Other Expenses** - *(a) Includes hire, depreciation and maintenance costs of computer hardware and software* - *(b) Includes depreciation of leased oɝ ce and branch premises of \\$204 million (2021: \\$205 million) and amounts incurred in the maintenance of buildings (c) Includes oɝ ce administration expenses (e.g. printing, stationery,* - *telecommunications, etc.), and legal and professional fees* - *(d) 2021 includes a \\$100 million Corporate Social Responsibility commitment to DBS Foundation and other charitable causes* - *# Amount under \\$500,000* - *(a) Includes audit related assurance fees* - *(b) PricewaterhouseCoopers network ȴ rms* # **11. Allowances for Credit and Other Losses** - *# Amount under \\$500,000* - *(a) Includes Stage 3 ECL* - *(b",
+          "score": -7.254082679748535,
           "year": null,
           "quarter": null,
           "section_hint": "A Di erent \nKind of Bank",
@@ -74,51 +74,51 @@
         },
         {
           "file": "dbs-annual-report-2024",
-          "page": 22,
-          "text": "[page 22] [dbs-annual-report-2024] table#7 row#3 :: Expenses | 2024: 5273 | 2023: 4627 | YoY%: 14",
-          "score": -6.889345169067383,
+          "page": 68,
+          "text": "come from assets that are mandatorily classified at FVPL (b) Includes dividend income of $131 million (2023: $328 million). With effect from 2024, income from perpetual securities were presented in net interest income 7. Net Income from Investment Securities (a) Refers to dividend income. With effect from 2024, income from perpetual securities were presented in net interest income 8. Other Income (a) Includes net gains and losses from sale of loans carried at amortised cost and rental income from operating leases 9. Employee Benefits (a) Excludes share-based expenses of $5 million (2023: $3 million) relating to sales incentive plan and non-executive Directors' remuneration which are reflected under other expenses (b) 2023 includes the consolidation of Citi Taiwan with effect from 12 August 2023 as well as one-time Citi Taiwan integration expenses. Adjusting for these items in both periods, expenses grew 9%",
+          "score": -8.375669479370117,
           "year": null,
           "quarter": null,
           "section_hint": "Making Greater\nIMPACT",
           "index_source": "marker"
         },
         {
-          "file": "dbs-annual-report-2022",
+          "file": "dbs-annual-report-2023",
           "page": null,
-          "text": "[dbs-annual-report-2022] table#195 row#10 :: Other expenses | Note: 10.0 | 2022: 2714.0 | 2021: 2694.0",
-          "score": -7.052289009094238,
+          "text": "s for shares granted in February 2023 in respect of performance year 2022 (refer to Note 39 for more details). The share grant in respect of the performance year 2023, which will be granted in February 2024, will be recognised as an expense over its vesting period from 2024 to 2027* - *(b) 2023 includes one-time Citi Taiwan integration expenses of \\$17 million. It also includes sta expenses arising from the consolidation of Citi Taiwan with e ect from 12 August 2023 of \\$81 million* #### **10. Other Expenses** - *(a) Includes hire, depreciation and maintenance costs of computer hardware and software* - *(b) Includes depreciation of leased oɝ ce and branch premises of \\$205 million (2022: \\$204 million) and amounts incurred in the maintenance of buildings* - *(c) Includes oɝ ce administration expenses (e.g. printing, stationery, telecommunications, etc.), and legal and professional fees* - *(d) 2023 includes one-time Citi Taiwan integration expenses of \\$118 million and Corporate Social Responsibility commitment of \\$100 million (Note 46.2). It also includes other expenses arising from the consolidation of Citi Taiwan with e ect from 12 August 2023 of \\$65 million* - *# Amount under \\$500,000* - *(a) Includes audit related assurance fees* - *(b) PricewaterhouseCoopers network ȴ rms* #### **11. Allowances for Credit and Other Losses** - *(a) Includes Stage 3 ECL* - *(b) Includes",
+          "score": -8.435796737670898,
           "year": null,
           "quarter": null,
-          "section_hint": "A Di erent \nKind of Bank",
+          "section_hint": "Building a Advantage",
           "index_source": "marker"
         },
         {
           "file": "dbs-annual-report-2024",
-          "page": 22,
-          "text": "[dbs-annual-report-2024] table#159 row#3 :: Expenses | 2024: 5273 | 2023: 4627 | YoY%: 14",
-          "score": -7.067477703094482,
+          "page": null,
+          "text": "August 2023 as well as one-time Citi Taiwan integration expenses. Adjusting for these items in both periods, expenses grew 9%* # **10. Other Expenses** - *(a) Includes hire, depreciation and maintenance costs of computer hardware and software* - *(b) Includes depreciation of leased office and branch premises of \\$219 million (2023: \\$205 million) and amounts incurred in the maintenance of buildings* - *(c) Includes office administration expenses (e.g. printing, stationery, telecommunications, etc.), and legal and professional fees* - *(d) 2023 includes the consolidation of Citi Taiwan with effect from 12 August 2023, one-time Citi Taiwan integration expenses as well as the Corporate Social Responsibility (CSR) commitment of \\$100 million. Adjusting for these items in both periods, expenses grew 5%* - *# Amount under \\$500,000* - *(a) Includes audit related assurance fees* - *(b) PricewaterhouseCoopers network firms* # **11. Allowances for Credit and Other Losses** - *(a) Includes Stage 3 ECL* - *(b) Includes allowances for non-credit exposures (2024: write-back of \\$1 million; 2023: write-back of \\$1 million)* - *(c) Refers to Stage 1 and 2 ECL* **136** DBS Annual Report 2024 **Making Greater Impact Financial statements 137** The following tables outline the changes in ECL under SFRS(I) 9 in 2024 and 2023 which are attributable to the following factors: - **•** Transfers betwee",
+          "score": -8.860299110412598,
           "year": null,
           "quarter": null,
           "section_hint": "Making Greater\nIMPACT",
           "index_source": "marker"
         },
         {
-          "file": "dbs-annual-report-2022",
-          "page": 63,
-          "text": "[page 63] [dbs-annual-report-2022] table#49 row#10 :: Other expenses | Note: 10.0 | 2022: 2714.0 | 2021: 2694.0",
-          "score": -7.078275680541992,
+          "file": "dbs-annual-report-2024",
+          "page": 69,
+          "text": "10. Other Expenses (a) Includes hire, depreciation and maintenance costs of computer hardware and software (b) Includes depreciation of leased office and branch premises of $219 million (2023: $205 million) and amounts incurred in the maintenance of buildings (c) Includes office administration expenses (e.g. printing, stationery, telecommunications, etc.), and legal and professional fees (d) 2023 includes the consolidation of Citi Taiwan with effect from 12 August 2023, one-time Citi Taiwan integration expenses as well as the Corporate Social Responsibility (CSR) commitment of $100 million. Adjusting for these items in both periods, expenses grew 5% # Amount under $500,000 (a) Includes audit related assurance fees (b) PricewaterhouseCoopers network firms 11. Allowances for Credit and Other Losses (a) Includes Stage 3 ECL (b) Includes allowances for non-credit exposures (2024: write-back of $1 million; 2023: write-back of $1 million) (c) Refers to Stage 1 and 2 ECL 136 DBS Annual Report 2024 Making Greater Impact Financial statements 137 The following tables outline the changes in ECL under SFRS(I) 9 in 2024 and 2023 which are attributable to the following factors: • Transfers between stages. • Net portfolio changes, which are determined on an obligor basis i.e. originations with new obligors net of derecognitions of former obligors. • Remeasurements, which include the impact of",
+          "score": -9.014140129089355,
           "year": null,
           "quarter": null,
-          "section_hint": "A Di erent \nKind of Bank",
+          "section_hint": "Making Greater\nIMPACT",
           "index_source": "marker"
         }
       ],
       "execution_log": null,
-      "latency_ms": 10524.14
+      "latency_ms": 19504.3
     },
     {
       "query": "Calculate the Operating Efficiency Ratio (Opex ÷ Operating Income) for the last 3 fiscal years, showing the working.",
-      "answer": "**Answer**\n\nThe operating efficiency ratio (Opex ÷ Operating Income) cannot be calculated from the information supplied.  \nThe context provides:\n\n| Item | 2024 | 2023 | 2022 |\n|------|------|------|------|\n| Profit before changes in operating assets & liabilities (proxy for Operating Income) | 14,080 | 12,671 | (not provided) |\n| Total income (proxy for revenue) | 22,297 | 20,180 | (not provided) |\n\nHowever, **no figures for operating expenses (Opex)** are present in the excerpts. Without Opex, the ratio cannot be computed. If you can provide the operating expense amounts for 2024, 2023, and 2022, the ratio can be calculated.\n\n**Citations**\n\n- “Profit before changes in operating assets & liabilities” – 2024: 14,080; 2023: 12,671.  \n- “Total income” – 2024: 22,297; 2023: 20,180.  \n- No mention of operating expenses (Opex) in the provided context.",
+      "answer": "**Answer**\n\nI’m unable to calculate the Operating Efficiency Ratio (Opex ÷ Operating Income) for the last three fiscal years because the required figures—**operating expenses (Opex)** and **operating income**—are not present in the supplied context. The only related numbers available are:\n\n| Item | 2024 | 2023 | 2022 |\n|------|------|------|------|\n| Profit before changes in operating assets & liabilities (often a proxy for operating income) | 14,080 m SGD | 12,671 m SGD | *not provided* |\n| Cost‑income ratio (Opex ÷ Total income) | 40 % | 40 % | 40 % |\n\nWithout explicit Opex values or a clear definition of operating income for each year, the ratio cannot be computed.\n\n**Missing Data**\n\n- Operating expenses (Opex) for 2024, 2023, and 2022.\n- Operating income (or a confirmed proxy) for 2022.\n\n**Citations**\n\n- Profit before changes in operating assets & liabilities: 2024 = 14,080 m SGD, 2023 = 12,671 m SGD (source: `[4Q24_performance_summary] table#50 row#12`).\n- Cost‑income ratio: 40 % for 2024, 2023, and 2022 (source: “cost‑income ratio of the overall business improved by 11 percentage points… 40% on the back of higher rates and volumes”).\n- No Opex or operating income figures are provided in the context.",
       "citations": [
         {
           "file": "dbs-annual-report-2022",
@@ -131,30 +131,20 @@
           "index_source": "marker"
         },
         {
-          "file": "4Q24_performance_summary",
-          "page": 34,
-          "text": "[page 34] [4Q24_performance_summary] table#33 row#25 :: Income taxes paid Net cash generated from operating activities (1) | Year 2024: (1438) 15341 | Year 2023: (1319) 5409",
-          "score": -5.4760589599609375,
+          "file": "2Q25_performance_summary",
+          "page": 27,
+          "text": "[page 27] [2Q25_performance_summary] table#25 row#18 :: Total comprehensive income | 1st Half 2025: 5267.0 | 1st Half 2024: 6141.0 | +/(-) %: (14) | 2nd Half 2024: 6719.0 | +/(-) %.1: (22)",
+          "score": -8.455619812011719,
           "year": null,
           "quarter": null,
-          "section_hint": "Financial Results for the Year Ended 31 December 2024",
+          "section_hint": "Unaudited Financial Results for the First Half/ Second Quarter Ended 30 June 2025",
           "index_source": "marker"
         },
         {
           "file": "4Q24_performance_summary",
-          "page": 28,
-          "text": "[page 28] [4Q24_performance_summary] table#27 row#17 :: Total comprehensive income | 2nd Half 1 2024: 6719.0 | 2nd Half 1 2023: 5760.0 | +/(-) %: 17.0 | 1st Half 1 2024: 6141.0 | +/(-) %.1: 9.0 | Year 2024: 12860.0 | Year 2023: 11042.0 | +/(-) %.2: 16.0",
-          "score": -7.612119674682617,
-          "year": null,
-          "quarter": null,
-          "section_hint": "Financial Results for the Year Ended 31 December 2024",
-          "index_source": "marker"
-        },
-        {
-          "file": "4Q24_performance_summary",
-          "page": 4,
-          "text": "[page 4] [4Q24_performance_summary] table#1 row#8 :: Total income | 2nd Half 2024: 11258.0 | 2nd Half 2023: 10199.0 | % chg: 10.0 | 1st Half 2024: 11039.0 | % chg.1: 2.0 | Year 2024: 22297.0 | Year 2023: 20180.0 | % chg.2: 10.0",
-          "score": -7.710261344909668,
+          "page": null,
+          "text": "albeit the methodology to calculate some of these adjustments is continuing to evolve. (Refer also to Notes 3 and 40 to the financial statements.) ## **Key audit matter How our audit addressed the key audit matter** We assessed the design and tested the operating effectiveness of the controls over the Group's financial instruments valuation processes. These included the controls over: - management's testing and approval of new models and revalidation of existing models; - the completeness and accuracy of pricing data inputs into valuation models; - monitoring of collateral disputes; and - governance mechanisms and monitoring over the valuation processes (including derivative valuation adjustments) by the Group Market and Liquidity Risk Committee and the Group Valuation Committee. We determined that we could rely on the controls for the purposes of our audit. In addition, we: - engaged our own specialists to use their models and input sources to determine an independent estimate of fair value for a sample of the Group's Level 2 financial instruments. We compared these to the Group's calculations of fair value to assess individual material valuation differences or systemic bias; - assessed the reasonableness of methodologies used and assumptions made for a sample of financial instrument valuations with significant unobservable valuation inputs (Level 3 instruments); - performed p",
+          "score": -9.02566146850586,
           "year": null,
           "quarter": null,
           "section_hint": "Financial Results for the Year Ended 31 December 2024",
@@ -163,16 +153,26 @@
         {
           "file": "4Q24_performance_summary",
           "page": 34,
-          "text": "[page 34] [4Q24_performance_summary] table#33 row#12 :: Profit before changes in operating assets & liabilities | Year 2024: 14080.0 | Year 2023: 12671.0",
-          "score": -7.718293190002441,
+          "text": "[page 34] [4Q24_performance_summary] table#33 row#45 :: Net change in cash and cash equivalents2 (1)+(2)+(3)+(4) | Year 2024: 7477.0 | Year 2023: (4101)",
+          "score": -9.212179183959961,
           "year": null,
           "quarter": null,
           "section_hint": "Financial Results for the Year Ended 31 December 2024",
+          "index_source": "marker"
+        },
+        {
+          "file": "2Q24_performance_summary",
+          "page": 26,
+          "text": "[page 26] [2Q24_performance_summary] table#25 row#12 :: Taxation relating to components of other comprehensive income | 1st Half 2024: 28.0 | 1st Half 2023: 5.0 | +/(-) %: >100 | 2nd Half 2023: (89) | +/(-) %.1: NM",
+          "score": -9.57174301147461,
+          "year": null,
+          "quarter": null,
+          "section_hint": "Unaudited Financial Results for the First Half/ Second Quarter Ended 30 June 2024",
           "index_source": "marker"
         }
       ],
       "execution_log": null,
-      "latency_ms": 7330.25
+      "latency_ms": 13403.39
     }
   ]
 }

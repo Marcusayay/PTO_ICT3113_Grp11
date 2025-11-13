@@ -189,7 +189,9 @@ class MetadataQueryAnalyzer:
         query_lower = query.lower()
         
         # Check for relative quarter expressions: "last N quarters", "past N quarters", "previous N quarters"
+        # IMPROVED: More flexible patterns
         relative_patterns = [
+            r'\b(?:over|for|in)\s+(?:the\s+)?(?:last|past|previous|recent)\s+(\d+)\s+quarters?\b',
             r'\b(?:last|past|previous|recent)\s+(\d+)\s+quarters?\b',
             r'\b(\d+)\s+(?:last|past|previous|recent)\s+quarters?\b',
         ]
@@ -335,29 +337,194 @@ class MetadataQueryAnalyzer:
 class MetadataBooster:
     """Apply metadata-based score boosting to search results"""
     
+    # Document type priority for different query intents
+    DOC_TYPE_PRIORITY = {
+        "metrics": ["quarterly_results", "performance_summary", "cfo_presentation", "annual_report"],
+        "narrative": ["ceo_presentation", "annual_report", "trading_update", "press_statement"],
+        "financial": ["annual_report", "quarterly_results", "performance_summary"],
+        "comparison": ["quarterly_results", "performance_summary", "annual_report"],
+    }
+    
+    @staticmethod
+    def get_adaptive_boost_weights(query: str, hints: MetadataHints) -> Dict[str, float]:
+        """
+        Adjust boost weights based on query type and context
+        
+        Args:
+            query: User query string
+            hints: Extracted metadata hints
+        
+        Returns:
+            Adaptive boost weight dictionary
+        """
+        query_lower = query.lower()
+        
+        # Default weights (more conservative than before)
+        weights = {
+            "quarter": 4.0,    # Reduced from 5.0
+            "doc_type": 1.8,   # Reduced from 2.0
+            "year": 1.6,       # Reduced from 1.8
+            "section": 1.2     # Reduced from 1.3
+        }
+        
+        # If query asks for specific quarter, boost quarter heavily
+        if hints.quarters:
+            weights["quarter"] = 6.0   # Reduced from 8.0
+            weights["doc_type"] = 1.4  # Reduced from 1.5
+        
+        # If query is YoY comparison, boost year more
+        yoy_terms = ["year-on-year", "yoy", "y-o-y", "versus", "vs", "compared to", "comparison"]
+        if len(hints.years) > 1 or any(term in query_lower for term in yoy_terms):
+            weights["year"] = 3.0      # Reduced from 3.5
+            weights["quarter"] = 1.8   # Reduced from 2.0
+            weights["doc_type"] = 2.2  # Reduced from 2.5
+        
+        # If query asks for annual data, prefer annual reports
+        if "annual" in query_lower or "fiscal year" in query_lower or "fy" in query_lower:
+            weights["doc_type"] = 3.5  # Reduced from 4.0
+            weights["quarter"] = 1.0
+            weights["year"] = 2.2      # Reduced from 2.5
+        
+        # If query mentions "latest" or "recent", boost recency more
+        recency_terms = ["latest", "recent", "current", "last", "most recent"]
+        if any(term in query_lower for term in recency_terms):
+            weights["quarter"] = 5.5   # Reduced from 7.0
+            weights["year"] = 2.2      # Reduced from 2.5
+        
+        # If query is about trends or multiple periods
+        if any(term in query_lower for term in ["trend", "over time", "last n", "past"]):
+            weights["quarter"] = 5.0   # Reduced from 6.0
+            weights["year"] = 1.8      # Reduced from 2.0
+        
+        return weights
+    
+    @staticmethod
+    def apply_recency_decay(
+        results_df: pd.DataFrame,
+        hints: MetadataHints,
+        decay_factor: float = 0.95
+    ) -> pd.DataFrame:
+        """
+        Apply exponential decay based on how old the document is
+        relative to the most recent quarter/year in hints.
+        
+        Args:
+            results_df: Search results with metadata
+            hints: Extracted metadata hints
+            decay_factor: Multiplier per quarter/year of age (0.95 = 5% decay per period)
+                         Changed from 0.93 to 0.95 for less aggressive decay
+        
+        Returns:
+            DataFrame with recency_boost applied to scores
+        """
+        if results_df.empty or 'year' not in results_df.columns:
+            return results_df
+        
+        df = results_df.copy()
+        
+        # Find the most recent target from hints
+        target_year = max(hints.years) if hints.years else int(df['year'].max())
+        
+        # Calculate quarter distance (if applicable)
+        if hints.quarters and 'quarter' in df.columns:
+            # Parse target quarter (e.g., "2Q2024" -> (2024, 2))
+            target_q = hints.quarters[0]
+            match = re.search(r'([1-4])Q(\d{4})', target_q)
+            if match:
+                target_year = int(match.group(2))
+                target_qtr = int(match.group(1))
+                
+                def calc_quarter_distance(row):
+                    if pd.isna(row['quarter']):
+                        return 8  # ~2 years away if no quarter
+                    m = re.search(r'([1-4])Q(\d{4})', str(row['quarter']))
+                    if not m:
+                        return 8
+                    qtr = int(m.group(1))
+                    year = int(m.group(2))
+                    # Distance in quarters
+                    return abs((target_year - year) * 4 + (target_qtr - qtr))
+                
+                df['_quarter_distance'] = df.apply(calc_quarter_distance, axis=1)
+                df['recency_boost'] = decay_factor ** df['_quarter_distance']
+                df.drop(columns=['_quarter_distance'], inplace=True)
+            else:
+                # No quarter parsing, use year only
+                df['recency_boost'] = decay_factor ** (4 * (target_year - df['year'].fillna(target_year)))
+        else:
+            # Year-only decay (multiply by 4 to simulate quarters)
+            df['recency_boost'] = decay_factor ** (4 * (target_year - df['year'].fillna(target_year)))
+        
+        # Apply recency boost to score
+        if 'score' in df.columns:
+            df['score'] = df['score'] * df['recency_boost']
+        
+        return df.sort_values('score', ascending=False)
+    
+    @staticmethod
+    def score_doc_type_relevance(doc_type: str, query: str) -> float:
+        """
+        Score how relevant a doc type is for this query based on intent
+        
+        Args:
+            doc_type: Document type string
+            query: User query
+        
+        Returns:
+            Relevance score (higher = better)
+        """
+        query_lower = query.lower()
+        
+        # Detect query intent
+        if any(word in query_lower for word in ["calculate", "ratio", "margin", "revenue", "profit", "expense", "income"]):
+            intent = "metrics"
+        elif any(word in query_lower for word in ["strategy", "outlook", "plan", "initiative", "vision"]):
+            intent = "narrative"
+        elif any(word in query_lower for word in ["balance sheet", "cash flow", "statement", "financial position"]):
+            intent = "financial"
+        elif any(word in query_lower for word in ["versus", "vs", "compared", "comparison", "yoy", "year-on-year"]):
+            intent = "comparison"
+        else:
+            intent = "metrics"  # Default
+        
+        # Return priority score based on position in priority list
+        priority_list = MetadataBooster.DOC_TYPE_PRIORITY.get(intent, [])
+        try:
+            position = priority_list.index(doc_type)
+            return 1.0 / (position + 1)  # 1.0, 0.5, 0.33, 0.25...
+        except (KeyError, ValueError):
+            return 0.5  # Unknown doc type gets mid-priority
+    
     @staticmethod
     def apply_boost(
         results_df: pd.DataFrame,
         hints: MetadataHints,
-        boost_weights: Optional[Dict[str, float]] = None
+        boost_weights: Optional[Dict[str, float]] = None,
+        query: str = "",
+        apply_recency: bool = True
     ) -> pd.DataFrame:
         """
-        Apply metadata boosting to search results
+        Apply metadata boosting to search results with adaptive weights
         
         Args:
             results_df: Search results with score and metadata columns
             hints: Extracted metadata from query
             boost_weights: Multiplicative boosts for each metadata type
-                          Default: {"year": 1.5, "quarter": 2.0, "doc_type": 1.3, "section": 1.2}
+                          If None, will use adaptive weights based on query
+            query: Original query (needed for adaptive weights)
+            apply_recency: Whether to apply recency decay
         
         Returns:
             DataFrame with adjusted 'score' column and 'boost_applied' flag
         """
-        if boost_weights is None:
+        # Use adaptive weights if not provided
+        if boost_weights is None and query:
+            boost_weights = MetadataBooster.get_adaptive_boost_weights(query, hints)
+        elif boost_weights is None:
             boost_weights = {
-                "year": 1.5,
-                "quarter": 2.0,
-                "doc_type": 1.3,
+                "year": 1.6,
+                "quarter": 4.0,
+                "doc_type": 1.8,
                 "section": 1.2
             }
         
@@ -368,30 +535,44 @@ class MetadataBooster:
         # Year boosting
         if hints.years and 'year' in df.columns:
             year_mask = df['year'].isin(hints.years)
-            df.loc[year_mask, 'boost_factor'] *= boost_weights.get("year", 1.5)
+            df.loc[year_mask, 'boost_factor'] *= boost_weights.get("year", 1.8)
             df.loc[year_mask, 'boost_applied'] += "year "
         
         # Quarter boosting
         if hints.quarters and 'quarter' in df.columns:
             quarter_mask = df['quarter'].isin(hints.quarters)
-            df.loc[quarter_mask, 'boost_factor'] *= boost_weights.get("quarter", 2.0)
+            df.loc[quarter_mask, 'boost_factor'] *= boost_weights.get("quarter", 5.0)
             df.loc[quarter_mask, 'boost_applied'] += "quarter "
         
-        # Document type boosting
-        if hints.doc_types and 'doc_type' in df.columns:
-            doctype_mask = df['doc_type'].isin(hints.doc_types)
-            df.loc[doctype_mask, 'boost_factor'] *= boost_weights.get("doc_type", 1.3)
-            df.loc[doctype_mask, 'boost_applied'] += "doc_type "
+        # Document type boosting (enhanced with relevance scoring)
+        if 'doc_type' in df.columns:
+            # Base boost for matching doc types
+            if hints.doc_types:
+                doctype_mask = df['doc_type'].isin(hints.doc_types)
+                df.loc[doctype_mask, 'boost_factor'] *= boost_weights.get("doc_type", 2.0)
+                df.loc[doctype_mask, 'boost_applied'] += "doc_type "
+            
+            # Additional relevance-based boost (subtle)
+            if query:
+                df['_doc_relevance'] = df['doc_type'].apply(
+                    lambda dt: MetadataBooster.score_doc_type_relevance(dt, query)
+                )
+                df['boost_factor'] *= (1.0 + df['_doc_relevance'] * 0.3)  # Up to 1.3x additional boost
+                df.drop(columns=['_doc_relevance'], inplace=True)
         
         # Section boosting
         if hints.sections and 'section' in df.columns:
             section_mask = df['section'].isin(hints.sections)
-            df.loc[section_mask, 'boost_factor'] *= boost_weights.get("section", 1.2)
+            df.loc[section_mask, 'boost_factor'] *= boost_weights.get("section", 1.3)
             df.loc[section_mask, 'boost_applied'] += "section "
         
         # Apply boost to scores
         df['score'] = df['score'] * df['boost_factor']
         df['boost_applied'] = df['boost_applied'].str.strip()
+        
+        # Apply recency decay if requested
+        if apply_recency:
+            df = MetadataBooster.apply_recency_decay(df, hints, decay_factor=0.95)
         
         # Re-sort and re-rank
         df = df.sort_values('score', ascending=False).reset_index(drop=True)

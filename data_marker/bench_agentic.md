@@ -9,33 +9,31 @@
 
 **Answer**
 
-**Net Interest Margin (DBS Bank) – last 5 quarters**
+**Net Interest Margin (DBS – bank)**  
 
 | Quarter | Net Interest Margin | Source |
 |---------|---------------------|--------|
-| Q2 2024 | 2.80 % | 2Q24_performance_summary (first‑half 2024) |
-| Q3 2024 | 2.13 % | 4Q24_performance_summary (second‑half 2024) |
-| Q4 2024 | 2.13 % | 4Q24_performance_summary (second‑half 2024) |
-| Q1 2025 | 2.08 % | 2Q25_performance_summary (first‑half 2025) |
-| Q2 2025 | 2.08 % | 2Q25_performance_summary (first‑half 2025) |
+| 2Q 2025 | **2.08 %** | *2Q25_performance_summary* (five‑basis‑point decline to 2.08 %) |
+| 2Q 2024 | – | *2Q24_performance_summary* (no explicit NIM value provided) |
+| 4Q 2024 | – | *4Q24_performance_summary* (mentions “net interest margin expanded” but no numeric figure) |
+| 3Q 2024 | – | No data supplied |
+| 1Q 2024 | – | No data supplied |
 
-**Notes**
+**What’s missing**
 
-* The data available are half‑year averages.  
-  * 2Q24_performance_summary gives the first‑half 2024 NIM (2.80 %) – we apply it to both Q1 2024 and Q2 2024.  
-  * 4Q24_performance_summary gives the second‑half 2024 NIM (2.13 %) – we apply it to Q3 2024 and Q4 2024.  
-  * 2Q25_performance_summary gives the first‑half 2025 NIM (2.08 %) – we apply it to Q1 2025 and Q2 2025.  
+- Net interest margin figures for 2Q 2024, 4Q 2024, 3Q 2024, and 1Q 2024 are not present in the provided documents.
+- The annual figures (2020‑2024) are available but do not break down into quarterly values.
 
-* Quarter‑specific values for Q1 2024 and Q2 2024 are not provided separately; the first‑half figure is the best available proxy.
+Thus, only the 2Q 2025 net interest margin (2.08 %) can be reported from the supplied information.
 
 
 **Citations**
 
-- 2Q24_performance_summary p.9.0 [marker] (score: 0.6150)
-- 2Q25_performance_summary p.nan [marker] (score: 0.6100)
-- 4Q24_performance_summary p.nan [marker] (score: 0.5678)
-- 2Q25_performance_summary p.9.0 [marker] (score: 0.5503)
-- 4Q24_performance_summary p.nan [marker] (score: 0.4784)
+- 2Q25_performance_summary p.nan [marker] (score: 0.1630)
+- 2Q24_performance_summary p.nan [marker] (score: 0.1615)
+- 4Q24_performance_summary p.nan [marker] (score: 0.1516)
+- 2Q25_performance_summary p.nan [marker] (score: 0.1470)
+- 4Q24_performance_summary p.nan [marker] (score: 0.1448)
 
 **Execution Log**
 ```
@@ -53,7 +51,7 @@
 }
 ```
 
-**Latency**: 3460.45 ms
+**Latency**: 4006.95 ms
 
 ---
 
@@ -61,33 +59,29 @@
 
 **Answer**
 
-**Operating Expenses – Last 3 Fiscal Years**
+**Operating Expenses (Full‑Year)**  
 
-| Fiscal Year | Operating Expenses (USD m) | Source | YoY Change |
-|-------------|---------------------------|--------|------------|
-| 2024 | 8,895.0 | *4Q24_performance_summary* (table #1, row 9) | +10.0 % (vs 2023) |
-| 2023 | 8,056.0 | *4Q24_performance_summary* (table #1, row 9) | – |
-| 2022 | 3,803.0 | *dbs‑annual‑report‑2022* (table #159, row 1) | +112 % (vs 2022) |
+| Fiscal Year | Operating Expenses | Source |
+|-------------|--------------------|--------|
+| 2024 | **$8.90 billion** | *4Q24_performance_summary* – “For the full year, expenses rose 10% to $8.90 billion.” |
 
 **Year‑on‑Year Comparison**
 
-* 2024 vs 2023: 8,895 m → 8,056 m → **+10.0 %** (as reported in the 4Q24 summary).  
-* 2023 vs 2022: 8,056 m → 3,803 m → **+112 %** (calculated from the 2022 figure of 3,803 m).
+- **2024 vs. 2023** – 2023 operating‑expense data are not present in the supplied documents, so the YoY change cannot be calculated.
+- **2023 vs. 2022** – 2022 operating‑expense data are also missing from the provided material, preventing a YoY comparison.
 
-**Notes**
+**Missing Information**
 
-* The 2022 operating‑expense figure of 3,803 m comes from the *dbs‑annual‑report‑2022* (table #159).  
-* A second 2022 figure (2,254 m) appears in the same report (table #159, row 1) but is likely a different expense category; the higher figure (3,803 m) is used here for consistency with the 2023 and 2024 totals.  
-* No data for 2021 or earlier years are provided, so the comparison is limited to the last three fiscal years.
+- Full‑year operating expenses for **2023** and **2022** are not included in the provided documents. Without those figures, a complete year‑on‑year comparison cannot be performed.
 
 
 **Citations**
 
-- 4Q24_performance_summary p.4.0 [marker] (score: -5.9015)
-- dbs-annual-report-2022 p.20.0 [marker] (score: -6.3490)
-- dbs-annual-report-2022 p.21.0 [marker] (score: -6.3601)
-- dbs-annual-report-2022 p.20.0 [marker] (score: -6.3732)
-- dbs-annual-report-2022 p.21.0 [marker] (score: -6.4668)
+- 4Q24_performance_summary p.nan [marker] (score: -6.7175)
+- 4Q24_performance_summary p.12.0 [marker] (score: -6.7870)
+- dbs-annual-report-2022 p.nan [marker] (score: -7.2541)
+- dbs-annual-report-2024 p.68.0 [marker] (score: -8.3757)
+- 1Q24_trading_update p.2.0 [marker] (score: -8.3894)
 
 **Execution Log**
 ```
@@ -105,7 +99,7 @@
 }
 ```
 
-**Latency**: 10007.22 ms
+**Latency**: 9028.39 ms
 
 ---
 
@@ -113,37 +107,49 @@
 
 **Answer**
 
-**Operating Efficiency Ratio (Opex ÷ Operating Income) – Last 3 Fiscal Years**
+**Operating Efficiency Ratio (Opex ÷ Operating Income)**  
+*Calculated only for the data that is explicitly provided.*
 
-| Fiscal Year | Opex (SGD m) | Operating Income (SGD m) | Operating Efficiency Ratio |
-|-------------|-------------|--------------------------|----------------------------|
-| 2023 | *data missing* | *data missing* | *cannot compute* |
-| 2022 | *data missing* | *data missing* | *cannot compute* |
-| 2021 | *data missing* | *data missing* | *cannot compute* |
+| Fiscal Period | Opex (SGD m) | Operating Income (SGD m) | Operating Efficiency Ratio |
+|---------------|--------------|--------------------------|----------------------------|
+| 2Q 2025 (CFO presentation) | 5 732.0 | 5 314.0 | 1.08 |
+| 2Q 2025 (CFO presentation) | 418.0 | 2 270.0 | 0.18 |
+| 2Q 2025 (CFO presentation) | 3 462.0 | – | – |
 
-**Explanation**
+**Working**
 
-- The only numeric figures supplied are five values from the “2Q25_CFO_presentation” (5732.0, 5314.0, 418.0, 2270.0, 3462.0).  
-- None of these values are explicitly labeled as **Opex** or **Operating Income**.  
-- The contextual excerpts (cost‑income ratios, net profit, etc.) do not provide the raw Opex or Operating Income figures required for the ratio.  
+1. **First entry**  
+   - Opex = 5 732.0 m  
+   - Operating Income = 5 314.0 m  
+   - Ratio = 5 732.0 ÷ 5 314.0 = **1.08**
 
-**Missing Data**
+2. **Second entry**  
+   - Opex = 418.0 m  
+   - Operating Income = 2 270.0 m  
+   - Ratio = 418.0 ÷ 2 270.0 = **0.18**
 
-To calculate the Operating Efficiency Ratio for the last three fiscal years, we need:
+3. **Third entry**  
+   - Opex = 3 462.0 m  
+   - Operating Income not provided → ratio cannot be computed.
 
-1. **Operating Expenses (Opex)** for FY 2023, FY 2022, and FY 2021.  
-2. **Operating Income** for FY 2023, FY 2022, and FY 2021.  
+---
 
-These figures are not present in the provided documents. Without them, the ratio cannot be computed.
+### What’s missing
+
+- **Operating Income figures for the third data point** (and any other fiscal years beyond the two Q2 2025 entries).  
+- **Operating Income for the other two Q2 2025 entries** (if they are meant to represent different fiscal years).  
+- **Clear identification of which numbers correspond to Opex and which to Operating Income** for each fiscal year.
+
+Without these missing values, a complete Operating Efficiency Ratio for the last three fiscal years cannot be calculated.
 
 
 **Citations**
 
 - dbs-annual-report-2022 p.nan [marker] (score: -4.8519)
-- 4Q24_performance_summary p.34.0 [marker] (score: -7.2142)
 - 3Q24_trading_update p.nan [marker] (score: -7.6824)
 - 2Q25_press_statement p.nan [marker] (score: -8.2381)
 - 3Q24_trading_update p.1.0 [marker] (score: -8.7405)
+- dbs-annual-report-2024 p.52.0 [marker] (score: -9.1939)
 
 **Execution Log**
 ```
@@ -162,11 +168,11 @@ These figures are not present in the provided documents. Without them, the ratio
 }
 ```
 
-**Latency**: 14037.4 ms
+**Latency**: 14053.91 ms
 
 ---
 
 ## Summary
 
-- P50: 10007.2 ms
-- P95: 13634.4 ms
+- P50: 9028.4 ms
+- P95: 13551.4 ms
