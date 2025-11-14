@@ -9,7 +9,7 @@
 
 **Answer**
 
-LLM error: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-20b` in organization `org_01k6cv721nexabx65q4bdbe28e` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199668, Requested 825. Please try again in 3m32.976s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
+LLM error: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-20b` in organization `org_01k6cv721nexabx65q4bdbe28e` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199947, Requested 825. Please try again in 5m33.504s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
 
 
 **Citations**
@@ -36,7 +36,7 @@ LLM error: Error code: 429 - {'error': {'message': 'Rate limit reached for model
 }
 ```
 
-**Latency**: 5783.03 ms
+**Latency**: 6128.7 ms
 
 ---
 
@@ -44,7 +44,7 @@ LLM error: Error code: 429 - {'error': {'message': 'Rate limit reached for model
 
 **Answer**
 
-LLM error: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-20b` in organization `org_01k6cv721nexabx65q4bdbe28e` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199650, Requested 632. Please try again in 2m1.824s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
+LLM error: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-20b` in organization `org_01k6cv721nexabx65q4bdbe28e` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199928, Requested 632. Please try again in 4m1.92s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
 
 
 **Citations**
@@ -71,7 +71,7 @@ LLM error: Error code: 429 - {'error': {'message': 'Rate limit reached for model
 }
 ```
 
-**Latency**: 7624.94 ms
+**Latency**: 8175.48 ms
 
 ---
 
@@ -79,7 +79,7 @@ LLM error: Error code: 429 - {'error': {'message': 'Rate limit reached for model
 
 **Answer**
 
-LLM error: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-20b` in organization `org_01k6cv721nexabx65q4bdbe28e` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199614, Requested 829. Please try again in 3m11.376s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
+LLM error: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-20b` in organization `org_01k6cv721nexabx65q4bdbe28e` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199891, Requested 829. Please try again in 5m11.039999999s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
 
 
 **Citations**
@@ -107,11 +107,11 @@ LLM error: Error code: 429 - {'error': {'message': 'Rate limit reached for model
 }
 ```
 
-**Latency**: 15832.29 ms
+**Latency**: 15911.22 ms
 
 ---
 
 ## Summary
 
-- P50: 7624.9 ms
-- P95: 15011.6 ms
+- P50: 8175.5 ms
+- P95: 15137.6 ms

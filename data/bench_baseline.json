@@ -2,7 +2,7 @@
   "results": [
     {
       "query": "Report the Gross Margin (or Net Interest Margin, if a bank) over the last 5 quarters, with values.",
-      "answer": "LLM error: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-20b` in organization `org_01k6cv721nexabx65q4bdbe28e` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199708, Requested 1214. Please try again in 6m38.304s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",
+      "answer": "**Net Interest Margin (NIM) – last 5 quarters (where data are available)**  \n\n| Quarter | NIM (%) | Source |\n|---------|---------|--------|\n| Q2 2025 (first‑half 2025) | 2.08 % | 2Q25 performance summary |\n| Q4 2024 (second‑half 2024) | 2.13 % | 4Q24 performance summary |\n| Q3 2024 (second‑half 2024) | 2.13 % | 4Q24 performance summary |\n| Q2 2024 (first‑half 2024) | 2.14 % | 2Q24 performance summary |\n| Q1 2024 (first‑half 2024) | 2.14 % | 2Q24 performance summary |\n\n**Missing data**\n\n- NIM for Q1 2025 is not provided in the supplied context.\n- The context gives only half‑year figures; exact quarter‑level values for Q2 2025, Q1 2025, Q4 2024, Q3 2024, and Q2 2024 are inferred from the half‑year totals and therefore may not reflect the precise quarterly performance.\n\n**Citations**\n\n- 2Q25 performance summary – Net interest margin (1st Half 2025) 2.08 %【2Q25_performance_summary】  \n- 4Q24 performance summary – Net interest margin (2nd Half 2024) 2.13 %【4Q24_performance_summary】  \n- 2Q24 performance summary – Net interest margin (1st Half 2024) 2.14 %【2Q24_performance_summary】  \n- 2Q24 performance summary – Net interest margin (1st Half 2023) 2.14 % (used to infer Q1 2024)【2Q24_performance_summary】  \n- 4Q24 performance summary – Net interest margin (2nd Half 2023) 2.16 % (used to infer Q3 2024)【4Q24_performance_summary】",
       "citations": [
         {
           "file": "dbs-annual-report-2022",
@@ -56,11 +56,11 @@
         }
       ],
       "execution_log": null,
-      "latency_ms": 5526.66
+      "latency_ms": 7344.84
     },
     {
       "query": "Show Operating Expenses for the last 3 fiscal years, year-on-year comparison.",
-      "answer": "LLM error: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-20b` in organization `org_01k6cv721nexabx65q4bdbe28e` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199694, Requested 991. Please try again in 4m55.92s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",
+      "answer": "**Operating‑expense trend (millions of local currency)**  \n\n| Fiscal year | Operating expenses | YoY change |\n|-------------|--------------------|------------|\n| 2022 | 3,803 | – |\n| 2023 | 4,627 | +21.7 % |\n| 2024 | 5,273 | +14.0 % |\n\n*The figures come from the same table series in the annual reports, giving a consistent set of operating‑expense numbers for 2022‑2024.*\n\n**Citations**\n\n- dbs‑annual‑report‑2022 – table#7, row#1: “Expenses 2022 = 3803.0, 2021 = 3353.0”  \n- dbs‑annual‑report‑2024 – table#7, row#3: “Expenses 2024 = 5273, 2023 = 4627, YoY% = 14”  \n- (YoY percentages calculated from the above figures.)",
       "citations": [
         {
           "file": "dbs-annual-report-2022",
@@ -114,11 +114,11 @@
         }
       ],
       "execution_log": null,
-      "latency_ms": 6339.09
+      "latency_ms": 7901.34
     },
     {
       "query": "Calculate the Operating Efficiency Ratio (Opex ÷ Operating Income) for the last 3 fiscal years, showing the working.",
-      "answer": "LLM error: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-20b` in organization `org_01k6cv721nexabx65q4bdbe28e` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199681, Requested 1314. Please try again in 7m9.84s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",
+      "answer": "LLM error: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-20b` in organization `org_01k6cv721nexabx65q4bdbe28e` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199961, Requested 1314. Please try again in 9m10.8s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",
       "citations": [
         {
           "file": "dbs-annual-report-2022",
@@ -172,7 +172,7 @@
         }
       ],
       "execution_log": null,
-      "latency_ms": 5343.19
+      "latency_ms": 5380.15
     }
   ]
 }
