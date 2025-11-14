@@ -9,7 +9,7 @@
 
 **Answer**
 
-LLM error: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-20b` in organization `org_01k6cv721nexabx65q4bdbe28e` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199947, Requested 825. Please try again in 5m33.504s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
+LLM error: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-20b` in organization `org_01k6cv721nexabx65q4bdbe28e` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199984, Requested 825. Please try again in 5m49.488s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
 
 
 **Citations**
@@ -36,7 +36,7 @@ LLM error: Error code: 429 - {'error': {'message': 'Rate limit reached for model
 }
 ```
 
-**Latency**: 6128.7 ms
+**Latency**: 2681.25 ms
 
 ---
 
@@ -44,16 +44,16 @@ LLM error: Error code: 429 - {'error': {'message': 'Rate limit reached for model
 
 **Answer**
 
-LLM error: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-20b` in organization `org_01k6cv721nexabx65q4bdbe28e` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199928, Requested 632. Please try again in 4m1.92s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
+LLM error: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-20b` in organization `org_01k6cv721nexabx65q4bdbe28e` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199975, Requested 547. Please try again in 3m45.504s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
 
 
 **Citations**
 
-- 4Q24_performance_summary p.4.0 [marker] (score: -5.9015)
-- dbs-annual-report-2022 p.20.0 [marker] (score: -6.3490)
-- dbs-annual-report-2022 p.21.0 [marker] (score: -6.3601)
-- dbs-annual-report-2022 p.20.0 [marker] (score: -6.3732)
-- dbs-annual-report-2022 p.21.0 [marker] (score: -6.4668)
+- dbs-annual-report-2022 p.nan [marker] (score: -6.7801)
+- dbs-annual-report-2024 p.22.0 [marker] (score: -6.8893)
+- dbs-annual-report-2022 p.nan [marker] (score: -7.0523)
+- dbs-annual-report-2024 p.22.0 [marker] (score: -7.0675)
+- dbs-annual-report-2022 p.63.0 [marker] (score: -7.0783)
 
 **Execution Log**
 ```
@@ -71,7 +71,7 @@ LLM error: Error code: 429 - {'error': {'message': 'Rate limit reached for model
 }
 ```
 
-**Latency**: 8175.48 ms
+**Latency**: 3837.78 ms
 
 ---
 
@@ -79,16 +79,16 @@ LLM error: Error code: 429 - {'error': {'message': 'Rate limit reached for model
 
 **Answer**
 
-LLM error: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-20b` in organization `org_01k6cv721nexabx65q4bdbe28e` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199891, Requested 829. Please try again in 5m11.039999999s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
+LLM error: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-20b` in organization `org_01k6cv721nexabx65q4bdbe28e` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199953, Requested 771. Please try again in 5m12.768s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
 
 
 **Citations**
 
 - dbs-annual-report-2022 p.nan [marker] (score: -4.8519)
 - 4Q24_performance_summary p.34.0 [marker] (score: -7.2142)
-- dbs-annual-report-2022 p.nan [marker] (score: -7.6210)
-- 3Q24_trading_update p.nan [marker] (score: -7.6824)
-- 2Q25_press_statement p.nan [marker] (score: -8.2381)
+- 4Q24_performance_summary p.nan [marker] (score: -8.8156)
+- 4Q24_performance_summary p.12.0 [marker] (score: -9.9208)
+- dbs-annual-report-2023 p.51.0 [marker] (score: -9.9659)
 
 **Execution Log**
 ```
@@ -107,11 +107,11 @@ LLM error: Error code: 429 - {'error': {'message': 'Rate limit reached for model
 }
 ```
 
-**Latency**: 15911.22 ms
+**Latency**: 9287.05 ms
 
 ---
 
 ## Summary
 
-- P50: 8175.5 ms
-- P95: 15137.6 ms
+- P50: 3837.8 ms
+- P95: 8742.1 ms

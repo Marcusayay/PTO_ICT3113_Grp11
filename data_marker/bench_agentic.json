@@ -2,7 +2,7 @@
   "results": [
     {
       "query": "Report the Gross Margin (or Net Interest Margin, if a bank) over the last 5 quarters, with values.",
-      "answer": "LLM error: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-20b` in organization `org_01k6cv721nexabx65q4bdbe28e` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199947, Requested 825. Please try again in 5m33.504s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",
+      "answer": "LLM error: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-20b` in organization `org_01k6cv721nexabx65q4bdbe28e` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199984, Requested 825. Please try again in 5m49.488s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",
       "citations": [
         {
           "file": "dbs-annual-report-2022",
@@ -52,46 +52,46 @@
           "Tools used: table_extraction"
         ]
       },
-      "latency_ms": 6128.7
+      "latency_ms": 2681.25
     },
     {
       "query": "Show Operating Expenses for the last 3 fiscal years, year-on-year comparison.",
-      "answer": "LLM error: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-20b` in organization `org_01k6cv721nexabx65q4bdbe28e` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199928, Requested 632. Please try again in 4m1.92s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",
+      "answer": "LLM error: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-20b` in organization `org_01k6cv721nexabx65q4bdbe28e` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199975, Requested 547. Please try again in 3m45.504s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",
       "citations": [
         {
-          "file": "4Q24_performance_summary",
-          "page": 4.0,
-          "section_hint": "Financial Results for the Year Ended 31 December 2024",
+          "file": "dbs-annual-report-2022",
+          "page": NaN,
+          "section_hint": "A Di erent \nKind of Bank",
           "index_source": "marker",
-          "score": -5.9014668464660645
+          "score": -6.7800726890563965
+        },
+        {
+          "file": "dbs-annual-report-2024",
+          "page": 22.0,
+          "section_hint": "Making Greater\nIMPACT",
+          "index_source": "marker",
+          "score": -6.889345169067383
         },
         {
           "file": "dbs-annual-report-2022",
-          "page": 20.0,
+          "page": NaN,
           "section_hint": "A Di erent \nKind of Bank",
           "index_source": "marker",
-          "score": -6.348987579345703
+          "score": -7.052289009094238
+        },
+        {
+          "file": "dbs-annual-report-2024",
+          "page": 22.0,
+          "section_hint": "Making Greater\nIMPACT",
+          "index_source": "marker",
+          "score": -7.067477703094482
         },
         {
           "file": "dbs-annual-report-2022",
-          "page": 21.0,
+          "page": 63.0,
           "section_hint": "A Di erent \nKind of Bank",
           "index_source": "marker",
-          "score": -6.360118389129639
-        },
-        {
-          "file": "dbs-annual-report-2022",
-          "page": 20.0,
-          "section_hint": "A Di erent \nKind of Bank",
-          "index_source": "marker",
-          "score": -6.373236656188965
-        },
-        {
-          "file": "dbs-annual-report-2022",
-          "page": 21.0,
-          "section_hint": "A Di erent \nKind of Bank",
-          "index_source": "marker",
-          "score": -6.466753959655762
+          "score": -7.078275680541992
         }
       ],
       "execution_log": {
@@ -106,11 +106,11 @@
           "Tools used: table_extraction"
         ]
       },
-      "latency_ms": 8175.48
+      "latency_ms": 3837.78
     },
     {
       "query": "Calculate the Operating Efficiency Ratio (Opex ÷ Operating Income) for the last 3 fiscal years, showing the working.",
-      "answer": "LLM error: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-20b` in organization `org_01k6cv721nexabx65q4bdbe28e` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199891, Requested 829. Please try again in 5m11.039999999s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",
+      "answer": "LLM error: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-20b` in organization `org_01k6cv721nexabx65q4bdbe28e` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199953, Requested 771. Please try again in 5m12.768s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",
       "citations": [
         {
           "file": "dbs-annual-report-2022",
@@ -127,25 +127,25 @@
           "score": -7.214166164398193
         },
         {
-          "file": "dbs-annual-report-2022",
+          "file": "4Q24_performance_summary",
           "page": NaN,
-          "section_hint": "A Di erent \nKind of Bank",
+          "section_hint": "Financial Results for the Year Ended 31 December 2024",
           "index_source": "marker",
-          "score": -7.621009826660156
+          "score": -8.815641403198242
         },
         {
-          "file": "3Q24_trading_update",
-          "page": NaN,
-          "section_hint": "Trading Update for the Third Quarter Ended 30 September 2024",
+          "file": "4Q24_performance_summary",
+          "page": 12.0,
+          "section_hint": "Financial Results for the Year Ended 31 December 2024",
           "index_source": "marker",
-          "score": -7.682409763336182
+          "score": -9.920780181884766
         },
         {
-          "file": "2Q25_press_statement",
-          "page": NaN,
-          "section_hint": "News Release",
+          "file": "dbs-annual-report-2023",
+          "page": 51.0,
+          "section_hint": "Building a Advantage",
           "index_source": "marker",
-          "score": -8.238146781921387
+          "score": -9.96586799621582
         }
       ],
       "execution_log": {
@@ -161,7 +161,7 @@
           "Tools used: table_extraction, calculation"
         ]
       },
-      "latency_ms": 15911.22
+      "latency_ms": 9287.05
     }
   ]
 }

@@ -1129,7 +1129,7 @@ class Agent:
         metric = self.analyzer.extract_metric(query)
         wants_yoy = self.analyzer.want_yoy(query)
         wants_quarters = self.analyzer.want_quarters(query)
-        wants_compare = self.analyzer.want_compare(query)  # NEW: Check for comparison
+        wants_compare = self.analyzer.want_compare(query)
         needs_calc = self.analyzer.needs_calculation(query)
         years = self.analyzer.extract_years(query)
         num_periods = self.analyzer.extract_num_periods(query)
@@ -1138,10 +1138,19 @@ class Agent:
             print(f"[Agent] Analysis:")
             print(f"  Metric: {metric}")
             print(f"  YoY: {wants_yoy}, Quarterly: {wants_quarters}")
-            print(f"  Compare: {wants_compare}, Calc: {needs_calc}")  # NEW
+            print(f"  Compare: {wants_compare}, Calc: {needs_calc}")
             print(f"  Years: {years}, Periods: {num_periods}")
         
-        # Step 2: Retrieve contexts (parallel or standard)
+        # Step 2 & 3 COMBINED: Retrieve and extract in PARALLEL
+        actions = []
+        table_rows = []
+        comparison_results = []
+        
+        # Create thread pool for parallel execution
+        executor = ThreadPoolExecutor(max_workers=3)
+        futures = {}
+        
+        # Task 1: Start retrieval (runs in background thread)
         if self.use_parallel_subqueries and self.decomposer:
             sub_queries = self.decomposer.decompose(query)
             
@@ -1149,40 +1158,72 @@ class Agent:
                 if self.verbose:
                     print(f"[Agent] Decomposed into {len(sub_queries)} sub-queries")
                 
-                sub_results = self.decomposer.execute_parallel(self.kb, sub_queries, k_ctx)
-                contexts = self.decomposer.merge_results(sub_results, k_ctx)
-                
-                if self.verbose:
-                    print(f"[Agent] Merged → {len(contexts)} contexts")
+                # Submit retrieval to run in parallel
+                futures['retrieval'] = executor.submit(
+                    self.decomposer.execute_parallel,
+                    self.kb, sub_queries, k_ctx
+                )
             else:
-                contexts = self.kb.search(query, k=k_ctx)
+                futures['retrieval'] = executor.submit(self.kb.search, query, k_ctx)
         else:
-            contexts = self.kb.search(query, k=k_ctx)
+            futures['retrieval'] = executor.submit(self.kb.search, query, k_ctx)
         
-        # Step 3: Tool selection and execution
-        actions = []
-        table_rows = []
-        comparison_results = []
+        # Task 2: Start table extraction (runs SAME TIME as retrieval!)
+        if metric and self.table_tool and not wants_compare:
+            futures['table'] = executor.submit(
+                self.table_tool.get_metric_rows,
+                metric,
+                10
+            )
         
-        # ========== NEW: Multi-doc compare tool ==========
+        # Task 3: Start multi-doc comparison (if needed)
         if wants_compare and metric and self.multidoc_tool:
-            actions.append("multi_doc_compare")
-            comparison_results = self.multidoc_tool.compare(
+            futures['comparison'] = executor.submit(
+                self.multidoc_tool.compare,
                 metric=metric,
                 years=years if years else None,
                 top_docs=6
             )
-            if self.verbose:
-                print(f"[Agent] MultiDoc compare: {len(comparison_results)} documents")
         
-        # Table extraction (standard)
-        elif metric and self.table_tool:
+        # Wait for ALL tasks to finish and get results
+        results = {}
+        for name, future in futures.items():
+            try:
+                results[name] = future.result()  # This waits for each task
+            except Exception as e:
+                if self.verbose:
+                    print(f"[Agent] Task {name} failed: {e}")
+                results[name] = None
+        
+        # Process retrieval results
+        if 'retrieval' in results and results['retrieval'] is not None:
+            raw_retrieval = results['retrieval']
+            
+            if self.use_parallel_subqueries and isinstance(raw_retrieval, list):
+                contexts = self.decomposer.merge_results(raw_retrieval, k_ctx)
+                if self.verbose:
+                    print(f"[Agent] Merged → {len(contexts)} contexts")
+            else:
+                contexts = raw_retrieval
+        else:
+            # Fallback if retrieval failed
+            contexts = self.kb.search(query, k=k_ctx)
+        
+        # Process table extraction results
+        if 'table' in results and results['table']:
+            table_rows = results['table']
             actions.append("table_extraction")
-            table_rows = self.table_tool.get_metric_rows(metric, limit=10)
             if self.verbose:
                 print(f"[Agent] Extracted {len(table_rows)} table rows")
         
-        # Text extraction fallback
+        # Process comparison results
+        if 'comparison' in results and results['comparison']:
+            comparison_results = results['comparison']
+            actions.append("multi_doc_compare")
+            if self.verbose:
+                print(f"[Agent] MultiDoc compare: {len(comparison_results)} documents")
+        
+        # Text extraction fallback (still sequential - only runs if table failed)
         if not table_rows and not comparison_results and self.text_tool:
             actions.append("text_extraction")
             if wants_quarters and metric:
@@ -1220,7 +1261,7 @@ class Agent:
             final={
                 "contexts": contexts,
                 "table_rows": table_rows,
-                "comparison_results": comparison_results,  # NEW
+                "comparison_results": comparison_results,
                 "answer": answer,
                 "metric": metric,
                 "wants_yoy": wants_yoy,
@@ -1236,16 +1277,16 @@ class Agent:
         query: str, 
         contexts: pd.DataFrame, 
         table_rows: List[Dict],
-        comparison_results: List[Dict],  # NEW parameter
+        comparison_results: List[Dict],
         metric: str,
         wants_yoy: bool,
-        wants_compare: bool  # NEW parameter
+        wants_compare: bool
     ) -> str:
         """Synthesize final answer using LLM"""
         
         prompt_parts = [f"USER QUESTION:\n{query}\n"]
         
-        # ========== NEW: Add multi-doc comparison results ==========
+        # Add multi-doc comparison results
         if comparison_results:
             prompt_parts.append("\nMULTI-DOCUMENT COMPARISON:")
             for comp in comparison_results:
