@@ -359,39 +359,87 @@ def baseline_answer_one_call(
     # 3) Compose strict prompt
     if table_lines:
         # When we have structured rows, exclude noisy text snippets to avoid conflicting numbers.
-        prompt = (
-            "USER QUESTION:\n"
-            f"{query}\n\n"
-            + "\n".join(table_lines) + "\n\n"
-            "INSTRUCTIONS:\n"
-            "- Use ONLY the numbers in STRUCTURED TABLE ROWS for calculations and final values.\n"
-            "- If the task asks for 'Operating Income' but only 'Total income' is present, use 'Total income' as the denominator.\n"
-            "- Do NOT refuse or say 'data missing' if the required numbers appear in the structured rows provided.\n"
-            "- If a requested period is not present in these rows, say so explicitly (do NOT infer from narrative text).\n"
-            "- Return a concise answer, then a small table if applicable.\n"
-        )
-    else:
-        prompt = (
-            "USER QUESTION:\n"
-            f"{query}\n\n"
-            "CONTEXT (verbatim snippets from the reports):\n"
-            + "\n".join(ctx_lines) +
-            "\n\nINSTRUCTIONS:\n"
-            "- Use ONLY facts present in the CONTEXT; do not invent numbers. If values are not present, explicitly state which ones are missing.\n"
-            "- If the exact values for the requested periods are not present, say so explicitly.\n"
-            "- Return a concise answer, then a small table if applicable, then a 'Citations' bullet list with 2â€“5 items.\n"
-        )
+        prompt = f"""USER QUESTION: 
+            {query}
+            {chr(10).join(table_lines)} 
+            INSTRUCTIONS:
+            1. **Data Source Priority**: Use ONLY the numbers from STRUCTURED TABLE ROWS above. These are authoritative financial data extracted from official reports.
 
+            2. **Metric Substitution**: If the exact metric requested isn't available but a closely related metric exists (e.g., "Total Income" instead of "Operating Income"), use the available metric and clearly state the substitution in your answer.
+
+            3. **Calculations**: 
+            - Show your work for any calculations (e.g., ratios, year-over-year growth)
+            - Use the format: Operating Efficiency Ratio = Opex ÷ Operating Income = X ÷ Y = Z%
+            - Calculate year-over-year changes as: ((New - Old) / Old) × 100%
+
+            4. **Missing Data**: If requested periods or metrics are not present in the structured rows:
+            - Explicitly state which periods/metrics are missing
+            - Provide what IS available
+            - Do NOT refuse to answer if partial data exists
+
+            5. **Output Format**:
+            - Start with a direct 1-2 sentence answer
+            - Present numerical results in a clear Markdown table with columns: Period/Year | Metric | Value
+            - Add brief notes if clarifications are needed
+
+            6. **Accuracy**: Do NOT invent, extrapolate, or estimate numbers. Only use values explicitly shown in the structured rows.
+
+            Example table format:
+            | Year | Operating Expenses | Total Income | Efficiency Ratio |
+            |------|-------------------|--------------|------------------|
+            | 2022 |        $X         |      $Y      |        Z%        |
+            | 2023 |        $X         |      $Y      |        Z%        |"""
+    else:
+        prompt = f"""USER QUESTION:
+        {query}
+
+        CONTEXT (verbatim excerpts from financial reports):
+        {chr(10).join(ctx_lines)}
+
+        INSTRUCTIONS:
+        1. **Data Source**: Extract information ONLY from the CONTEXT above. These are direct quotes from official reports.
+
+        2. **Explicit Data Gaps**: If the exact values for requested periods are not present in the context:
+        - State which specific periods/metrics are missing
+        - Provide what IS available from the context
+        - Do NOT make up or estimate missing values
+
+        3. **Calculations**: If calculations are requested:
+        - Show your working step-by-step
+        - Only calculate if all required values are present in the context
+        - Use the format: Ratio = A ÷ B = X ÷ Y = Z%
+
+        4. **Output Format**:
+        - Start with a direct answer summarizing what you found
+        - Present data in a clear Markdown table when applicable
+        - Add a "Missing data" section if any requested information is unavailable
+
+        5. **Citations**: Reference specific excerpts when stating values (e.g., "according to excerpt 2...")
+
+        6. **Accuracy**: Precision is critical. Only use numbers explicitly stated in the context.
+
+        Example output structure:
+        **Answer**
+        [Direct 1-2 sentence response]
+
+        | Period | Metric | Value |
+        |--------|--------|-------|
+        |Q4 2024 | NIM    | 2.05% |
+
+        **Missing data**
+        - Q1-Q3 2024: No quarterly data available in context"""
+        
     # 4) One LLM call
     print(f"[LLM] single-call baseline using {_llm_provider_info()}")
     answer = _llm_single_call(prompt)
 
     # 5) Print nicely in notebooks
-    print("""\nBASELINE (Single LLM Call)\n--------------------------------""")
-    print(answer)
-    print("\nCitations:")
-    for c in cits[:5]:
-        print(f"- {c}")
+    # print("""\nBASELINE (Single LLM Call)\n--------------------------------""")
+    # print("""\n**Answers**""")
+    # print(answer)
+    # print("\n--- Citations ---")
+    # for c in cits[:5]:
+    #     print(f"- {c}")
 
     return {"answer": answer, "contexts": ctx_df.head(5)}
     
@@ -1123,7 +1171,7 @@ class Agent:
         """Execute query with all available tools"""
         
         if self.verbose:
-            print(f"\n[Agent] Query: {query[:60]}...")
+            print(f"[Agent] Query: {query[:60]}...")
         
         # Step 1: Analyze query
         metric = self.analyzer.extract_metric(query)

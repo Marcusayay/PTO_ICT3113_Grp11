@@ -2,7 +2,7 @@
   "results": [
     {
       "query": "Report the Gross Margin (or Net Interest Margin, if a bank) over the last 5 quarters, with values.",
-      "answer": "LLM error: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-20b` in organization `org_01k6cv721nexabx65q4bdbe28e` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199984, Requested 825. Please try again in 5m49.488s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",
+      "answer": "**Net Interest Margin (NIM) – last 5 quarters (as available)**  \n\n| Quarter | NIM | Source |\n|---------|-----|--------|\n| Q4 2022 | 2.05 % | *dbs‑annual‑report‑2022* (table #206, row 21) |\n| Q2 2024 | 2.80 % | *2Q24_performance_summary* (note 3) |\n\n**Missing data**\n\n| Quarter | What’s missing |\n|---------|----------------|\n| Q1 2024 | NIM figure not provided |\n| Q4 2023 | NIM figure not provided |\n| Q3 2023 | NIM figure not provided |\n| Q2 2023 | NIM figure not provided |\n\n*Only the two quarterly values above are available in the supplied context; the other three quarters of the last five are not reported.*",
       "citations": [
         {
           "file": "dbs-annual-report-2022",
@@ -43,74 +43,74 @@
       "execution_log": {
         "plan": "Analyze → Extract net interest margin → Synthesize",
         "actions": [
-          "table_extraction"
+          "text_extraction"
         ],
         "observations": [
           "Retrieved 12 contexts",
           "Metric: net interest margin",
           "YoY: False, Quarterly: True, Compare: False",
-          "Tools used: table_extraction"
+          "Tools used: text_extraction"
         ]
       },
-      "latency_ms": 2681.25
+      "latency_ms": 5929.63
     },
     {
       "query": "Show Operating Expenses for the last 3 fiscal years, year-on-year comparison.",
-      "answer": "LLM error: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-20b` in organization `org_01k6cv721nexabx65q4bdbe28e` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199975, Requested 547. Please try again in 3m45.504s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",
+      "answer": "**Operating Expenses (in $ million)**  \n\n| Fiscal year | Operating Expenses | Source | YoY % change |\n|-------------|--------------------|--------|--------------|\n| 2024 | 5,273 | *dbs‑annual‑report‑2024*, table #7 row 3 | +14 % (vs 2023) |\n| 2023 | 4,627 | *dbs‑annual‑report‑2024*, table #7 row 3 | –34.7 % (vs 2022) |\n| 2022 | 7,090 | *dbs‑annual‑report‑2022*, table #195 row 11 | – (baseline) |\n\n**Year‑on‑Year comparison**\n\n* 2024 vs 2023: **+14 %** (as reported).  \n* 2023 vs 2022: **–34.7 %** (calculated: (4,627 – 7,090)/7,090 ≈ –0.347).  \n\n*Note:* The figures above represent total operating expenses; “Other expenses” (e.g., 2,714 m in 2022) are reported separately and are not included in the operating‑expense totals.",
       "citations": [
         {
           "file": "dbs-annual-report-2022",
           "page": NaN,
           "section_hint": "A Di erent \nKind of Bank",
           "index_source": "marker",
-          "score": -6.7800726890563965
+          "score": -6.780072212219238
         },
         {
           "file": "dbs-annual-report-2024",
           "page": 22.0,
           "section_hint": "Making Greater\nIMPACT",
           "index_source": "marker",
-          "score": -6.889345169067383
+          "score": -6.889344215393066
         },
         {
           "file": "dbs-annual-report-2022",
           "page": NaN,
           "section_hint": "A Di erent \nKind of Bank",
           "index_source": "marker",
-          "score": -7.052289009094238
+          "score": -7.052289962768555
         },
         {
           "file": "dbs-annual-report-2024",
           "page": 22.0,
           "section_hint": "Making Greater\nIMPACT",
           "index_source": "marker",
-          "score": -7.067477703094482
+          "score": -7.067477226257324
         },
         {
           "file": "dbs-annual-report-2022",
           "page": 63.0,
           "section_hint": "A Di erent \nKind of Bank",
           "index_source": "marker",
-          "score": -7.078275680541992
+          "score": -7.07827615737915
         }
       ],
       "execution_log": {
         "plan": "Analyze → Extract operating expenses → Synthesize",
         "actions": [
-          "table_extraction"
+          "text_extraction"
         ],
         "observations": [
           "Retrieved 12 contexts",
           "Metric: operating expenses",
           "YoY: False, Quarterly: False, Compare: False",
-          "Tools used: table_extraction"
+          "Tools used: text_extraction"
         ]
       },
-      "latency_ms": 3837.78
+      "latency_ms": 2747.68
     },
     {
       "query": "Calculate the Operating Efficiency Ratio (Opex ÷ Operating Income) for the last 3 fiscal years, showing the working.",
-      "answer": "LLM error: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-20b` in organization `org_01k6cv721nexabx65q4bdbe28e` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199953, Requested 771. Please try again in 5m12.768s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",
+      "answer": "**Operating Efficiency Ratio (Opex ÷ Operating Income)**  \n*Last 3 fiscal years – data not available in the supplied excerpts.*\n\n| Fiscal Year | Opex (Operating Expenses) | Operating Income | Operating Efficiency Ratio |\n|-------------|---------------------------|------------------|----------------------------|\n| 2023 | **Missing** | **Missing** | **Missing** |\n| 2022 | **Missing** | **Missing** | **Missing** |\n| 2021 | **Missing** | **Missing** | **Missing** |\n\n**What’s missing**\n\n1. **Operating Expenses (Opex)** – The annual reports or performance summaries do not provide a line‑item for total operating expenses or a breakdown that would allow calculation of Opex.  \n2. **Operating Income** – No figure for operating income (or earnings before interest and taxes) is present in the excerpts.  \n3. **Year‑to‑year consistency** – Even if one of the reports contained the needed figures, the data would need to be extracted from the same fiscal year for both Opex and Operating Income to compute the ratio.\n\nBecause neither Opex nor Operating Income is present in the provided context, the Operating Efficiency Ratio cannot be calculated. If you can supply the relevant figures from the annual reports or a detailed income statement, I can compute the ratios for you.",
       "citations": [
         {
           "file": "dbs-annual-report-2022",
@@ -124,7 +124,7 @@
           "page": 34.0,
           "section_hint": "Financial Results for the Year Ended 31 December 2024",
           "index_source": "marker",
-          "score": -7.214166164398193
+          "score": -7.214166641235352
         },
         {
           "file": "4Q24_performance_summary",
@@ -138,7 +138,7 @@
           "page": 12.0,
           "section_hint": "Financial Results for the Year Ended 31 December 2024",
           "index_source": "marker",
-          "score": -9.920780181884766
+          "score": -9.920782089233398
         },
         {
           "file": "dbs-annual-report-2023",
@@ -151,17 +151,17 @@
       "execution_log": {
         "plan": "Analyze → Extract operating income → Synthesize",
         "actions": [
-          "table_extraction",
+          "text_extraction",
           "calculation"
         ],
         "observations": [
           "Retrieved 12 contexts",
           "Metric: operating income",
           "YoY: False, Quarterly: False, Compare: False",
-          "Tools used: table_extraction, calculation"
+          "Tools used: text_extraction, calculation"
         ]
       },
-      "latency_ms": 9287.05
+      "latency_ms": 3065.66
     }
   ]
 }
