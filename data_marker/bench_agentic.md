@@ -9,23 +9,22 @@
 
 **Answer**
 
-**Net Interest Margin (NIM) – last 5 quarters (as available)**  
+**Net Interest Margin (NIM) – Available Quarterly Data**
 
-| Quarter | NIM | Source |
-|---------|-----|--------|
-| Q4 2022 | 2.05 % | *dbs‑annual‑report‑2022* (table #206, row 21) |
-| Q2 2024 | 2.80 % | *2Q24_performance_summary* (note 3) |
+| Period | NIM | Source |
+|--------|-----|--------|
+| Q4 2022 | 2.05 % | *dbs‑annual‑report‑2022* (note on Q4 deposit costs) |
+| 1H 2024 (average of Q1–Q2) | 2.80 % | *2Q24_performance_summary* (first‑half net‑interest margin) |
 
-**Missing data**
+**Missing Information**
 
-| Quarter | What’s missing |
-|---------|----------------|
-| Q1 2024 | NIM figure not provided |
-| Q4 2023 | NIM figure not provided |
-| Q3 2023 | NIM figure not provided |
-| Q2 2023 | NIM figure not provided |
+The request asks for the NIM (or gross margin) for the **last five quarters**. The data set provided contains:
 
-*Only the two quarterly values above are available in the supplied context; the other three quarters of the last five are not reported.*
+* Annual NIM figures for 2018‑2023 (table#206, table#142, table#211) – not quarterly.
+* A single quarterly figure for Q4 2022.
+* A half‑year figure for 1H 2024.
+
+There are **no quarterly NIM values for Q1 2024, Q2 2024, Q3 2024, or Q4 2024** (nor for Q1–Q3 2023). Therefore, the last five quarters cannot be reported with the supplied information.
 
 
 **Citations**
@@ -52,7 +51,7 @@
 }
 ```
 
-**Latency**: 5929.63 ms
+**Latency**: 2495.19 ms
 
 ---
 
@@ -62,18 +61,21 @@
 
 **Operating Expenses (in $ million)**  
 
-| Fiscal year | Operating Expenses | Source | YoY % change |
-|-------------|--------------------|--------|--------------|
-| 2024 | 5,273 | *dbs‑annual‑report‑2024*, table #7 row 3 | +14 % (vs 2023) |
-| 2023 | 4,627 | *dbs‑annual‑report‑2024*, table #7 row 3 | –34.7 % (vs 2022) |
-| 2022 | 7,090 | *dbs‑annual‑report‑2022*, table #195 row 11 | – (baseline) |
+| Fiscal year | Operating Expenses | YoY % change |
+|-------------|--------------------|--------------|
+| 2024 | 5,273 (from *dbs‑annual‑report‑2024*, table #7 row 3) | +14 % (vs 2023) |
+| 2023 | 4,627 (from *dbs‑annual‑report‑2024*, table #7 row 3) | –34.7 % (vs 2022) |
+| 2022 | 7,090 (from *dbs‑annual‑report‑2022*, table #195 row 11) | – (baseline) |
 
-**Year‑on‑Year comparison**
+**Notes**
 
-* 2024 vs 2023: **+14 %** (as reported).  
-* 2023 vs 2022: **–34.7 %** (calculated: (4,627 – 7,090)/7,090 ≈ –0.347).  
-
-*Note:* The figures above represent total operating expenses; “Other expenses” (e.g., 2,714 m in 2022) are reported separately and are not included in the operating‑expense totals.
+* The figures for 2024 and 2023 come directly from the same table in *dbs‑annual‑report‑2024* (table #7 row 3).  
+* The 2022 figure is taken from *dbs‑annual‑report‑2022* (table #195 row 11).  
+* YoY % for 2023 vs 2022 is calculated:  
+  \[
+  \frac{4,627-7,090}{7,090}\times100 \approx -34.7\%
+  \]  
+* No operating‑expense data for 2021 is required for the last three fiscal years.
 
 
 **Citations**
@@ -100,7 +102,7 @@
 }
 ```
 
-**Latency**: 2747.68 ms
+**Latency**: 1575.13 ms
 
 ---
 
@@ -109,21 +111,23 @@
 **Answer**
 
 **Operating Efficiency Ratio (Opex ÷ Operating Income)**  
-*Last 3 fiscal years – data not available in the supplied excerpts.*
+*Calculated for the last three fiscal years (2022‑2024)*
 
 | Fiscal Year | Opex (Operating Expenses) | Operating Income | Operating Efficiency Ratio |
 |-------------|---------------------------|------------------|----------------------------|
-| 2023 | **Missing** | **Missing** | **Missing** |
-| 2022 | **Missing** | **Missing** | **Missing** |
-| 2021 | **Missing** | **Missing** | **Missing** |
+| 2024 | **Data not provided** | **Data not provided** | **Cannot calculate** |
+| 2023 | **Data not provided** | **Data not provided** | **Cannot calculate** |
+| 2022 | **Data not provided** | **Data not provided** | **Cannot calculate** |
 
-**What’s missing**
+**Explanation**
 
-1. **Operating Expenses (Opex)** – The annual reports or performance summaries do not provide a line‑item for total operating expenses or a breakdown that would allow calculation of Opex.  
-2. **Operating Income** – No figure for operating income (or earnings before interest and taxes) is present in the excerpts.  
-3. **Year‑to‑year consistency** – Even if one of the reports contained the needed figures, the data would need to be extracted from the same fiscal year for both Opex and Operating Income to compute the ratio.
+The provided excerpts contain:
 
-Because neither Opex nor Operating Income is present in the provided context, the Operating Efficiency Ratio cannot be calculated. If you can supply the relevant figures from the annual reports or a detailed income statement, I can compute the ratios for you.
+* A cost‑income ratio (e.g., 40% in 2022) – but this is a ratio, not the absolute Opex or Operating Income figures.
+* Revenue figures for 2023 and 2024 (e.g., 446.0 and 536.0 respectively) – again, not Opex or Operating Income.
+* No explicit values for operating expenses (Opex) or operating income are present in the supplied text.
+
+Because the numerator (Opex) and denominator (Operating Income) are missing, the Operating Efficiency Ratio cannot be computed from the available data. If you can provide the specific Opex and Operating Income figures for each year, I can calculate the ratios for you.
 
 
 **Citations**
@@ -151,11 +155,11 @@ Because neither Opex nor Operating Income is present in the provided context, th
 }
 ```
 
-**Latency**: 3065.66 ms
+**Latency**: 6411.87 ms
 
 ---
 
 ## Summary
 
-- P50: 3065.7 ms
-- P95: 5643.2 ms
+- P50: 2495.2 ms
+- P95: 6020.2 ms
