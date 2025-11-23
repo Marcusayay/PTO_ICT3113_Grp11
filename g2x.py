@@ -1202,15 +1202,24 @@ class Agent:
         if self.use_parallel_subqueries and self.decomposer:
             sub_queries = self.decomposer.decompose(query)
             
-            if len(sub_queries) > 1:
+            if len(sub_queries) >= 4:
                 if self.verbose:
-                    print(f"[Agent] Decomposed into {len(sub_queries)} sub-queries")
+                    print(f"[Agent] Decomposed into {len(sub_queries)} sub-queries (parallel)")
                 
-                # Submit retrieval to run in parallel
                 futures['retrieval'] = executor.submit(
                     self.decomposer.execute_parallel,
                     self.kb, sub_queries, k_ctx
                 )
+            elif len(sub_queries) > 1:
+                # Sequential is faster for 2-3 queries (less overhead)
+                if self.verbose:
+                    print(f"[Agent] Decomposed into {len(sub_queries)} sub-queries (sequential)")
+                
+                def sequential_search():
+                    results = [self.kb.search(sq, k=k_ctx) for sq in sub_queries]
+                    return self.decomposer.merge_results(results, k_ctx)
+                
+                futures['retrieval'] = executor.submit(sequential_search)
             else:
                 futures['retrieval'] = executor.submit(self.kb.search, query, k_ctx)
         else:
@@ -1248,9 +1257,9 @@ class Agent:
             raw_retrieval = results['retrieval']
             
             if self.use_parallel_subqueries and isinstance(raw_retrieval, list):
-                contexts = self.decomposer.merge_results(raw_retrieval, k_ctx)
+                contexts = raw_retrieval  # Already merged by sequential_search()
                 if self.verbose:
-                    print(f"[Agent] Merged → {len(contexts)} contexts")
+                    print(f"[Agent] Retrieved {len(contexts)} contexts")
             else:
                 contexts = raw_retrieval
         else:
