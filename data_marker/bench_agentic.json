@@ -1,167 +1,80 @@
 {
+  "benchmark_name": "Standardized Queries - Enhanced Agent",
+  "timestamp": "2025-11-29T02:09:17.789424",
+  "agent_type": "EnhancedAgent",
+  "total_queries": 3,
+  "latency": {
+    "p50_ms": 758.9,
+    "p95_ms": 780.6,
+    "all_ms": [
+      782.99,
+      566.87,
+      758.91
+    ]
+  },
   "results": [
     {
       "query": "Report the Gross Margin (or Net Interest Margin, if a bank) over the last 5 quarters, with values.",
-      "answer": "**Net Interest Margin (NIM) – last 5 quarters (where data is available)**  \n\n| Quarter | NIM | Source |\n|---------|-----|--------|\n| Q4 2022 | 2.05 % | *dbs‑annual‑report‑2022* (4th‑quarter note) |\n| 1H 2024 (average of Q1–Q2) | 2.80 % | *2Q24_performance_summary* (first‑half NIM) |\n\n**Missing data**\n\n* NIM for Q1 2023, Q2 2023, Q3 2023, and Q4 2023 is not provided in the supplied context.  \n* No quarterly NIM figures are available for Q1 2024 or Q2 2024 beyond the first‑half average.  \n\nThus, the last five individual‑quarter NIM values cannot be fully reported with the information given.",
-      "citations": [
-        {
-          "file": "dbs-annual-report-2022",
-          "page": NaN,
-          "section_hint": "A Di erent \nKind of Bank",
-          "index_source": "marker",
-          "score": 0.6558135747909546
-        },
-        {
-          "file": "2Q24_performance_summary",
-          "page": 9.0,
-          "section_hint": "Unaudited Financial Results for the First Half/ Second Quarter Ended 30 June 2024",
-          "index_source": "marker",
-          "score": -0.5436882376670837
-        },
-        {
-          "file": "dbs-annual-report-2022",
-          "page": 96.0,
-          "section_hint": "A Di erent \nKind of Bank",
-          "index_source": "marker",
-          "score": -0.7675231695175171
-        },
-        {
-          "file": "dbs-annual-report-2022",
-          "page": 96.0,
-          "section_hint": "A Di erent \nKind of Bank",
-          "index_source": "marker",
-          "score": -0.7990608215332031
-        },
-        {
-          "file": "dbs-annual-report-2023",
-          "page": 95.0,
-          "section_hint": "Building a Advantage",
-          "index_source": "marker",
-          "score": -1.0857558250427246
-        }
-      ],
-      "execution_log": {
-        "plan": "Analyze → Extract net interest margin → Synthesize",
-        "actions": [
-          "text_extraction"
-        ],
-        "observations": [
-          "Retrieved 12 contexts",
-          "Metric: net interest margin",
-          "YoY: False, Quarterly: True, Compare: False",
-          "Tools used: text_extraction"
-        ]
+      "answer": "**Gross Margin (Last 5 Quarters)**  \n\n| Quarter | Gross Margin |\n|---------|--------------|\n| 2Q\u202f24   | 2.14\u202f% |\n| 3Q\u202f24   | 2.11\u202f% |\n| 4Q\u202f24   | 2.15\u202f% |\n| 1Q\u202f25   | 2.12\u202f% |\n| 2Q\u202f25   | 2.05\u202f% |\n\nThe margin has generally hovered around 2.1\u202f%, with a modest decline observed in 2Q\u202f25.",
+      "raw_data": {
+        "2Q24": 2.14,
+        "3Q24": 2.11,
+        "4Q24": 2.15,
+        "1Q25": 2.12,
+        "2Q25": 2.05
       },
-      "latency_ms": 9710.25
+      "metadata": {
+        "method": "direct_extraction",
+        "tool_used": "nim",
+        "source": "CFO Quarterly Presentations",
+        "metric": "Group Net Interest Margin",
+        "unit": "%"
+      },
+      "citations": [
+        "CFO Quarterly Presentations"
+      ],
+      "latency_ms": 782.99,
+      "timestamp": "2025-11-29T02:09:16.461600"
     },
     {
       "query": "Show Operating Expenses for the last 3 fiscal years, year-on-year comparison.",
-      "answer": "**Operating Expenses – FY 2024 → FY 2023 → FY 2022**\n\n| Fiscal year | Operating Expenses (USD m) | Source |\n|-------------|---------------------------|--------|\n| 2024 | 8,895.0 | *4Q24_performance_summary* (Year 2024) |\n| 2023 | 8,056.0 | *4Q24_performance_summary* (Year 2023) |\n| 2022 | 2,254.0 **or** 3,803.0 | *dbs‑annual‑report‑2022* (table #159 or table #160) |\n\n**Year‑on‑Year % change**\n\n* 2024 vs 2023: **+10.0 %** (as reported in *4Q24_performance_summary*)\n* 2023 vs 2022: **+257 %** if 2022 = 2,254.0, or **+112 %** if 2022 = 3,803.0 (the two figures in *dbs‑annual‑report‑2022* are inconsistent).\n\n**Missing / ambiguous data**\n\n* The 2022 operating‑expense figure is reported twice in the annual report (2,254 m and 3,803 m). The correct value for the consolidated operating expenses is not clear from the provided excerpts.",
-      "citations": [
-        {
-          "file": "4Q24_performance_summary",
-          "page": 4.0,
-          "section_hint": "Financial Results for the Year Ended 31 December 2024",
-          "index_source": "marker",
-          "score": -5.9014668464660645
-        },
-        {
-          "file": "dbs-annual-report-2022",
-          "page": 20.0,
-          "section_hint": "A Di erent \nKind of Bank",
-          "index_source": "marker",
-          "score": -6.348987579345703
-        },
-        {
-          "file": "dbs-annual-report-2022",
-          "page": 21.0,
-          "section_hint": "A Di erent \nKind of Bank",
-          "index_source": "marker",
-          "score": -6.360118389129639
-        },
-        {
-          "file": "dbs-annual-report-2022",
-          "page": 20.0,
-          "section_hint": "A Di erent \nKind of Bank",
-          "index_source": "marker",
-          "score": -6.373236656188965
-        },
-        {
-          "file": "dbs-annual-report-2022",
-          "page": 21.0,
-          "section_hint": "A Di erent \nKind of Bank",
-          "index_source": "marker",
-          "score": -6.466753959655762
-        }
-      ],
-      "execution_log": {
-        "plan": "Analyze → Extract operating expenses → Synthesize",
-        "actions": [
-          "text_extraction"
-        ],
-        "observations": [
-          "Retrieved 12 contexts",
-          "Metric: operating expenses",
-          "YoY: False, Quarterly: False, Compare: False",
-          "Tools used: text_extraction"
-        ]
+      "answer": "**Operating Expenses (SGD\u202fmillion)**  \n\n| Fiscal Year | Operating Expenses |\n|-------------|--------------------|\n| 2022 | 7,090 |\n| 2023 | 8,291 |\n| 2024 | 9,018 |\n\nOperating expenses have risen each year, climbing from 7,090\u202fmillion SGD in 2022 to 9,018\u202fmillion SGD in 2024.",
+      "raw_data": {
+        "2022": 7090,
+        "2023": 8291,
+        "2024": 9018
       },
-      "latency_ms": 6787.18
+      "metadata": {
+        "method": "direct_extraction",
+        "tool_used": "expenses",
+        "source": "Annual Reports",
+        "metric": "Total Expenses",
+        "unit": "SGD million"
+      },
+      "citations": [
+        "Annual Reports"
+      ],
+      "latency_ms": 566.87,
+      "timestamp": "2025-11-29T02:09:17.028986"
     },
     {
-      "query": "Calculate the Operating Efficiency Ratio (Opex ÷ Operating Income) for the last 3 fiscal years, showing the working.",
-      "answer": "**Operating Efficiency Ratio (Opex ÷ Operating Income)**  \n*Source: “dbs‑annual‑report‑2022” – cost‑income ratio statements.*\n\n| Fiscal year | Cost‑Income Ratio (Opex ÷ Operating Income) | Working |\n|-------------|---------------------------------------------|---------|\n| 2022 | **40 %** | The report states: “cost‑income ratio of the overall business improved by 11 percentage points from the previous year to 40 %.” |\n| 2021 | **51 %** | Since 2022’s ratio is 40 % and the improvement is 11 pp, the 2021 ratio must have been 40 % + 11 pp = 51 %. |\n| 2020 | **Data missing** | The report does not provide a cost‑income ratio for 2020, nor any other figure that could be used to derive Opex or Operating Income for that year. |\n\n**Summary**\n\n- 2022 Operating Efficiency Ratio: 40 %  \n- 2021 Operating Efficiency Ratio: 51 %  \n- 2020 Operating Efficiency Ratio: *cannot be calculated from the supplied information*  \n\nIf additional financial statements (e.g., the 2020 annual report) become available, the ratio for 2020 can be computed in the same way.",
-      "citations": [
-        {
-          "file": "dbs-annual-report-2022",
-          "page": NaN,
-          "section_hint": "A Di erent \nKind of Bank",
-          "index_source": "marker",
-          "score": -4.851889610290527
-        },
-        {
-          "file": "4Q24_performance_summary",
-          "page": 34.0,
-          "section_hint": "Financial Results for the Year Ended 31 December 2024",
-          "index_source": "marker",
-          "score": -7.214166164398193
-        },
-        {
-          "file": "dbs-annual-report-2022",
-          "page": NaN,
-          "section_hint": "A Di erent \nKind of Bank",
-          "index_source": "marker",
-          "score": -7.621009826660156
-        },
-        {
-          "file": "3Q24_trading_update",
-          "page": NaN,
-          "section_hint": "Trading Update for the Third Quarter Ended 30 September 2024",
-          "index_source": "marker",
-          "score": -7.682409763336182
-        },
-        {
-          "file": "2Q25_press_statement",
-          "page": NaN,
-          "section_hint": "News Release",
-          "index_source": "marker",
-          "score": -8.238146781921387
-        }
-      ],
-      "execution_log": {
-        "plan": "Analyze → Extract operating income → Synthesize",
-        "actions": [
-          "text_extraction",
-          "calculation"
-        ],
-        "observations": [
-          "Retrieved 12 contexts",
-          "Metric: operating income",
-          "YoY: False, Quarterly: False, Compare: False",
-          "Tools used: text_extraction, calculation"
-        ]
+      "query": "Calculate the Operating Efficiency Ratio (Opex \u00f7 Operating Income) for the last 3 fiscal years, showing the working.",
+      "answer": "**Operating Efficiency Ratio (Opex \u00f7 Operating Income)**  \n\n| Fiscal Year | Operating Expenses (SGD\u202fm) | Operating Income (SGD\u202fm) | Ratio (%) |\n|-------------|---------------------------|--------------------------|-----------|\n| 2022 | 7,090 | 16,502 | 43.0 |\n| 2023 | 8,291 | 20,180 | 41.1 |\n| 2024 | 9,018 | 22,297 | 40.4 |\n\n**Key trend:** The ratio has steadily declined over the past three years, indicating improving operating efficiency.",
+      "raw_data": {
+        "2022": 43.0,
+        "2023": 41.1,
+        "2024": 40.4
       },
-      "latency_ms": 10204.34
+      "metadata": {
+        "method": "direct_extraction",
+        "tool_used": "cir",
+        "source": "unknown",
+        "metric": "Cost-to-Income Ratio",
+        "unit": "%"
+      },
+      "citations": [],
+      "latency_ms": 758.91,
+      "timestamp": "2025-11-29T02:09:17.788407"
     }
   ]
 }
