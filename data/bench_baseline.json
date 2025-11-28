@@ -2,7 +2,7 @@
   "results": [
     {
       "query": "Report the Gross Margin (or Net Interest Margin, if a bank) over the last 5 quarters, with values.",
-      "answer": "**Answer**  \nThe context provides Net Interest Margin (NIM) figures only at the half‑year and annual levels for DBS.  Quarter‑specific NIM values for the most recent five quarters are not available in the excerpts supplied.\n\n| Period | Metric | Value | Source |\n|--------|--------|-------|--------|\n| 1H 2023 | NIM | 2.14 % | 2Q24_performance_summary (row 6) |\n| 2H 2023 | NIM | 2.16 % | 4Q24_performance_summary (row 6) |\n| 1H 2024 | NIM | 2.14 % | 4Q24_performance_summary (row 6) |\n| 2H 2024 | NIM | 2.13 % | 4Q24_performance_summary (row 6) |\n| 1H 2025 | NIM | 2.08 % | 2Q25_performance_summary (row 6) |\n\n**Missing data**\n\n- Quarter‑level NIM for Q1 2024, Q2 2024, Q3 2024, Q4 2024, and Q4 2023 are not provided in the context.  \n- No quarter‑level NIM values are available for the last five quarters; only half‑year and annual figures are cited.",
+      "answer": "**Answer**  \nThe context does not provide Net Interest Margin (NIM) figures for individual quarters.  \nOnly half‑yearly NIM values are available for the most recent periods.\n\n| Period | Metric | Value |\n|--------|--------|-------|\n| 1st Half 2025 | NIM | 2.08 % (excerpt: *2Q25_performance_summary* table#37 row#6) |\n| 1st Half 2024 | NIM | 2.14 % (excerpt: *2Q25_performance_summary* table#37 row#6; *2Q24_performance_summary* table#4 row#6) |\n| 2nd Half 2024 | NIM | 2.13 % (excerpt: *4Q24_performance_summary* table#4 row#6; *2Q25_performance_summary* table#37 row#6) |\n| 1st Half 2023 | NIM | 2.14 % (excerpt: *2Q24_performance_summary* table#4 row#6) |\n| 2nd Half 2023 | NIM | 2.16 % (excerpt: *4Q24_performance_summary* table#4 row#6) |\n\n**Missing data**  \n- Q4 2024, Q3 2024, Q2 2024, Q1 2024, Q4 2023: No quarterly NIM values are provided in the supplied excerpts.  \n- Consequently, a quarter‑by‑quarter NIM trend for the last five quarters cannot be constructed from the available context.",
       "citations": [
         {
           "file": "dbs-annual-report-2022",
@@ -56,11 +56,11 @@
         }
       ],
       "execution_log": null,
-      "latency_ms": 6496.71
+      "latency_ms": 7247.14
     },
     {
       "query": "Show Operating Expenses for the last 3 fiscal years, year-on-year comparison.",
-      "answer": "**Answer**  \nOperating expenses for the last three fiscal years are:\n\n| Fiscal Year | Operating Expenses (USD bn) | YoY % Change |\n|-------------|-----------------------------|--------------|\n| 2024 | 8,895.0 | 10.0 % (from context) |\n| 2023 | 8,056.0 | 13.6 % (calculated) |\n| 2022 | 7,090.0 | – |\n\n**YoY % Calculation (2023 vs 2022)**  \nRatio = 8,056.0 bn ÷ 7,090.0 bn = 1.1363 = **13.6 %**\n\n**Sources**  \n- 4Q24 performance summary, table #1 row 9: 2024 = 8,895.0 bn, 2023 = 8,056.0 bn【excerpt 1】  \n- dbs‑annual‑report‑2022, table #195 row 11: 2022 = 7,090.0 bn【excerpt 8】\n\n**Missing data**  \n- No additional fiscal years beyond 2022 are required for this comparison.",
+      "answer": "**Answer**  \nOperating expenses for the last three fiscal years (2022‑2024) are available in the context. 2024 expenses rose 10 % from 2023, and 2023 expenses were 12 % higher than 2022.\n\n| Fiscal Year | Operating Expenses (USD bn) | YoY % Change |\n|-------------|-----------------------------|--------------|\n| 2022 | 3,803.0 | – |\n| 2023 | 8,056.0 | 12.0 % (calculated) |\n| 2024 | 8,895.0 | 10.0 % (from context) |\n\n**Calculations**  \nYoY % 2023 vs 2022 = (8,056 – 3,803) ÷ 3,803 = 4,253 ÷ 3,803 = **1.1185 ≈ 12 %**.  \nYoY % 2024 vs 2023 = 10.0 % (directly provided in the 4Q24 performance summary).\n\n**Sources**  \n- 4Q24_performance_summary table#1 row#9: “Year 2024: 8895.0 | Year 2023: 8056.0 | % chg.2: 10.0”【4Q24_performance_summary table#1 row#9】  \n- dbs‑annual‑report‑2022 table#7 row#1: “Expenses | 2022: 3803.0 | 2021: 3353.0 | YoY%: 13.0”【dbs‑annual‑report‑2022 table#7 row#1】\n\n**Missing data**  \nNone – all requested values are present in the provided excerpts.",
       "citations": [
         {
           "file": "dbs-annual-report-2022",
@@ -114,11 +114,11 @@
         }
       ],
       "execution_log": null,
-      "latency_ms": 8290.1
+      "latency_ms": 7806.64
     },
     {
       "query": "Calculate the Operating Efficiency Ratio (Opex ÷ Operating Income) for the last 3 fiscal years, showing the working.",
-      "answer": "**Answer**  \nThe only explicit operating‑efficiency ratio (Opex ÷ Operating Income) provided in the excerpts is for FY 2022, where the cost‑income ratio was 40 % (underlying 44 %). No comparable figures are quoted for FY 2023 or FY 2024, so those ratios cannot be calculated from the supplied context.\n\n| Fiscal Year | Operating‑Efficiency Ratio (Opex ÷ Operating Income) |\n|-------------|-----------------------------------------------------|\n| 2022        | 40 % (cost‑income ratio) – *underlying 44 %* |\n\n**Missing data**  \n- FY 2023: No cost‑income ratio or Opex/Operating Income figures are provided.  \n- FY 2024: No cost‑income ratio or Opex/Operating Income figures are provided.  \n\n*Citation:* The 40 % figure comes from the excerpt stating “the cost‑income ratio of the overall business improved by 11 percentage points from the previous year to 40% on the back of higher rates and volumes” (context excerpt 1). The underlying 44 % figure is also quoted in the same excerpt. No other fiscal‑year ratios are mentioned in the supplied excerpts.",
+      "answer": "**Answer**  \nThe only explicit operating‑efficiency ratio (Opex ÷ Operating Income) available in the supplied excerpts is the 2022 cost‑income ratio of **40 %**.  No Opex or Operating Income figures are given for 2023 or 2024, so the ratio cannot be calculated for those years.\n\n| Fiscal Year | Operating‑Efficiency Ratio (Opex ÷ Operating Income) |\n|-------------|-----------------------------------------------------|\n| 2022        | 40 % (cost‑income ratio) – *source: excerpt 1* |\n| 2023        | **Missing** – no cost‑income ratio or Opex/Operating Income data provided |\n| 2024        | **Missing** – no cost‑income ratio or Opex/Operating Income data provided |\n\n**Missing data**\n\n- **2023**: No cost‑income ratio, Opex, or Operating Income figures are quoted in the context.\n- **2024**: No cost‑income ratio, Opex, or Operating Income figures are quoted in the context.\n\n*All figures are taken directly from the excerpts provided; no estimates or assumptions have been made.*",
       "citations": [
         {
           "file": "dbs-annual-report-2022",
@@ -172,7 +172,7 @@
         }
       ],
       "execution_log": null,
-      "latency_ms": 5901.11
+      "latency_ms": 6062.07
     }
   ]
 }

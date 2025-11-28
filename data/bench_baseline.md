@@ -10,20 +10,20 @@
 **Answer**
 
 **Answer**  
-The context provides Net Interest Margin (NIM) figures only at the half‑year and annual levels for DBS.  Quarter‑specific NIM values for the most recent five quarters are not available in the excerpts supplied.
+The context does not provide Net Interest Margin (NIM) figures for individual quarters.  
+Only half‑yearly NIM values are available for the most recent periods.
 
-| Period | Metric | Value | Source |
-|--------|--------|-------|--------|
-| 1H 2023 | NIM | 2.14 % | 2Q24_performance_summary (row 6) |
-| 2H 2023 | NIM | 2.16 % | 4Q24_performance_summary (row 6) |
-| 1H 2024 | NIM | 2.14 % | 4Q24_performance_summary (row 6) |
-| 2H 2024 | NIM | 2.13 % | 4Q24_performance_summary (row 6) |
-| 1H 2025 | NIM | 2.08 % | 2Q25_performance_summary (row 6) |
+| Period | Metric | Value |
+|--------|--------|-------|
+| 1st Half 2025 | NIM | 2.08 % (excerpt: *2Q25_performance_summary* table#37 row#6) |
+| 1st Half 2024 | NIM | 2.14 % (excerpt: *2Q25_performance_summary* table#37 row#6; *2Q24_performance_summary* table#4 row#6) |
+| 2nd Half 2024 | NIM | 2.13 % (excerpt: *4Q24_performance_summary* table#4 row#6; *2Q25_performance_summary* table#37 row#6) |
+| 1st Half 2023 | NIM | 2.14 % (excerpt: *2Q24_performance_summary* table#4 row#6) |
+| 2nd Half 2023 | NIM | 2.16 % (excerpt: *4Q24_performance_summary* table#4 row#6) |
 
-**Missing data**
-
-- Quarter‑level NIM for Q1 2024, Q2 2024, Q3 2024, Q4 2024, and Q4 2023 are not provided in the context.  
-- No quarter‑level NIM values are available for the last five quarters; only half‑year and annual figures are cited.
+**Missing data**  
+- Q4 2024, Q3 2024, Q2 2024, Q1 2024, Q4 2023: No quarterly NIM values are provided in the supplied excerpts.  
+- Consequently, a quarter‑by‑quarter NIM trend for the last five quarters cannot be constructed from the available context.
 
 
 **Citations**
@@ -34,7 +34,7 @@ The context provides Net Interest Margin (NIM) figures only at the half‑year a
 - dbs-annual-report-2022 p.96
 - dbs-annual-report-2023 p.95
 
-**Latency**: 6496.71 ms
+**Latency**: 7247.14 ms
 
 ---
 
@@ -43,23 +43,24 @@ The context provides Net Interest Margin (NIM) figures only at the half‑year a
 **Answer**
 
 **Answer**  
-Operating expenses for the last three fiscal years are:
+Operating expenses for the last three fiscal years (2022‑2024) are available in the context. 2024 expenses rose 10 % from 2023, and 2023 expenses were 12 % higher than 2022.
 
 | Fiscal Year | Operating Expenses (USD bn) | YoY % Change |
 |-------------|-----------------------------|--------------|
+| 2022 | 3,803.0 | – |
+| 2023 | 8,056.0 | 12.0 % (calculated) |
 | 2024 | 8,895.0 | 10.0 % (from context) |
-| 2023 | 8,056.0 | 13.6 % (calculated) |
-| 2022 | 7,090.0 | – |
 
-**YoY % Calculation (2023 vs 2022)**  
-Ratio = 8,056.0 bn ÷ 7,090.0 bn = 1.1363 = **13.6 %**
+**Calculations**  
+YoY % 2023 vs 2022 = (8,056 – 3,803) ÷ 3,803 = 4,253 ÷ 3,803 = **1.1185 ≈ 12 %**.  
+YoY % 2024 vs 2023 = 10.0 % (directly provided in the 4Q24 performance summary).
 
 **Sources**  
-- 4Q24 performance summary, table #1 row 9: 2024 = 8,895.0 bn, 2023 = 8,056.0 bn【excerpt 1】  
-- dbs‑annual‑report‑2022, table #195 row 11: 2022 = 7,090.0 bn【excerpt 8】
+- 4Q24_performance_summary table#1 row#9: “Year 2024: 8895.0 | Year 2023: 8056.0 | % chg.2: 10.0”【4Q24_performance_summary table#1 row#9】  
+- dbs‑annual‑report‑2022 table#7 row#1: “Expenses | 2022: 3803.0 | 2021: 3353.0 | YoY%: 13.0”【dbs‑annual‑report‑2022 table#7 row#1】
 
 **Missing data**  
-- No additional fiscal years beyond 2022 are required for this comparison.
+None – all requested values are present in the provided excerpts.
 
 
 **Citations**
@@ -70,7 +71,7 @@ Ratio = 8,056.0 bn ÷ 7,090.0 bn = 1.1363 = **13.6 %**
 - dbs-annual-report-2024 p.22
 - dbs-annual-report-2022 p.63
 
-**Latency**: 8290.1 ms
+**Latency**: 7806.64 ms
 
 ---
 
@@ -79,17 +80,20 @@ Ratio = 8,056.0 bn ÷ 7,090.0 bn = 1.1363 = **13.6 %**
 **Answer**
 
 **Answer**  
-The only explicit operating‑efficiency ratio (Opex ÷ Operating Income) provided in the excerpts is for FY 2022, where the cost‑income ratio was 40 % (underlying 44 %). No comparable figures are quoted for FY 2023 or FY 2024, so those ratios cannot be calculated from the supplied context.
+The only explicit operating‑efficiency ratio (Opex ÷ Operating Income) available in the supplied excerpts is the 2022 cost‑income ratio of **40 %**.  No Opex or Operating Income figures are given for 2023 or 2024, so the ratio cannot be calculated for those years.
 
 | Fiscal Year | Operating‑Efficiency Ratio (Opex ÷ Operating Income) |
 |-------------|-----------------------------------------------------|
-| 2022        | 40 % (cost‑income ratio) – *underlying 44 %* |
+| 2022        | 40 % (cost‑income ratio) – *source: excerpt 1* |
+| 2023        | **Missing** – no cost‑income ratio or Opex/Operating Income data provided |
+| 2024        | **Missing** – no cost‑income ratio or Opex/Operating Income data provided |
 
-**Missing data**  
-- FY 2023: No cost‑income ratio or Opex/Operating Income figures are provided.  
-- FY 2024: No cost‑income ratio or Opex/Operating Income figures are provided.  
+**Missing data**
 
-*Citation:* The 40 % figure comes from the excerpt stating “the cost‑income ratio of the overall business improved by 11 percentage points from the previous year to 40% on the back of higher rates and volumes” (context excerpt 1). The underlying 44 % figure is also quoted in the same excerpt. No other fiscal‑year ratios are mentioned in the supplied excerpts.
+- **2023**: No cost‑income ratio, Opex, or Operating Income figures are quoted in the context.
+- **2024**: No cost‑income ratio, Opex, or Operating Income figures are quoted in the context.
+
+*All figures are taken directly from the excerpts provided; no estimates or assumptions have been made.*
 
 
 **Citations**
@@ -100,11 +104,11 @@ The only explicit operating‑efficiency ratio (Opex ÷ Operating Income) provid
 - 4Q24_performance_summary 
 - 4Q24_performance_summary p.34
 
-**Latency**: 5901.11 ms
+**Latency**: 6062.07 ms
 
 ---
 
 ## Summary
 
-- P50: 6496.7 ms
-- P95: 8110.8 ms
+- P50: 7247.1 ms
+- P95: 7750.7 ms

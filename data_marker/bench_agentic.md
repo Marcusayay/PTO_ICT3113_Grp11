@@ -9,19 +9,19 @@
 
 **Answer**
 
-**Net Interest Margin (NIM) – Last 5 Quarters**
+**Net Interest Margin (NIM) – last 5 quarters (where data is available)**  
 
 | Quarter | NIM | Source |
 |---------|-----|--------|
-| Q2 2024 | 2.80 % | *2Q24 Performance Summary* (first‑half NIM increase) |
-| Q1 2024 | – | Data not provided |
-| Q4 2023 | – | Data not provided |
-| Q3 2023 | – | Data not provided |
-| Q2 2023 | – | Data not provided |
+| Q4 2022 | 2.05 % | *dbs‑annual‑report‑2022* (4th‑quarter note) |
+| 1H 2024 (average of Q1–Q2) | 2.80 % | *2Q24_performance_summary* (first‑half NIM) |
 
-**What’s missing**
+**Missing data**
 
-The only quarterly figure supplied in the context is the 2.80 % NIM for Q2 2024. No NIM values are given for Q1 2024, Q4 2023, Q3 2023, or Q2 2023, so the last five‑quarter series cannot be completed with the provided information.
+* NIM for Q1 2023, Q2 2023, Q3 2023, and Q4 2023 is not provided in the supplied context.  
+* No quarterly NIM figures are available for Q1 2024 or Q2 2024 beyond the first‑half average.  
+
+Thus, the last five individual‑quarter NIM values cannot be fully reported with the information given.
 
 
 **Citations**
@@ -48,7 +48,7 @@ The only quarterly figure supplied in the context is the 2.80 % NIM for Q2 2
 }
 ```
 
-**Latency**: 9521.58 ms
+**Latency**: 9710.25 ms
 
 ---
 
@@ -56,21 +56,22 @@ The only quarterly figure supplied in the context is the 2.80 % NIM for Q2 2
 
 **Answer**
 
-**Operating Expenses – Last 3 Fiscal Years (Year‑on‑Year)**  
+**Operating Expenses – FY 2024 → FY 2023 → FY 2022**
 
-| Fiscal Year | Operating Expenses (USD m) | YoY % Change |
-|-------------|---------------------------|--------------|
-| 2024 | 8,895.0 | +10.0 % (vs 2023) |
-| 2023 | 8,056.0 | – (vs 2022) |
-| 2022 | 2,254.0 *or 3,803.0* | +124.3 % (vs 2022 → 2023) **or** +111.9 % (vs 2022 → 2023) |
+| Fiscal year | Operating Expenses (USD m) | Source |
+|-------------|---------------------------|--------|
+| 2024 | 8,895.0 | *4Q24_performance_summary* (Year 2024) |
+| 2023 | 8,056.0 | *4Q24_performance_summary* (Year 2023) |
+| 2022 | 2,254.0 **or** 3,803.0 | *dbs‑annual‑report‑2022* (table #159 or table #160) |
 
-*Sources*  
-- **4Q24_performance_summary** – Year 2024: 8,895.0; Year 2023: 8,056.0 (YoY +10.0 %)  
-- **dbs‑annual‑report‑2022** – Two reported figures for 2022: 2,254.0 (YoY +8.0 %) and 3,803.0 (YoY +13.0 %)  
+**Year‑on‑Year % change**
 
-**Missing Data**  
-- The report does not provide a single, consistent 2022 operating‑expense figure; two different values appear in separate tables.  
-- No operating‑expense figure for 2021 is needed for the requested 3‑year comparison.
+* 2024 vs 2023: **+10.0 %** (as reported in *4Q24_performance_summary*)
+* 2023 vs 2022: **+257 %** if 2022 = 2,254.0, or **+112 %** if 2022 = 3,803.0 (the two figures in *dbs‑annual‑report‑2022* are inconsistent).
+
+**Missing / ambiguous data**
+
+* The 2022 operating‑expense figure is reported twice in the annual report (2,254 m and 3,803 m). The correct value for the consolidated operating expenses is not clear from the provided excerpts.
 
 
 **Citations**
@@ -97,7 +98,7 @@ The only quarterly figure supplied in the context is the 2.80 % NIM for Q2 2
 }
 ```
 
-**Latency**: 6521.17 ms
+**Latency**: 6787.18 ms
 
 ---
 
@@ -106,18 +107,21 @@ The only quarterly figure supplied in the context is the 2.80 % NIM for Q2 2
 **Answer**
 
 **Operating Efficiency Ratio (Opex ÷ Operating Income)**  
+*Source: “dbs‑annual‑report‑2022” – cost‑income ratio statements.*
 
-| Fiscal Year | Ratio | Source |
-|-------------|-------|--------|
-| 2022 | **40 %** | *dbs‑annual‑report‑2022* – “cost‑income ratio of the overall business improved by 11 percentage points from the previous year to 40 %.” |
-| 2021 | **Data not provided** | – |
-| 2020 | **Data not provided** | – |
+| Fiscal year | Cost‑Income Ratio (Opex ÷ Operating Income) | Working |
+|-------------|---------------------------------------------|---------|
+| 2022 | **40 %** | The report states: “cost‑income ratio of the overall business improved by 11 percentage points from the previous year to 40 %.” |
+| 2021 | **51 %** | Since 2022’s ratio is 40 % and the improvement is 11 pp, the 2021 ratio must have been 40 % + 11 pp = 51 %. |
+| 2020 | **Data missing** | The report does not provide a cost‑income ratio for 2020, nor any other figure that could be used to derive Opex or Operating Income for that year. |
 
-**Explanation**
+**Summary**
 
-* The cost‑income ratio is defined as operating expenses (Opex) divided by operating income.  
-* The only explicit ratio in the supplied context is the 2022 figure (40 %) from the 2022 annual report.  
-* No operating‑expense or operating‑income figures, nor cost‑income ratios, are given for 2021 or 2020 in the provided excerpts. Therefore those two years cannot be calculated with the available data.
+- 2022 Operating Efficiency Ratio: 40 %  
+- 2021 Operating Efficiency Ratio: 51 %  
+- 2020 Operating Efficiency Ratio: *cannot be calculated from the supplied information*  
+
+If additional financial statements (e.g., the 2020 annual report) become available, the ratio for 2020 can be computed in the same way.
 
 
 **Citations**
@@ -145,11 +149,11 @@ The only quarterly figure supplied in the context is the 2.80 % NIM for Q2 2
 }
 ```
 
-**Latency**: 8525.48 ms
+**Latency**: 10204.34 ms
 
 ---
 
 ## Summary
 
-- P50: 8525.5 ms
-- P95: 9422.0 ms
+- P50: 9710.2 ms
+- P95: 10154.9 ms
