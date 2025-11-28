@@ -1,0 +1,45 @@
+{
+  "bench_combined_rows": 12,
+  "modes": [
+    "baseline",
+    "results_agent",
+    "results_baseline(old)",
+    "agentic"
+  ],
+  "latency_summary": [
+    {
+      "mode": "agentic",
+      "p50_ms": 8525.48,
+      "p95_ms": 9421.97,
+      "mean_ms": 8189.41,
+      "std_ms": 1528.1761435449775
+    },
+    {
+      "mode": "baseline",
+      "p50_ms": 6496.71,
+      "p95_ms": 8110.761,
+      "mean_ms": 6895.973333333332,
+      "std_ms": 1243.5339609489297
+    },
+    {
+      "mode": "results_agent",
+      "p50_ms": 15669.16,
+      "p95_ms": 18287.293999999998,
+      "mean_ms": 14328.578,
+      "std_ms": 4169.603949234268
+    },
+    {
+      "mode": "results_baseline(old)",
+      "p50_ms": 3553.97,
+      "p95_ms": 3553.97,
+      "mean_ms": 3553.97,
+      "std_ms": NaN
+    }
+  ],
+  "files": [
+    "data\\bench_baseline.json",
+    "data\\bench_results_agent.json",
+    "data\\bench_results_baseline(old).json",
+    "data_marker\\bench_agentic.json"
+  ]
+}
