@@ -172,7 +172,6 @@ class KBEnv:
         3. Fusion: RRF (reciprocal rank) or weighted score fusion
         4. Return top-k
         """
-        rerank_top_k = k  # Get k candidates
 
         # ========== Step 1: Vector Search ==========
         qv = self._embed([query])
