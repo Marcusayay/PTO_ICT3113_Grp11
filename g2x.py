@@ -102,6 +102,7 @@ def _page_or_none(x):
 
 class KBEnv:
     def __init__(self, base="./data_marker", enable_bm25=True):
+        t_ingest_start = time.time()
         self.base = Path(base)
         self.faiss_path = self.base / "kb_index.faiss"
         self.meta_path = self.base / "kb_index_meta.json"
@@ -151,6 +152,8 @@ class KBEnv:
             print(f"[BM25] ✓ Indexed {len(self.texts)} documents")
         elif enable_bm25:
             print("[BM25] ✗ rank_bm25 not installed, skipping BM25")
+
+        self.t_ingest = (time.time() - t_ingest_start) * 1000
     def _embed(self, texts: List[str]) -> np.ndarray:
         v = self.model.encode(texts, normalize_embeddings=True)
         return np.asarray(v, dtype="float32")
@@ -215,6 +218,7 @@ class KBEnv:
         else:
             # Weighted score fusion (fallback if BM25 disabled or RRF=False)
             fused_scores = {}
+            t_rerank_start = time.time()
             for idx in all_indices:
                 vec_score = vec_results.get(idx, 0.0)
                 bm25_score = bm25_results.get(idx, 0.0)
@@ -224,7 +228,7 @@ class KBEnv:
 
         # Sort by fused score
         sorted_indices = sorted(fused_scores.keys(), key=fused_scores.get, reverse=True)[:k]
-
+       t_rerank = (time.time() - t_rerank_start) * 1000
         # ========== Step 5: Build Results DataFrame ==========
         # Take top-k results (no reranking)
         final_indices = sorted_indices[:k]

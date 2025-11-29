@@ -2,85 +2,47 @@
   "system": "ReAct Agent CFO (Parallel)",
   "approach": "LLM-driven planning with parallel tool execution",
   "latency_parallel": {
-    "p50_ms": 1657.0,
-    "p95_ms": 2186.2
+    "p50_ms": 80.0,
+    "p95_ms": 104.3
   },
   "latency_sequential": {
-    "p50_ms": 2016.0,
-    "p95_ms": 12330.9
+    "p50_ms": 83.0,
+    "p95_ms": 86.6
   },
   "speedup": {
-    "p50_percent": 17.81,
-    "p95_percent": 82.27
+    "p50_percent": 3.61,
+    "p95_percent": -20.44
   },
   "results": [
     {
       "query_id": "Q1",
       "query": "Report the Gross Margin (or Net Interest Margin, if a bank) over the last 5 quarters, with values.",
-      "answer": "**Net Interest Margin (NIM) \u2013 DBS Bank (Last\u202f5 Quarters)**  \n\n| Quarter | NIM (%) | Source |\n|---------|---------|--------|\n| 2Q\u202f24   | 2.14 | [2Q24_CFO_presentation p.6] |\n| 3Q\u202f24   | 2.11 | [3Q24_CFO_presentation p.8] |\n| 4Q\u202f24   | 2.15 | [4Q24_CFO_presentation p.6] |\n| 1Q\u202f25   | 2.12 | [1Q25_CFO_presentation p.5] |\n| 2Q\u202f25   | 2.05 | [2Q25_CFO_presentation p.6] |\n\n**Key Insights / Trend Analysis**\n\n1. **Overall Decline** \u2013 NIM has fallen from a peak of 2.15\u202f% in 4Q\u202f24 to 2.05\u202f% in 2Q\u202f25, a 4.7\u202f% relative drop.  \n2. **Quarter\u2011to\u2011Quarter Volatility** \u2013 The margin fluctuated modestly in the first three quarters of 2024 (2.14\u202f% \u2192 2.11\u202f% \u2192 2.15\u202f%) before a sharper decline in the first half of 2025.  \n3. **Potential Drivers** \u2013 The downward trend may reflect tightening net interest spreads, increased competition in retail lending, or a shift in the asset\u2011liability mix toward lower\u2011yielding products.  \n4. **Strategic Implication** \u2013 Management should monitor the balance\u2011sheet composition and pricing strategy to mitigate further erosion of NIM, especially in a rising\u2011rate environment.\n\n*All figures are taken directly from the respective quarterly CFO presentations.*",
-      "plan_reasoning": "DBS is a bank, so the relevant metric is Net Interest Margin (NIM). The query requests NIM values for the last five quarters, which are the available quarters ['2Q24', '3Q24', '4Q24', '1Q25', '2Q25']. We only need to extract these values from the financial data; no further calculations or trend analysis are required.",
-      "tool_calls": [
-        {
-          "tool": "SmartTableParser",
-          "latency_ms": 307.0,
-          "parallel_group": 0
-        }
-      ],
-      "latency_parallel_ms": 1657.0,
-      "latency_sequential_ms": 2016.0,
-      "speedup_percent": 17.8
+      "answer": "Error: Plan generation failed: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-20b` in organization `org_01k6cx7m5keetah19g5jmwpkxe` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199313, Requested 920. Please try again in 1m40.656s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",
+      "plan_reasoning": "",
+      "tool_calls": [],
+      "latency_parallel_ms": 107.0,
+      "latency_sequential_ms": 83.0,
+      "speedup_percent": -28.9
     },
     {
       "query_id": "Q2",
       "query": "Show Operating Expenses for the last 3 fiscal years, year-on-year comparison.",
-      "answer": "**Operating Expenses (in\u202f$\u202fmillion)**  \n\n| Fiscal Year | Operating Expenses | YoY Change |\n|-------------|--------------------|------------|\n| 2022 | 7,090.0 | \u2013 |\n| 2023 | 8,291.0 | **+16.95\u202f%** |\n| 2024 | 9,018.0 | **+8.77\u202f%** |\n\n**Direct Answer**  \nOperating expenses grew from **$7,090\u202fmillion in 2022** to **$8,291\u202fmillion in 2023** (+16.95\u202f%) and then to **$9,018\u202fmillion in 2024** (+8.77\u202f% from 2023).\n\n**Key Insights / Trends**  \n- **Accelerated growth in 2023**: The sharp 16.95\u202f% rise reflects higher investment in technology, talent acquisition, and expansion initiatives.  \n- **Moderated growth in 2024**: The 8.77\u202f% increase indicates a more controlled spend trajectory, likely due to cost\u2011optimization measures and a shift toward more efficient operations.  \n- **Consistent upward trend**: Despite the slowdown, operating expenses have continued to rise year over year, underscoring the company\u2019s focus on scaling its core business and supporting future growth.\n\n**Citations**  \n- Operating expenses 2022: [dbs-annual-report-2022 p.63]  \n- Operating expenses 2023: [dbs-annual-report-2023 p.62]  \n- Operating expenses 2024: [dbs-annual-report-2024 p.61]",
-      "plan_reasoning": "The user wants Operating Expenses for the last three fiscal years (2022\u20112024) and a year\u2011on\u2011year comparison. First, extract the Operating Expenses for those years using SmartTableParser. Then, calculate the YoY change using AdvancedCalculator.",
-      "tool_calls": [
-        {
-          "tool": "SmartTableParser",
-          "latency_ms": 178.0,
-          "parallel_group": 0
-        },
-        {
-          "tool": "AdvancedCalculator",
-          "latency_ms": 0.0,
-          "parallel_group": 0
-        }
-      ],
-      "latency_parallel_ms": 1444.0,
-      "latency_sequential_ms": 1540.0,
-      "speedup_percent": 6.2
+      "answer": "Error: Plan generation failed: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-20b` in organization `org_01k6cx7m5keetah19g5jmwpkxe` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199312, Requested 912. Please try again in 1m36.767999999s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",
+      "plan_reasoning": "",
+      "tool_calls": [],
+      "latency_parallel_ms": 80.0,
+      "latency_sequential_ms": 87.0,
+      "speedup_percent": 8.0
     },
     {
       "query_id": "Q3",
       "query": "Calculate the Operating Efficiency Ratio (Opex \u00f7 Operating Income) for the last 3 fiscal years, showing the working.",
-      "answer": "**Operating Efficiency Ratio (Opex \u00f7 Operating Income)**  \n\n| Fiscal Year | Operating Expenses (Opex) | Operating Income | Efficiency Ratio | % of Operating Income |\n|-------------|---------------------------|------------------|------------------|-----------------------|\n| 2022 | SGD\u202f7,090\u202fm | SGD\u202f16,502\u202fm | 0.4295 | **42.95\u202f%** |\n| 2023 | SGD\u202f8,291\u202fm | SGD\u202f20,162\u202fm | 0.4113 | **41.13\u202f%** |\n| 2024 | SGD\u202f9,018\u202fm | SGD\u202f22,297\u202fm | 0.4045 | **40.45\u202f%** |\n\n**Direct answer**  \nThe Operating Efficiency Ratio has fallen from 42.95\u202f% in 2022 to 40.45\u202f% in 2024, indicating a gradual improvement in how efficiently the company converts operating income into operating expenses.\n\n**Key insights / trends**\n\n1. **Consistent downward trend** \u2013 The ratio decreased each year, suggesting that the company is managing its operating costs more effectively relative to its operating income.  \n2. **Scale\u2011up effect** \u2013 While both Opex and Operating Income increased in absolute terms, Operating Income grew at a faster pace, driving the ratio lower.  \n3. **Strategic focus** \u2013 The trend may reflect cost\u2011control initiatives, automation, or a shift toward higher\u2011margin business lines.\n\n**Sources**\n\n- Operating Expenses (Opex)  \n  - 2022: *dbs-annual-report-2022* p.\u202f63 [table\u202f49]  \n  - 2023: *dbs-annual-report-2023* p.\u202f62 [table\u202f55]  \n  - 2024: *dbs-annual-report-2024* p.\u202f61 [table\u202f50]  \n\n- Operating Income  \n  - 2022: *dbs-annual-report-2022* p.\u202f63 [table\u202f49]  \n  - 2023: *dbs-annual-report-2023* p.\u202f62 [table\u202f55]  \n  - 2024: *dbs-annual-report-2024* p.\u202f14 [table\u202f0]  \n\nThese figures provide a clear view of the company\u2019s operating efficiency over the past three fiscal years.",
-      "plan_reasoning": "The query requests the Operating Efficiency Ratio (Opex \u00f7 Operating Income) for the last three fiscal years (2022\u20112024). To compute this, we need to: (1) extract Operating Expenses for each of those years, (2) extract Operating Income for the same years, (3) calculate the ratio for each year, and (4) optionally present the trend. Steps 1 and 2 are independent and can run in parallel.",
-      "tool_calls": [
-        {
-          "tool": "SmartTableParser",
-          "latency_ms": 238.0,
-          "parallel_group": 0
-        },
-        {
-          "tool": "SmartTableParser",
-          "latency_ms": 340.01,
-          "parallel_group": 0
-        },
-        {
-          "tool": "AdvancedCalculator",
-          "latency_ms": 0.0,
-          "parallel_group": 0
-        },
-        {
-          "tool": "SmartTrendAnalyzer",
-          "latency_ms": 0.0,
-          "parallel_group": 1
-        }
-      ],
-      "latency_parallel_ms": 2245.0,
-      "latency_sequential_ms": 13477.0,
-      "speedup_percent": 83.3
+      "answer": "Error: Plan generation failed: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-20b` in organization `org_01k6cx7m5keetah19g5jmwpkxe` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199312, Requested 921. Please try again in 1m40.656s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",
+      "plan_reasoning": "",
+      "tool_calls": [],
+      "latency_parallel_ms": 77.0,
+      "latency_sequential_ms": 80.0,
+      "speedup_percent": 3.8
     }
   ]
 }
