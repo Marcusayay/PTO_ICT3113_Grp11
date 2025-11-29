@@ -1,0 +1,178 @@
+{
+  "results": [
+    {
+      "query": "Report the Gross Margin (or Net Interest Margin, if a bank) over the last 5 quarters, with values.",
+      "answer": "**Answer**  \nThe context does not contain explicit net‑interest‑margin (NIM) figures for the most recent five individual quarters.  The only quarterly‑level NIM data available in the excerpts is for the fourth quarter of 2024, which is not quoted directly; the excerpts provide only year‑and half‑year aggregates.\n\n| Period | Metric | Value | Source |\n|--------|--------|-------|--------|\n| 2024 (full year) | Net interest margin | 2.13 % | [dbs‑annual‑report‑2024] table#143 row#22 |\n| 2023 (full year) | Net interest margin | 2.15 % | [dbs‑annual‑report‑2024] table#143 row#22 |\n| 2022 (full year) | Net interest margin | 1.75 % | [dbs‑annual‑report‑2022] table#206 row#21 |\n| 2021 (full year) | Net interest margin | 1.45 % | [dbs‑annual‑report‑2022] table#206 row#21 |\n| 2020 (full year) | Net interest margin | 1.62 % | [dbs‑annual‑report‑2022] table#206 row#21 |\n\n**Missing data**\n\n- Q4 2024 NIM – not quoted in the provided excerpts.  \n- Q3 2024 NIM – not quoted.  \n- Q2 2024 NIM – not quoted.  \n- Q1 2024 NIM – not quoted.  \n- Q4 2023 NIM – not quoted.  \n\nNo quarterly NIM figures are available in the context, so the requested five‑quarter series cannot be assembled from the supplied material.",
+      "citations": [
+        {
+          "file": "dbs-annual-report-2022",
+          "page": null,
+          "text": "ows and higher deposit costs moderated the increase in the fourth quarter. The deposit beta – or the increase in overall deposit costs relative to market interest rates – rose progressively during the year to 32% by year-end. Still, net interest margin was 2.05% in the fourth quarter, signiȴ cantly above the 1.75% for the full year. The reported net interest income and net interest margin were a ected by a drag from Treasury Markets due to higher funding costs for non-interest-bearing and marked-tomarket assets as well as net interest margin compression for ȴ xed-income instruments. (The drag is neutralised by gains in other non-interest income and so does not a ect its overall income and earnings.) Net interest income for the Commercial book, which excludes Treasury Markets, rose 40% while its net interest margin increased 48 basis points to 2.11%, with its fourth-quarter net interest margin signiȴ cantly higher at 2.61%. In addition, net interest income and net interest margin did not beneȴ t yet from the repricing of SGD 180 billion of ȴ xed-rate assets, which will take place in the coming years. Loans grew 4% in constant-currency terms during the year to SGD 415 billion. Growth in the ȴ rst nine months was moderated by a slight decline in the fourth quarter. While underlying demand continued to be healthy in the last three months, some corporates shifted their borrowing to",
+          "score": 0.01646671880086538,
+          "year": null,
+          "quarter": null,
+          "section_hint": "A Di erent \nKind of Bank",
+          "index_source": "marker"
+        },
+        {
+          "file": "dbs-annual-report-2022",
+          "page": 96,
+          "text": "[dbs-annual-report-2022] table#206 row#21 :: Net interest margin | 2022: 1.75 | 2021: 1.45 | 2020: 1.62 | 2019: 1.89 | 2018: 1.85",
+          "score": 0.01646671880086538,
+          "year": null,
+          "quarter": null,
+          "section_hint": "A Di erent \nKind of Bank",
+          "index_source": "marker"
+        },
+        {
+          "file": "dbs-annual-report-2022",
+          "page": 74,
+          "text": "[page 74] [dbs-annual-report-2022] table#76 row#0 :: Bank and corporate debt securities (Gross) | ('The Group', '2022'): 62765 | ('The Group', '2021'): 53883",
+          "score": 0.016202308435979074,
+          "year": null,
+          "quarter": null,
+          "section_hint": "A Di erent \nKind of Bank",
+          "index_source": "marker"
+        },
+        {
+          "file": "dbs-annual-report-2022",
+          "page": 12,
+          "text": "generated with lower incremental unit cost. The full-year cost-income ratio improved three percentage points from a year ago to 43%. The second-half underlying ratio was 41%, in line with the longer-term target of around 40% that we had indicated several years ago. Sustained business momentum augmented by higher net interest margin in 2022 During the year, net interest income and net interest margin increased at an accelerated pace as the year progressed. Net interest income grew 11% in the ȴ rst half and 48% in the second half compared to the year-ago period, resulting in a full-year increase of 30% to SGD 10.9 billion. Net interest margin rose 30 basis points to 1.75%, with majority of the increase occurring in the second half when the impact of interest rate increases was more fully felt. The biggest quarterly increase in net interest margin occurred in the third quarter as cumulative Casa outȵ ows and higher deposit costs moderated the increase in the fourth quarter. The deposit beta – or the increase in overall deposit costs relative to market interest rates – rose progressively during the year to 32% by year-end. Still, net interest margin was 2.05% in the fourth quarter, signiȴ cantly above the 1.75% for the full year. The reported net interest income and net interest margin were a ected by a drag from Treasury Markets due to higher funding costs for non-interest-bearin",
+          "score": 0.016202308435979074,
+          "year": null,
+          "quarter": null,
+          "section_hint": "A Di erent \nKind of Bank",
+          "index_source": "marker"
+        },
+        {
+          "file": "dbs-annual-report-2024",
+          "page": 92,
+          "text": "[page 92] [dbs-annual-report-2024] table#143 row#22 :: Net interest margin | 2024: 2.13 | 2023: 2.15 | 2022: 1.75 | 2021: 1.45 | 2020: 1.62",
+          "score": 0.01594629205093043,
+          "year": null,
+          "quarter": null,
+          "section_hint": "Making Greater\nIMPACT",
+          "index_source": "marker"
+        }
+      ],
+      "execution_log": null,
+      "latency_ms": 5806.67
+    },
+    {
+      "query": "Show Operating Expenses for the last 3 fiscal years, year-on-year comparison.",
+      "answer": "**Answer**  \nThe context does not provide any figures labeled “Operating Expenses” for the last three fiscal years.  \nThe only expense-related data available are:\n\n| Period | Metric | Value | Source |\n|--------|--------|-------|--------|\n| 2023 | Other Expenses | 3 238.0 | [dbs‑annual‑report‑2023] table#198 row#10 |\n| 2022 | Other Expenses | 2 714.0 | [dbs‑annual‑report‑2023] table#198 row#10 |\n| 2021 | Other Expenses | 2 694.0 | [dbs‑annual‑report‑2022] table#195 row#10 |\n| 2024 | Total Expenses | 9 018.0 | [dbs‑annual‑report‑2024] table#188 row#13 |\n| 2023 | Total Expenses | 8 291.0 | [dbs‑annual‑report‑2024] table#188 row#13 |\n| 2022 | Total Expenses | 7 090.0 | [dbs‑annual‑report‑2023] table#198 row#11 |\n| 2024 | Expenses (generic) | 5 273 | [dbs‑annual‑report‑2024] table#159 row#3 |\n| 2023 | Expenses (generic) | 4 627 | [dbs‑annual‑report‑2024] table#159 row#3 |\n\n**Missing data**\n\n- Operating Expenses for 2024, 2023, and 2022 are not present in the provided excerpts.  \n- No year‑on‑year comparison for Operating Expenses can be calculated from the available data.",
+      "citations": [
+        {
+          "file": "dbs-annual-report-2023",
+          "page": null,
+          "text": "[dbs-annual-report-2023] table#198 row#10 :: Other expenses | Note: 10.0 | 2023: 3238.0 | 2022: 2714.0",
+          "score": 0.01646671880086538,
+          "year": null,
+          "quarter": null,
+          "section_hint": "Building a Advantage",
+          "index_source": "marker"
+        },
+        {
+          "file": "dbs-annual-report-2022",
+          "page": 34,
+          "text": "ng alignment to the time horizon of risks. The following charts show the mix of ȴxed and variable pay for both groups for performance year 2022:",
+          "score": 0.01646671880086538,
+          "year": null,
+          "quarter": null,
+          "section_hint": "A Di erent \nKind of Bank",
+          "index_source": "marker"
+        },
+        {
+          "file": "dbs-annual-report-2023",
+          "page": null,
+          "text": "[dbs-annual-report-2023] table#198 row#11 :: Total expenses | Note:  | 2023: 8291.0 | 2022: 7090.0",
+          "score": 0.016202308435979074,
+          "year": null,
+          "quarter": null,
+          "section_hint": "Building a Advantage",
+          "index_source": "marker"
+        },
+        {
+          "file": "dbs-annual-report-2024",
+          "page": 36,
+          "text": "l, thus ensuring alignment to the time horizon of risks. The following charts show the mix of fixed and variable pay for both groups for performance year 2024:",
+          "score": 0.016202308435979074,
+          "year": null,
+          "quarter": null,
+          "section_hint": "Making Greater\nIMPACT",
+          "index_source": "marker"
+        },
+        {
+          "file": "dbs-annual-report-2024",
+          "page": null,
+          "text": "August 2023 as well as one-time Citi Taiwan integration expenses. Adjusting for these items in both periods, expenses grew 9%* # **10. Other Expenses** - *(a) Includes hire, depreciation and maintenance costs of computer hardware and software* - *(b) Includes depreciation of leased office and branch premises of \\$219 million (2023: \\$205 million) and amounts incurred in the maintenance of buildings* - *(c) Includes office administration expenses (e.g. printing, stationery, telecommunications, etc.), and legal and professional fees* - *(d) 2023 includes the consolidation of Citi Taiwan with effect from 12 August 2023, one-time Citi Taiwan integration expenses as well as the Corporate Social Responsibility (CSR) commitment of \\$100 million. Adjusting for these items in both periods, expenses grew 5%* - *# Amount under \\$500,000* - *(a) Includes audit related assurance fees* - *(b) PricewaterhouseCoopers network firms* # **11. Allowances for Credit and Other Losses** - *(a) Includes Stage 3 ECL* - *(b) Includes allowances for non-credit exposures (2024: write-back of \\$1 million; 2023: write-back of \\$1 million)* - *(c) Refers to Stage 1 and 2 ECL* **136** DBS Annual Report 2024 **Making Greater Impact Financial statements 137** The following tables outline the changes in ECL under SFRS(I) 9 in 2024 and 2023 which are attributable to the following factors: - **•** Transfers betwee",
+          "score": 0.01594629205093043,
+          "year": null,
+          "quarter": null,
+          "section_hint": "Making Greater\nIMPACT",
+          "index_source": "marker"
+        }
+      ],
+      "execution_log": null,
+      "latency_ms": 2495.6
+    },
+    {
+      "query": "Calculate the Operating Efficiency Ratio (Opex ÷ Operating Income) for the last 3 fiscal years, showing the working.",
+      "answer": "**Answer**  \nThe context does not provide the operating expenses (Opex) or a clear definition of operating income for the last three fiscal years, so the Operating Efficiency Ratio (Opex ÷ Operating Income) cannot be calculated from the supplied excerpts.\n\n| Period | Metric | Value | Source |\n|--------|--------|-------|--------|\n| 2024 | Profit before changes in operating assets & liabilities | 14,080.0 | [excerpt 4] |\n| 2024 | Profit before tax | 12,884.0 | [excerpt 4] |\n| 2023 | Profit before changes in operating assets & liabilities | 12,671.0 | [excerpt 4] |\n| 2023 | Profit before tax | 11,486.0 | [excerpt 4] |\n\n**Missing data**\n\n- **Operating Expenses (Opex)** for 2024, 2023, and 2022 – not present in the context.  \n- **Operating Income** (or a clear definition of it) for 2024, 2023, and 2022 – not present in the context.  \n\nWithout both Opex and Operating Income values, the requested Operating Efficiency Ratio cannot be computed.",
+      "citations": [
+        {
+          "file": "4Q24_performance_summary",
+          "page": 34,
+          "text": "[page 34] [4Q24_performance_summary] table#33 row#25 :: Income taxes paid Net cash generated from operating activities (1) | Year 2024: (1438) 15341 | Year 2023: (1319) 5409",
+          "score": 0.01646671880086538,
+          "year": null,
+          "quarter": null,
+          "section_hint": "Financial Results for the Year Ended 31 December 2024",
+          "index_source": "marker"
+        },
+        {
+          "file": "4Q24_performance_summary",
+          "page": null,
+          "text": "albeit the methodology to calculate some of these adjustments is continuing to evolve. (Refer also to Notes 3 and 40 to the financial statements.) ## **Key audit matter How our audit addressed the key audit matter** We assessed the design and tested the operating effectiveness of the controls over the Group's financial instruments valuation processes. These included the controls over: - management's testing and approval of new models and revalidation of existing models; - the completeness and accuracy of pricing data inputs into valuation models; - monitoring of collateral disputes; and - governance mechanisms and monitoring over the valuation processes (including derivative valuation adjustments) by the Group Market and Liquidity Risk Committee and the Group Valuation Committee. We determined that we could rely on the controls for the purposes of our audit. In addition, we: - engaged our own specialists to use their models and input sources to determine an independent estimate of fair value for a sample of the Group's Level 2 financial instruments. We compared these to the Group's calculations of fair value to assess individual material valuation differences or systemic bias; - assessed the reasonableness of methodologies used and assumptions made for a sample of financial instrument valuations with significant unobservable valuation inputs (Level 3 instruments); - performed p",
+          "score": 0.01646671880086538,
+          "year": null,
+          "quarter": null,
+          "section_hint": "Financial Results for the Year Ended 31 December 2024",
+          "index_source": "marker"
+        },
+        {
+          "file": "4Q24_performance_summary",
+          "page": 28,
+          "text": "[page 28] [4Q24_performance_summary] table#27 row#17 :: Total comprehensive income | 2nd Half 1 2024: 6719.0 | 2nd Half 1 2023: 5760.0 | +/(-) %: 17.0 | 1st Half 1 2024: 6141.0 | +/(-) %.1: 9.0 | Year 2024: 12860.0 | Year 2023: 11042.0 | +/(-) %.2: 16.0",
+          "score": 0.016202308435979074,
+          "year": null,
+          "quarter": null,
+          "section_hint": "Financial Results for the Year Ended 31 December 2024",
+          "index_source": "marker"
+        },
+        {
+          "file": "dbs-annual-report-2024",
+          "page": 21,
+          "text": "to respond quickly to volatile market conditions. Higher volumes of international trade, investments and remittances raised the demand for secure cross-border payments. In June, we partnered Mashreq, a leading financial institution in the Middle East, to offer near-instant peer-to-peer cross-border payments to its retail customers across the Asia Pacific, Europe and the Americas. The service is powered by Globesend, a crossborder payment solution covering up to 132 currencies across 190 markets. For many years, DBS has led various industry initiatives to explore how blockchain technology could transform the financial services landscape. In 2024, we introduced blockchain-powered DBS Token Services which combine tokenisation and smart contracts with our existing banking solutions to enhance transaction banking and improve operating efficiency for clients. Early adopters include Ant International, which uses the service for instant multi-currency treasury and liquidity management. With cryptocurrency becoming a professionally managed alternative asset class, our assets under custody grew 20% as more professional investors tapped on bank-grade custodians and exchanges. Enabling Asia's transition In 2024, we strengthened our sustainability leadership by partnering clients as financier and advisor in their decarbonisation journeys. Our sustainable financing commitments, net of repay",
+          "score": 0.016202308435979074,
+          "year": null,
+          "quarter": null,
+          "section_hint": "Making Greater\nIMPACT",
+          "index_source": "marker"
+        },
+        {
+          "file": "4Q24_performance_summary",
+          "page": 28,
+          "text": "[page 28] [4Q24_performance_summary] table#27 row#11 :: Taxation relating to components of other comprehensive income | 2nd Half 1 2024: (31) | 2nd Half 1 2023: (89) | +/(-) %: 65.0 | 1st Half 1 2024: 28.0 | +/(-) %.1: NM | Year 2024: (3) | Year 2023: (84) | +/(-) %.2: 96.0",
+          "score": 0.01594629205093043,
+          "year": null,
+          "quarter": null,
+          "section_hint": "Financial Results for the Year Ended 31 December 2024",
+          "index_source": "marker"
+        }
+      ],
+      "execution_log": null,
+      "latency_ms": 10195.04
+    }
+  ]
+}

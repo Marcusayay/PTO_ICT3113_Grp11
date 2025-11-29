@@ -27,7 +27,7 @@ from sentence_transformers import SentenceTransformer
 from typing import List, Dict, Any, Optional, Tuple
 from openai import OpenAI
 from concurrent.futures import ThreadPoolExecutor
-
+import time
 import re, json, math, ast
 import numpy as np
 import pandas as pd
@@ -102,6 +102,7 @@ def _page_or_none(x):
 
 class KBEnv:
     def __init__(self, base="./data_marker", enable_bm25=True):
+        t_ingest_start = time.time()
         self.base = Path(base)
         self.faiss_path = self.base / "kb_index.faiss"
         self.meta_path = self.base / "kb_index_meta.json"
@@ -151,6 +152,8 @@ class KBEnv:
             print(f"[BM25] ✓ Indexed {len(self.texts)} documents")
         elif enable_bm25:
             print("[BM25] ✗ rank_bm25 not installed, skipping BM25")
+
+        self.t_ingest = (time.time() - t_ingest_start) * 1000
     def _embed(self, texts: List[str]) -> np.ndarray:
         v = self.model.encode(texts, normalize_embeddings=True)
         return np.asarray(v, dtype="float32")
@@ -172,8 +175,7 @@ class KBEnv:
         3. Fusion: RRF (reciprocal rank) or weighted score fusion
         4. Return top-k
         """
-        rerank_top_k = k  # Get k candidates
-
+        t0 = time.time()
         # ========== Step 1: Vector Search ==========
         qv = self._embed([query])
         vec_scores, vec_idxs = self.index.search(qv, min(k * 2, len(self.texts)))
@@ -216,6 +218,7 @@ class KBEnv:
         else:
             # Weighted score fusion (fallback if BM25 disabled or RRF=False)
             fused_scores = {}
+            t_rerank_start = time.time()
             for idx in all_indices:
                 vec_score = vec_results.get(idx, 0.0)
                 bm25_score = bm25_results.get(idx, 0.0)
@@ -225,7 +228,7 @@ class KBEnv:
 
         # Sort by fused score
         sorted_indices = sorted(fused_scores.keys(), key=fused_scores.get, reverse=True)[:k]
-
+        t_rerank = (time.time() - t_rerank_start) * 1000
         # ========== Step 5: Build Results DataFrame ==========
         # Take top-k results (no reranking)
         final_indices = sorted_indices[:k]
@@ -252,7 +255,8 @@ class KBEnv:
                     item["section_hint"] = toc.iloc[0]["title"]
             
             rows.append(item)
-        
+        t1 = time.time()
+        self.last_search_time = t1 - t0
         return pd.DataFrame(rows)
     
 def baseline_answer_one_call(
