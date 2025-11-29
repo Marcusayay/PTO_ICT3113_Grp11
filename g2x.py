@@ -27,7 +27,7 @@ from sentence_transformers import SentenceTransformer
 from typing import List, Dict, Any, Optional, Tuple
 from openai import OpenAI
 from concurrent.futures import ThreadPoolExecutor
-
+import time
 import re, json, math, ast
 import numpy as np
 import pandas as pd
@@ -172,7 +172,7 @@ class KBEnv:
         3. Fusion: RRF (reciprocal rank) or weighted score fusion
         4. Return top-k
         """
-
+        t0 = time.time()
         # ========== Step 1: Vector Search ==========
         qv = self._embed([query])
         vec_scores, vec_idxs = self.index.search(qv, min(k * 2, len(self.texts)))
@@ -251,7 +251,8 @@ class KBEnv:
                     item["section_hint"] = toc.iloc[0]["title"]
             
             rows.append(item)
-        
+        t1 = time.time()
+        self.last_search_time = t1 - t0
         return pd.DataFrame(rows)
     
 def baseline_answer_one_call(
