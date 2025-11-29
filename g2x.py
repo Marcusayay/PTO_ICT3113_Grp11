@@ -228,7 +228,7 @@ class KBEnv:
 
         # Sort by fused score
         sorted_indices = sorted(fused_scores.keys(), key=fused_scores.get, reverse=True)[:k]
-       t_rerank = (time.time() - t_rerank_start) * 1000
+        t_rerank = (time.time() - t_rerank_start) * 1000
         # ========== Step 5: Build Results DataFrame ==========
         # Take top-k results (no reranking)
         final_indices = sorted_indices[:k]

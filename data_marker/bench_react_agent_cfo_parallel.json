@@ -2,47 +2,47 @@
   "system": "ReAct Agent CFO (Parallel)",
   "approach": "LLM-driven planning with parallel tool execution",
   "latency_parallel": {
-    "p50_ms": 80.0,
-    "p95_ms": 104.3
+    "p50_ms": 122.0,
+    "p95_ms": 898.7
   },
   "latency_sequential": {
-    "p50_ms": 83.0,
-    "p95_ms": 86.6
+    "p50_ms": 130.0,
+    "p95_ms": 134.5
   },
   "speedup": {
-    "p50_percent": 3.61,
-    "p95_percent": -20.44
+    "p50_percent": 6.15,
+    "p95_percent": -568.18
   },
   "results": [
     {
       "query_id": "Q1",
       "query": "Report the Gross Margin (or Net Interest Margin, if a bank) over the last 5 quarters, with values.",
-      "answer": "Error: Plan generation failed: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-20b` in organization `org_01k6cx7m5keetah19g5jmwpkxe` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199313, Requested 920. Please try again in 1m40.656s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",
+      "answer": "Error: Plan generation failed: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-20b` in organization `org_01k6cx7m5keetah19g5jmwpkxe` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199706, Requested 920. Please try again in 4m30.432s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",
       "plan_reasoning": "",
       "tool_calls": [],
-      "latency_parallel_ms": 107.0,
-      "latency_sequential_ms": 83.0,
-      "speedup_percent": -28.9
+      "latency_parallel_ms": 985.0,
+      "latency_sequential_ms": 135.0,
+      "speedup_percent": -629.6
     },
     {
       "query_id": "Q2",
       "query": "Show Operating Expenses for the last 3 fiscal years, year-on-year comparison.",
-      "answer": "Error: Plan generation failed: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-20b` in organization `org_01k6cx7m5keetah19g5jmwpkxe` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199312, Requested 912. Please try again in 1m36.767999999s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",
+      "answer": "Error: Plan generation failed: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-20b` in organization `org_01k6cx7m5keetah19g5jmwpkxe` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199705, Requested 912. Please try again in 4m26.543999999s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",
       "plan_reasoning": "",
       "tool_calls": [],
-      "latency_parallel_ms": 80.0,
-      "latency_sequential_ms": 87.0,
-      "speedup_percent": 8.0
+      "latency_parallel_ms": 120.0,
+      "latency_sequential_ms": 130.0,
+      "speedup_percent": 7.7
     },
     {
       "query_id": "Q3",
       "query": "Calculate the Operating Efficiency Ratio (Opex \u00f7 Operating Income) for the last 3 fiscal years, showing the working.",
-      "answer": "Error: Plan generation failed: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-20b` in organization `org_01k6cx7m5keetah19g5jmwpkxe` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199312, Requested 921. Please try again in 1m40.656s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",
+      "answer": "Error: Plan generation failed: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-20b` in organization `org_01k6cx7m5keetah19g5jmwpkxe` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199705, Requested 921. Please try again in 4m30.432s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",
       "plan_reasoning": "",
       "tool_calls": [],
-      "latency_parallel_ms": 77.0,
-      "latency_sequential_ms": 80.0,
-      "speedup_percent": 3.8
+      "latency_parallel_ms": 122.0,
+      "latency_sequential_ms": 124.0,
+      "speedup_percent": 1.6
     }
   ]
 }
