@@ -2,7 +2,7 @@
   "results": [
     {
       "query": "Report the Gross Margin (or Net Interest Margin, if a bank) over the last 5 quarters, with values.",
-      "answer": "The CFO presentations provide the Gross‑Margin figures for the last five quarters.\n\n| Period | Metric | Value |\n|--------|--------|-------|\n| 2Q 24 | Gross Margin | 2.14 |\n| 3Q 24 | Gross Margin | 2.11 |\n| 4Q 24 | Gross Margin | 2.15 |\n| 1Q 25 | Gross Margin | 2.12 |\n| 2Q 25 | Gross Margin | 2.05 |\n\n**Note:** The reports do not label the metric explicitly, but the values are presented in the CFO presentations and are interpreted as the company’s Gross Margin for each quarter. No further calculations were required.",
+      "answer": "The Gross Margin for the most recent five quarters is available from the CFO presentations and is reported as follows:\n\n| Period | Metric | Value |\n|--------|--------|-------|\n| 2Q24   | Gross Margin | 2.14 |\n| 3Q24   | Gross Margin | 2.11 |\n| 4Q24   | Gross Margin | 2.15 |\n| 1Q25   | Gross Margin | 2.12 |\n| 2Q25   | Gross Margin | 2.05 |\n\n**Notes**  \n- These figures are taken directly from the structured rows provided for each CFO presentation.  \n- No additional calculations were performed, as the user requested only the raw values.",
       "structured_data": {
         "data": {
           "2Q24": 2.14,
@@ -38,7 +38,7 @@
             "table_id": 18
           }
         ],
-        "latency_ms": 322.72,
+        "latency_ms": 704.0,
         "periods": [
           "2Q24",
           "3Q24",
@@ -51,12 +51,38 @@
           "Gross Margin"
         ]
       },
-      "citations": [],
-      "latency_ms": 2318.88
+      "citations": [
+        {
+          "file": "2Q24_CFO_presentation",
+          "page": 6,
+          "table_id": 12
+        },
+        {
+          "file": "3Q24_CFO_presentation",
+          "page": 8,
+          "table_id": 3
+        },
+        {
+          "file": "4Q24_CFO_presentation",
+          "page": 6,
+          "table_id": 15
+        },
+        {
+          "file": "1Q25_CFO_presentation",
+          "page": 5,
+          "table_id": 4
+        },
+        {
+          "file": "2Q25_CFO_presentation",
+          "page": 6,
+          "table_id": 18
+        }
+      ],
+      "latency_ms": 3185.02
     },
     {
       "query": "Show Operating Expenses for the last 3 fiscal years, year-on-year comparison.",
-      "answer": "Operating expenses for the last three fiscal years are available in all three annual reports and show a steady upward trend.\n\n| Year | Operating Expenses (USD m) | YoY Change |\n|------|----------------------------|------------|\n| 2022 | 7,090.0 | – |\n| 2023 | 8,291.0 | +16.94 % |\n| 2024 | 9,018.0 | +8.77 % |\n\n**Notes**\n\n- The figures come directly from the structured rows for each annual report (dbs‑annual‑report‑2022, 2023, 2024).  \n- YoY change is calculated as \\(((\\text{New} - \\text{Old}) / \\text{Old}) \\times 100\\%\\).  \n- No other fiscal years are provided in the authoritative data set.",
+      "answer": "Operating expenses for DBS have risen steadily over the past three fiscal years, with a 16.94 % increase in 2023 versus 2022 and an 8.77 % increase in 2024 versus 2023.\n\n| Year | Operating Expenses (USD m) | YoY Change |\n|------|---------------------------|------------|\n| 2022 | 7,090.0 | – |\n| 2023 | 8,291.0 | +16.94 % |\n| 2024 | 9,018.0 | +8.77 % |\n\n**Notes**\n\n- The figures come directly from the authoritative structured rows for each annual report (2022, 2023, 2024).  \n- The same values appear in all three reports, confirming consistency across the filings.  \n- No additional metrics were required; the requested “Operating Expenses” were available.",
       "structured_data": {
         "data": {
           "2022": 7090.0,
@@ -80,7 +106,7 @@
             "table_id": 50
           }
         ],
-        "latency_ms": 148.99,
+        "latency_ms": 165.0,
         "periods": [
           "2022",
           "2023",
@@ -92,12 +118,28 @@
           "Opex"
         ]
       },
-      "citations": [],
-      "latency_ms": 1739.04
+      "citations": [
+        {
+          "file": "dbs-annual-report-2022",
+          "page": 63,
+          "table_id": 49
+        },
+        {
+          "file": "dbs-annual-report-2023",
+          "page": 62,
+          "table_id": 55
+        },
+        {
+          "file": "dbs-annual-report-2024",
+          "page": 61,
+          "table_id": 50
+        }
+      ],
+      "latency_ms": 1637.64
     },
     {
       "query": "Calculate the Operating Efficiency Ratio (Opex ÷ Operating Income) for the last 3 fiscal years, showing the working.",
-      "answer": "**Answer**  \nThe context does not provide the operating‑expense (Opex) or operating‑income figures required to calculate an Operating Efficiency Ratio (Opex ÷ Operating Income) for any of the last three fiscal years.  \nOnly profit‑before‑tax and profit‑before‑changes‑in‑operating‑assets‑&‑liabilities figures are available, and no Opex or operating‑income values are quoted.\n\n| Year | Profit before tax (reported) | Profit before changes in operating assets & liabilities |\n|------|------------------------------|--------------------------------------------------------|\n| 2024 | 12 884.0 | 14 080.0 |\n| 2023 | 11 486.0 | 12 671.0 |\n\n*Sources: table#33 row#1 (Profit before tax) and table#33 row#12 (Profit before changes in operating assets & liabilities).*\n\n---\n\n### Missing data\n- **Operating Expense (Opex)** – no figures provided for 2024, 2023, or 2022.  \n- **Operating Income** – no figures provided for 2024, 2023, or 2022.  \n- **Operating Efficiency Ratio** – cannot be computed without the above two metrics.  \n\nIf you can supply the Opex and operating‑income numbers for the relevant years, the ratio can be calculated as:\n\n```\nOperating Efficiency Ratio = Opex ÷ Operating Income\n```\n\nand expressed as a percentage.",
+      "answer": "**Answer**  \nThe context does not provide the specific figures for operating expenses (Opex) or operating income required to calculate the Operating Efficiency Ratio for the last three fiscal years. The only income‑statement line items available are “Profit before tax” and “Profit before changes in operating assets & liabilities,” but the operating‑expense figure is absent.\n\n| Period | Metric | Value | Source |\n|--------|--------|-------|--------|\n| 2024 | Profit before tax | 12,884.0 | [excerpt 1] |\n| 2024 | Profit before changes in operating assets & liabilities | 14,080.0 | [excerpt 1] |\n| 2023 | Profit before tax | 11,486.0 | [excerpt 1] |\n| 2023 | Profit before changes in operating assets & liabilities | 12,671.0 | [excerpt 1] |\n\n**Missing data**\n\n- **Operating Expenses (Opex)** for 2024, 2023, and 2022 – not disclosed in the provided excerpts.  \n- **Operating Income** (if distinct from the profit‑before‑tax figures) – not explicitly defined in the excerpts.  \n- **Operating Income for 2022** – no figure is present in the context.\n\nBecause the essential denominator (Opex) and numerator (Operating Income) are not both available, the Operating Efficiency Ratio cannot be computed from the supplied information.",
       "structured_data": null,
       "citations": [
         {
@@ -139,19 +181,9 @@
           "quarter": null,
           "section_hint": "Making Greater\nIMPACT",
           "index_source": "marker"
-        },
-        {
-          "file": "4Q24_performance_summary",
-          "page": 28,
-          "text": "[page 28] [4Q24_performance_summary] table#27 row#11 :: Taxation relating to components of other comprehensive income | 2nd Half 1 2024: (31) | 2nd Half 1 2023: (89) | +/(-) %: 65.0 | 1st Half 1 2024: 28.0 | +/(-) %.1: NM | Year 2024: (3) | Year 2023: (84) | +/(-) %.2: 96.0",
-          "score": 0.01594629205093043,
-          "year": null,
-          "quarter": null,
-          "section_hint": "Financial Results for the Year Ended 31 December 2024",
-          "index_source": "marker"
         }
       ],
-      "latency_ms": 2353.59
+      "latency_ms": 2045.54
     }
   ]
 }
