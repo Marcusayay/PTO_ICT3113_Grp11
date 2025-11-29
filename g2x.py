@@ -218,7 +218,7 @@ class KBEnv:
         else:
             # Weighted score fusion (fallback if BM25 disabled or RRF=False)
             fused_scores = {}
-            t_rerank_start = time.time()
+            # t_rerank_start = time.time()
             for idx in all_indices:
                 vec_score = vec_results.get(idx, 0.0)
                 bm25_score = bm25_results.get(idx, 0.0)
@@ -228,7 +228,7 @@ class KBEnv:
 
         # Sort by fused score
         sorted_indices = sorted(fused_scores.keys(), key=fused_scores.get, reverse=True)[:k]
-        t_rerank = (time.time() - t_rerank_start) * 1000
+        # t_rerank = (time.time() - t_rerank_start) * 1000
         # ========== Step 5: Build Results DataFrame ==========
         # Take top-k results (no reranking)
         final_indices = sorted_indices[:k]
