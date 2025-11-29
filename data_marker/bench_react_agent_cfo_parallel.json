@@ -2,90 +2,85 @@
   "system": "ReAct Agent CFO (Parallel)",
   "approach": "LLM-driven planning with parallel tool execution",
   "latency_parallel": {
-    "p50_ms": 1706.34,
-    "p95_ms": 13982.63
+    "p50_ms": 1971.66,
+    "p95_ms": 4918.63
   },
   "latency_sequential": {
-    "p50_ms": 3499.12,
-    "p95_ms": 13554.64
+    "p50_ms": 1675.1,
+    "p95_ms": 12524.84
   },
   "speedup": {
-    "p50_percent": 51.24,
-    "p95_percent": -3.16
+    "p50_percent": -17.7,
+    "p95_percent": 60.73
   },
   "results": [
     {
       "query_id": "Q1",
       "query": "Report the Gross Margin (or Net Interest Margin, if a bank) over the last 5 quarters, with values.",
-      "answer": "**Net Interest Margin (NIM) \u2013 DBS Bank (Last\u202f5 Quarters)**  \n\n| Quarter | NIM (%) | Source |\n|---------|---------|--------|\n| 2Q\u202f24 | 2.14 | [2Q24_CFO_presentation p.6] |\n| 3Q\u202f24 | 2.11 | [3Q24_CFO_presentation p.8] |\n| 4Q\u202f24 | 2.15 | [4Q24_CFO_presentation p.6] |\n| 1Q\u202f25 | 2.12 | [1Q25_CFO_presentation p.5] |\n| 2Q\u202f25 | 2.05 | [2Q25_CFO_presentation p.6] |\n\n**Direct Answer**  \nDBS Bank\u2019s Net Interest Margin over the most recent five quarters is:  \n- 2.14\u202f% (2Q\u202f24)  \n- 2.11\u202f% (3Q\u202f24)  \n- 2.15\u202f% (4Q\u202f24)  \n- 2.12\u202f% (1Q\u202f25)  \n- 2.05\u202f% (2Q\u202f25)\n\n**Key Insights / Trend Analysis**  \n\n| Metric | Value |\n|--------|-------|\n| Minimum NIM | 2.05\u202f% (2Q\u202f25) |\n| Maximum NIM | 2.15\u202f% (4Q\u202f24) |\n| Average NIM | 2.11\u202f% |\n| Range | 0.10\u202f% |\n\n- **Fluctuating Pattern**: The NIM has shown modest volatility, peaking in 4Q\u202f24 and dipping to a low in 2Q\u202f25.  \n- **Recent Decline**: The most recent quarter (2Q\u202f25) marks a 0.10\u202f% drop from the peak, suggesting tightening interest\u2011rate spreads or increased funding costs.  \n- **Stable Core Performance**: Despite the dip, the overall average remains around 2.11\u202f%, indicating that DBS\u2019s core lending\u2011to\u2011deposit dynamics are still robust.  \n\nThese figures provide a concise snapshot of DBS Bank\u2019s profitability from interest\u2011earning assets relative to its interest\u2011bearing liabilities over the past year.",
-      "plan_reasoning": "DBS is a bank, so the relevant metric is Net Interest Margin (NIM). The query requests NIM values for the last five quarters. We will (1) extract the NIM data for the available quarters using SmartTableParser, and (2) optionally analyze the trend with SmartTrendAnalyzer to provide context, while still returning the raw values.",
+      "answer": "**Net Interest Margin (NIM) \u2013 DBS Bank (last 5 quarters)**  \n\n| Quarter | NIM (%) | Source |\n|---------|---------|--------|\n| 2Q\u202f24   | 2.14 | [2Q24_CFO_presentation p.6] |\n| 3Q\u202f24   | 2.11 | [3Q24_CFO_presentation p.8] |\n| 4Q\u202f24   | 2.15 | [4Q24_CFO_presentation p.6] |\n| 1Q\u202f25   | 2.12 | [1Q25_CFO_presentation p.5] |\n| 2Q\u202f25   | 2.05 | [2Q25_CFO_presentation p.6] |\n\n**Direct answer**  \nThe NIM for DBS Bank over the last five quarters is:  \n- 2Q\u202f24: **2.14\u202f%**  \n- 3Q\u202f24: **2.11\u202f%**  \n- 4Q\u202f24: **2.15\u202f%**  \n- 1Q\u202f25: **2.12\u202f%**  \n- 2Q\u202f25: **2.05\u202f%**\n\n**Key insights / trend**  \n- **Fluctuating pattern**: The NIM oscillates between 2.05\u202f% and 2.15\u202f%, with a slight downward drift in the most recent quarter.  \n- **Average NIM**: 2.11\u202f% over the five\u2011quarter period.  \n- **Range**: 0.10\u202f% (difference between the highest 2.15\u202f% and lowest 2.05\u202f%).  \n- The decline from 2.12\u202f% in 1Q\u202f25 to 2.05\u202f% in 2Q\u202f25 suggests tightening net interest income relative to earning assets, potentially due to interest\u2011rate dynamics or asset\u2011liability management.  \n\n**Citations**  \n- 2Q\u202f24 NIM: [2Q24_CFO_presentation p.6]  \n- 3Q\u202f24 NIM: [3Q24_CFO_presentation p.8]  \n- 4Q\u202f24 NIM: [4Q24_CFO_presentation p.6]  \n- 1Q\u202f25 NIM: [1Q25_CFO_presentation p.5]  \n- 2Q\u202f25 NIM: [2Q25_CFO_presentation p.6]  \n- Trend analysis: [SmartTrendAnalyzer]",
+      "plan_reasoning": "DBS is a bank, so the relevant metric is Net Interest Margin (NIM). The query requests the NIM for the last five quarters, which are the available quarters ['2Q24', '3Q24', '4Q24', '1Q25', '2Q25']. We need to extract the NIM values for these periods and then present them. Optionally, we can use SmartTrendAnalyzer to identify any pattern in the trend, but the primary goal is to provide the raw values.",
       "tool_calls": [
         {
           "tool": "SmartTableParser",
-          "latency_ms": 196.81,
+          "latency_ms": 189.93,
           "parallel_group": 0
         },
         {
           "tool": "SmartTrendAnalyzer",
-          "latency_ms": 0.0,
+          "latency_ms": 0.01,
           "parallel_group": 1
         }
       ],
-      "latency_parallel_ms": 1706.34,
-      "latency_sequential_ms": 2782.22,
-      "speedup_percent": 38.7
+      "latency_parallel_ms": 1971.66,
+      "latency_sequential_ms": 1675.1,
+      "speedup_percent": -17.7
     },
     {
       "query_id": "Q2",
       "query": "Show Operating Expenses for the last 3 fiscal years, year-on-year comparison.",
-      "answer": "**Operating Expenses \u2013 FY\u202f2022\u202f\u2013\u202fFY\u202f2024**\n\n| Fiscal Year | Operating Expenses (SGD\u202fm) | YoY Change |\n|-------------|---------------------------|------------|\n| 2022 | 7,090.0 | \u2013 |\n| 2023 | 8,291.0 | **+16.9\u202f%** |\n| 2024 | 9,018.0 | **+8.8\u202f%** |\n\n**Key insights**\n\n1. **Consistent upward trend** \u2013 Operating expenses grew every year, rising from SGD\u202f7.09\u202fbn in 2022 to SGD\u202f9.02\u202fbn in 2024, a cumulative increase of 27.2\u202f% over the three\u2011year period.  \n2. **Growth rate moderation** \u2013 The year\u2011on\u2011year increase slowed from 16.9\u202f% (2023 vs\u202f2022) to 8.8\u202f% (2024 vs\u202f2023), suggesting that the company is stabilising its cost base after a period of rapid expansion.  \n3. **Implication for profitability** \u2013 While revenue growth has outpaced operating expense growth (see the company\u2019s income statement), the slowing expense growth may help improve operating margins in the near term.\n\n**Sources**\n\n- Operating expenses FY\u202f2022 \u2013 *DBS Annual Report 2022*, p.\u202f63 [dbs\u2011annual\u2011report\u20112022 p.63]  \n- Operating expenses FY\u202f2023 \u2013 *DBS Annual Report 2023*, p.\u202f62 [dbs\u2011annual\u2011report\u20112023 p.62]  \n- Operating expenses FY\u202f2024 \u2013 *DBS Annual Report 2024*, p.\u202f61 [dbs\u2011annual\u2011report\u20112024 p.61]",
-      "plan_reasoning": "The user wants Operating Expenses for the last three fiscal years (2022\u20112024) and a year\u2011on\u2011year comparison. First, extract the Operating Expenses for those years using SmartTableParser. Then, calculate the YoY change using AdvancedCalculator.",
+      "answer": "**Operating Expenses \u2013 FY\u202f2022\u202f\u2013\u202fFY\u202f2024**\n\n| Fiscal Year | Operating Expenses (USD\u202fm) | YoY Change |\n|-------------|---------------------------|------------|\n| 2022 | 7,090.0 | \u2013 |\n| 2023 | 8,291.0 | **+16.9\u202f%** |\n| 2024 | 9,018.0 | **+8.8\u202f%** |\n\n*Sources: [dbs\u2011annual\u2011report\u20112022 p.63], [dbs\u2011annual\u2011report\u20112023 p.62], [dbs\u2011annual\u2011report\u20112024 p.61]*  \n\n### Key Insights & Trends\n1. **Consistent Growth** \u2013 Operating expenses grew every year, reflecting ongoing investment in operations, technology, and expansion initiatives.  \n2. **Acceleration in 2023** \u2013 The 2023 year\u2011on\u2011year increase of 16.9\u202f% was the largest among the three years, likely driven by higher capital expenditures and cost\u2011intensive initiatives.  \n3. **Moderation in 2024** \u2013 The 2024 increase slowed to 8.8\u202f%, suggesting a more controlled spend profile and possibly the stabilization of previously accelerated investments.  \n4. **Strategic Implications** \u2013 While the absolute expense levels are rising, the deceleration in growth rate may indicate improved cost\u2011management or a shift toward more efficient operating models.  \n\nThese figures provide a clear view of the company\u2019s operating cost trajectory and can inform budgeting, forecasting, and strategic planning discussions.",
+      "plan_reasoning": "The user wants Operating Expenses for the last three fiscal years (2022\u20112024) and a year\u2011on\u2011year comparison. First, extract the Operating Expenses for each of those years using SmartTableParser. Then, calculate the YoY changes with AdvancedCalculator.",
       "tool_calls": [
         {
           "tool": "SmartTableParser",
-          "latency_ms": 101.96,
+          "latency_ms": 119.18,
           "parallel_group": 0
         },
         {
           "tool": "AdvancedCalculator",
-          "latency_ms": 0.0,
+          "latency_ms": 0.01,
           "parallel_group": 0
         }
       ],
-      "latency_parallel_ms": 1383.76,
-      "latency_sequential_ms": 3499.12,
-      "speedup_percent": 60.5
+      "latency_parallel_ms": 1408.94,
+      "latency_sequential_ms": 1646.96,
+      "speedup_percent": 14.5
     },
     {
       "query_id": "Q3",
       "query": "Calculate the Operating Efficiency Ratio (Opex \u00f7 Operating Income) for the last 3 fiscal years, showing the working.",
-      "answer": "**Operating Efficiency Ratio (Opex \u00f7 Operating Income)**  \n\n| Fiscal Year | Operating Expenses (Opex) | Operating Income | Ratio (Opex \u00f7 Operating Income) |\n|-------------|---------------------------|------------------|---------------------------------|\n| 2022 | 7,090\u202fM | 16,502\u202fM | **42.95\u202f%** |\n| 2023 | 8,291\u202fM | 20,162\u202fM | **41.12\u202f%** |\n| 2024 | 9,018\u202fM | 22,297\u202fM | **40.47\u202f%** |\n\n*All figures are in millions of Singapore dollars (SGD).*\n\n### Key Insights / Trend\n\n1. **Consistent Improvement** \u2013 The ratio has trended downward from 42.95\u202f% in 2022 to 40.47\u202f% in 2024, indicating that operating expenses are growing at a slower pace than operating income.  \n2. **Efficiency Gains** \u2013 A lower ratio reflects better cost control relative to revenue generation, suggesting that the company is becoming more efficient in its core operations.  \n3. **Sustained Momentum** \u2013 The steady decline over three consecutive years points to a sustained focus on operational efficiency, which could enhance profitability and shareholder value.\n\n### Sources  \n\n- Operating Expenses (Opex):  \n  - 2022: dbs\u2011annual\u2011report\u20112022 p.\u202f63 [table\u202f49]  \n  - 2023: dbs\u2011annual\u2011report\u20112023 p.\u202f62 [table\u202f55]  \n  - 2024: dbs\u2011annual\u2011report\u20112024 p.\u202f61 [table\u202f50]  \n\n- Operating Income:  \n  - 2022: dbs\u2011annual\u2011report\u20112022 p.\u202f63 [table\u202f49]  \n  - 2023: dbs\u2011annual\u2011report\u20112023 p.\u202f62 [table\u202f55]  \n  - 2024: dbs\u2011annual\u2011report\u20112024 p.\u202f14 [table\u202f0]  \n\nThese calculations provide a clear view of how the company\u2019s operating efficiency has evolved over the past three fiscal years.",
-      "plan_reasoning": "The user wants the Operating Efficiency Ratio (Opex \u00f7 Operating Income) for the last three fiscal years (2022\u20112024). We need to: (1) extract Operating Expenses for those years, (2) extract Operating Income for the same years, (3) compute the ratio for each year, and (4) optionally analyze the trend of the ratio. The ratio calculation can be done in one step using the AdvancedCalculator once we have both data sets.",
+      "answer": "**Operating Efficiency Ratio (Opex \u00f7 Operating Income)**  \n*(Operating Efficiency Ratio = Operating Expenses \u00f7 Operating Income)*  \n\n| Fiscal Year | Operating Expenses (Opex) | Operating Income | Operating Efficiency Ratio |\n|-------------|---------------------------|------------------|----------------------------|\n| 2022 | SGD\u202f7,090\u202fm | SGD\u202f16,502\u202fm | 0.43 (43\u202f%) |\n| 2023 | SGD\u202f8,291\u202fm | SGD\u202f20,162\u202fm | 0.41 (41\u202f%) |\n| 2024 | SGD\u202f9,018\u202fm | SGD\u202f22,297\u202fm | 0.40 (40\u202f%) |\n\n**Key Insights / Trends**\n\n1. **Consistent Improvement** \u2013 The ratio has fallen from 43\u202f% in 2022 to 40\u202f% in 2024, indicating that operating expenses are growing at a slower pace than operating income.  \n2. **Margin Expansion** \u2013 A lower ratio reflects better cost control and higher operating leverage, which can enhance profitability if revenue growth continues.  \n3. **Strategic Focus** \u2013 The trend suggests that the company is successfully implementing efficiency initiatives (e.g., automation, cost\u2011reduction programs) without compromising revenue generation.\n\n**Citations**\n\n- Operating Expenses (Opex):  \n  - 2022: *dbs\u2011annual\u2011report\u20112022* p.\u202f63, table\u202f49  \n  - 2023: *dbs\u2011annual\u2011report\u20112023* p.\u202f62, table\u202f55  \n  - 2024: *dbs\u2011annual\u2011report\u20112024* p.\u202f61, table\u202f50  \n\n- Operating Income:  \n  - 2022: *dbs\u2011annual\u2011report\u20112022* p.\u202f63, table\u202f49  \n  - 2023: *dbs\u2011annual\u2011report\u20112023* p.\u202f62, table\u202f55  \n  - 2024: *dbs\u2011annual\u2011report\u20112024* p.\u202f14, table\u202f0  \n\nThese figures confirm a steady improvement in operating efficiency over the past three fiscal years.",
+      "plan_reasoning": "The query asks for the Operating Efficiency Ratio (Opex \u00f7 Operating Income) for the last three fiscal years (2022\u20112024). We need to: (1) extract Operating Expenses for those years, (2) extract Operating Income for the same years, and (3) compute the ratio for each year. The ratio calculation can be performed in a single AdvancedCalculator call by passing the two arrays of values.",
       "tool_calls": [
         {
           "tool": "SmartTableParser",
-          "latency_ms": 213.25,
+          "latency_ms": 193.48,
           "parallel_group": 0
         },
         {
           "tool": "SmartTableParser",
-          "latency_ms": 226.62,
+          "latency_ms": 220.76,
           "parallel_group": 0
         },
         {
           "tool": "AdvancedCalculator",
           "latency_ms": 0.0,
           "parallel_group": 0
-        },
-        {
-          "tool": "SmartTrendAnalyzer",
-          "latency_ms": 0.0,
-          "parallel_group": 1
         }
       ],
-      "latency_parallel_ms": 15346.66,
-      "latency_sequential_ms": 14671.92,
-      "speedup_percent": -4.6
+      "latency_parallel_ms": 5246.07,
+      "latency_sequential_ms": 13730.37,
+      "speedup_percent": 61.8
     }
   ]
 }
