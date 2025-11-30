@@ -1,0 +1,32 @@
+{
+  "bench_combined_rows": 9,
+  "bench_aggregated_rows": 6,
+  "modes_base": [
+    "baseline",
+    "react_agent_cfo"
+  ],
+  "latency_summary": [
+    {
+      "mode_base": "baseline",
+      "p50_ms": 4713.445,
+      "p95_ms": 5389.363,
+      "mean_ms": 4589.301666666666,
+      "std_ms": 943.3812170238144
+    },
+    {
+      "mode_base": "react_agent_cfo",
+      "p50_ms": 1971.66,
+      "p95_ms": 4918.628999999999,
+      "mean_ms": 2875.556666666667,
+      "std_ms": 2072.1157176261495
+    }
+  ],
+  "files": [
+    "data\\bench_baseline.json",
+    "data\\bench_results_agent.json",
+    "data\\bench_results_baseline(old).json",
+    "data_marker\\bench_baseline_extraction.json",
+    "data_marker\\bench_react_agent_cfo_parallel.json"
+  ],
+  "missing_combos": []
+}

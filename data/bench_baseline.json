@@ -1,0 +1,178 @@
+{
+  "results": [
+    {
+      "query": "Report the Gross Margin (or Net Interest Margin, if a bank) over the last 5 quarters, with values.",
+      "answer": "**Answer**  \nThe only quarterly Net Interest Margin (NIM) value that appears in the provided excerpts is for the fourth quarter of 2024, which was 2.05 %. No other quarter‑specific NIM figures are present in the context.\n\n| Quarter | Net Interest Margin |\n|---------|---------------------|\n| Q4 2024 | 2.05 % (excerpt 1) |\n\n**Missing data**\n\n- Q3 2024, Q2 2024, Q1 2024, and Q4 2023: no quarterly NIM values are quoted in the supplied excerpts.  \n- The excerpts do provide half‑year and annual NIM figures (e.g., 2nd Half 2024 = 2.13 %, 2nd Half 2023 = 2.16 %, Year 2024 = 2.13 %, Year 2023 = 2.15 %) but these are not quarter‑specific.",
+      "citations": [
+        {
+          "file": "dbs-annual-report-2022",
+          "page": null,
+          "text": "ows and higher deposit costs moderated the increase in the fourth quarter. The deposit beta – or the increase in overall deposit costs relative to market interest rates – rose progressively during the year to 32% by year-end. Still, net interest margin was 2.05% in the fourth quarter, signiȴ cantly above the 1.75% for the full year. The reported net interest income and net interest margin were a ected by a drag from Treasury Markets due to higher funding costs for non-interest-bearing and marked-tomarket assets as well as net interest margin compression for ȴ xed-income instruments. (The drag is neutralised by gains in other non-interest income and so does not a ect its overall income and earnings.) Net interest income for the Commercial book, which excludes Treasury Markets, rose 40% while its net interest margin increased 48 basis points to 2.11%, with its fourth-quarter net interest margin signiȴ cantly higher at 2.61%. In addition, net interest income and net interest margin did not beneȴ t yet from the repricing of SGD 180 billion of ȴ xed-rate assets, which will take place in the coming years. Loans grew 4% in constant-currency terms during the year to SGD 415 billion. Growth in the ȴ rst nine months was moderated by a slight decline in the fourth quarter. While underlying demand continued to be healthy in the last three months, some corporates shifted their borrowing to",
+          "score": 0.6558135747909546,
+          "year": null,
+          "quarter": null,
+          "section_hint": "A Di erent \nKind of Bank",
+          "index_source": "marker"
+        },
+        {
+          "file": "2Q24_performance_summary",
+          "page": 9,
+          "text": "NET INTEREST INCOME Notes: 1 Excludes Markets Trading 2 Net interest margin is net interest income expressed as a percentage of average interest-bearing assets 3 Includes non-restricted balances with central bank First-half net interest income rose 6% from a year ago to $7.10 billion, driven by the commercial book. The increase in commercial book net interest income was due to asset growth and a five-basis point rise in net interest margin to 2.80% from higher interest rates. Markets trading net interest income was lower due to higher funding costs. Compared to the previous half-year, net interest income increased 2% from asset growth, partially offset by a twobasis point decline in net interest margin.",
+          "score": -0.5436882376670837,
+          "year": null,
+          "quarter": null,
+          "section_hint": "Unaudited Financial Results for the First Half/ Second Quarter Ended 30 June 2024",
+          "index_source": "marker"
+        },
+        {
+          "file": "dbs-annual-report-2022",
+          "page": 96,
+          "text": "[dbs-annual-report-2022] table#206 row#21 :: Net interest margin | 2022: 1.75 | 2021: 1.45 | 2020: 1.62 | 2019: 1.89 | 2018: 1.85",
+          "score": -0.7675231695175171,
+          "year": null,
+          "quarter": null,
+          "section_hint": "A Di erent \nKind of Bank",
+          "index_source": "marker"
+        },
+        {
+          "file": "dbs-annual-report-2022",
+          "page": 96,
+          "text": "[page 96] [dbs-annual-report-2022] table#142 row#21 :: Net interest margin | 2022: 1.75 | 2021: 1.45 | 2020: 1.62 | 2019: 1.89 | 2018: 1.85",
+          "score": -0.7990608215332031,
+          "year": null,
+          "quarter": null,
+          "section_hint": "A Di erent \nKind of Bank",
+          "index_source": "marker"
+        },
+        {
+          "file": "dbs-annual-report-2023",
+          "page": 95,
+          "text": "[dbs-annual-report-2023] table#212 row#21 :: Net interest margin | 2023: 2.15 | 2022: 1.75 | 2021: 1.45 | 2020: 1.62 | 2019: 1.89",
+          "score": -1.0857558250427246,
+          "year": null,
+          "quarter": null,
+          "section_hint": "Building a Advantage",
+          "index_source": "marker"
+        }
+      ],
+      "execution_log": null,
+      "latency_ms": 7108.01
+    },
+    {
+      "query": "Show Operating Expenses for the last 3 fiscal years, year-on-year comparison.",
+      "answer": "**Answer**  \nThe context does not contain a line item explicitly labeled “Operating Expenses.”  \nThe closest figures available are the “Total expenses” and the “Expenses” line items, which are reported for the last three fiscal years.  Year‑on‑year changes are shown where the data allow.\n\n| Metric | 2024 | 2023 | 2022 | YoY % (2024 vs 2023) | YoY % (2023 vs 2022) |\n|--------|------|------|------|----------------------|----------------------|\n| **Total expenses** | 9 018.0 | 8 291.0 | 7 090.0 | 8.77 % | 16.94 % |\n| **Expenses** (table#7 row#3) | 5 273 | 4 627 | – | 14 % (given) | – |\n| **Expenses** (table#159 row#1) | – | 2 489 | 2 254.0 | – | 10.0 % (given) |\n| **Other expenses** | – | 3 238.0 | 2 714.0 | – | – |\n\n**Missing data**  \n- No “Operating Expenses” line item is present in the excerpts.  \n- 2024 “Other expenses” are not reported in the context.  \n- 2024 “Expenses” for the 2023‑2022 comparison are not available (only the 2023‑2022 pair from table#159 row#1 is given).  \n\n**Citations**  \n- Total expenses: [dbs‑annual‑report‑2024] table#188 row#13, [dbs‑annual‑report‑2023] table#198 row#11, [dbs‑annual‑report‑2022] table#195 row#11.  \n- Expenses (table#7 row#3): [dbs‑annual‑report‑2024] table#7 row#3.  \n- Expenses (table#159 row#1): [dbs‑annual‑report‑2023] table#159 row#1.  \n- Other expenses: [dbs‑annual‑report‑2023] table#198 row#10.",
+      "citations": [
+        {
+          "file": "dbs-annual-report-2022",
+          "page": null,
+          "text": "[dbs-annual-report-2022] table#195 row#11 :: Total expenses | Note:  | 2022: 7090.0 | 2021: 6569.0",
+          "score": -6.7800726890563965,
+          "year": null,
+          "quarter": null,
+          "section_hint": "A Di erent \nKind of Bank",
+          "index_source": "marker"
+        },
+        {
+          "file": "dbs-annual-report-2024",
+          "page": 22,
+          "text": "[page 22] [dbs-annual-report-2024] table#7 row#3 :: Expenses | 2024: 5273 | 2023: 4627 | YoY%: 14",
+          "score": -6.889345169067383,
+          "year": null,
+          "quarter": null,
+          "section_hint": "Making Greater\nIMPACT",
+          "index_source": "marker"
+        },
+        {
+          "file": "dbs-annual-report-2022",
+          "page": null,
+          "text": "[dbs-annual-report-2022] table#195 row#10 :: Other expenses | Note: 10.0 | 2022: 2714.0 | 2021: 2694.0",
+          "score": -7.052289009094238,
+          "year": null,
+          "quarter": null,
+          "section_hint": "A Di erent \nKind of Bank",
+          "index_source": "marker"
+        },
+        {
+          "file": "dbs-annual-report-2024",
+          "page": 22,
+          "text": "[dbs-annual-report-2024] table#159 row#3 :: Expenses | 2024: 5273 | 2023: 4627 | YoY%: 14",
+          "score": -7.067477703094482,
+          "year": null,
+          "quarter": null,
+          "section_hint": "Making Greater\nIMPACT",
+          "index_source": "marker"
+        },
+        {
+          "file": "dbs-annual-report-2022",
+          "page": 63,
+          "text": "[page 63] [dbs-annual-report-2022] table#49 row#10 :: Other expenses | Note: 10.0 | 2022: 2714.0 | 2021: 2694.0",
+          "score": -7.078275680541992,
+          "year": null,
+          "quarter": null,
+          "section_hint": "A Di erent \nKind of Bank",
+          "index_source": "marker"
+        }
+      ],
+      "execution_log": null,
+      "latency_ms": 5440.95
+    },
+    {
+      "query": "Calculate the Operating Efficiency Ratio (Opex ÷ Operating Income) for the last 3 fiscal years, showing the working.",
+      "answer": "**Answer**  \nThe only operating‑efficiency information available in the supplied excerpts is the cost‑income ratio for 2022, which is effectively the same as Opex ÷ Operating Income. No figures for 2021 or 2020 (or 2023) are provided.\n\n| Fiscal Year | Operating‑Efficiency Ratio (Opex ÷ Operating Income) |\n|-------------|-----------------------------------------------------|\n| 2022 | 40 % (reported) – 44 % on an underlying basis* |\n\n\\*The “underlying” figure normalises for changes in net interest margin and is also reported in the same excerpt.\n\n**Missing data**\n\n- 2021: No cost‑income ratio, Opex, or operating income figures are quoted.  \n- 2020: No cost‑income ratio, Opex, or operating income figures are quoted.  \n- 2023: No cost‑income ratio, Opex, or operating income figures are quoted.\n\n**Citations**\n\n- “d cost‑income ratio of the overall business improved by 11 percentage points from the previous year to 40% on the back of higher rates and volumes.” (Context excerpt 1)  \n- “On an underlying basis, which normalises for changes in net interest margin, the cost‑income ratio was 44%.” (Context excerpt 1)",
+      "citations": [
+        {
+          "file": "dbs-annual-report-2022",
+          "page": null,
+          "text": "d cost-income ratio of the overall business improved by 11 percentage points from the previous year to 40% on the back of higher rates and volumes. On an underlying basis, which normalises for changes in net interest margin, the cost-income ratio was 44%, an improvement of one percentage point from the previous year. The underlying cost-income ratio improved five percentage points since 2015 even as we continued to invest to sustain our advantage over peers. The ROE for the overall business in 2022 was 37%, with the digital segment at 39% compared to 24% for the traditional segment. 2022 income • 37% YoY • 39% ROE 49% 82% Digital share of income - ► The overall consumer and SME businesses in Singapore continued to be material, and Hong Kong contributed 41% of Group income compared to 35% a year ago, boosted by higher rates and volumes - ► The digital segment with the proportion of digital customers reaching 60% in 2022, delivering the target we had set for ourselves in 2017. • 35% YoY • 37% ROE 35% 2021 ▶ Digital customers are consistently more valuable with an increasing share of income, sustained higher income per customer. better efficiency and higher returns compared to the traditional segment. ## Digital share of customers (%) last year while delivering a five percentage point improvement over a seven year period. - Cost-income ratios in 2022 moderated towards pre-Covid le",
+          "score": -5.037975788116455,
+          "year": null,
+          "quarter": null,
+          "section_hint": "A Di erent \nKind of Bank",
+          "index_source": "marker"
+        },
+        {
+          "file": "4Q24_performance_summary",
+          "page": 34,
+          "text": "[page 34] [4Q24_performance_summary] table#33 row#25 :: Income taxes paid Net cash generated from operating activities (1) | Year 2024: (1438) 15341 | Year 2023: (1319) 5409",
+          "score": -5.4760589599609375,
+          "year": null,
+          "quarter": null,
+          "section_hint": "Financial Results for the Year Ended 31 December 2024",
+          "index_source": "marker"
+        },
+        {
+          "file": "4Q24_performance_summary",
+          "page": 28,
+          "text": "[page 28] [4Q24_performance_summary] table#27 row#17 :: Total comprehensive income | 2nd Half 1 2024: 6719.0 | 2nd Half 1 2023: 5760.0 | +/(-) %: 17.0 | 1st Half 1 2024: 6141.0 | +/(-) %.1: 9.0 | Year 2024: 12860.0 | Year 2023: 11042.0 | +/(-) %.2: 16.0",
+          "score": -7.612119674682617,
+          "year": null,
+          "quarter": null,
+          "section_hint": "Financial Results for the Year Ended 31 December 2024",
+          "index_source": "marker"
+        },
+        {
+          "file": "4Q24_performance_summary",
+          "page": null,
+          "text": "[4Q24_performance_summary] table#50 row#12 :: Profit before changes in operating assets & liabilities | Year<br>2024: 14080.0 | Year<br>2023: 12671.0",
+          "score": -7.675549030303955,
+          "year": null,
+          "quarter": null,
+          "section_hint": "Financial Results for the Year Ended 31 December 2024",
+          "index_source": "marker"
+        },
+        {
+          "file": "4Q24_performance_summary",
+          "page": 34,
+          "text": "[page 34] [4Q24_performance_summary] table#33 row#12 :: Profit before changes in operating assets & liabilities | Year 2024: 14080.0 | Year 2023: 12671.0",
+          "score": -7.718293190002441,
+          "year": null,
+          "quarter": null,
+          "section_hint": "Financial Results for the Year Ended 31 December 2024",
+          "index_source": "marker"
+        }
+      ],
+      "execution_log": null,
+      "latency_ms": 8575.34
+    }
+  ]
+}

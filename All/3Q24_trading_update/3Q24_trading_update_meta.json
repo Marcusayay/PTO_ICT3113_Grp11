@@ -1,0 +1,515 @@
+{
+  "table_of_contents": [
+    {
+      "title": "Trading Update for the Third Quarter Ended 30 September 2024",
+      "heading_level": null,
+      "page_id": 0,
+      "polygon": [
+        [
+          71.0078125,
+          160.21929931640625
+        ],
+        [
+          402.9282531738281,
+          160.21929931640625
+        ],
+        [
+          402.9282531738281,
+          171.4423828125
+        ],
+        [
+          71.0078125,
+          171.4423828125
+        ]
+      ]
+    },
+    {
+      "title": "Dividends",
+      "heading_level": null,
+      "page_id": 0,
+      "polygon": [
+        [
+          71.880859375,
+          216.6669921875
+        ],
+        [
+          124.73999786376953,
+          216.6669921875
+        ],
+        [
+          124.73999786376953,
+          227.8992919921875
+        ],
+        [
+          71.880859375,
+          227.8992919921875
+        ]
+      ]
+    },
+    {
+      "title": "Third-quarter net profit rises 15% to surpass SGD 3 billion for first time",
+      "heading_level": null,
+      "page_id": 1,
+      "polygon": [
+        [
+          71.0078125,
+          90.8603515625
+        ],
+        [
+          443.5078125,
+          90.8603515625
+        ],
+        [
+          443.5078125,
+          102.1392822265625
+        ],
+        [
+          71.0078125,
+          102.1392822265625
+        ]
+      ]
+    },
+    {
+      "title": "Board announces new SGD 3 billion share buyback programme",
+      "heading_level": null,
+      "page_id": 1,
+      "polygon": [
+        [
+          72.02399444580078,
+          165.6192626953125
+        ],
+        [
+          404.6650390625,
+          165.6192626953125
+        ],
+        [
+          404.6650390625,
+          176.65924072265625
+        ],
+        [
+          72.02399444580078,
+          176.65924072265625
+        ]
+      ]
+    },
+    {
+      "title": "Dividend and share buyback",
+      "heading_level": null,
+      "page_id": 1,
+      "polygon": [
+        [
+          70.716796875,
+          517.2692565917969
+        ],
+        [
+          221.20640563964844,
+          517.2692565917969
+        ],
+        [
+          221.20640563964844,
+          528.3092651367188
+        ],
+        [
+          70.716796875,
+          528.3092651367188
+        ]
+      ]
+    },
+    {
+      "title": "Third quarter 2024 vs. second quarter 2024",
+      "heading_level": null,
+      "page_id": 2,
+      "polygon": [
+        [
+          71.0078125,
+          89.626953125
+        ],
+        [
+          296.8359375,
+          89.626953125
+        ],
+        [
+          296.8359375,
+          102.1392822265625
+        ],
+        [
+          71.0078125,
+          102.1392822265625
+        ]
+      ]
+    },
+    {
+      "title": "Third quarter 2024 vs. third quarter 2023",
+      "heading_level": null,
+      "page_id": 2,
+      "polygon": [
+        [
+          71.0078125,
+          643.7792816162109
+        ],
+        [
+          282.4463806152344,
+          643.7792816162109
+        ],
+        [
+          282.4463806152344,
+          655.7568359375
+        ],
+        [
+          71.0078125,
+          655.7568359375
+        ]
+      ]
+    },
+    {
+      "title": "Nine months 2024 vs. nine months 2023",
+      "heading_level": null,
+      "page_id": 3,
+      "polygon": [
+        [
+          71.58984375,
+          278.748046875
+        ],
+        [
+          280.5696105957031,
+          278.748046875
+        ],
+        [
+          280.5696105957031,
+          289.96929931640625
+        ],
+        [
+          71.58984375,
+          289.96929931640625
+        ]
+      ]
+    },
+    {
+      "title": "Balance sheet",
+      "heading_level": null,
+      "page_id": 3,
+      "polygon": [
+        [
+          71.58984375,
+          679.6025390625
+        ],
+        [
+          146.13551330566406,
+          679.6025390625
+        ],
+        [
+          146.13551330566406,
+          690.8192901611328
+        ],
+        [
+          71.58984375,
+          690.8192901611328
+        ]
+      ]
+    },
+    {
+      "title": "Notes:",
+      "heading_level": null,
+      "page_id": 6,
+      "polygon": [
+        [
+          34.921875,
+          199.810546875
+        ],
+        [
+          58.374000549316406,
+          199.810546875
+        ],
+        [
+          58.374000549316406,
+          208.40380859375
+        ],
+        [
+          34.921875,
+          208.40380859375
+        ]
+      ]
+    }
+  ],
+  "page_stats": [
+    {
+      "page_id": 0,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          73
+        ],
+        [
+          "Line",
+          22
+        ],
+        [
+          "Text",
+          11
+        ],
+        [
+          "SectionHeader",
+          2
+        ],
+        [
+          "Picture",
+          1
+        ],
+        [
+          "PageFooter",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 1,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          75
+        ],
+        [
+          "Line",
+          22
+        ],
+        [
+          "Text",
+          6
+        ],
+        [
+          "SectionHeader",
+          3
+        ],
+        [
+          "Picture",
+          1
+        ],
+        [
+          "PageFooter",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 2,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          79
+        ],
+        [
+          "Line",
+          23
+        ],
+        [
+          "Text",
+          6
+        ],
+        [
+          "SectionHeader",
+          2
+        ],
+        [
+          "Picture",
+          1
+        ],
+        [
+          "PageFooter",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 3,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          75
+        ],
+        [
+          "Line",
+          24
+        ],
+        [
+          "Text",
+          9
+        ],
+        [
+          "SectionHeader",
+          2
+        ],
+        [
+          "Picture",
+          1
+        ],
+        [
+          "PageFooter",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 4,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          51
+        ],
+        [
+          "Line",
+          16
+        ],
+        [
+          "Text",
+          4
+        ],
+        [
+          "Picture",
+          1
+        ],
+        [
+          "PageFooter",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 5,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          647
+        ],
+        [
+          "TableCell",
+          378
+        ],
+        [
+          "Line",
+          59
+        ],
+        [
+          "Picture",
+          1
+        ],
+        [
+          "Table",
+          1
+        ],
+        [
+          "PageFooter",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 6,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          157
+        ],
+        [
+          "TableCell",
+          54
+        ],
+        [
+          "Line",
+          41
+        ],
+        [
+          "ListItem",
+          8
+        ],
+        [
+          "Text",
+          2
+        ],
+        [
+          "Picture",
+          1
+        ],
+        [
+          "Table",
+          1
+        ],
+        [
+          "SectionHeader",
+          1
+        ],
+        [
+          "PageFooter",
+          1
+        ],
+        [
+          "ListGroup",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    }
+  ],
+  "debug_data_path": "debug_data/3Q24_trading_update"
+}

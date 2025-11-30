@@ -1,0 +1,408 @@
+{
+  "table_of_contents": [
+    {
+      "title": "Trading Update for the First Quarter Ended 31 March 2024",
+      "heading_level": null,
+      "page_id": 0,
+      "polygon": [
+        [
+          71.0078125,
+          172.2646484375
+        ],
+        [
+          374.7282409667969,
+          172.2646484375
+        ],
+        [
+          374.7282409667969,
+          183.8592529296875
+        ],
+        [
+          71.0078125,
+          183.8592529296875
+        ]
+      ]
+    },
+    {
+      "title": "Dividends",
+      "heading_level": null,
+      "page_id": 0,
+      "polygon": [
+        [
+          70.42578125,
+          229.45928955078125
+        ],
+        [
+          124.73999786376953,
+          229.45928955078125
+        ],
+        [
+          124.73999786376953,
+          240.499267578125
+        ],
+        [
+          70.42578125,
+          240.499267578125
+        ]
+      ]
+    },
+    {
+      "title": "First-quarter net profit rises 15% to SGD 2.96 billion while return on equity increases to \n19.4%, both at new highs",
+      "heading_level": null,
+      "page_id": 1,
+      "polygon": [
+        [
+          72.02399444580078,
+          90.44921875
+        ],
+        [
+          529.9967041015625,
+          90.44921875
+        ],
+        [
+          529.9967041015625,
+          127.45928955078125
+        ],
+        [
+          72.02399444580078,
+          127.45928955078125
+        ]
+      ]
+    },
+    {
+      "title": "Quarter-on-quarter performance",
+      "heading_level": null,
+      "page_id": 1,
+      "polygon": [
+        [
+          71.58984375,
+          405.4092712402344
+        ],
+        [
+          240.37890625,
+          405.4092712402344
+        ],
+        [
+          240.37890625,
+          416.4775390625
+        ],
+        [
+          71.58984375,
+          416.4775390625
+        ]
+      ]
+    },
+    {
+      "title": "Year-on-year performance",
+      "heading_level": null,
+      "page_id": 2,
+      "polygon": [
+        [
+          71.880859375,
+          403.732421875
+        ],
+        [
+          208.93087768554688,
+          403.732421875
+        ],
+        [
+          208.93087768554688,
+          415.244140625
+        ],
+        [
+          71.880859375,
+          415.244140625
+        ]
+      ]
+    },
+    {
+      "title": "Balance sheet",
+      "heading_level": null,
+      "page_id": 3,
+      "polygon": [
+        [
+          71.0078125,
+          128.2734375
+        ],
+        [
+          146.13551330566406,
+          128.2734375
+        ],
+        [
+          146.13551330566406,
+          139.45928955078125
+        ],
+        [
+          71.0078125,
+          139.45928955078125
+        ]
+      ]
+    },
+    {
+      "title": "Notes:",
+      "heading_level": null,
+      "page_id": 5,
+      "polygon": [
+        [
+          71.298828125,
+          272.9921875
+        ],
+        [
+          93.78923034667969,
+          272.9921875
+        ],
+        [
+          93.78923034667969,
+          281.9937744140625
+        ],
+        [
+          71.298828125,
+          281.9937744140625
+        ]
+      ]
+    }
+  ],
+  "page_stats": [
+    {
+      "page_id": 0,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          107
+        ],
+        [
+          "Line",
+          23
+        ],
+        [
+          "Text",
+          11
+        ],
+        [
+          "SectionHeader",
+          2
+        ],
+        [
+          "Picture",
+          1
+        ],
+        [
+          "PageFooter",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 1,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          117
+        ],
+        [
+          "Line",
+          28
+        ],
+        [
+          "Text",
+          8
+        ],
+        [
+          "SectionHeader",
+          2
+        ],
+        [
+          "Picture",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 2,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          92
+        ],
+        [
+          "Line",
+          24
+        ],
+        [
+          "Text",
+          10
+        ],
+        [
+          "Picture",
+          1
+        ],
+        [
+          "SectionHeader",
+          1
+        ],
+        [
+          "PageFooter",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 3,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          71
+        ],
+        [
+          "Line",
+          21
+        ],
+        [
+          "Text",
+          6
+        ],
+        [
+          "Picture",
+          1
+        ],
+        [
+          "SectionHeader",
+          1
+        ],
+        [
+          "PageFooter",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 4,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          450
+        ],
+        [
+          "TableCell",
+          240
+        ],
+        [
+          "Line",
+          55
+        ],
+        [
+          "Picture",
+          1
+        ],
+        [
+          "Table",
+          1
+        ],
+        [
+          "PageFooter",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 5,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          205
+        ],
+        [
+          "TableCell",
+          55
+        ],
+        [
+          "Line",
+          46
+        ],
+        [
+          "ListItem",
+          11
+        ],
+        [
+          "Text",
+          2
+        ],
+        [
+          "Picture",
+          1
+        ],
+        [
+          "Table",
+          1
+        ],
+        [
+          "SectionHeader",
+          1
+        ],
+        [
+          "PageFooter",
+          1
+        ],
+        [
+          "ListGroup",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    }
+  ],
+  "debug_data_path": "debug_data/1Q24_trading_update"
+}

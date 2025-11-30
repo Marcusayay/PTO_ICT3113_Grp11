@@ -1,0 +1,3 @@
+System,Answer_Relevance,Context_Relevance,Faithfulness,Overall_Score,Latency_P50,Latency_P95,Avg_Citations
+Baseline Extraction,1.0,0.967,0.4,0.789,2045.54,3071.072,4.0
+React Agent Cfo Parallel,1.0,0.967,0.6,0.856,,,6.333

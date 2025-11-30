@@ -1,0 +1,251 @@
+{
+  "table_of_contents": [
+    {
+      "title": "CEO observations",
+      "heading_level": null,
+      "page_id": 0,
+      "polygon": [
+        [
+          564.375,
+          199.599609375
+        ],
+        [
+          880.7718505859375,
+          199.599609375
+        ],
+        [
+          880.7718505859375,
+          236.24319458007812
+        ],
+        [
+          564.375,
+          236.24319458007812
+        ]
+      ]
+    },
+    {
+      "title": "Another strong quarter, bringing first half to new high",
+      "heading_level": null,
+      "page_id": 1,
+      "polygon": [
+        [
+          61.875,
+          38.759765625
+        ],
+        [
+          779.3670654296875,
+          38.759765625
+        ],
+        [
+          779.3670654296875,
+          67.6767578125
+        ],
+        [
+          61.875,
+          67.6767578125
+        ]
+      ]
+    },
+    {
+      "title": "Outlook",
+      "heading_level": null,
+      "page_id": 2,
+      "polygon": [
+        [
+          66.0042953491211,
+          36.123046875
+        ],
+        [
+          171.5561065673828,
+          36.123046875
+        ],
+        [
+          171.5561065673828,
+          65.99346923828125
+        ],
+        [
+          66.0042953491211,
+          65.99346923828125
+        ]
+      ]
+    },
+    {
+      "title": "CEO observations",
+      "heading_level": null,
+      "page_id": 3,
+      "polygon": [
+        [
+          564.375,
+          199.599609375
+        ],
+        [
+          880.7718505859375,
+          199.599609375
+        ],
+        [
+          880.7718505859375,
+          236.24319458007812
+        ],
+        [
+          564.375,
+          236.24319458007812
+        ]
+      ]
+    }
+  ],
+  "page_stats": [
+    {
+      "page_id": 0,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          7
+        ],
+        [
+          "Line",
+          4
+        ],
+        [
+          "Picture",
+          1
+        ],
+        [
+          "SectionHeader",
+          1
+        ],
+        [
+          "Text",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 1,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          44
+        ],
+        [
+          "Line",
+          14
+        ],
+        [
+          "ListItem",
+          10
+        ],
+        [
+          "SectionHeader",
+          1
+        ],
+        [
+          "Picture",
+          1
+        ],
+        [
+          "PageFooter",
+          1
+        ],
+        [
+          "ListGroup",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 2,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          38
+        ],
+        [
+          "Line",
+          13
+        ],
+        [
+          "ListItem",
+          9
+        ],
+        [
+          "SectionHeader",
+          1
+        ],
+        [
+          "Picture",
+          1
+        ],
+        [
+          "PageFooter",
+          1
+        ],
+        [
+          "ListGroup",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 3,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          7
+        ],
+        [
+          "Line",
+          4
+        ],
+        [
+          "Picture",
+          1
+        ],
+        [
+          "SectionHeader",
+          1
+        ],
+        [
+          "Text",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    }
+  ],
+  "debug_data_path": "debug_data/2Q24_CEO_presentation"
+}

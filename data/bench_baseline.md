@@ -1,0 +1,116 @@
+# Baseline Benchmark Report
+
+**Pipeline**: Hybrid Search (BM25 + Vector + RRF + Rerank) -> Single LLM
+
+
+---
+
+## Q1. Report the Gross Margin (or Net Interest Margin, if a bank) over the last 5 quarters, with values.
+
+**Answer**
+
+**Answer**  
+The only quarterly Net Interest Margin (NIM) value that appears in the provided excerpts is for the fourth quarter of 2024, which was 2.05 %. No other quarter‑specific NIM figures are present in the context.
+
+| Quarter | Net Interest Margin |
+|---------|---------------------|
+| Q4 2024 | 2.05 % (excerpt 1) |
+
+**Missing data**
+
+- Q3 2024, Q2 2024, Q1 2024, and Q4 2023: no quarterly NIM values are quoted in the supplied excerpts.  
+- The excerpts do provide half‑year and annual NIM figures (e.g., 2nd Half 2024 = 2.13 %, 2nd Half 2023 = 2.16 %, Year 2024 = 2.13 %, Year 2023 = 2.15 %) but these are not quarter‑specific.
+
+
+**Citations**
+
+- dbs-annual-report-2022 
+- 2Q24_performance_summary p.9
+- dbs-annual-report-2022 p.96
+- dbs-annual-report-2022 p.96
+- dbs-annual-report-2023 p.95
+
+**Latency**: 7108.01 ms
+
+---
+
+## Q2. Show Operating Expenses for the last 3 fiscal years, year-on-year comparison.
+
+**Answer**
+
+**Answer**  
+The context does not contain a line item explicitly labeled “Operating Expenses.”  
+The closest figures available are the “Total expenses” and the “Expenses” line items, which are reported for the last three fiscal years.  Year‑on‑year changes are shown where the data allow.
+
+| Metric | 2024 | 2023 | 2022 | YoY % (2024 vs 2023) | YoY % (2023 vs 2022) |
+|--------|------|------|------|----------------------|----------------------|
+| **Total expenses** | 9 018.0 | 8 291.0 | 7 090.0 | 8.77 % | 16.94 % |
+| **Expenses** (table#7 row#3) | 5 273 | 4 627 | – | 14 % (given) | – |
+| **Expenses** (table#159 row#1) | – | 2 489 | 2 254.0 | – | 10.0 % (given) |
+| **Other expenses** | – | 3 238.0 | 2 714.0 | – | – |
+
+**Missing data**  
+- No “Operating Expenses” line item is present in the excerpts.  
+- 2024 “Other expenses” are not reported in the context.  
+- 2024 “Expenses” for the 2023‑2022 comparison are not available (only the 2023‑2022 pair from table#159 row#1 is given).  
+
+**Citations**  
+- Total expenses: [dbs‑annual‑report‑2024] table#188 row#13, [dbs‑annual‑report‑2023] table#198 row#11, [dbs‑annual‑report‑2022] table#195 row#11.  
+- Expenses (table#7 row#3): [dbs‑annual‑report‑2024] table#7 row#3.  
+- Expenses (table#159 row#1): [dbs‑annual‑report‑2023] table#159 row#1.  
+- Other expenses: [dbs‑annual‑report‑2023] table#198 row#10.
+
+
+**Citations**
+
+- dbs-annual-report-2022 
+- dbs-annual-report-2024 p.22
+- dbs-annual-report-2022 
+- dbs-annual-report-2024 p.22
+- dbs-annual-report-2022 p.63
+
+**Latency**: 5440.95 ms
+
+---
+
+## Q3. Calculate the Operating Efficiency Ratio (Opex ÷ Operating Income) for the last 3 fiscal years, showing the working.
+
+**Answer**
+
+**Answer**  
+The only operating‑efficiency information available in the supplied excerpts is the cost‑income ratio for 2022, which is effectively the same as Opex ÷ Operating Income. No figures for 2021 or 2020 (or 2023) are provided.
+
+| Fiscal Year | Operating‑Efficiency Ratio (Opex ÷ Operating Income) |
+|-------------|-----------------------------------------------------|
+| 2022 | 40 % (reported) – 44 % on an underlying basis* |
+
+\*The “underlying” figure normalises for changes in net interest margin and is also reported in the same excerpt.
+
+**Missing data**
+
+- 2021: No cost‑income ratio, Opex, or operating income figures are quoted.  
+- 2020: No cost‑income ratio, Opex, or operating income figures are quoted.  
+- 2023: No cost‑income ratio, Opex, or operating income figures are quoted.
+
+**Citations**
+
+- “d cost‑income ratio of the overall business improved by 11 percentage points from the previous year to 40% on the back of higher rates and volumes.” (Context excerpt 1)  
+- “On an underlying basis, which normalises for changes in net interest margin, the cost‑income ratio was 44%.” (Context excerpt 1)
+
+
+**Citations**
+
+- dbs-annual-report-2022 
+- 4Q24_performance_summary p.34
+- 4Q24_performance_summary p.28
+- 4Q24_performance_summary 
+- 4Q24_performance_summary p.34
+
+**Latency**: 8575.34 ms
+
+---
+
+## Summary
+
+- P50: 7108.0 ms
+- P95: 8428.6 ms

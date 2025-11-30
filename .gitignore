@@ -1,1 +1,4 @@
-/All
+# /All
+.venv/
+# /data/
+# /out/
